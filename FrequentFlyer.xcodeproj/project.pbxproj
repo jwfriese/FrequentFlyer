@@ -16,6 +16,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		AE0D43D21D7F2F610013E657 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE0D43C91D7F2F610013E657 /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F925EAD195C0D6300ED456B;
+			remoteInfo = "Nimble-macOS";
+		};
+		AE0D43D41D7F2F610013E657 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE0D43C91D7F2F610013E657 /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F925EB7195C0D6300ED456B;
+			remoteInfo = "Nimble-macOSTests";
+		};
+		AE0D43D61D7F2F610013E657 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE0D43C91D7F2F610013E657 /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F1A74291940169200FFFC47;
+			remoteInfo = "Nimble-iOS";
+		};
+		AE0D43D81D7F2F610013E657 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE0D43C91D7F2F610013E657 /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F1A74341940169200FFFC47;
+			remoteInfo = "Nimble-iOSTests";
+		};
+		AE0D43DA1D7F2F610013E657 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE0D43C91D7F2F610013E657 /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F5DF1551BDCA0CE00C3A531;
+			remoteInfo = "Nimble-tvOS";
+		};
+		AE0D43DC1D7F2F610013E657 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE0D43C91D7F2F610013E657 /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F5DF15E1BDCA0CE00C3A531;
+			remoteInfo = "Nimble-tvOSTests";
+		};
 		AEA5D5201D7F2CEC00D76EBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AEA5D5031D7F2CEC00D76EBA /* Project object */;
@@ -26,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AE0D43C91D7F2F610013E657 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 		AEA5D50B1D7F2CEC00D76EBA /* FrequentFlyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrequentFlyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA5D5101D7F2CEC00D76EBA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +99,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE0D43CA1D7F2F610013E657 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AE0D43D31D7F2F610013E657 /* Nimble.framework */,
+				AE0D43D51D7F2F610013E657 /* NimbleTests.xctest */,
+				AE0D43D71D7F2F610013E657 /* Nimble.framework */,
+				AE0D43D91D7F2F610013E657 /* NimbleTests.xctest */,
+				AE0D43DB1D7F2F610013E657 /* Nimble.framework */,
+				AE0D43DD1D7F2F610013E657 /* NimbleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		AEA5D5021D7F2CEC00D76EBA = {
 			isa = PBXGroup;
 			children = (
@@ -100,9 +156,9 @@
 		AEA5D52E1D7F2E5A00D76EBA /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				AE0D43C91D7F2F610013E657 /* Nimble.xcodeproj */,
 			);
-			name = Externals;
-			path = ../Externals;
+			path = Externals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +229,12 @@
 			mainGroup = AEA5D5021D7F2CEC00D76EBA;
 			productRefGroup = AEA5D50C1D7F2CEC00D76EBA /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = AE0D43CA1D7F2F610013E657 /* Products */;
+					ProjectRef = AE0D43C91D7F2F610013E657 /* Nimble.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				AEA5D50A1D7F2CEC00D76EBA /* FrequentFlyer */,
@@ -180,6 +242,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		AE0D43D31D7F2F610013E657 /* Nimble.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Nimble.framework;
+			remoteRef = AE0D43D21D7F2F610013E657 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AE0D43D51D7F2F610013E657 /* NimbleTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = NimbleTests.xctest;
+			remoteRef = AE0D43D41D7F2F610013E657 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AE0D43D71D7F2F610013E657 /* Nimble.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Nimble.framework;
+			remoteRef = AE0D43D61D7F2F610013E657 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AE0D43D91D7F2F610013E657 /* NimbleTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = NimbleTests.xctest;
+			remoteRef = AE0D43D81D7F2F610013E657 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AE0D43DB1D7F2F610013E657 /* Nimble.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Nimble.framework;
+			remoteRef = AE0D43DA1D7F2F610013E657 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AE0D43DD1D7F2F610013E657 /* NimbleTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = NimbleTests.xctest;
+			remoteRef = AE0D43DC1D7F2F610013E657 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		AEA5D5091D7F2CEC00D76EBA /* Resources */ = {
@@ -399,6 +506,7 @@
 				AEA5D52A1D7F2CEC00D76EBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AEA5D52B1D7F2CEC00D76EBA /* Build configuration list for PBXNativeTarget "FrequentFlyerTests" */ = {
 			isa = XCConfigurationList;
@@ -407,6 +515,7 @@
 				AEA5D52D1D7F2CEC00D76EBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
