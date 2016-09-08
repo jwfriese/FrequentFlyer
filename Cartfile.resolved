@@ -1,0 +1,4 @@
+git "https://github.com/jwfriese/Fleet" "9c20c453c99c2c6e51d0178f9ed58958706ecbbc"
+git "https://github.com/Quick/Nimble" "b4a0f9d6ee6b89f0e2f9ee8fa32aaa7200b1e27c"
+git "https://github.com/Quick/Quick" "faa6056c0c7da69fc1fb494cf61fa264aea4d9bc"
+git "https://github.com/jwfriese/SwiftCoreExtensions" "7cff0bffc7077c884819d123837ee3eb09f4a650"
