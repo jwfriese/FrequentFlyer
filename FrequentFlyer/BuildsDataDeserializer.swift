@@ -13,11 +13,12 @@ class BuildsDataDeserializer {
         
         var builds = [Build]()
         for buildDictionary in buildsJSON {
-            guard let buildId = buildDictionary["id"] as? Int else { continue }
-            guard let buildJobName = buildDictionary["job_name"] as? String else { continue }
-            guard let buildStatus = buildDictionary["status"] as? String else { continue }
+            guard let id = buildDictionary["id"] as? Int else { continue }
+            guard let jobName = buildDictionary["job_name"] as? String else { continue }
+            guard let status = buildDictionary["status"] as? String else { continue }
+            guard let pipelineName = buildDictionary["pipeline_name"] as? String else { continue }
             
-            builds.append(Build(id: buildId, jobName: buildJobName, status: buildStatus))
+            builds.append(Build(id: id, jobName: jobName, status: status, pipelineName: pipelineName))
         }
         
         return (builds, nil)

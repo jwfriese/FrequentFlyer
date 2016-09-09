@@ -78,8 +78,8 @@ class BuildsViewControllerSpec: QuickSpec {
                             return
                         }
                         
-                        let buildOne = Build(id: 2, jobName: "turtle job", status: "turtle last status")
-                        let buildTwo = Build(id: 1, jobName: "crab job", status: "crab last status")
+                        let buildOne = Build(id: 2, jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline name")
+                        let buildTwo = Build(id: 1, jobName: "crab job", status: "crab last status", pipelineName: "crab pipeline name")
                         completion([buildOne, buildTwo], nil)
                     }
                     

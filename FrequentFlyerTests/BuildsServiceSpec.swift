@@ -75,8 +75,8 @@ class BuildsServiceSpec: QuickSpec {
                             return
                         }
                         
-                        let buildOne = Build(id: 2, jobName: "job 2", status: "status 2")
-                        let buildTwo = Build(id: 1, jobName: "job 1", status: "status 1")
+                        let buildOne = Build(id: 2, jobName: "job 2", status: "status 2", pipelineName: "pipeline")
+                        let buildTwo = Build(id: 1, jobName: "job 1", status: "status 1", pipelineName: "pipeline")
                         mockBuildsDataDeserializer.toReturnBuilds = [buildOne, buildTwo]
                         
                         let validBuildsData = "valid builds data".dataUsingEncoding(NSUTF8StringEncoding)
@@ -90,8 +90,8 @@ class BuildsServiceSpec: QuickSpec {
                     
                     it("calls the completion handler with the deserialized list of builds") {
                         let expectedBuilds = [
-                            Build(id: 2, jobName: "job 2", status: "status 2"),
-                            Build(id: 1, jobName: "job 1", status: "status 1")
+                            Build(id: 2, jobName: "job 2", status: "status 2", pipelineName: "pipeline"),
+                            Build(id: 1, jobName: "job 1", status: "status 1", pipelineName: "pipeline")
                         ]
                         
                         expect(resultBuilds).to(equal(expectedBuilds))

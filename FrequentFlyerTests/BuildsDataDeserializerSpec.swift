@@ -20,12 +20,14 @@ class BuildsDataDeserializerSpec: QuickSpec {
                         [
                             "id" : 2,
                             "status" : "status 2",
-                            "job_name" : "turtle job name"
+                            "job_name" : "turtle job name",
+                            "pipeline_name" : "turtle pipeline name"
                         ],
                         [
                             "id" : 1,
                             "status" : "status 1",
-                            "job_name" : "crab job name"
+                            "job_name" : "crab job name",
+                            "pipeline_name" : "crab pipeline name"
                         ]
                     ]
                     
@@ -44,8 +46,8 @@ class BuildsDataDeserializerSpec: QuickSpec {
                         return
                     }
                     
-                    expect(builds[0]).to(equal(Build(id: 2, jobName: "turtle job name", status: "status 2")))
-                    expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1")))
+                    expect(builds[0]).to(equal(Build(id: 2, jobName: "turtle job name", status: "status 2", pipelineName: "turtle pipeline name")))
+                    expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name")))
                 }
                 
                 it("returns no error") {
@@ -62,16 +64,19 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             [
                                 "id" : 3,
                                 "status" : "status",
-                                "job_name" : "turtle job name"
+                                "job_name" : "turtle job name",
+                                "pipeline_name" : "turtle pipeline name"
                             ],
                             [
                                 "id" : 2,
-                                "job_name" : "turtle job name"
+                                "job_name" : "turtle job name",
+                                "pipeline_name" : "turtle pipeline name"
                             ],
                             [
                                 "id" : 1,
                                 "status" : "status 1",
-                                "job_name" : "crab job name"
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
                             ]
                         ]
                         
@@ -90,8 +95,8 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             return
                         }
                         
-                        expect(builds[0]).to(equal(Build(id: 3, jobName: "turtle job name", status: "status")))
-                        expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1")))
+                        expect(builds[0]).to(equal(Build(id: 3, jobName: "turtle job name", status: "status", pipelineName: "turtle pipeline name")))
+                        expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name")))
                     }
                     
                     it("returns no error") {
@@ -105,17 +110,20 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             [
                                 "id" : 3,
                                 "status" : "status",
-                                "job_name" : "turtle job name"
+                                "job_name" : "turtle job name",
+                                "pipeline_name" : "turtle pipeline name"
                             ],
                             [
                                 "id" : 2,
                                 "status" : 100,
-                                "job_name" : "turtle job name"
+                                "job_name" : "turtle job name",
+                                "pipeline_name" : "turtle pipeline name"
                             ],
                             [
                                 "id" : 1,
                                 "status" : "status 1",
-                                "job_name" : "crab job name"
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
                             ]
                         ]
                         
@@ -134,8 +142,8 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             return
                         }
                         
-                        expect(builds[0]).to(equal(Build(id: 3, jobName: "turtle job name", status: "status")))
-                        expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1")))
+                        expect(builds[0]).to(equal(Build(id: 3, jobName: "turtle job name", status: "status", pipelineName: "turtle pipeline name")))
+                        expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name")))
                     }
                     
                     it("returns no error") {
@@ -149,16 +157,19 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             [
                                 "id" : 3,
                                 "status" : "status",
-                                "job_name" : "turtle job name"
+                                "job_name" : "turtle job name",
+                                "pipeline_name" : "turtle pipeline name"
                             ],
                             [
                                 "id" : 2,
                                 "status" : "crab status",
-                                "job_name" : "crab job name"
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
                             ],
                             [
                                 "id" : 1,
                                 "status" : "status 1",
+                                "pipeline_name" : "turtle pipeline name"
                             ]
                         ]
                         
@@ -177,8 +188,8 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             return
                         }
                         
-                        expect(builds[0]).to(equal(Build(id: 3, jobName: "turtle job name", status: "status")))
-                        expect(builds[1]).to(equal(Build(id: 2, jobName: "crab job name", status: "crab status")))
+                        expect(builds[0]).to(equal(Build(id: 3, jobName: "turtle job name", status: "status", pipelineName: "turtle pipeline name")))
+                        expect(builds[1]).to(equal(Build(id: 2, jobName: "crab job name", status: "crab status", pipelineName: "crab pipeline name")))
                     }
                     
                     it("returns no error") {
@@ -192,17 +203,20 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             [
                                 "id" : 3,
                                 "status" : "status",
-                                "job_name" : "turtle job name"
+                                "job_name" : "turtle job name",
+                                "pipeline_name" : "turtle pipeline name"
                             ],
                             [
                                 "id" : 2,
                                 "status" : "crab status",
-                                "job_name" : "crab job name"
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
                             ],
                             [
                                 "id" : 1,
                                 "status" : "status 1",
-                                "job_name" : 1000
+                                "job_name" : 1000,
+                                "pipeline_name" : "turtle pipeline name"
                             ]
                         ]
                         
@@ -221,8 +235,8 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             return
                         }
                         
-                        expect(builds[0]).to(equal(Build(id: 3, jobName: "turtle job name", status: "status")))
-                        expect(builds[1]).to(equal(Build(id: 2, jobName: "crab job name", status: "crab status")))
+                        expect(builds[0]).to(equal(Build(id: 3, jobName: "turtle job name", status: "status", pipelineName: "turtle pipeline name")))
+                        expect(builds[1]).to(equal(Build(id: 2, jobName: "crab job name", status: "crab status", pipelineName: "crab pipeline name")))
                     }
                     
                     it("returns no error") {
@@ -235,17 +249,20 @@ class BuildsDataDeserializerSpec: QuickSpec {
                         let partiallyValidDataJSONArray = [
                             [
                                 "status" : "status",
-                                "job_name" : "turtle job name"
+                                "job_name" : "turtle job name",
+                                "pipeline_name" : "turtle pipeline name"
                             ],
                             [
                                 "id" : 2,
                                 "status" : "crab status",
-                                "job_name" : "crab job name"
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
                             ],
                             [
                                 "id" : 1,
                                 "status" : "status 1",
-                                "job_name" : "crab job name"
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
                             ]
                         ]
                         
@@ -264,8 +281,8 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             return
                         }
                         
-                        expect(builds[0]).to(equal(Build(id: 2, jobName: "crab job name", status: "crab status")))
-                        expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1")))
+                        expect(builds[0]).to(equal(Build(id: 2, jobName: "crab job name", status: "crab status", pipelineName: "crab pipeline name")))
+                        expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name")))
                     }
                     
                     it("returns no error") {
@@ -279,17 +296,20 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             [
                                 "id" : "id value",
                                 "status" : "status",
-                                "job_name" : "turtle job name"
+                                "job_name" : "turtle job name",
+                                "pipeline_name" : "turtle pipeline name"
                             ],
                             [
                                 "id" : 2,
                                 "status" : "crab status",
-                                "job_name" : "crab job name"
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
                             ],
                             [
                                 "id" : 1,
                                 "status" : "status 1",
-                                "job_name" : "crab job name"
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
                             ]
                         ]
                         
@@ -308,8 +328,101 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             return
                         }
                         
-                        expect(builds[0]).to(equal(Build(id: 2, jobName: "crab job name", status: "crab status")))
-                        expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1")))
+                        expect(builds[0]).to(equal(Build(id: 2, jobName: "crab job name", status: "crab status", pipelineName: "crab pipeline name")))
+                        expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name")))
+                    }
+                    
+                    it("returns no error") {
+                        expect(result.error).to(beNil())
+                    }
+                }
+                
+                context("Missing required 'pipeline_name' field") {
+                    beforeEach {
+                        let partiallyValidDataJSONArray = [
+                            [
+                                "id" : 3,
+                                "status" : "status",
+                                "job_name" : "turtle job name"
+                            ],
+                            [
+                                "id" : 2,
+                                "status" : "crab status",
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
+                            ],
+                            [
+                                "id" : 1,
+                                "status" : "status 1",
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
+                            ]
+                        ]
+                        
+                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        result = subject.deserialize(partiallyValidData)
+                    }
+                    
+                    it("returns a build for each valid JSON build entry") {
+                        guard let builds = result.builds else {
+                            fail("Failed to return any builds from the JSON data")
+                            return
+                        }
+                        
+                        if builds.count != 2 {
+                            fail("Expected to return 2 builds, returned \(builds.count)")
+                            return
+                        }
+                        
+                        expect(builds[0]).to(equal(Build(id: 2, jobName: "crab job name", status: "crab status", pipelineName: "crab pipeline name")))
+                        expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name")))
+                    }
+                    
+                    it("returns no error") {
+                        expect(result.error).to(beNil())
+                    }
+                }
+                
+                context("'pipeline_name' field is not a string") {
+                    beforeEach {
+                        let partiallyValidDataJSONArray = [
+                            [
+                                "id" : 3,
+                                "status" : "status",
+                                "job_name" : "turtle job name",
+                                "pipeline_name" : 1
+                            ],
+                            [
+                                "id" : 2,
+                                "status" : "crab status",
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
+                            ],
+                            [
+                                "id" : 1,
+                                "status" : "status 1",
+                                "job_name" : "crab job name",
+                                "pipeline_name" : "crab pipeline name"
+                            ]
+                        ]
+                        
+                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        result = subject.deserialize(partiallyValidData)
+                    }
+                    
+                    it("returns a build for each valid JSON build entry") {
+                        guard let builds = result.builds else {
+                            fail("Failed to return any builds from the JSON data")
+                            return
+                        }
+                        
+                        if builds.count != 2 {
+                            fail("Expected to return 2 builds, returned \(builds.count)")
+                            return
+                        }
+                        
+                        expect(builds[0]).to(equal(Build(id: 2, jobName: "crab job name", status: "crab status", pipelineName: "crab pipeline name")))
+                        expect(builds[1]).to(equal(Build(id: 1, jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name")))
                     }
                     
                     it("returns no error") {
