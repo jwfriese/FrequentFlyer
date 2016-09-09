@@ -2,7 +2,7 @@ enum DeserializationErrorType {
     case MissingRequiredData
     case InvalidInputFormat
     case TypeMismatch
-    
+
     func description() -> String {
         switch(self) {
         case MissingRequiredData:
@@ -18,7 +18,7 @@ enum DeserializationErrorType {
 struct DeserializationError: Error {
     private(set) var details: String
     private(set) var type: DeserializationErrorType
-    
+
     init(details: String, type: DeserializationErrorType) {
         self.details = details
         self.type = type

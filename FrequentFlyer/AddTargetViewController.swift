@@ -4,10 +4,10 @@ class AddTargetViewController: UIViewController {
     @IBOutlet weak var targetNameTextField: UITextField?
     @IBOutlet weak var concourseURLTextField: UITextField?
     @IBOutlet weak var addTargetButton: UIButton?
-    
+
     weak var addTargetDelegate: AddTargetDelegate?
     var tokenAuthService: TokenAuthService?
-    
+
     class var storyboardIdentifier: String {
         get {
             return "AddTarget"
@@ -17,13 +17,13 @@ class AddTargetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Add Target"
-        
+
         targetNameTextField?.delegate = self
         concourseURLTextField?.delegate = self
-        
+
         addTargetButton?.enabled = false
     }
-    
+
     @IBAction func onAddTargetTapped() {
         tokenAuthService?.getToken(forTeamName: "main", concourseURL: concourseURLTextField!.text!) { token, error in
             guard let token = token else {
@@ -34,10 +34,10 @@ class AddTargetViewController: UIViewController {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
-                
+
                 return
             }
-            
+
             let newTarget = Target(name: self.targetNameTextField!.text!,
                                    api: self.concourseURLTextField!.text!,
                                    teamName: "main",
@@ -62,10 +62,10 @@ extension AddTargetViewController: UITextFieldDelegate {
                 addTargetButton?.enabled = false
             }
         }
-        
+
         return true
     }
-    
+
     func textFieldShouldClear(textField: UITextField) -> Bool {
         addTargetButton?.enabled = false
         return true

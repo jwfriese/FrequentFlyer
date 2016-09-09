@@ -3,7 +3,7 @@ struct Build {
     private(set) var jobName: String
     private(set) var status: String
     private(set) var pipelineName: String
-    
+
     init(id: Int, jobName: String, status: String, pipelineName: String) {
         self.id = id
         self.jobName = jobName

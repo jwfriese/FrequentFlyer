@@ -13,7 +13,7 @@ class BuildSpec: QuickSpec {
                     expect(buildOne).to(equal(buildTwo))
                 }
             }
-            
+
             context("When the 'id' property differs for the two Build objects") {
                 it("returns true") {
                     let buildOne = Build(id: 2, jobName: "job name", status: "status", pipelineName: "pipeline")
@@ -21,7 +21,7 @@ class BuildSpec: QuickSpec {
                     expect(buildOne).to(equal(buildTwo))
                 }
             }
-            
+
             context("When the 'jobName' property differs for the two Build objects") {
                 it("returns false") {
                     let buildOne = Build(id: 2, jobName: "job name 1", status: "status", pipelineName: "pipeline")
@@ -29,7 +29,7 @@ class BuildSpec: QuickSpec {
                     expect(buildOne).toNot(equal(buildTwo))
                 }
             }
-            
+
             context("When the 'status' property differs for the two Build objects") {
                 it("returns false") {
                     let buildOne = Build(id: 2, jobName: "job name", status: "status 1", pipelineName: "pipeline")
@@ -37,7 +37,7 @@ class BuildSpec: QuickSpec {
                     expect(buildOne).toNot(equal(buildTwo))
                 }
             }
-            
+
             context("When the 'status' property differs for the two Build objects") {
                 it("returns false") {
                     let buildOne = Build(id: 2, jobName: "job name", status: "status 1", pipelineName: "pipeline")
@@ -45,7 +45,7 @@ class BuildSpec: QuickSpec {
                     expect(buildOne).toNot(equal(buildTwo))
                 }
             }
-            
+
             context("When the 'pipelineName' property differs for the two Build objects") {
                 it("returns false") {
                     let buildOne = Build(id: 2, jobName: "job name", status: "status 1", pipelineName: "pipeline")

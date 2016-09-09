@@ -10,18 +10,18 @@ class HTTPClient {
                     completion(nil, nil, BasicError(details: "Unexpected error - received no response and no error"))
                     return
                 }
-                
+
                 completion(nil, nil, BasicError(details: error.localizedDescription))
                 return
             }
-            
+
             guard let httpURLResponse = response as? NSHTTPURLResponse else {
                 completion(nil, nil, BasicError(details: "HTTPClient only supports HTTP and HTTPS"))
                 return
             }
-            
+
             let httpResponse = HTTPResponseImpl(statusCode: httpURLResponse.statusCode)
-            
+
             if httpResponse.isSuccess {
                 completion(data, httpResponse, nil)
             } else {
@@ -30,7 +30,7 @@ class HTTPClient {
                 completion(nil, httpResponse, error)
             }
         }
-        
+
         dataTask.resume()
     }
 }

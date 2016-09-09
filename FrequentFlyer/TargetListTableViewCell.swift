@@ -6,6 +6,6 @@ class TargetListTableViewCell: UITableViewCell {
             return "TargetListCell"
         }
     }
-    
+
     @IBOutlet weak var targetNameLabel: UILabel?
 }

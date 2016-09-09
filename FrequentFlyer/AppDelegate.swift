@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         targetListViewController?.targetListService = TargetListService()
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-        
+
         return true
     }
 }

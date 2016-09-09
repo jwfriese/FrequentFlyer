@@ -1,6 +1,6 @@
 struct BasicError: Error {
     private(set) var details: String
-    
+
     init(details: String) {
         self.details = details
     }

@@ -1,6 +1,6 @@
 class Token {
     private(set) var value: String
-    
+
     init(value: String) {
         self.value = value
     }

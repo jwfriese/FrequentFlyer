@@ -15,7 +15,7 @@ class HTTPResponseImplSpec: QuickSpec {
                         expect(HTTPResponseImpl(statusCode: 299).isSuccess).to(beTrue())
                     }
                 }
-                
+
                 context("When any other status code") {
                     it("returns false") {
                         expect(HTTPResponseImpl(statusCode: 100).isSuccess).to(beFalse())

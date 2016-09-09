@@ -3,7 +3,7 @@ class Target {
     private(set) var api: String
     private(set) var teamName: String
     private(set) var token: Token
-    
+
     init(name: String,
          api: String,
          teamName: String,
