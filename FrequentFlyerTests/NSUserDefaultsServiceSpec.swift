@@ -3,70 +3,37 @@ import Quick
 import Nimble
 @testable import FrequentFlyer
 
-class NSUserDefaultsServiceSpec: QuickSpec {
-    override func spec() {
-        describe("NSUserDefaultsService") {
-            var subject: NSUserDefaultsService!
-            
-            beforeEach {
-                subject = NSUserDefaultsService()
-            }
-            
-            describe("Getting data from NSUserDefaults") {
-                context("When asking for data that is not there") {
-                    var fetchedData: NSData?
-                    
-                    beforeEach {
-                        fetchedData = subject.getDataForKey("turtle mystery")
-                    }
-                    
-                    it("returns nil") {
-                        expect(fetchedData).to(beNil())
-                    }
-                }
-                
-                context("When asking for data that exists") {
-                    var fetchedData: NSData?
-                    var storedData: NSData?
-                    
-                    beforeEach {
-                        let sillyString = "silly turtle string"
-                        storedData = sillyString.dataUsingEncoding(NSUTF8StringEncoding)
-                        NSUserDefaults.standardUserDefaults().setObject(storedData, forKey: "silly data")
-                        
-                        fetchedData = subject.getDataForKey("silly data")
-                    }
-                    
-                    afterEach {
-                        NSUserDefaults.standardUserDefaults().removeObjectForKey("silly data")
-                    }
-                    
-                    it("returns the data stored under that key") {
-                        expect(fetchedData).to(equal(storedData))
-                    }
-                }
-            }
-            
-            describe("Setting data on NSUserDefaults") {
-                var storedData: NSData?
-                var fetchedData: NSData?
-                
-                beforeEach {
-                    let sillyString = "silly turtle string"
-                    storedData = sillyString.dataUsingEncoding(NSUTF8StringEncoding)
-                    subject.setData(storedData!, forKey: "silly data")
-                    
-                    fetchedData = NSUserDefaults.standardUserDefaults().dataForKey("silly data")
-                }
-                
-                afterEach {
-                    NSUserDefaults.standardUserDefaults().removeObjectForKey("silly data")
-                }
-                
-                it("returns the data stored under that key") {
-                    expect(fetchedData).to(equal(storedData))
-                }
-            }
-        }
+class NSUserDefaultsServiceSpec: XCTestCase {
+    func test_getDataForKey_whenTheDataDoesNotExist_returnsNil() {
+        let subject = NSUserDefaultsService()
+        
+        let sillyString = "silly crab string"
+        let storedData = sillyString.dataUsingEncoding(NSUTF8StringEncoding)
+        NSUserDefaults.standardUserDefaults().setObject(storedData, forKey: "silly crab data")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        let fetchedData = subject.getDataForKey("silly crab data")
+        expect(fetchedData).to(equal(storedData))
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("silly crab data")
+    }
+    
+    func test_getDataForKey_whenTheDataAlreadyExists_returnsTheData() {
+        let subject = NSUserDefaultsService()
+        
+        let fetchedData = subject.getDataForKey("turtle mystery")
+        expect(fetchedData).to(beNil())
+    }
+    
+    func test_setDataForKey_setsTheDataOnStandardNSUserDefaults() {
+        let subject = NSUserDefaultsService()
+        
+        let sillyString = "silly turtle string"
+        let storedData = sillyString.dataUsingEncoding(NSUTF8StringEncoding)
+        subject.setData(storedData!, forKey: "silly turtle data")
+        
+        let fetchedData = NSUserDefaults.standardUserDefaults().dataForKey("silly turtle data")
+        
+        expect(fetchedData).to(equal(storedData))
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("silly turtle data")
     }
 }
