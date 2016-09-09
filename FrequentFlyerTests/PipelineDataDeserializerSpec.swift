@@ -154,7 +154,6 @@ class PipelineDataDeserializerSpec: QuickSpec {
                     expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .InvalidInputFormat)))
                 }
             }
-            
         }
     }
 }

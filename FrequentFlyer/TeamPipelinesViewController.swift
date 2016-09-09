@@ -8,11 +8,8 @@ class TeamPipelinesViewController: UIViewController {
     
     var pipelines: [Pipeline]?
     
-    class var storyboardIdentifier: String {
-        get {
-            return "TeamPipelines"
-        }
-    }
+    class var storyboardIdentifier: String { get { return "TeamPipelines" } }
+    class var showBuildsSegueId: String { get { return "ShowBuilds" } }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +23,26 @@ class TeamPipelinesViewController: UIViewController {
                 self.teamPipelinesTableView?.reloadData()
             }
         }
+        
         teamPipelinesTableView?.dataSource = self
+        teamPipelinesTableView?.delegate = self
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == TeamPipelinesViewController.showBuildsSegueId {
+            guard let buildsViewController = segue.destinationViewController as? BuildsViewController else { return  }
+            guard let indexPath = sender as? NSIndexPath else { return }
+            guard let pipeline = pipelines?[indexPath.row] else { return }
+            guard let target = target else { return }
+            
+            buildsViewController.pipeline = pipeline
+            buildsViewController.target = target
+            
+            let buildsService = BuildsService()
+            buildsService.httpClient = HTTPClient()
+            buildsService.buildsDataDeserializer = BuildsDataDeserializer()
+            buildsViewController.buildsService = buildsService
+        }
     }
 }
 
@@ -44,5 +60,11 @@ extension TeamPipelinesViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
+    }
+}
+
+extension TeamPipelinesViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier(TeamPipelinesViewController.showBuildsSegueId, sender: indexPath)
     }
 }

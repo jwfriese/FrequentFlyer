@@ -4,7 +4,7 @@ import Nimble
 @testable import FrequentFlyer
 
 class TargetListServiceSpec: QuickSpec {
-    class MockNSUserDefaultsService: NSUserDefaultsService {
+    private class MockNSUserDefaultsService: NSUserDefaultsService {
         override func getDataForKey(key: String) -> NSData? {
             return dataDictionary[key]
         }
@@ -16,7 +16,7 @@ class TargetListServiceSpec: QuickSpec {
         }
     }
     
-    class MockTargetListDataDeserializer: TargetListDataDeserializer {
+    private class MockTargetListDataDeserializer: TargetListDataDeserializer {
         var inputResponseData: NSData?
         var deserializedTargetList: [Target]?
         
