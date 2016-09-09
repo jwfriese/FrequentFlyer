@@ -24,7 +24,14 @@ class BuildsViewController: UIViewController {
         buildsTableView?.delegate = self
         
         buildsService.getBuilds(forTarget: target) { builds, error in
-            self.builds = builds
+            var buildsForPipeline: [Build]?
+            if let builds = builds {
+                buildsForPipeline = builds.filter { build in
+                    return build.pipelineName == self.pipeline?.name
+                }
+            }
+            
+            self.builds = buildsForPipeline
             dispatch_async(dispatch_get_main_queue()) {
                 self.buildsTableView?.reloadData()
             }

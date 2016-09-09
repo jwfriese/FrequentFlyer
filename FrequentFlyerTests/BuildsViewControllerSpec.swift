@@ -78,22 +78,23 @@ class BuildsViewControllerSpec: QuickSpec {
                             return
                         }
                         
-                        let buildOne = Build(id: 2, jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline name")
-                        let buildTwo = Build(id: 1, jobName: "crab job", status: "crab last status", pipelineName: "crab pipeline name")
-                        completion([buildOne, buildTwo], nil)
+                        let buildOne = Build(id: 3, jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
+                        let buildTwo = Build(id: 2, jobName: "crab job", status: "crab last status", pipelineName: "crab pipeline")
+                        let buildThree = Build(id: 1, jobName: "other turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
+                        completion([buildOne, buildTwo, buildThree], nil)
                     }
                     
-                    it("inserts a row for each build returned by the service") {
+                    it("inserts a row for each build with correct pipeline name returned by the service") {
                         expect(subject.tableView(subject.buildsTableView!, numberOfRowsInSection: 0)).to(equal(2))
                     }
                     
-                    it("creates a cell in each row for each build returned by the service") {
+                    it("creates a cell in each row for each build with correct pipeline name returned by the service") {
                         let cellOneOpt = subject.tableView(subject.buildsTableView!, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as? BuildTableViewCell
                         guard let cellOne = cellOneOpt else {
                             fail("Failed to fetch a BuildTableViewCell")
                             return
                         }
-                        expect(cellOne.idLabel?.text).to(equal("2"))
+                        expect(cellOne.idLabel?.text).to(equal("3"))
                         expect(cellOne.jobNameLabel?.text).to(equal("turtle job"))
                         expect(cellOne.statusLabel?.text).to(equal("turtle last status"))
                         
@@ -103,8 +104,8 @@ class BuildsViewControllerSpec: QuickSpec {
                             return
                         }
                         expect(cellTwo.idLabel?.text).to(equal("1"))
-                        expect(cellTwo.jobNameLabel?.text).to(equal("crab job"))
-                        expect(cellTwo.statusLabel?.text).to(equal("crab last status"))
+                        expect(cellTwo.jobNameLabel?.text).to(equal("other turtle job"))
+                        expect(cellTwo.statusLabel?.text).to(equal("turtle last status"))
                     }
                 }
             }
