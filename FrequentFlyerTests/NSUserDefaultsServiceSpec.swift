@@ -12,11 +12,6 @@ class NSUserDefaultsServiceSpec: QuickSpec {
                 subject = NSUserDefaultsService()
             }
             
-            afterEach {
-                let applicationDomain = NSBundle.mainBundle().bundleIdentifier
-                NSUserDefaults.standardUserDefaults().removePersistentDomainForName(applicationDomain!)
-            }
-            
             describe("Getting data from NSUserDefaults") {
                 context("When asking for data that is not there") {
                     var fetchedData: NSData?
@@ -42,6 +37,10 @@ class NSUserDefaultsServiceSpec: QuickSpec {
                         fetchedData = subject.getDataForKey("silly data")
                     }
                     
+                    afterEach {
+                        NSUserDefaults.standardUserDefaults().removeObjectForKey("silly data")
+                    }
+                    
                     it("returns the data stored under that key") {
                         expect(fetchedData).to(equal(storedData))
                     }
@@ -58,6 +57,10 @@ class NSUserDefaultsServiceSpec: QuickSpec {
                     subject.setData(storedData!, forKey: "silly data")
                     
                     fetchedData = NSUserDefaults.standardUserDefaults().dataForKey("silly data")
+                }
+                
+                afterEach {
+                    NSUserDefaults.standardUserDefaults().removeObjectForKey("silly data")
                 }
                 
                 it("returns the data stored under that key") {

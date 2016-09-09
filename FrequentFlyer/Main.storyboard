@@ -81,11 +81,70 @@
                     </navigationItem>
                     <connections>
                         <outlet property="targetListTableView" destination="zqn-9h-1Wr" id="YeZ-pa-j6D"/>
+                        <segue destination="aNH-9e-yKD" kind="show" identifier="ShowTeamPipelines" id="KLO-TE-iQM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tnP-uH-qqA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="182" y="587"/>
+        </scene>
+        <!--Team Pipelines View Controller-->
+        <scene sceneID="Ycc-d0-je9">
+            <objects>
+                <viewController storyboardIdentifier="TeamPipelines" id="aNH-9e-yKD" customClass="TeamPipelinesViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3aQ-Wg-Pfj"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZLh-97-86X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0je-yI-F7S">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PWe-7J-igF">
+                                <rect key="frame" x="20" y="64" width="560" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PipelineCell" id="9sk-ci-M5H" customClass="PipelineTableViewCell" customModule="FrequentFlyer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="560" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9sk-ci-M5H" id="EI1-eI-GTd">
+                                            <rect key="frame" x="0.0" y="0.0" width="560" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ana-Ur-vXd">
+                                                    <rect key="frame" x="24" y="11" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ana-Ur-vXd" firstAttribute="centerY" secondItem="EI1-eI-GTd" secondAttribute="centerY" id="2o8-Wh-GgV"/>
+                                                <constraint firstItem="ana-Ur-vXd" firstAttribute="leading" secondItem="EI1-eI-GTd" secondAttribute="leadingMargin" constant="16" id="yMX-M2-a1A"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="ana-Ur-vXd" id="pfL-1b-7pj"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZLh-97-86X" firstAttribute="top" secondItem="PWe-7J-igF" secondAttribute="bottom" id="5pc-Yh-PU2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PWe-7J-igF" secondAttribute="trailing" id="8W7-NZ-kAH"/>
+                            <constraint firstItem="PWe-7J-igF" firstAttribute="top" secondItem="3aQ-Wg-Pfj" secondAttribute="bottom" id="Gb2-0b-wBa"/>
+                            <constraint firstItem="PWe-7J-igF" firstAttribute="leading" secondItem="0je-yI-F7S" secondAttribute="leadingMargin" id="gXx-f7-k98"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="teamPipelinesTableView" destination="PWe-7J-igF" id="FA8-CU-nCp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9WN-af-Wxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="182" y="1333"/>
         </scene>
         <!--Add Target-->
         <scene sceneID="6tA-D6-ewj">

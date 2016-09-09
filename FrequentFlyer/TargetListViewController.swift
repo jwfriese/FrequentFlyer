@@ -7,11 +7,9 @@ class TargetListViewController: UIViewController {
     
     var targetList: [Target]?
     
-    class var storyboardIdentifier: String {
-        get {
-            return "TargetList"
-        }
-    }
+    class var storyboardIdentifier: String { get { return "TargetList" } }
+    class var showAddTargetSegueId: String { get { return "ShowAddTarget" } }
+    class var showTargetBuildsSegueId: String { get { return "ShowTeamPipelines" } }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,13 +17,14 @@ class TargetListViewController: UIViewController {
         guard let targetListService = targetListService else { return }
         
         targetListTableView?.dataSource = self
+        targetListTableView?.delegate = self
         targetList = targetListService.getTargetList()
         
         title = "Targets"
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowAddTarget" {
+        if segue.identifier == TargetListViewController.showAddTargetSegueId {
             if let addTargetViewController = segue.destinationViewController as? AddTargetViewController {
                 addTargetViewController.addTargetDelegate = self
                 
@@ -33,6 +32,15 @@ class TargetListViewController: UIViewController {
                 tokenAuthService.httpClient = HTTPClient()
                 tokenAuthService.tokenDataDeserializer = TokenDataDeserializer()
                 addTargetViewController.tokenAuthService = tokenAuthService
+            }
+        } else if segue.identifier == TargetListViewController.showTargetBuildsSegueId {
+            if let teamPipelinesViewController = segue.destinationViewController as? TeamPipelinesViewController {
+                teamPipelinesViewController.target = (sender as? Target)
+                
+                let teamPipelinesService = TeamPipelinesService()
+                teamPipelinesService.httpClient = HTTPClient()
+                teamPipelinesService.pipelineDataDeserializer = PipelineDataDeserializer()
+                teamPipelinesViewController.teamPipelinesService = teamPipelinesService
             }
         }
     }
@@ -53,6 +61,14 @@ extension TargetListViewController: UITableViewDataSource {
         cell.targetNameLabel?.text = targetList![indexPath.row].name
         
         return cell
+    }
+}
+
+extension TargetListViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier(TargetListViewController.showTargetBuildsSegueId,
+                                   sender: targetList?[indexPath.row]
+        )
     }
 }
 

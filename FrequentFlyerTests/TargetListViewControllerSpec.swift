@@ -21,12 +21,16 @@ class TargetListViewControllerSpec: QuickSpec {
             
             var navigationController: UINavigationController!
             var mockAddTargetViewController: AddTargetViewController!
+            var mockTeamPipelinesViewController: TeamPipelinesViewController!
             
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 
                 mockAddTargetViewController = AddTargetViewController()
-                try! storyboard.bindViewController(mockAddTargetViewController, toIdentifier: "AddTarget")
+                try! storyboard.bindViewController(mockAddTargetViewController, toIdentifier: AddTargetViewController.storyboardIdentifier)
+                
+                mockTeamPipelinesViewController = TeamPipelinesViewController()
+                try! storyboard.bindViewController(mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
                 
                 subject = storyboard.instantiateViewControllerWithIdentifier(TargetListViewController.storyboardIdentifier) as! TargetListViewController
                 
@@ -50,6 +54,10 @@ class TargetListViewControllerSpec: QuickSpec {
                     expect(subject.targetListTableView?.dataSource).to(beIdenticalTo(subject))
                 }
                 
+                it("sets itself as its table view's delegate") {
+                    expect(subject.targetListTableView?.delegate).to(beIdenticalTo(subject))
+                }
+                
                 it("only has one section") {
                     expect(subject.numberOfSectionsInTableView(subject.targetListTableView!)).to(equal(1))
                 }
@@ -61,6 +69,7 @@ class TargetListViewControllerSpec: QuickSpec {
                 it("has a cell for each target in each row") {
                     let cellOne = subject.tableView(subject.targetListTableView!, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as? TargetListTableViewCell
                     expect(cellOne).toNot(beNil())
+                    
                     guard let cellOneTargetNameLabel = cellOne?.targetNameLabel else {
                         fail("Did not pull TargetListTableViewCell from table view")
                         return
@@ -69,11 +78,33 @@ class TargetListViewControllerSpec: QuickSpec {
                     
                     let cellTwo = subject.tableView(subject.targetListTableView!, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as? TargetListTableViewCell
                     expect(cellTwo).toNot(beNil())
+                    
                     guard let cellTwoTargetNameLabel = cellTwo?.targetNameLabel else {
                         fail("Did not pull TargetListTableViewCell from table view")
                         return
                     }
                     expect(cellTwoTargetNameLabel.text).to(equal("turtle target two"))
+                }
+                
+                describe("Tapping on one of the cells") {
+                    beforeEach {
+                        subject.tableView(subject.targetListTableView!, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                    }
+                    
+                    it("presents the builds page for that target") {
+                        expect(navigationController.topViewController).to(beIdenticalTo(mockTeamPipelinesViewController))
+                        expect(mockTeamPipelinesViewController.target).to(equal(Target(name: "turtle target one", api: "turtle api", teamName: "turtle team", token: Token(value: "val"))))
+                    }
+                    
+                    it("sets a TeamPipelinesService on the controller") {
+                        guard let teamPipelinesService = mockTeamPipelinesViewController.teamPipelinesService else {
+                            fail("Failed to set TeamPipelinesService on TeamPipelinesViewController")
+                            return
+                        }
+                        
+                        expect(teamPipelinesService.httpClient).toNot(beNil())
+                        expect(teamPipelinesService.pipelineDataDeserializer).toNot(beNil())
+                    }
                 }
                 
                 describe("Tapping the 'Add Target' bar button") {
