@@ -7,19 +7,6 @@ class NSUserDefaultsServiceSpec: XCTestCase {
     func test_getDataForKey_whenTheDataDoesNotExist_returnsNil() {
         let subject = NSUserDefaultsService()
         
-        let sillyString = "silly crab string"
-        let storedData = sillyString.dataUsingEncoding(NSUTF8StringEncoding)
-        NSUserDefaults.standardUserDefaults().setObject(storedData, forKey: "silly crab data")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        
-        let fetchedData = subject.getDataForKey("silly crab data")
-        expect(fetchedData).to(equal(storedData))
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("silly crab data")
-    }
-    
-    func test_getDataForKey_whenTheDataAlreadyExists_returnsTheData() {
-        let subject = NSUserDefaultsService()
-        
         let fetchedData = subject.getDataForKey("turtle mystery")
         expect(fetchedData).to(beNil())
     }
