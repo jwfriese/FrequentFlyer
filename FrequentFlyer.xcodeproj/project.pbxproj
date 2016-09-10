@@ -7,60 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */; };
+		7BA032101D843FE300F20E23 /* TokenAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320D1D843FE300F20E23 /* TokenAuthService.swift */; };
+		7BA032111D843FE300F20E23 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320E1D843FE300F20E23 /* Token.swift */; };
+		7BA032141D843FE800F20E23 /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032121D843FE800F20E23 /* HTTPResponse.swift */; };
+		7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032131D843FE800F20E23 /* HTTPClient.swift */; };
+		7BA032191D843FEE00F20E23 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032161D843FEE00F20E23 /* Error.swift */; };
+		7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032171D843FEE00F20E23 /* DeserializationError.swift */; };
+		7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032181D843FEE00F20E23 /* BasicError.swift */; };
+		7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0321C1D843FF300F20E23 /* BuildTableViewCell.swift */; };
+		7BA032231D843FF300F20E23 /* BuildsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0321D1D843FF300F20E23 /* BuildsViewController.swift */; };
+		7BA032241D843FF300F20E23 /* BuildsTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0321E1D843FF300F20E23 /* BuildsTableViewHeaderView.swift */; };
+		7BA032251D843FF300F20E23 /* BuildsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0321F1D843FF300F20E23 /* BuildsService.swift */; };
+		7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032201D843FF300F20E23 /* BuildsDataDeserializer.swift */; };
+		7BA032271D843FF300F20E23 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032211D843FF300F20E23 /* Build.swift */; };
+		7BA0322D1D843FF900F20E23 /* TeamPipelinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032281D843FF900F20E23 /* TeamPipelinesViewController.swift */; };
+		7BA0322E1D843FF900F20E23 /* TeamPipelinesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032291D843FF900F20E23 /* TeamPipelinesService.swift */; };
+		7BA0322F1D843FF900F20E23 /* PipelineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0322A1D843FF900F20E23 /* PipelineTableViewCell.swift */; };
+		7BA032301D843FF900F20E23 /* PipelineDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0322B1D843FF900F20E23 /* PipelineDataDeserializer.swift */; };
+		7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0322C1D843FF900F20E23 /* Pipeline.swift */; };
+		7BA032391D843FFE00F20E23 /* TargetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032321D843FFE00F20E23 /* TargetListViewController.swift */; };
+		7BA0323A1D843FFE00F20E23 /* TargetListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032331D843FFE00F20E23 /* TargetListTableViewCell.swift */; };
+		7BA0323B1D843FFE00F20E23 /* TargetListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032341D843FFE00F20E23 /* TargetListService.swift */; };
+		7BA0323C1D843FFE00F20E23 /* TargetListDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032351D843FFE00F20E23 /* TargetListDataDeserializer.swift */; };
+		7BA0323D1D843FFE00F20E23 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032361D843FFE00F20E23 /* Target.swift */; };
+		7BA0323E1D843FFE00F20E23 /* AddTargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032371D843FFE00F20E23 /* AddTargetViewController.swift */; };
+		7BA0323F1D843FFE00F20E23 /* AddTargetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032381D843FFE00F20E23 /* AddTargetDelegate.swift */; };
+		7BA032431D84400400F20E23 /* TokenSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032401D84400400F20E23 /* TokenSpec.swift */; };
+		7BA032441D84400400F20E23 /* TokenDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032411D84400400F20E23 /* TokenDataDeserializerSpec.swift */; };
+		7BA032451D84400400F20E23 /* TokenAuthServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032421D84400400F20E23 /* TokenAuthServiceSpec.swift */; };
+		7BA032481D84400900F20E23 /* HTTPResponseImplSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032461D84400900F20E23 /* HTTPResponseImplSpec.swift */; };
+		7BA032491D84400900F20E23 /* HTTPClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032471D84400900F20E23 /* HTTPClientSpec.swift */; };
+		7BA0324C1D84400E00F20E23 /* DeserializationErrorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324A1D84400E00F20E23 /* DeserializationErrorSpec.swift */; };
+		7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324B1D84400E00F20E23 /* BasicErrorSpec.swift */; };
+		7BA032521D84401400F20E23 /* BuildsViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324E1D84401400F20E23 /* BuildsViewControllerSpec.swift */; };
+		7BA032531D84401400F20E23 /* BuildsServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324F1D84401400F20E23 /* BuildsServiceSpec.swift */; };
+		7BA032541D84401400F20E23 /* BuildSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032501D84401400F20E23 /* BuildSpec.swift */; };
+		7BA032551D84401400F20E23 /* BuildsDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */; };
+		7BA0325A1D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032561D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift */; };
+		7BA0325B1D84401900F20E23 /* TeamPipelinesServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032571D84401900F20E23 /* TeamPipelinesServiceSpec.swift */; };
+		7BA0325C1D84401900F20E23 /* PipelineSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032581D84401900F20E23 /* PipelineSpec.swift */; };
+		7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032591D84401900F20E23 /* PipelineDataDeserializerSpec.swift */; };
+		7BA032631D84401E00F20E23 /* TargetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0325E1D84401E00F20E23 /* TargetSpec.swift */; };
+		7BA032641D84401E00F20E23 /* TargetListViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0325F1D84401E00F20E23 /* TargetListViewControllerSpec.swift */; };
+		7BA032651D84401E00F20E23 /* TargetListServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032601D84401E00F20E23 /* TargetListServiceSpec.swift */; };
+		7BA032661D84401E00F20E23 /* TargetListDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032611D84401E00F20E23 /* TargetListDataDeserializerSpec.swift */; };
+		7BA032671D84401E00F20E23 /* AddTargetViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032621D84401E00F20E23 /* AddTargetViewControllerSpec.swift */; };
 		AE343E3C1D7F4FB8008251CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */; };
 		AE343E3D1D7F4FB8008251CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3B1D7F4FB8008251CA /* Main.storyboard */; };
-		AE343E401D7F50D0008251CA /* TargetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E3F1D7F50D0008251CA /* TargetListViewController.swift */; };
 		AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E411D7F5143008251CA /* AppDelegateSpec.swift */; };
 		AE343E651D7F624B008251CA /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE343E631D7F624B008251CA /* Nimble.framework */; };
 		AE343E661D7F624B008251CA /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE343E641D7F624B008251CA /* Quick.framework */; };
 		AE343E6E1D7F66D8008251CA /* Fleet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE343E6D1D7F66D8008251CA /* Fleet.framework */; };
-		AE343E701D7F68D9008251CA /* TargetListViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E6F1D7F68D9008251CA /* TargetListViewControllerSpec.swift */; };
-		AE343E721D7F6B15008251CA /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E711D7F6B15008251CA /* HTTPClient.swift */; };
-		AE343E7A1D7F77C5008251CA /* TargetListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E791D7F77C5008251CA /* TargetListService.swift */; };
-		AE343E7C1D7F7886008251CA /* TargetListServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E7B1D7F7886008251CA /* TargetListServiceSpec.swift */; };
-		AE343E7E1D7F7ABA008251CA /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E7D1D7F7ABA008251CA /* Target.swift */; };
-		AE343E801D7F7F44008251CA /* TargetListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E7F1D7F7F44008251CA /* TargetListTableViewCell.swift */; };
-		AE343E841D7F84F9008251CA /* TargetListDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E831D7F84F9008251CA /* TargetListDataDeserializer.swift */; };
-		AE343E861D7F853B008251CA /* TargetListDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E851D7F853B008251CA /* TargetListDataDeserializerSpec.swift */; };
 		AE343E881D7F8AA9008251CA /* NSUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E871D7F8AA9008251CA /* NSUserDefaultsService.swift */; };
-		AE4602791D81D53D001D7A34 /* BasicErrorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602781D81D53D001D7A34 /* BasicErrorSpec.swift */; };
-		AE46027D1D8217C7001D7A34 /* TeamPipelinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE46027C1D8217C7001D7A34 /* TeamPipelinesViewController.swift */; };
-		AE46027F1D8217DA001D7A34 /* TeamPipelinesViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE46027E1D8217DA001D7A34 /* TeamPipelinesViewControllerSpec.swift */; };
-		AE4602831D821F4D001D7A34 /* TeamPipelinesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602821D821F4D001D7A34 /* TeamPipelinesService.swift */; };
-		AE4602851D821F64001D7A34 /* TeamPipelinesServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602841D821F64001D7A34 /* TeamPipelinesServiceSpec.swift */; };
-		AE4602871D8220BF001D7A34 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602861D8220BF001D7A34 /* Pipeline.swift */; };
-		AE4602891D8220D7001D7A34 /* PipelineSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602881D8220D7001D7A34 /* PipelineSpec.swift */; };
-		AE46028B1D82296E001D7A34 /* PipelineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE46028A1D82296E001D7A34 /* PipelineTableViewCell.swift */; };
-		AE46028D1D822BC5001D7A34 /* PipelineDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE46028C1D822BC5001D7A34 /* PipelineDataDeserializer.swift */; };
-		AE46028F1D822BDC001D7A34 /* PipelineDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE46028E1D822BDC001D7A34 /* PipelineDataDeserializerSpec.swift */; };
-		AE4602921D82E470001D7A34 /* BuildsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602911D82E470001D7A34 /* BuildsViewController.swift */; };
-		AE4602941D82E490001D7A34 /* BuildsViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602931D82E490001D7A34 /* BuildsViewControllerSpec.swift */; };
-		AE4602961D82ECE1001D7A34 /* BuildsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602951D82ECE1001D7A34 /* BuildsService.swift */; };
-		AE4602981D82ED2F001D7A34 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602971D82ED2F001D7A34 /* Build.swift */; };
-		AE46029A1D82ED50001D7A34 /* BuildSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602991D82ED50001D7A34 /* BuildSpec.swift */; };
-		AE46029C1D82ED7D001D7A34 /* BuildsServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE46029B1D82ED7D001D7A34 /* BuildsServiceSpec.swift */; };
-		AE46029E1D82F04F001D7A34 /* BuildsDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE46029D1D82F04F001D7A34 /* BuildsDataDeserializer.swift */; };
-		AE4602A01D82F064001D7A34 /* BuildsDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE46029F1D82F064001D7A34 /* BuildsDataDeserializerSpec.swift */; };
-		AE4602A21D82F65F001D7A34 /* BuildTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602A11D82F65F001D7A34 /* BuildTableViewCell.swift */; };
-		AE4602A41D82F9E5001D7A34 /* BuildsTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4602A31D82F9E5001D7A34 /* BuildsTableViewHeaderView.swift */; };
-		AE9344C31D80F29E00D6B2A9 /* TokenAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9344C21D80F29E00D6B2A9 /* TokenAuthService.swift */; };
-		AE9344C51D80F2FD00D6B2A9 /* TokenAuthServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9344C41D80F2FD00D6B2A9 /* TokenAuthServiceSpec.swift */; };
-		AE9344C71D80FAE700D6B2A9 /* TokenDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9344C61D80FAE700D6B2A9 /* TokenDataDeserializer.swift */; };
-		AE9344C91D80FB0400D6B2A9 /* TokenDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9344C81D80FB0400D6B2A9 /* TokenDataDeserializerSpec.swift */; };
-		AE9344CB1D81A07500D6B2A9 /* HTTPClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9344CA1D81A07500D6B2A9 /* HTTPClientSpec.swift */; };
-		AE9344CD1D81A55100D6B2A9 /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9344CC1D81A55100D6B2A9 /* HTTPResponse.swift */; };
-		AE9344D11D81A6D600D6B2A9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9344D01D81A6D600D6B2A9 /* Error.swift */; };
-		AE9344D51D81A7DE00D6B2A9 /* BasicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9344D41D81A7DE00D6B2A9 /* BasicError.swift */; };
-		AE9344D71D81AA4E00D6B2A9 /* HTTPResponseImplSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9344D61D81AA4E00D6B2A9 /* HTTPResponseImplSpec.swift */; };
-		AE9652D01D80415000EDF682 /* DeserializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9652CF1D80415000EDF682 /* DeserializationError.swift */; };
-		AE9652D21D80457300EDF682 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9652D11D80457300EDF682 /* Token.swift */; };
-		AE9652D41D8046F500EDF682 /* TargetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9652D31D8046F500EDF682 /* TargetSpec.swift */; };
-		AE9652D61D8048F500EDF682 /* TokenSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9652D51D8048F500EDF682 /* TokenSpec.swift */; };
 		AE96536E1D807F3C00EDF682 /* SwiftCoreExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */; };
-		AE9653701D80813100EDF682 /* DeserializationErrorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE96536F1D80813100EDF682 /* DeserializationErrorSpec.swift */; };
-		AE9653731D80D7AC00EDF682 /* AddTargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9653721D80D7AC00EDF682 /* AddTargetViewController.swift */; };
-		AE9653751D80D81C00EDF682 /* AddTargetViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9653741D80D81C00EDF682 /* AddTargetViewControllerSpec.swift */; };
-		AE9653771D80DC5700EDF682 /* AddTargetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9653761D80DC5700EDF682 /* AddTargetDelegate.swift */; };
 		AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */; };
 		AEA5D5161D7F2CEC00D76EBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -76,60 +76,60 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializer.swift; sourceTree = "<group>"; };
+		7BA0320D1D843FE300F20E23 /* TokenAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenAuthService.swift; sourceTree = "<group>"; };
+		7BA0320E1D843FE300F20E23 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		7BA032121D843FE800F20E23 /* HTTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
+		7BA032131D843FE800F20E23 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		7BA032161D843FEE00F20E23 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		7BA032171D843FEE00F20E23 /* DeserializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeserializationError.swift; sourceTree = "<group>"; };
+		7BA032181D843FEE00F20E23 /* BasicError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicError.swift; sourceTree = "<group>"; };
+		7BA0321C1D843FF300F20E23 /* BuildTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTableViewCell.swift; sourceTree = "<group>"; };
+		7BA0321D1D843FF300F20E23 /* BuildsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsViewController.swift; sourceTree = "<group>"; };
+		7BA0321E1D843FF300F20E23 /* BuildsTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsTableViewHeaderView.swift; sourceTree = "<group>"; };
+		7BA0321F1D843FF300F20E23 /* BuildsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsService.swift; sourceTree = "<group>"; };
+		7BA032201D843FF300F20E23 /* BuildsDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsDataDeserializer.swift; sourceTree = "<group>"; };
+		7BA032211D843FF300F20E23 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
+		7BA032281D843FF900F20E23 /* TeamPipelinesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesViewController.swift; sourceTree = "<group>"; };
+		7BA032291D843FF900F20E23 /* TeamPipelinesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesService.swift; sourceTree = "<group>"; };
+		7BA0322A1D843FF900F20E23 /* PipelineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineTableViewCell.swift; sourceTree = "<group>"; };
+		7BA0322B1D843FF900F20E23 /* PipelineDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineDataDeserializer.swift; sourceTree = "<group>"; };
+		7BA0322C1D843FF900F20E23 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
+		7BA032321D843FFE00F20E23 /* TargetListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListViewController.swift; sourceTree = "<group>"; };
+		7BA032331D843FFE00F20E23 /* TargetListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListTableViewCell.swift; sourceTree = "<group>"; };
+		7BA032341D843FFE00F20E23 /* TargetListService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListService.swift; sourceTree = "<group>"; };
+		7BA032351D843FFE00F20E23 /* TargetListDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListDataDeserializer.swift; sourceTree = "<group>"; };
+		7BA032361D843FFE00F20E23 /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
+		7BA032371D843FFE00F20E23 /* AddTargetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTargetViewController.swift; sourceTree = "<group>"; };
+		7BA032381D843FFE00F20E23 /* AddTargetDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTargetDelegate.swift; sourceTree = "<group>"; };
+		7BA032401D84400400F20E23 /* TokenSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenSpec.swift; sourceTree = "<group>"; };
+		7BA032411D84400400F20E23 /* TokenDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializerSpec.swift; sourceTree = "<group>"; };
+		7BA032421D84400400F20E23 /* TokenAuthServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenAuthServiceSpec.swift; sourceTree = "<group>"; };
+		7BA032461D84400900F20E23 /* HTTPResponseImplSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseImplSpec.swift; sourceTree = "<group>"; };
+		7BA032471D84400900F20E23 /* HTTPClientSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClientSpec.swift; sourceTree = "<group>"; };
+		7BA0324A1D84400E00F20E23 /* DeserializationErrorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeserializationErrorSpec.swift; sourceTree = "<group>"; };
+		7BA0324B1D84400E00F20E23 /* BasicErrorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicErrorSpec.swift; sourceTree = "<group>"; };
+		7BA0324E1D84401400F20E23 /* BuildsViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsViewControllerSpec.swift; sourceTree = "<group>"; };
+		7BA0324F1D84401400F20E23 /* BuildsServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsServiceSpec.swift; sourceTree = "<group>"; };
+		7BA032501D84401400F20E23 /* BuildSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildSpec.swift; sourceTree = "<group>"; };
+		7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsDataDeserializerSpec.swift; sourceTree = "<group>"; };
+		7BA032561D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesViewControllerSpec.swift; sourceTree = "<group>"; };
+		7BA032571D84401900F20E23 /* TeamPipelinesServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesServiceSpec.swift; sourceTree = "<group>"; };
+		7BA032581D84401900F20E23 /* PipelineSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineSpec.swift; sourceTree = "<group>"; };
+		7BA032591D84401900F20E23 /* PipelineDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineDataDeserializerSpec.swift; sourceTree = "<group>"; };
+		7BA0325E1D84401E00F20E23 /* TargetSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetSpec.swift; sourceTree = "<group>"; };
+		7BA0325F1D84401E00F20E23 /* TargetListViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListViewControllerSpec.swift; sourceTree = "<group>"; };
+		7BA032601D84401E00F20E23 /* TargetListServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListServiceSpec.swift; sourceTree = "<group>"; };
+		7BA032611D84401E00F20E23 /* TargetListDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListDataDeserializerSpec.swift; sourceTree = "<group>"; };
+		7BA032621D84401E00F20E23 /* AddTargetViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTargetViewControllerSpec.swift; sourceTree = "<group>"; };
 		AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE343E3B1D7F4FB8008251CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		AE343E3F1D7F50D0008251CA /* TargetListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListViewController.swift; sourceTree = "<group>"; };
 		AE343E411D7F5143008251CA /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
 		AE343E631D7F624B008251CA /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		AE343E641D7F624B008251CA /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		AE343E6D1D7F66D8008251CA /* Fleet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fleet.framework; path = Carthage/Build/iOS/Fleet.framework; sourceTree = "<group>"; };
-		AE343E6F1D7F68D9008251CA /* TargetListViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListViewControllerSpec.swift; sourceTree = "<group>"; };
-		AE343E711D7F6B15008251CA /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
-		AE343E791D7F77C5008251CA /* TargetListService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListService.swift; sourceTree = "<group>"; };
-		AE343E7B1D7F7886008251CA /* TargetListServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListServiceSpec.swift; sourceTree = "<group>"; };
-		AE343E7D1D7F7ABA008251CA /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
-		AE343E7F1D7F7F44008251CA /* TargetListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListTableViewCell.swift; sourceTree = "<group>"; };
-		AE343E831D7F84F9008251CA /* TargetListDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListDataDeserializer.swift; sourceTree = "<group>"; };
-		AE343E851D7F853B008251CA /* TargetListDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListDataDeserializerSpec.swift; sourceTree = "<group>"; };
 		AE343E871D7F8AA9008251CA /* NSUserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsService.swift; sourceTree = "<group>"; };
-		AE4602781D81D53D001D7A34 /* BasicErrorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicErrorSpec.swift; sourceTree = "<group>"; };
-		AE46027C1D8217C7001D7A34 /* TeamPipelinesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesViewController.swift; sourceTree = "<group>"; };
-		AE46027E1D8217DA001D7A34 /* TeamPipelinesViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesViewControllerSpec.swift; sourceTree = "<group>"; };
-		AE4602821D821F4D001D7A34 /* TeamPipelinesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesService.swift; sourceTree = "<group>"; };
-		AE4602841D821F64001D7A34 /* TeamPipelinesServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesServiceSpec.swift; sourceTree = "<group>"; };
-		AE4602861D8220BF001D7A34 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
-		AE4602881D8220D7001D7A34 /* PipelineSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineSpec.swift; sourceTree = "<group>"; };
-		AE46028A1D82296E001D7A34 /* PipelineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineTableViewCell.swift; sourceTree = "<group>"; };
-		AE46028C1D822BC5001D7A34 /* PipelineDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineDataDeserializer.swift; sourceTree = "<group>"; };
-		AE46028E1D822BDC001D7A34 /* PipelineDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineDataDeserializerSpec.swift; sourceTree = "<group>"; };
-		AE4602911D82E470001D7A34 /* BuildsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsViewController.swift; sourceTree = "<group>"; };
-		AE4602931D82E490001D7A34 /* BuildsViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsViewControllerSpec.swift; sourceTree = "<group>"; };
-		AE4602951D82ECE1001D7A34 /* BuildsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsService.swift; sourceTree = "<group>"; };
-		AE4602971D82ED2F001D7A34 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
-		AE4602991D82ED50001D7A34 /* BuildSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildSpec.swift; sourceTree = "<group>"; };
-		AE46029B1D82ED7D001D7A34 /* BuildsServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsServiceSpec.swift; sourceTree = "<group>"; };
-		AE46029D1D82F04F001D7A34 /* BuildsDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsDataDeserializer.swift; sourceTree = "<group>"; };
-		AE46029F1D82F064001D7A34 /* BuildsDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsDataDeserializerSpec.swift; sourceTree = "<group>"; };
-		AE4602A11D82F65F001D7A34 /* BuildTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTableViewCell.swift; sourceTree = "<group>"; };
-		AE4602A31D82F9E5001D7A34 /* BuildsTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsTableViewHeaderView.swift; sourceTree = "<group>"; };
-		AE9344C21D80F29E00D6B2A9 /* TokenAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenAuthService.swift; sourceTree = "<group>"; };
-		AE9344C41D80F2FD00D6B2A9 /* TokenAuthServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenAuthServiceSpec.swift; sourceTree = "<group>"; };
-		AE9344C61D80FAE700D6B2A9 /* TokenDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializer.swift; sourceTree = "<group>"; };
-		AE9344C81D80FB0400D6B2A9 /* TokenDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializerSpec.swift; sourceTree = "<group>"; };
-		AE9344CA1D81A07500D6B2A9 /* HTTPClientSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClientSpec.swift; sourceTree = "<group>"; };
-		AE9344CC1D81A55100D6B2A9 /* HTTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
-		AE9344D01D81A6D600D6B2A9 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		AE9344D41D81A7DE00D6B2A9 /* BasicError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicError.swift; sourceTree = "<group>"; };
-		AE9344D61D81AA4E00D6B2A9 /* HTTPResponseImplSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseImplSpec.swift; sourceTree = "<group>"; };
-		AE9652CF1D80415000EDF682 /* DeserializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeserializationError.swift; sourceTree = "<group>"; };
-		AE9652D11D80457300EDF682 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		AE9652D31D8046F500EDF682 /* TargetSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetSpec.swift; sourceTree = "<group>"; };
-		AE9652D51D8048F500EDF682 /* TokenSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenSpec.swift; sourceTree = "<group>"; };
 		AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCoreExtensions.framework; path = Carthage/Build/iOS/SwiftCoreExtensions.framework; sourceTree = "<group>"; };
-		AE96536F1D80813100EDF682 /* DeserializationErrorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeserializationErrorSpec.swift; sourceTree = "<group>"; };
-		AE9653721D80D7AC00EDF682 /* AddTargetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTargetViewController.swift; sourceTree = "<group>"; };
-		AE9653741D80D81C00EDF682 /* AddTargetViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTargetViewControllerSpec.swift; sourceTree = "<group>"; };
-		AE9653761D80DC5700EDF682 /* AddTargetDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTargetDelegate.swift; sourceTree = "<group>"; };
 		AEA5D50B1D7F2CEC00D76EBA /* FrequentFlyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrequentFlyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -160,6 +160,137 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7BA032001D843E3800F20E23 /* Target */ = {
+			isa = PBXGroup;
+			children = (
+				7BA032321D843FFE00F20E23 /* TargetListViewController.swift */,
+				7BA032331D843FFE00F20E23 /* TargetListTableViewCell.swift */,
+				7BA032341D843FFE00F20E23 /* TargetListService.swift */,
+				7BA032351D843FFE00F20E23 /* TargetListDataDeserializer.swift */,
+				7BA032361D843FFE00F20E23 /* Target.swift */,
+				7BA032371D843FFE00F20E23 /* AddTargetViewController.swift */,
+				7BA032381D843FFE00F20E23 /* AddTargetDelegate.swift */,
+			);
+			path = Target;
+			sourceTree = "<group>";
+		};
+		7BA032011D843E4200F20E23 /* Pipeline */ = {
+			isa = PBXGroup;
+			children = (
+				7BA032281D843FF900F20E23 /* TeamPipelinesViewController.swift */,
+				7BA032291D843FF900F20E23 /* TeamPipelinesService.swift */,
+				7BA0322A1D843FF900F20E23 /* PipelineTableViewCell.swift */,
+				7BA0322B1D843FF900F20E23 /* PipelineDataDeserializer.swift */,
+				7BA0322C1D843FF900F20E23 /* Pipeline.swift */,
+			);
+			path = Pipeline;
+			sourceTree = "<group>";
+		};
+		7BA032021D843E4700F20E23 /* Builds */ = {
+			isa = PBXGroup;
+			children = (
+				7BA0321C1D843FF300F20E23 /* BuildTableViewCell.swift */,
+				7BA0321D1D843FF300F20E23 /* BuildsViewController.swift */,
+				7BA0321E1D843FF300F20E23 /* BuildsTableViewHeaderView.swift */,
+				7BA0321F1D843FF300F20E23 /* BuildsService.swift */,
+				7BA032201D843FF300F20E23 /* BuildsDataDeserializer.swift */,
+				7BA032211D843FF300F20E23 /* Build.swift */,
+			);
+			path = Builds;
+			sourceTree = "<group>";
+		};
+		7BA032031D843E5200F20E23 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				7BA032161D843FEE00F20E23 /* Error.swift */,
+				7BA032171D843FEE00F20E23 /* DeserializationError.swift */,
+				7BA032181D843FEE00F20E23 /* BasicError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		7BA032041D843E5800F20E23 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				7BA032121D843FE800F20E23 /* HTTPResponse.swift */,
+				7BA032131D843FE800F20E23 /* HTTPClient.swift */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
+		7BA032051D843EDD00F20E23 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */,
+				7BA0320D1D843FE300F20E23 /* TokenAuthService.swift */,
+				7BA0320E1D843FE300F20E23 /* Token.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		7BA032061D843F2200F20E23 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				7BA032401D84400400F20E23 /* TokenSpec.swift */,
+				7BA032411D84400400F20E23 /* TokenDataDeserializerSpec.swift */,
+				7BA032421D84400400F20E23 /* TokenAuthServiceSpec.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		7BA032071D843F2800F20E23 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				7BA032461D84400900F20E23 /* HTTPResponseImplSpec.swift */,
+				7BA032471D84400900F20E23 /* HTTPClientSpec.swift */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
+		7BA032081D843F2C00F20E23 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				7BA0324A1D84400E00F20E23 /* DeserializationErrorSpec.swift */,
+				7BA0324B1D84400E00F20E23 /* BasicErrorSpec.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		7BA032091D843F3000F20E23 /* Builds */ = {
+			isa = PBXGroup;
+			children = (
+				7BA0324E1D84401400F20E23 /* BuildsViewControllerSpec.swift */,
+				7BA0324F1D84401400F20E23 /* BuildsServiceSpec.swift */,
+				7BA032501D84401400F20E23 /* BuildSpec.swift */,
+				7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */,
+			);
+			path = Builds;
+			sourceTree = "<group>";
+		};
+		7BA0320A1D843F3500F20E23 /* Pipeline */ = {
+			isa = PBXGroup;
+			children = (
+				7BA032561D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift */,
+				7BA032571D84401900F20E23 /* TeamPipelinesServiceSpec.swift */,
+				7BA032581D84401900F20E23 /* PipelineSpec.swift */,
+				7BA032591D84401900F20E23 /* PipelineDataDeserializerSpec.swift */,
+			);
+			name = Pipeline;
+			path = Pipelines;
+			sourceTree = "<group>";
+		};
+		7BA0320B1D843F3A00F20E23 /* Target */ = {
+			isa = PBXGroup;
+			children = (
+				7BA0325E1D84401E00F20E23 /* TargetSpec.swift */,
+				7BA0325F1D84401E00F20E23 /* TargetListViewControllerSpec.swift */,
+				7BA032601D84401E00F20E23 /* TargetListServiceSpec.swift */,
+				7BA032611D84401E00F20E23 /* TargetListDataDeserializerSpec.swift */,
+				7BA032621D84401E00F20E23 /* AddTargetViewControllerSpec.swift */,
+			);
+			path = Target;
+			sourceTree = "<group>";
+		};
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,33 +329,13 @@
 				AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */,
 				AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */,
 				AEA5D51A1D7F2CEC00D76EBA /* Info.plist */,
-				AE9344D01D81A6D600D6B2A9 /* Error.swift */,
-				AE9344D41D81A7DE00D6B2A9 /* BasicError.swift */,
-				AE343E3F1D7F50D0008251CA /* TargetListViewController.swift */,
-				AE343E711D7F6B15008251CA /* HTTPClient.swift */,
-				AE9344CC1D81A55100D6B2A9 /* HTTPResponse.swift */,
-				AE343E791D7F77C5008251CA /* TargetListService.swift */,
-				AE343E7D1D7F7ABA008251CA /* Target.swift */,
-				AE343E7F1D7F7F44008251CA /* TargetListTableViewCell.swift */,
-				AE343E831D7F84F9008251CA /* TargetListDataDeserializer.swift */,
 				AE343E871D7F8AA9008251CA /* NSUserDefaultsService.swift */,
-				AE9652CF1D80415000EDF682 /* DeserializationError.swift */,
-				AE9652D11D80457300EDF682 /* Token.swift */,
-				AE9653721D80D7AC00EDF682 /* AddTargetViewController.swift */,
-				AE9653761D80DC5700EDF682 /* AddTargetDelegate.swift */,
-				AE9344C21D80F29E00D6B2A9 /* TokenAuthService.swift */,
-				AE9344C61D80FAE700D6B2A9 /* TokenDataDeserializer.swift */,
-				AE46027C1D8217C7001D7A34 /* TeamPipelinesViewController.swift */,
-				AE4602821D821F4D001D7A34 /* TeamPipelinesService.swift */,
-				AE4602861D8220BF001D7A34 /* Pipeline.swift */,
-				AE46028A1D82296E001D7A34 /* PipelineTableViewCell.swift */,
-				AE46028C1D822BC5001D7A34 /* PipelineDataDeserializer.swift */,
-				AE4602911D82E470001D7A34 /* BuildsViewController.swift */,
-				AE4602951D82ECE1001D7A34 /* BuildsService.swift */,
-				AE4602971D82ED2F001D7A34 /* Build.swift */,
-				AE46029D1D82F04F001D7A34 /* BuildsDataDeserializer.swift */,
-				AE4602A11D82F65F001D7A34 /* BuildTableViewCell.swift */,
-				AE4602A31D82F9E5001D7A34 /* BuildsTableViewHeaderView.swift */,
+				7BA032051D843EDD00F20E23 /* Authentication */,
+				7BA032041D843E5800F20E23 /* HTTP */,
+				7BA032031D843E5200F20E23 /* Error */,
+				7BA032021D843E4700F20E23 /* Builds */,
+				7BA032011D843E4200F20E23 /* Pipeline */,
+				7BA032001D843E3800F20E23 /* Target */,
 			);
 			path = FrequentFlyer;
 			sourceTree = "<group>";
@@ -232,28 +343,14 @@
 		AEA5D5221D7F2CEC00D76EBA /* FrequentFlyerTests */ = {
 			isa = PBXGroup;
 			children = (
+				7BA032061D843F2200F20E23 /* Authentication */,
+				7BA032071D843F2800F20E23 /* HTTP */,
+				7BA032081D843F2C00F20E23 /* Error */,
+				7BA032091D843F3000F20E23 /* Builds */,
+				7BA0320A1D843F3500F20E23 /* Pipeline */,
+				7BA0320B1D843F3A00F20E23 /* Target */,
 				AEA5D5251D7F2CEC00D76EBA /* Info.plist */,
 				AE343E411D7F5143008251CA /* AppDelegateSpec.swift */,
-				AE4602781D81D53D001D7A34 /* BasicErrorSpec.swift */,
-				AE343E6F1D7F68D9008251CA /* TargetListViewControllerSpec.swift */,
-				AE9344CA1D81A07500D6B2A9 /* HTTPClientSpec.swift */,
-				AE9344D61D81AA4E00D6B2A9 /* HTTPResponseImplSpec.swift */,
-				AE343E7B1D7F7886008251CA /* TargetListServiceSpec.swift */,
-				AE343E851D7F853B008251CA /* TargetListDataDeserializerSpec.swift */,
-				AE9652D31D8046F500EDF682 /* TargetSpec.swift */,
-				AE9652D51D8048F500EDF682 /* TokenSpec.swift */,
-				AE96536F1D80813100EDF682 /* DeserializationErrorSpec.swift */,
-				AE9653741D80D81C00EDF682 /* AddTargetViewControllerSpec.swift */,
-				AE9344C41D80F2FD00D6B2A9 /* TokenAuthServiceSpec.swift */,
-				AE9344C81D80FB0400D6B2A9 /* TokenDataDeserializerSpec.swift */,
-				AE46027E1D8217DA001D7A34 /* TeamPipelinesViewControllerSpec.swift */,
-				AE4602841D821F64001D7A34 /* TeamPipelinesServiceSpec.swift */,
-				AE4602881D8220D7001D7A34 /* PipelineSpec.swift */,
-				AE46028E1D822BDC001D7A34 /* PipelineDataDeserializerSpec.swift */,
-				AE4602931D82E490001D7A34 /* BuildsViewControllerSpec.swift */,
-				AE46029B1D82ED7D001D7A34 /* BuildsServiceSpec.swift */,
-				AE4602991D82ED50001D7A34 /* BuildSpec.swift */,
-				AE46029F1D82F064001D7A34 /* BuildsDataDeserializerSpec.swift */,
 			);
 			path = FrequentFlyerTests;
 			sourceTree = "<group>";
@@ -396,34 +493,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE4602A41D82F9E5001D7A34 /* BuildsTableViewHeaderView.swift in Sources */,
-				AE9344D11D81A6D600D6B2A9 /* Error.swift in Sources */,
-				AE9652D01D80415000EDF682 /* DeserializationError.swift in Sources */,
-				AE9653771D80DC5700EDF682 /* AddTargetDelegate.swift in Sources */,
-				AE9344D51D81A7DE00D6B2A9 /* BasicError.swift in Sources */,
-				AE4602831D821F4D001D7A34 /* TeamPipelinesService.swift in Sources */,
-				AE4602921D82E470001D7A34 /* BuildsViewController.swift in Sources */,
-				AE9344C31D80F29E00D6B2A9 /* TokenAuthService.swift in Sources */,
-				AE4602981D82ED2F001D7A34 /* Build.swift in Sources */,
-				AE343E721D7F6B15008251CA /* HTTPClient.swift in Sources */,
-				AE343E841D7F84F9008251CA /* TargetListDataDeserializer.swift in Sources */,
-				AE9653731D80D7AC00EDF682 /* AddTargetViewController.swift in Sources */,
-				AE343E7E1D7F7ABA008251CA /* Target.swift in Sources */,
+				7BA032301D843FF900F20E23 /* PipelineDataDeserializer.swift in Sources */,
+				7BA032191D843FEE00F20E23 /* Error.swift in Sources */,
+				7BA032141D843FE800F20E23 /* HTTPResponse.swift in Sources */,
 				AE343E881D7F8AA9008251CA /* NSUserDefaultsService.swift in Sources */,
+				7BA032231D843FF300F20E23 /* BuildsViewController.swift in Sources */,
+				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
+				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
+				7BA032271D843FF300F20E23 /* Build.swift in Sources */,
+				7BA0323D1D843FFE00F20E23 /* Target.swift in Sources */,
+				7BA032111D843FE300F20E23 /* Token.swift in Sources */,
+				7BA0322F1D843FF900F20E23 /* PipelineTableViewCell.swift in Sources */,
+				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
+				7BA032101D843FE300F20E23 /* TokenAuthService.swift in Sources */,
+				7BA0322E1D843FF900F20E23 /* TeamPipelinesService.swift in Sources */,
+				7BA032241D843FF300F20E23 /* BuildsTableViewHeaderView.swift in Sources */,
+				7BA0323E1D843FFE00F20E23 /* AddTargetViewController.swift in Sources */,
+				7BA032251D843FF300F20E23 /* BuildsService.swift in Sources */,
+				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
+				7BA0323A1D843FFE00F20E23 /* TargetListTableViewCell.swift in Sources */,
+				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
+				7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */,
+				7BA0323F1D843FFE00F20E23 /* AddTargetDelegate.swift in Sources */,
+				7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */,
+				7BA032391D843FFE00F20E23 /* TargetListViewController.swift in Sources */,
 				AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */,
-				AE9344C71D80FAE700D6B2A9 /* TokenDataDeserializer.swift in Sources */,
-				AE46027D1D8217C7001D7A34 /* TeamPipelinesViewController.swift in Sources */,
-				AE46028D1D822BC5001D7A34 /* PipelineDataDeserializer.swift in Sources */,
-				AE9652D21D80457300EDF682 /* Token.swift in Sources */,
-				AE4602871D8220BF001D7A34 /* Pipeline.swift in Sources */,
-				AE46029E1D82F04F001D7A34 /* BuildsDataDeserializer.swift in Sources */,
-				AE4602961D82ECE1001D7A34 /* BuildsService.swift in Sources */,
-				AE343E7A1D7F77C5008251CA /* TargetListService.swift in Sources */,
-				AE4602A21D82F65F001D7A34 /* BuildTableViewCell.swift in Sources */,
-				AE9344CD1D81A55100D6B2A9 /* HTTPResponse.swift in Sources */,
-				AE46028B1D82296E001D7A34 /* PipelineTableViewCell.swift in Sources */,
-				AE343E801D7F7F44008251CA /* TargetListTableViewCell.swift in Sources */,
-				AE343E401D7F50D0008251CA /* TargetListViewController.swift in Sources */,
+				7BA0323B1D843FFE00F20E23 /* TargetListService.swift in Sources */,
+				7BA0322D1D843FF900F20E23 /* TeamPipelinesViewController.swift in Sources */,
+				7BA0323C1D843FFE00F20E23 /* TargetListDataDeserializer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,27 +528,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE46029A1D82ED50001D7A34 /* BuildSpec.swift in Sources */,
-				AE9653701D80813100EDF682 /* DeserializationErrorSpec.swift in Sources */,
-				AE9344C51D80F2FD00D6B2A9 /* TokenAuthServiceSpec.swift in Sources */,
-				AE46027F1D8217DA001D7A34 /* TeamPipelinesViewControllerSpec.swift in Sources */,
-				AE343E861D7F853B008251CA /* TargetListDataDeserializerSpec.swift in Sources */,
-				AE46029C1D82ED7D001D7A34 /* BuildsServiceSpec.swift in Sources */,
-				AE4602851D821F64001D7A34 /* TeamPipelinesServiceSpec.swift in Sources */,
-				AE343E701D7F68D9008251CA /* TargetListViewControllerSpec.swift in Sources */,
-				AE9344CB1D81A07500D6B2A9 /* HTTPClientSpec.swift in Sources */,
-				AE4602A01D82F064001D7A34 /* BuildsDataDeserializerSpec.swift in Sources */,
-				AE4602891D8220D7001D7A34 /* PipelineSpec.swift in Sources */,
-				AE4602941D82E490001D7A34 /* BuildsViewControllerSpec.swift in Sources */,
-				AE9344C91D80FB0400D6B2A9 /* TokenDataDeserializerSpec.swift in Sources */,
-				AE4602791D81D53D001D7A34 /* BasicErrorSpec.swift in Sources */,
-				AE9652D41D8046F500EDF682 /* TargetSpec.swift in Sources */,
-				AE9344D71D81AA4E00D6B2A9 /* HTTPResponseImplSpec.swift in Sources */,
-				AE46028F1D822BDC001D7A34 /* PipelineDataDeserializerSpec.swift in Sources */,
-				AE343E7C1D7F7886008251CA /* TargetListServiceSpec.swift in Sources */,
-				AE9653751D80D81C00EDF682 /* AddTargetViewControllerSpec.swift in Sources */,
+				7BA032481D84400900F20E23 /* HTTPResponseImplSpec.swift in Sources */,
+				7BA032531D84401400F20E23 /* BuildsServiceSpec.swift in Sources */,
+				7BA032451D84400400F20E23 /* TokenAuthServiceSpec.swift in Sources */,
+				7BA0325A1D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift in Sources */,
+				7BA032431D84400400F20E23 /* TokenSpec.swift in Sources */,
+				7BA032631D84401E00F20E23 /* TargetSpec.swift in Sources */,
+				7BA0325C1D84401900F20E23 /* PipelineSpec.swift in Sources */,
+				7BA0325B1D84401900F20E23 /* TeamPipelinesServiceSpec.swift in Sources */,
+				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
 				AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */,
-				AE9652D61D8048F500EDF682 /* TokenSpec.swift in Sources */,
+				7BA032641D84401E00F20E23 /* TargetListViewControllerSpec.swift in Sources */,
+				7BA032541D84401400F20E23 /* BuildSpec.swift in Sources */,
+				7BA032651D84401E00F20E23 /* TargetListServiceSpec.swift in Sources */,
+				7BA032441D84400400F20E23 /* TokenDataDeserializerSpec.swift in Sources */,
+				7BA032521D84401400F20E23 /* BuildsViewControllerSpec.swift in Sources */,
+				7BA032671D84401E00F20E23 /* AddTargetViewControllerSpec.swift in Sources */,
+				7BA032551D84401400F20E23 /* BuildsDataDeserializerSpec.swift in Sources */,
+				7BA032491D84400900F20E23 /* HTTPClientSpec.swift in Sources */,
+				7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */,
+				7BA032661D84401E00F20E23 /* TargetListDataDeserializerSpec.swift in Sources */,
+				7BA0324C1D84400E00F20E23 /* DeserializationErrorSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
