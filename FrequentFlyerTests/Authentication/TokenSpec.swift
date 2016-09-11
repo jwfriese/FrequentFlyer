@@ -15,7 +15,7 @@ class TokenSpec: QuickSpec {
                 }
             }
 
-            context("When value property values of the Token objects are different") {
+            context("When the 'value' values of the Token objects differ") {
                 let tokenOne = Token(value: "turtle token value")
                 let tokenTwo = Token(value: "some other token value")
 

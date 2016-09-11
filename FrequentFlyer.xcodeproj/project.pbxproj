@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */; };
-		7BA032101D843FE300F20E23 /* TokenAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320D1D843FE300F20E23 /* TokenAuthService.swift */; };
+		7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */; };
 		7BA032111D843FE300F20E23 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320E1D843FE300F20E23 /* Token.swift */; };
 		7BA032141D843FE800F20E23 /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032121D843FE800F20E23 /* HTTPResponse.swift */; };
 		7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032131D843FE800F20E23 /* HTTPClient.swift */; };
@@ -35,7 +35,7 @@
 		7BA0323F1D843FFE00F20E23 /* AddTargetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032381D843FFE00F20E23 /* AddTargetDelegate.swift */; };
 		7BA032431D84400400F20E23 /* TokenSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032401D84400400F20E23 /* TokenSpec.swift */; };
 		7BA032441D84400400F20E23 /* TokenDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032411D84400400F20E23 /* TokenDataDeserializerSpec.swift */; };
-		7BA032451D84400400F20E23 /* TokenAuthServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032421D84400400F20E23 /* TokenAuthServiceSpec.swift */; };
+		7BA032451D84400400F20E23 /* UnauthenticatedTokenServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032421D84400400F20E23 /* UnauthenticatedTokenServiceSpec.swift */; };
 		7BA032481D84400900F20E23 /* HTTPResponseImplSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032461D84400900F20E23 /* HTTPResponseImplSpec.swift */; };
 		7BA032491D84400900F20E23 /* HTTPClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032471D84400900F20E23 /* HTTPClientSpec.swift */; };
 		7BA0324C1D84400E00F20E23 /* DeserializationErrorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324A1D84400E00F20E23 /* DeserializationErrorSpec.swift */; };
@@ -53,6 +53,18 @@
 		7BA032651D84401E00F20E23 /* TargetListServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032601D84401E00F20E23 /* TargetListServiceSpec.swift */; };
 		7BA032661D84401E00F20E23 /* TargetListDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032611D84401E00F20E23 /* TargetListDataDeserializerSpec.swift */; };
 		7BA032671D84401E00F20E23 /* AddTargetViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032621D84401E00F20E23 /* AddTargetViewControllerSpec.swift */; };
+		7BA032691D8441AC00F20E23 /* AuthMethodsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032681D8441AC00F20E23 /* AuthMethodsService.swift */; };
+		7BA0326B1D8441E200F20E23 /* AuthMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0326A1D8441E200F20E23 /* AuthMethod.swift */; };
+		7BA0326D1D84465800F20E23 /* AuthMethodSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0326C1D84465800F20E23 /* AuthMethodSpec.swift */; };
+		7BA0326F1D84824100F20E23 /* AuthCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0326E1D84824100F20E23 /* AuthCredentialsViewController.swift */; };
+		7BA032711D84826400F20E23 /* AuthCredentialsViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032701D84826400F20E23 /* AuthCredentialsViewControllerSpec.swift */; };
+		7BA032731D84890100F20E23 /* AuthCredentialsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032721D84890100F20E23 /* AuthCredentialsDelegate.swift */; };
+		7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */; };
+		7BA032771D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032761D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift */; };
+		7BA032791D84908000F20E23 /* AuthMethodsServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */; };
+		7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0327A1D84BC9300F20E23 /* AuthType.swift */; };
+		7BA0327D1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */; };
+		7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */; };
 		AE343E3C1D7F4FB8008251CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */; };
 		AE343E3D1D7F4FB8008251CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3B1D7F4FB8008251CA /* Main.storyboard */; };
 		AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E411D7F5143008251CA /* AppDelegateSpec.swift */; };
@@ -77,7 +89,7 @@
 
 /* Begin PBXFileReference section */
 		7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializer.swift; sourceTree = "<group>"; };
-		7BA0320D1D843FE300F20E23 /* TokenAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenAuthService.swift; sourceTree = "<group>"; };
+		7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthenticatedTokenService.swift; sourceTree = "<group>"; };
 		7BA0320E1D843FE300F20E23 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		7BA032121D843FE800F20E23 /* HTTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
 		7BA032131D843FE800F20E23 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -104,7 +116,7 @@
 		7BA032381D843FFE00F20E23 /* AddTargetDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTargetDelegate.swift; sourceTree = "<group>"; };
 		7BA032401D84400400F20E23 /* TokenSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenSpec.swift; sourceTree = "<group>"; };
 		7BA032411D84400400F20E23 /* TokenDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializerSpec.swift; sourceTree = "<group>"; };
-		7BA032421D84400400F20E23 /* TokenAuthServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenAuthServiceSpec.swift; sourceTree = "<group>"; };
+		7BA032421D84400400F20E23 /* UnauthenticatedTokenServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthenticatedTokenServiceSpec.swift; sourceTree = "<group>"; };
 		7BA032461D84400900F20E23 /* HTTPResponseImplSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseImplSpec.swift; sourceTree = "<group>"; };
 		7BA032471D84400900F20E23 /* HTTPClientSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClientSpec.swift; sourceTree = "<group>"; };
 		7BA0324A1D84400E00F20E23 /* DeserializationErrorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeserializationErrorSpec.swift; sourceTree = "<group>"; };
@@ -122,6 +134,18 @@
 		7BA032601D84401E00F20E23 /* TargetListServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListServiceSpec.swift; sourceTree = "<group>"; };
 		7BA032611D84401E00F20E23 /* TargetListDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetListDataDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BA032621D84401E00F20E23 /* AddTargetViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTargetViewControllerSpec.swift; sourceTree = "<group>"; };
+		7BA032681D8441AC00F20E23 /* AuthMethodsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodsService.swift; sourceTree = "<group>"; };
+		7BA0326A1D8441E200F20E23 /* AuthMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethod.swift; sourceTree = "<group>"; };
+		7BA0326C1D84465800F20E23 /* AuthMethodSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodSpec.swift; sourceTree = "<group>"; };
+		7BA0326E1D84824100F20E23 /* AuthCredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCredentialsViewController.swift; sourceTree = "<group>"; };
+		7BA032701D84826400F20E23 /* AuthCredentialsViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCredentialsViewControllerSpec.swift; sourceTree = "<group>"; };
+		7BA032721D84890100F20E23 /* AuthCredentialsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCredentialsDelegate.swift; sourceTree = "<group>"; };
+		7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAuthTokenService.swift; sourceTree = "<group>"; };
+		7BA032761D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAuthTokenServiceSpec.swift; sourceTree = "<group>"; };
+		7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodsServiceSpec.swift; sourceTree = "<group>"; };
+		7BA0327A1D84BC9300F20E23 /* AuthType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthType.swift; sourceTree = "<group>"; };
+		7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodDataDeserializer.swift; sourceTree = "<group>"; };
+		7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodDataDeserializerSpec.swift; sourceTree = "<group>"; };
 		AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE343E3B1D7F4FB8008251CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		AE343E411D7F5143008251CA /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
@@ -222,8 +246,15 @@
 			isa = PBXGroup;
 			children = (
 				7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */,
-				7BA0320D1D843FE300F20E23 /* TokenAuthService.swift */,
+				7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */,
 				7BA0320E1D843FE300F20E23 /* Token.swift */,
+				7BA032681D8441AC00F20E23 /* AuthMethodsService.swift */,
+				7BA0326A1D8441E200F20E23 /* AuthMethod.swift */,
+				7BA0326E1D84824100F20E23 /* AuthCredentialsViewController.swift */,
+				7BA032721D84890100F20E23 /* AuthCredentialsDelegate.swift */,
+				7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */,
+				7BA0327A1D84BC9300F20E23 /* AuthType.swift */,
+				7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -233,7 +264,12 @@
 			children = (
 				7BA032401D84400400F20E23 /* TokenSpec.swift */,
 				7BA032411D84400400F20E23 /* TokenDataDeserializerSpec.swift */,
-				7BA032421D84400400F20E23 /* TokenAuthServiceSpec.swift */,
+				7BA032421D84400400F20E23 /* UnauthenticatedTokenServiceSpec.swift */,
+				7BA0326C1D84465800F20E23 /* AuthMethodSpec.swift */,
+				7BA032701D84826400F20E23 /* AuthCredentialsViewControllerSpec.swift */,
+				7BA032761D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift */,
+				7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */,
+				7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -502,17 +538,21 @@
 				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
 				7BA032271D843FF300F20E23 /* Build.swift in Sources */,
 				7BA0323D1D843FFE00F20E23 /* Target.swift in Sources */,
+				7BA0327D1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift in Sources */,
 				7BA032111D843FE300F20E23 /* Token.swift in Sources */,
 				7BA0322F1D843FF900F20E23 /* PipelineTableViewCell.swift in Sources */,
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
-				7BA032101D843FE300F20E23 /* TokenAuthService.swift in Sources */,
+				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
 				7BA0322E1D843FF900F20E23 /* TeamPipelinesService.swift in Sources */,
 				7BA032241D843FF300F20E23 /* BuildsTableViewHeaderView.swift in Sources */,
 				7BA0323E1D843FFE00F20E23 /* AddTargetViewController.swift in Sources */,
 				7BA032251D843FF300F20E23 /* BuildsService.swift in Sources */,
+				7BA032691D8441AC00F20E23 /* AuthMethodsService.swift in Sources */,
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
+				7BA032731D84890100F20E23 /* AuthCredentialsDelegate.swift in Sources */,
 				7BA0323A1D843FFE00F20E23 /* TargetListTableViewCell.swift in Sources */,
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
+				7BA0326F1D84824100F20E23 /* AuthCredentialsViewController.swift in Sources */,
 				7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */,
 				7BA0323F1D843FFE00F20E23 /* AddTargetDelegate.swift in Sources */,
 				7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */,
@@ -520,7 +560,10 @@
 				AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */,
 				7BA0323B1D843FFE00F20E23 /* TargetListService.swift in Sources */,
 				7BA0322D1D843FF900F20E23 /* TeamPipelinesViewController.swift in Sources */,
+				7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */,
+				7BA0326B1D8441E200F20E23 /* AuthMethod.swift in Sources */,
 				7BA0323C1D843FFE00F20E23 /* TargetListDataDeserializer.swift in Sources */,
+				7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,13 +573,18 @@
 			files = (
 				7BA032481D84400900F20E23 /* HTTPResponseImplSpec.swift in Sources */,
 				7BA032531D84401400F20E23 /* BuildsServiceSpec.swift in Sources */,
-				7BA032451D84400400F20E23 /* TokenAuthServiceSpec.swift in Sources */,
+				7BA032451D84400400F20E23 /* UnauthenticatedTokenServiceSpec.swift in Sources */,
 				7BA0325A1D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift in Sources */,
 				7BA032431D84400400F20E23 /* TokenSpec.swift in Sources */,
 				7BA032631D84401E00F20E23 /* TargetSpec.swift in Sources */,
 				7BA0325C1D84401900F20E23 /* PipelineSpec.swift in Sources */,
+				7BA032791D84908000F20E23 /* AuthMethodsServiceSpec.swift in Sources */,
 				7BA0325B1D84401900F20E23 /* TeamPipelinesServiceSpec.swift in Sources */,
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
+				7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */,
+				7BA0326D1D84465800F20E23 /* AuthMethodSpec.swift in Sources */,
+				7BA032711D84826400F20E23 /* AuthCredentialsViewControllerSpec.swift in Sources */,
+				7BA032771D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift in Sources */,
 				AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */,
 				7BA032641D84401E00F20E23 /* TargetListViewControllerSpec.swift in Sources */,
 				7BA032541D84401400F20E23 /* BuildSpec.swift in Sources */,

@@ -121,14 +121,24 @@ class TargetListViewControllerSpec: QuickSpec {
                         expect(mockAddTargetViewController.addTargetDelegate).to(beIdenticalTo(subject))
                     }
 
-                    it("sets a TokenAuthService on the controller") {
-                        guard let tokenAuthService = mockAddTargetViewController.tokenAuthService else {
-                            fail("Failed to set a TokenAuthService on the AddTargetViewController")
+                    it("sets an UnauthenticatedTokenService on the controller") {
+                        guard let unauthenticatedTokenService = mockAddTargetViewController.unauthenticatedTokenService else {
+                            fail("Failed to set a UnauthenticatedTokenService on the AddTargetViewController")
                             return
                         }
 
-                        expect(tokenAuthService.httpClient).toNot(beNil())
-                        expect(tokenAuthService.tokenDataDeserializer).toNot(beNil())
+                        expect(unauthenticatedTokenService.httpClient).toNot(beNil())
+                        expect(unauthenticatedTokenService.tokenDataDeserializer).toNot(beNil())
+                    }
+
+                    it("sets a AuthMethodsService on the controller") {
+                        guard let authMethodsService = mockAddTargetViewController.authMethodsService else {
+                            fail("Failed to set a AuthMethodsService on the AddTargetViewController")
+                            return
+                        }
+
+                        expect(authMethodsService.httpClient).toNot(beNil())
+                        expect(authMethodsService.authMethodsDataDeserializer).toNot(beNil())
                     }
 
                     describe("Handling addition of a target") {

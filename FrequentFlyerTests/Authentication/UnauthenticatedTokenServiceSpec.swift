@@ -3,7 +3,7 @@ import Quick
 import Nimble
 @testable import FrequentFlyer
 
-class TokenAuthServiceSpec: QuickSpec {
+class UnauthenticatedTokenServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: NSURLRequest?
@@ -26,13 +26,13 @@ class TokenAuthServiceSpec: QuickSpec {
             }
         }
 
-        describe("TokenAuthService") {
-            var subject: TokenAuthService!
+        describe("UnauthenticatedTokenService") {
+            var subject: UnauthenticatedTokenService!
             var mockHTTPClient: MockHTTPClient!
             var mockTokenDataDeserializer: MockTokenDataDeserializer!
 
             beforeEach {
-                subject = TokenAuthService()
+                subject = UnauthenticatedTokenService()
 
                 mockHTTPClient = MockHTTPClient()
                 subject.httpClient = mockHTTPClient
@@ -41,12 +41,12 @@ class TokenAuthServiceSpec: QuickSpec {
                 subject.tokenDataDeserializer = mockTokenDataDeserializer
             }
 
-            describe("Fetching a token") {
+            describe("Fetching a token with no authentication") {
                 var capturedToken: Token?
                 var capturedError: Error?
 
                 beforeEach {
-                    subject.getToken(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com") { token, error in
+                    subject.getUnauthenticatedToken(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com") { token, error in
                         capturedToken = token
                         capturedError = error
                     }
@@ -72,9 +72,6 @@ class TokenAuthServiceSpec: QuickSpec {
                             fail("Failed to pass completion handler to HTTPClient")
                             return
                         }
-
-                        // Set error to garbage to ensure nil gets passed back
-                        capturedError = BasicError(details: "turtle garbage")
 
                         deserializedToken = Token(value: "turtle auth token")
                         mockTokenDataDeserializer.toReturnToken = deserializedToken
@@ -103,9 +100,6 @@ class TokenAuthServiceSpec: QuickSpec {
                             return
                         }
 
-                        // Set token to garbage to ensure nil gets passed back
-                        capturedToken = Token(value: "turtle garbage")
-
                         completion(nil, HTTPResponseImpl(statusCode: 200), BasicError(details: "some error string"))
                     }
 
@@ -131,9 +125,6 @@ class TokenAuthServiceSpec: QuickSpec {
                             fail("Failed to pass completion handler to HTTPClient")
                             return
                         }
-
-                        // Set token to garbage to ensure nil gets passed back
-                        capturedToken = Token(value: "turtle garbage")
 
                         mockTokenDataDeserializer.toReturnDeserializationError = DeserializationError(details: "some deserialization error details", type: .InvalidInputFormat)
 

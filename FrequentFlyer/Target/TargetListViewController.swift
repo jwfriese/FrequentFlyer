@@ -28,10 +28,15 @@ class TargetListViewController: UIViewController {
             if let addTargetViewController = segue.destinationViewController as? AddTargetViewController {
                 addTargetViewController.addTargetDelegate = self
 
-                let tokenAuthService = TokenAuthService()
-                tokenAuthService.httpClient = HTTPClient()
-                tokenAuthService.tokenDataDeserializer = TokenDataDeserializer()
-                addTargetViewController.tokenAuthService = tokenAuthService
+                let unauthenticatedTokenService = UnauthenticatedTokenService()
+                unauthenticatedTokenService.httpClient = HTTPClient()
+                unauthenticatedTokenService.tokenDataDeserializer = TokenDataDeserializer()
+                addTargetViewController.unauthenticatedTokenService = unauthenticatedTokenService
+
+                let authMethodsService = AuthMethodsService()
+                authMethodsService.httpClient = HTTPClient()
+                authMethodsService.authMethodsDataDeserializer = AuthMethodDataDeserializer()
+                addTargetViewController.authMethodsService = authMethodsService
             }
         } else if segue.identifier == TargetListViewController.showTargetBuildsSegueId {
             if let teamPipelinesViewController = segue.destinationViewController as? TeamPipelinesViewController {
@@ -76,7 +81,7 @@ extension TargetListViewController: AddTargetDelegate {
     func onTargetAdded(target: Target) {
         targetList?.append(target)
         dispatch_async(dispatch_get_main_queue()) {
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popToViewController(self, animated: true)
             self.targetListTableView?.reloadData()
         }
     }

@@ -1,19 +1,18 @@
 import Foundation
 
-class TokenAuthService {
+class AuthMethodsService {
     var httpClient: HTTPClient?
-    var tokenDataDeserializer: TokenDataDeserializer?
+    var authMethodsDataDeserializer: AuthMethodDataDeserializer?
 
-    func getToken(forTeamName teamName: String, concourseURL: String, completion: ((Token?, Error?) -> ())?) {
+    func getMethods(forTeamName teamName: String, concourseURL: String, completion: (([AuthMethod]?, Error?) -> ())?) {
         guard let httpClient = httpClient else { return }
-        guard let tokenDataDeserializer = tokenDataDeserializer else { return }
+        guard let authMethodsDataDeserializer = authMethodsDataDeserializer else { return }
 
-        let urlString = concourseURL + "/api/v1/teams/\(teamName)/auth/token"
+        let urlString = "\(concourseURL)/api/v1/teams/\(teamName)/auth/methods"
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.HTTPMethod = "GET"
-
         httpClient.doRequest(request) { data, response, error in
             guard let completion = completion else { return }
             guard let data = data else {
@@ -21,8 +20,8 @@ class TokenAuthService {
                 return
             }
 
-            let deserializationResult = tokenDataDeserializer.deserialize(data)
-            completion(deserializationResult.token, deserializationResult.error)
+            let deserializationResult = authMethodsDataDeserializer.deserialize(data)
+            completion(deserializationResult.authMethods, deserializationResult.error)
         }
     }
 }
