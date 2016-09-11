@@ -27,7 +27,17 @@ class AuthCredentialsViewController: UIViewController {
         guard let authCredentialsDelegate = authCredentialsDelegate else { return }
 
         basicAuthTokenService.getToken(forTeamWithName: "main", concourseURL: concourseURL, username: username, password: password) { token, error in
-            if let token = token {
+            if let error = error {
+                let alert = UIAlertController(title: "Authorization Failed",
+                                              message: error.details,
+                                              preferredStyle: .Alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            } else if let token = token {
                 authCredentialsDelegate.onCredentialsEntered(token)
             }
         }

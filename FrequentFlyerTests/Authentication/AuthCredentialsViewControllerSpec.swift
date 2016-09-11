@@ -140,6 +140,28 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
                             expect(mockAuthCredentialsDelegate.capturedToken).to(equal(Token(value: "turtle token")))
                         }
                     }
+
+                    describe("When the BasicAuthTokenService resolves with an error") {
+                        beforeEach {
+                            guard let completion = mockBasicAuthTokenService.capturedCompletion else {
+                                fail("Failed to call BasicAuthTokenService with a completion handler")
+                                return
+                            }
+
+                            completion(nil, BasicError(details: "turtle authentication error"))
+                        }
+
+                        it("displays an alert containing the error that came from the HTTP call") {
+                            expect(subject.presentedViewController).toEventually(beAKindOf(UIAlertController.self))
+
+                            let screen = Fleet.getApplicationScreen()
+                            expect(screen?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
+
+                            let alert = screen?.topmostViewController as? UIAlertController
+                            expect(alert?.title).toEventually(equal("Authorization Failed"))
+                            expect(alert?.message).toEventually(equal("turtle authentication error"))
+                        }
+                    }
                 }
             }
         }
