@@ -324,15 +324,19 @@
         <!--Auth Credentials View Controller-->
         <scene sceneID="uhI-0n-Co5">
             <objects>
-                <viewController storyboardIdentifier="AuthCredentials" id="m6d-Ut-E7B" customClass="AuthCredentialsViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthCredentials" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="m6d-Ut-E7B" customClass="AuthCredentialsViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NS3-MV-It9"/>
                         <viewControllerLayoutGuide type="bottom" id="gIi-N8-Eut"/>
                     </layoutGuides>
-                    <view key="view" opaque="NO" alpha="0.20000000000000001" contentMode="scaleToFill" id="WLr-WC-2C4" userLabel="ModalContainer">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="WLr-WC-2C4" userLabel="ModalContainer">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFl-En-OJJ" userLabel="Background VIew">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MkJ-VR-b6Z">
                                 <rect key="frame" x="50" y="140" width="500" height="340"/>
                                 <subviews>
@@ -385,11 +389,15 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="MkJ-VR-b6Z" secondAttribute="trailing" constant="30" id="7AL-JT-tQ3"/>
+                            <constraint firstItem="bFl-En-OJJ" firstAttribute="centerX" secondItem="WLr-WC-2C4" secondAttribute="centerX" id="HcH-a9-Q3q"/>
                             <constraint firstItem="MkJ-VR-b6Z" firstAttribute="leading" secondItem="WLr-WC-2C4" secondAttribute="leadingMargin" constant="30" id="Icy-nW-HmB"/>
+                            <constraint firstItem="bFl-En-OJJ" firstAttribute="centerY" secondItem="WLr-WC-2C4" secondAttribute="centerY" id="MSc-wj-S8I"/>
                             <constraint firstItem="MkJ-VR-b6Z" firstAttribute="top" secondItem="NS3-MV-It9" secondAttribute="bottom" constant="120" id="QPi-cM-9Fu"/>
+                            <constraint firstItem="bFl-En-OJJ" firstAttribute="height" secondItem="WLr-WC-2C4" secondAttribute="height" id="f3u-kh-xy3"/>
+                            <constraint firstItem="bFl-En-OJJ" firstAttribute="width" secondItem="WLr-WC-2C4" secondAttribute="width" id="nqj-BS-WRF"/>
                             <constraint firstItem="gIi-N8-Eut" firstAttribute="top" secondItem="MkJ-VR-b6Z" secondAttribute="bottom" constant="120" id="umZ-uw-sPq"/>
                         </constraints>
                     </view>
