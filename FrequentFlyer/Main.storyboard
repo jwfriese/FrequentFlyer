@@ -338,27 +338,27 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MkJ-VR-b6Z">
-                                <rect key="frame" x="50" y="140" width="500" height="340"/>
+                                <rect key="frame" x="50" y="140" width="500" height="350"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5TR-PR-Myy">
-                                        <rect key="frame" x="48" y="72" width="79" height="21"/>
+                                        <rect key="frame" x="36" y="72" width="79" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QQF-XU-5Gx">
-                                        <rect key="frame" x="175" y="68" width="313" height="30"/>
+                                        <rect key="frame" x="163" y="68" width="301" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZM-lK-FPV">
-                                        <rect key="frame" x="48" y="165" width="74" height="21"/>
+                                        <rect key="frame" x="36" y="165" width="74" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xra-J7-Ovn">
-                                        <rect key="frame" x="175" y="161" width="313" height="30"/>
+                                        <rect key="frame" x="163" y="161" width="301" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
@@ -380,10 +380,11 @@
                                     <constraint firstItem="fHS-Oc-4nI" firstAttribute="top" secondItem="Xra-J7-Ovn" secondAttribute="bottom" constant="72" id="M5i-pR-TuW"/>
                                     <constraint firstItem="Xra-J7-Ovn" firstAttribute="width" secondItem="QQF-XU-5Gx" secondAttribute="width" id="QRY-HE-U6t"/>
                                     <constraint firstItem="Xra-J7-Ovn" firstAttribute="centerY" secondItem="QZM-lK-FPV" secondAttribute="centerY" id="UWI-Fe-N3w"/>
-                                    <constraint firstItem="5TR-PR-Myy" firstAttribute="leading" secondItem="MkJ-VR-b6Z" secondAttribute="leading" constant="48" id="Wua-Rl-ZRV"/>
+                                    <constraint firstItem="5TR-PR-Myy" firstAttribute="leading" secondItem="MkJ-VR-b6Z" secondAttribute="leading" constant="36" id="Wua-Rl-ZRV"/>
                                     <constraint firstItem="QZM-lK-FPV" firstAttribute="top" secondItem="5TR-PR-Myy" secondAttribute="bottom" constant="72" id="Yhv-U9-8Xd"/>
                                     <constraint firstItem="QQF-XU-5Gx" firstAttribute="leading" secondItem="5TR-PR-Myy" secondAttribute="trailing" constant="48" id="cD1-bQ-bJ5"/>
-                                    <constraint firstAttribute="trailing" secondItem="QQF-XU-5Gx" secondAttribute="trailing" constant="12" id="smV-aP-4ue"/>
+                                    <constraint firstAttribute="bottom" secondItem="fHS-Oc-4nI" secondAttribute="bottom" constant="48" id="ggL-Ox-XZs"/>
+                                    <constraint firstAttribute="trailing" secondItem="QQF-XU-5Gx" secondAttribute="trailing" constant="36" id="smV-aP-4ue"/>
                                     <constraint firstItem="fHS-Oc-4nI" firstAttribute="centerX" secondItem="MkJ-VR-b6Z" secondAttribute="centerX" id="vlR-1b-YdU"/>
                                     <constraint firstItem="QQF-XU-5Gx" firstAttribute="centerY" secondItem="5TR-PR-Myy" secondAttribute="centerY" id="vpR-Xc-Dy1"/>
                                 </constraints>
@@ -400,6 +401,11 @@
                             <constraint firstItem="bFl-En-OJJ" firstAttribute="width" secondItem="WLr-WC-2C4" secondAttribute="width" id="nqj-BS-WRF"/>
                             <constraint firstItem="gIi-N8-Eut" firstAttribute="top" secondItem="MkJ-VR-b6Z" secondAttribute="bottom" constant="120" id="umZ-uw-sPq"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="umZ-uw-sPq"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="passwordTextField" destination="Xra-J7-Ovn" id="gTH-R2-B6w"/>
