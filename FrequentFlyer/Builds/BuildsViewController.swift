@@ -11,6 +11,7 @@ class BuildsViewController: UIViewController {
     var builds: [Build]?
 
     class var storyboardIdentifier: String { get { return "Builds" } }
+    class var showBuildDetailSegueId: String { get { return "ShowBuildDetail" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,16 @@ class BuildsViewController: UIViewController {
             dispatch_async(dispatch_get_main_queue()) {
                 self.buildsTableView?.reloadData()
             }
+        }
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == BuildsViewController.showBuildDetailSegueId {
+            guard let buildDetailViewController = segue.destinationViewController as? BuildDetailViewController else { return }
+            guard let indexPath = sender as? NSIndexPath else { return }
+            guard let build = builds?[indexPath.row] else { return }
+
+            buildDetailViewController.build = build
         }
     }
 }
@@ -67,5 +78,9 @@ extension BuildsViewController: UITableViewDataSource {
 extension BuildsViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return buildsTableHeaderView
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier(BuildsViewController.showBuildDetailSegueId, sender: indexPath)
     }
 }

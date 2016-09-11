@@ -20,8 +20,13 @@ class BuildsViewControllerSpec: QuickSpec {
             var subject: BuildsViewController!
             var mockBuildsService: MockBuildsService!
 
+            var mockBuildDetailViewController: BuildDetailViewController!
+
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                mockBuildDetailViewController = BuildDetailViewController()
+                try! storyboard.bindViewController(mockBuildDetailViewController, toIdentifier: BuildDetailViewController.storyboardIdentifier)
+
                 subject = storyboard.instantiateViewControllerWithIdentifier(BuildsViewController.storyboardIdentifier) as! BuildsViewController
 
                 mockBuildsService = MockBuildsService()
@@ -106,6 +111,17 @@ class BuildsViewControllerSpec: QuickSpec {
                         expect(cellTwo.idLabel?.text).to(equal("1"))
                         expect(cellTwo.jobNameLabel?.text).to(equal("other turtle job"))
                         expect(cellTwo.statusLabel?.text).to(equal("turtle last status"))
+                    }
+
+                    describe("Tapping on a cell") {
+                        beforeEach {
+                            subject.tableView(subject.buildsTableView!, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                        }
+
+                        it("displays a detail page for the build associated with the selected row") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockBuildDetailViewController))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.build).toEventually(equal(Build(id: 3, jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")))
+                        }
                     }
                 }
             }
