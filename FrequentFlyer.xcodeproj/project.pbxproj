@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */; };
+		7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */; };
+		7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */; };
+		7B2EAE401D85F5CE00A91234 /* BuildDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3F1D85F5CE00A91234 /* BuildDataDeserializerSpec.swift */; };
 		7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */; };
 		7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */; };
 		7BA032111D843FE300F20E23 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320E1D843FE300F20E23 /* Token.swift */; };
@@ -90,6 +94,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildService.swift; sourceTree = "<group>"; };
+		7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildServiceSpec.swift; sourceTree = "<group>"; };
+		7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDataDeserializer.swift; sourceTree = "<group>"; };
+		7B2EAE3F1D85F5CE00A91234 /* BuildDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDataDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializer.swift; sourceTree = "<group>"; };
 		7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthenticatedTokenService.swift; sourceTree = "<group>"; };
 		7BA0320E1D843FE300F20E23 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -224,6 +232,8 @@
 				7BA032201D843FF300F20E23 /* BuildsDataDeserializer.swift */,
 				7BA032211D843FF300F20E23 /* Build.swift */,
 				7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */,
+				7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */,
+				7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */,
 			);
 			path = Builds;
 			sourceTree = "<group>";
@@ -305,6 +315,8 @@
 				7BA032501D84401400F20E23 /* BuildSpec.swift */,
 				7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */,
 				7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */,
+				7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */,
+				7B2EAE3F1D85F5CE00A91234 /* BuildDataDeserializerSpec.swift */,
 			);
 			path = Builds;
 			sourceTree = "<group>";
@@ -550,11 +562,13 @@
 				7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */,
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
 				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
+				7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */,
 				7BA0322E1D843FF900F20E23 /* TeamPipelinesService.swift in Sources */,
 				7BA032241D843FF300F20E23 /* BuildsTableViewHeaderView.swift in Sources */,
 				7BA0323E1D843FFE00F20E23 /* AddTargetViewController.swift in Sources */,
 				7BA032251D843FF300F20E23 /* BuildsService.swift in Sources */,
 				7BA032691D8441AC00F20E23 /* AuthMethodsService.swift in Sources */,
+				7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */,
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
 				7BA032731D84890100F20E23 /* AuthCredentialsDelegate.swift in Sources */,
 				7BA0323A1D843FFE00F20E23 /* TargetListTableViewCell.swift in Sources */,
@@ -587,6 +601,7 @@
 				7BA0325C1D84401900F20E23 /* PipelineSpec.swift in Sources */,
 				7BA032791D84908000F20E23 /* AuthMethodsServiceSpec.swift in Sources */,
 				7BA032891D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift in Sources */,
+				7B2EAE401D85F5CE00A91234 /* BuildDataDeserializerSpec.swift in Sources */,
 				7BA0325B1D84401900F20E23 /* TeamPipelinesServiceSpec.swift in Sources */,
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
 				7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */,
@@ -602,6 +617,7 @@
 				7BA032671D84401E00F20E23 /* AddTargetViewControllerSpec.swift in Sources */,
 				7BA032551D84401400F20E23 /* BuildsDataDeserializerSpec.swift in Sources */,
 				7BA032491D84400900F20E23 /* HTTPClientSpec.swift in Sources */,
+				7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */,
 				7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */,
 				7BA032661D84401E00F20E23 /* TargetListDataDeserializerSpec.swift in Sources */,
 				7BA0324C1D84400E00F20E23 /* DeserializationErrorSpec.swift in Sources */,

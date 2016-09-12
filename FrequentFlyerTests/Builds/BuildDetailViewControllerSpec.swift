@@ -6,12 +6,35 @@ import Fleet
 
 class BuildDetailViewControllerSpec: QuickSpec {
     override func spec() {
+        class MockTriggerBuildService: TriggerBuildService {
+            var capturedTarget: Target?
+            var capturedJobName: String?
+            var capturedPipelineName: String?
+            var capturedCompletion: ((Build?, Error?) -> ())?
+
+            override func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String, completion: ((Build?, Error?) -> ())?) {
+                capturedTarget = target
+                capturedJobName = jobName
+                capturedPipelineName = pipelineName
+                capturedCompletion = completion
+            }
+        }
+
         describe("BuildDetailViewController") {
             var subject: BuildDetailViewController!
+            var mockTriggerBuildService: MockTriggerBuildService!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 subject = storyboard.instantiateViewControllerWithIdentifier(BuildDetailViewController.storyboardIdentifier) as! BuildDetailViewController
+
+                let target = Target(name: "turtle target",
+                    api: "turtle api",
+                    teamName: "turtle team name",
+                    token: Token(value: "turtle token value")
+                )
+
+                subject.target = target
 
                 let build = Build(id: 123,
                     jobName: "turtle job",
@@ -20,6 +43,9 @@ class BuildDetailViewControllerSpec: QuickSpec {
                 )
 
                 subject.build = build
+
+                mockTriggerBuildService = MockTriggerBuildService()
+                subject.triggerBuildService = mockTriggerBuildService
             }
 
             describe("After the view has loaded") {
@@ -42,6 +68,58 @@ class BuildDetailViewControllerSpec: QuickSpec {
 
                 it("sets the value for its status label") {
                     expect(subject.statusValueLabel?.text).to(equal("turtle status"))
+                }
+
+                describe("Tapping the 'Retrigger' button") {
+                    beforeEach {
+                        subject.retriggerButton?.tap()
+                    }
+
+                    it("asks the TriggerBuildService to trigger a new build") {
+                        let expectedTarget = Target(name: "turtle target", api: "turtle api", teamName: "turtle team name", token: Token(value: "turtle token value"))
+                        expect(mockTriggerBuildService.capturedTarget).to(equal(expectedTarget))
+                        expect(mockTriggerBuildService.capturedJobName).to(equal("turtle job"))
+                        expect(mockTriggerBuildService.capturedPipelineName).to(equal("turtle pipeline"))
+                    }
+
+                    describe("When the TriggerBuildService returns with a build that was triggered") {
+                        beforeEach {
+                            guard let completion = mockTriggerBuildService.capturedCompletion else {
+                                fail("Failed to call the TriggerBuildService with a completion handler")
+                                return
+                            }
+
+                            let build = Build(id: 124,
+                                jobName: "turtle job",
+                                status: "turtle pending",
+                                pipelineName: "turtle pipeline")
+
+                            completion(build, nil)
+                        }
+
+                        it("presents an alert informing the user of the build that was triggered") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Triggered"))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Build #124 triggered for turtle job"))
+                        }
+                    }
+
+                    describe("When the TriggerBuildService returns with an error") {
+                        beforeEach {
+                            guard let completion = mockTriggerBuildService.capturedCompletion else {
+                                fail("Failed to call the TriggerBuildService with a completion handler")
+                                return
+                            }
+
+                            completion(nil, BasicError(details: "turtle trigger error"))
+                        }
+
+                        it("presents an alert informing the user of the error") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Trigger Failed"))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("turtle trigger error"))
+                        }
+                    }
                 }
             }
         }

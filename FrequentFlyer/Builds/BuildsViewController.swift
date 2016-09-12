@@ -44,8 +44,15 @@ class BuildsViewController: UIViewController {
             guard let buildDetailViewController = segue.destinationViewController as? BuildDetailViewController else { return }
             guard let indexPath = sender as? NSIndexPath else { return }
             guard let build = builds?[indexPath.row] else { return }
+            guard let target = target else { return }
 
             buildDetailViewController.build = build
+            buildDetailViewController.target = target
+
+            let triggerBuildService = TriggerBuildService()
+            triggerBuildService.httpClient = HTTPClient()
+            triggerBuildService.buildDataDeserializer = BuildDataDeserializer()
+            buildDetailViewController.triggerBuildService = triggerBuildService
         }
     }
 }

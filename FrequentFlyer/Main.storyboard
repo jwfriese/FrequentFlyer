@@ -448,6 +448,12 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykb-kT-5Tu">
+                                <rect key="frame" x="225" y="229" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyk-bc-JlA" userLabel="Status Title Label">
                                 <rect key="frame" x="68" y="322" width="50" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -460,17 +466,19 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykb-kT-5Tu">
-                                <rect key="frame" x="225" y="229" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AAv-Hb-614">
+                                <rect key="frame" x="214" y="415" width="64" height="30"/>
+                                <state key="normal" title="Retrigger"/>
+                                <connections>
+                                    <action selector="onRetriggerButtonTapped" destination="PRv-Xz-CyK" eventType="touchUpInside" id="ZVI-oi-Lad"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fzv-DS-g01" firstAttribute="leading" secondItem="ykb-kT-5Tu" secondAttribute="leading" id="95n-Yp-Ram"/>
                             <constraint firstItem="UQQ-If-cMD" firstAttribute="top" secondItem="ap3-rR-nkF" secondAttribute="bottom" constant="72" id="AF4-ru-STY"/>
+                            <constraint firstItem="AAv-Hb-614" firstAttribute="centerX" secondItem="fzv-DS-g01" secondAttribute="centerX" id="I9m-YF-PHS"/>
                             <constraint firstItem="fzv-DS-g01" firstAttribute="centerY" secondItem="Jyk-bc-JlA" secondAttribute="centerY" id="NLI-iM-MXu"/>
                             <constraint firstItem="ykb-kT-5Tu" firstAttribute="leading" secondItem="0zV-Zf-Zz9" secondAttribute="leading" id="U2a-i8-YiY"/>
                             <constraint firstItem="Jyk-bc-JlA" firstAttribute="leading" secondItem="LKS-Mc-Ypd" secondAttribute="leading" id="Z0B-Lf-kVV"/>
@@ -478,6 +486,7 @@
                             <constraint firstItem="0zV-Zf-Zz9" firstAttribute="leading" secondItem="UQQ-If-cMD" secondAttribute="trailing" constant="96" id="aal-Pe-vTR"/>
                             <constraint firstItem="LKS-Mc-Ypd" firstAttribute="leading" secondItem="UQQ-If-cMD" secondAttribute="leading" id="bZg-U7-xNJ"/>
                             <constraint firstItem="Jyk-bc-JlA" firstAttribute="top" secondItem="LKS-Mc-Ypd" secondAttribute="bottom" constant="72" id="cqM-CK-Mrj"/>
+                            <constraint firstItem="AAv-Hb-614" firstAttribute="top" secondItem="fzv-DS-g01" secondAttribute="bottom" constant="72" id="fG2-Gp-a0C"/>
                             <constraint firstItem="LKS-Mc-Ypd" firstAttribute="top" secondItem="UQQ-If-cMD" secondAttribute="bottom" constant="72" id="oum-6s-2qe"/>
                             <constraint firstItem="0zV-Zf-Zz9" firstAttribute="centerY" secondItem="UQQ-If-cMD" secondAttribute="centerY" id="rbE-Tf-bcL"/>
                             <constraint firstItem="ykb-kT-5Tu" firstAttribute="centerY" secondItem="LKS-Mc-Ypd" secondAttribute="centerY" id="tJs-1R-gWe"/>
@@ -486,6 +495,7 @@
                     <connections>
                         <outlet property="jobValueLabel" destination="ykb-kT-5Tu" id="QB5-Nv-jmW"/>
                         <outlet property="pipelineValueLabel" destination="0zV-Zf-Zz9" id="2tp-iI-WSy"/>
+                        <outlet property="retriggerButton" destination="AAv-Hb-614" id="LTL-1w-deL"/>
                         <outlet property="statusValueLabel" destination="fzv-DS-g01" id="BaK-PU-HPu"/>
                     </connections>
                 </viewController>

@@ -35,7 +35,8 @@ class BuildsViewControllerSpec: QuickSpec {
                 let pipeline = Pipeline(name: "turtle pipeline")
                 subject.pipeline = pipeline
 
-                let target = Target(name: "turtle target", api: "turtle api", teamName: "turtle team", token: Token(value: "turtle token value"))
+                let target = Target(name: "turtle target", api: "turtle api", teamName: "turtle team", token: Token(value: "turtle token value")
+                )
                 subject.target = target
             }
 
@@ -121,6 +122,17 @@ class BuildsViewControllerSpec: QuickSpec {
                         it("displays a detail page for the build associated with the selected row") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockBuildDetailViewController))
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.build).toEventually(equal(Build(id: 3, jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")))
+
+                            let expectedBuild = Build(id: 3, jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.build).toEventually(equal(expectedBuild))
+
+                            let expectedTarget = Target(name: "turtle target", api: "turtle api", teamName: "turtle team", token: Token(value: "turtle token value")
+                            )
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.target).toEventually(equal(expectedTarget))
+
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.triggerBuildService).toEventuallyNot(beNil())
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.triggerBuildService?.httpClient).toEventuallyNot(beNil())
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.triggerBuildService?.buildDataDeserializer).toEventuallyNot(beNil())
                         }
                     }
                 }
