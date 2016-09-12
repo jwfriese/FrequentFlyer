@@ -26,7 +26,7 @@
         <!--Targets-->
         <scene sceneID="5MC-Lw-rHh">
             <objects>
-                <viewController storyboardIdentifier="TargetList" title="Targets" id="3dQ-dY-QmW" customClass="TargetListViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TargetList" title="Targets" automaticallyAdjustsScrollViewInsets="NO" id="3dQ-dY-QmW" customClass="TargetListViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gsD-9q-4Fn"/>
                         <viewControllerLayoutGuide type="bottom" id="yGJ-2H-0mI"/>
@@ -40,7 +40,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TargetListCell" id="SHo-fs-Pr6" customClass="TargetListTableViewCell" customModule="FrequentFlyer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SHo-fs-Pr6" id="5I6-Ut-J1y">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -92,7 +92,7 @@
         <!--Team Pipelines View Controller-->
         <scene sceneID="Ycc-d0-je9">
             <objects>
-                <viewController storyboardIdentifier="TeamPipelines" id="aNH-9e-yKD" customClass="TeamPipelinesViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeamPipelines" automaticallyAdjustsScrollViewInsets="NO" id="aNH-9e-yKD" customClass="TeamPipelinesViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3aQ-Wg-Pfj"/>
                         <viewControllerLayoutGuide type="bottom" id="ZLh-97-86X"/>
@@ -106,7 +106,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PipelineCell" id="9sk-ci-M5H" customClass="PipelineTableViewCell" customModule="FrequentFlyer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="560" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="560" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9sk-ci-M5H" id="EI1-eI-GTd">
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="43"/>
