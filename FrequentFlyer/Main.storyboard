@@ -287,7 +287,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k5J-Kx-TgM">
-                                <rect key="frame" x="214" y="156" width="294" height="30"/>
+                                <rect key="frame" x="187" y="156" width="369" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -298,7 +298,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iC4-Ed-wBP">
-                                <rect key="frame" x="214" y="249" width="294" height="30"/>
+                                <rect key="frame" x="187" y="249" width="369" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -317,15 +317,23 @@
                             <constraint firstItem="ysM-4v-PdI" firstAttribute="top" secondItem="4UN-8n-ZNK" secondAttribute="bottom" constant="72" id="9Wf-hu-Hzb"/>
                             <constraint firstItem="ysM-4v-PdI" firstAttribute="trailing" secondItem="4UN-8n-ZNK" secondAttribute="trailing" id="P70-xq-wLC"/>
                             <constraint firstItem="k5J-Kx-TgM" firstAttribute="centerY" secondItem="4UN-8n-ZNK" secondAttribute="centerY" id="SNS-GV-MWs"/>
-                            <constraint firstItem="k5J-Kx-TgM" firstAttribute="leading" secondItem="4UN-8n-ZNK" secondAttribute="trailing" constant="63" id="TLq-0L-e4e"/>
+                            <constraint firstItem="k5J-Kx-TgM" firstAttribute="leading" secondItem="4UN-8n-ZNK" secondAttribute="trailing" constant="36" id="TLq-0L-e4e"/>
+                            <constraint firstItem="iC4-Ed-wBP" firstAttribute="leading" secondItem="k5J-Kx-TgM" secondAttribute="leading" id="TWu-jX-QZN"/>
+                            <constraint firstItem="iC4-Ed-wBP" firstAttribute="trailing" secondItem="k5J-Kx-TgM" secondAttribute="trailing" id="UXL-h3-eUv"/>
                             <constraint firstItem="deX-hu-q20" firstAttribute="centerX" secondItem="PAp-MD-Gpz" secondAttribute="centerX" id="Vh6-Lx-7TP"/>
                             <constraint firstItem="iC4-Ed-wBP" firstAttribute="leading" secondItem="ysM-4v-PdI" secondAttribute="trailing" constant="63" id="WP5-cV-XYz"/>
                             <constraint firstItem="4UN-8n-ZNK" firstAttribute="top" secondItem="x6i-VT-uej" secondAttribute="bottom" constant="96" id="azQ-ix-Dou"/>
                             <constraint firstItem="iC4-Ed-wBP" firstAttribute="centerY" secondItem="ysM-4v-PdI" secondAttribute="centerY" id="ham-td-o4c"/>
                             <constraint firstItem="iC4-Ed-wBP" firstAttribute="width" secondItem="k5J-Kx-TgM" secondAttribute="width" id="k8z-6a-8fD"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="k5J-Kx-TgM" secondAttribute="trailing" constant="72" id="oNX-m4-cbP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="k5J-Kx-TgM" secondAttribute="trailing" constant="24" id="oNX-m4-cbP"/>
                             <constraint firstItem="qh0-x1-2QF" firstAttribute="top" secondItem="deX-hu-q20" secondAttribute="bottom" constant="206" id="qfp-RV-geG"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="WP5-cV-XYz"/>
+                                <exclude reference="k8z-6a-8fD"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="addTargetButton" destination="deX-hu-q20" id="gjG-Fi-ioe"/>
