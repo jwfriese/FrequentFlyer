@@ -681,7 +681,7 @@
 				PROVISIONING_PROFILE = "e2f667d4-3e9c-4b6d-aa45-b33025233955";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -724,7 +724,7 @@
 				PRODUCT_NAME = "Concourse CI";
 				PROVISIONING_PROFILE = "ac09705c-b438-4dd6-8ecc-67b3f8f43ec6";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
