@@ -372,7 +372,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QQF-XU-5Gx">
-                                        <rect key="frame" x="163" y="68" width="301" height="30"/>
+                                        <rect key="frame" x="151" y="68" width="325" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -383,7 +383,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xra-J7-Ovn">
-                                        <rect key="frame" x="163" y="161" width="301" height="30"/>
+                                        <rect key="frame" x="151" y="161" width="325" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
@@ -407,9 +407,9 @@
                                     <constraint firstItem="Xra-J7-Ovn" firstAttribute="centerY" secondItem="QZM-lK-FPV" secondAttribute="centerY" id="UWI-Fe-N3w"/>
                                     <constraint firstItem="5TR-PR-Myy" firstAttribute="leading" secondItem="MkJ-VR-b6Z" secondAttribute="leading" constant="36" id="Wua-Rl-ZRV"/>
                                     <constraint firstItem="QZM-lK-FPV" firstAttribute="top" secondItem="5TR-PR-Myy" secondAttribute="bottom" constant="72" id="Yhv-U9-8Xd"/>
-                                    <constraint firstItem="QQF-XU-5Gx" firstAttribute="leading" secondItem="5TR-PR-Myy" secondAttribute="trailing" constant="48" id="cD1-bQ-bJ5"/>
+                                    <constraint firstItem="QQF-XU-5Gx" firstAttribute="leading" secondItem="5TR-PR-Myy" secondAttribute="trailing" constant="36" id="cD1-bQ-bJ5"/>
                                     <constraint firstAttribute="bottom" secondItem="fHS-Oc-4nI" secondAttribute="bottom" constant="48" id="ggL-Ox-XZs"/>
-                                    <constraint firstAttribute="trailing" secondItem="QQF-XU-5Gx" secondAttribute="trailing" constant="36" id="smV-aP-4ue"/>
+                                    <constraint firstAttribute="trailing" secondItem="QQF-XU-5Gx" secondAttribute="trailing" constant="24" id="smV-aP-4ue"/>
                                     <constraint firstItem="fHS-Oc-4nI" firstAttribute="centerX" secondItem="MkJ-VR-b6Z" secondAttribute="centerX" id="vlR-1b-YdU"/>
                                     <constraint firstItem="QQF-XU-5Gx" firstAttribute="centerY" secondItem="5TR-PR-Myy" secondAttribute="centerY" id="vpR-Xc-Dy1"/>
                                 </constraints>
