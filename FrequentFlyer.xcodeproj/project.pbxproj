@@ -166,7 +166,7 @@
 		AE343E6D1D7F66D8008251CA /* Fleet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fleet.framework; path = Carthage/Build/iOS/Fleet.framework; sourceTree = "<group>"; };
 		AE343E871D7F8AA9008251CA /* NSUserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsService.swift; sourceTree = "<group>"; };
 		AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCoreExtensions.framework; path = Carthage/Build/iOS/SwiftCoreExtensions.framework; sourceTree = "<group>"; };
-		AEA5D50B1D7F2CEC00D76EBA /* FrequentFlyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrequentFlyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEA5D50B1D7F2CEC00D76EBA /* ConcourseCI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcourseCI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AEA5D51A1D7F2CEC00D76EBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -369,7 +369,7 @@
 		AEA5D50C1D7F2CEC00D76EBA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AEA5D50B1D7F2CEC00D76EBA /* FrequentFlyer.app */,
+				AEA5D50B1D7F2CEC00D76EBA /* ConcourseCI.app */,
 				AEA5D51F1D7F2CEC00D76EBA /* FrequentFlyerTests.xctest */,
 			);
 			name = Products;
@@ -426,7 +426,7 @@
 			);
 			name = FrequentFlyer;
 			productName = FrequentFlyer;
-			productReference = AEA5D50B1D7F2CEC00D76EBA /* FrequentFlyer.app */;
+			productReference = AEA5D50B1D7F2CEC00D76EBA /* ConcourseCI.app */;
 			productType = "com.apple.product-type.application";
 		};
 		AEA5D51E1D7F2CEC00D76EBA /* FrequentFlyerTests */ = {
