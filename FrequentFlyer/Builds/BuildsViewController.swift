@@ -83,6 +83,10 @@ extension BuildsViewController: UITableViewDataSource {
 }
 
 extension BuildsViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
+
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return buildsTableHeaderView
     }

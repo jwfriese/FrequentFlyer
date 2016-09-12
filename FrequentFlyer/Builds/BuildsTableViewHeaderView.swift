@@ -1,3 +1,3 @@
 import UIKit
 
-class BuildsTableViewHeaderView: UIStackView {}
+class BuildsTableViewHeaderView: UIView {}
