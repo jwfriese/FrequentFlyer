@@ -4,10 +4,12 @@ class AddTargetViewController: UIViewController {
     @IBOutlet weak var targetNameTextField: UITextField?
     @IBOutlet weak var concourseURLTextField: UITextField?
     @IBOutlet weak var addTargetButton: UIButton?
+    @IBOutlet weak var scrollView: UIScrollView?
 
     weak var addTargetDelegate: AddTargetDelegate?
     var authMethodsService: AuthMethodsService?
     var unauthenticatedTokenService: UnauthenticatedTokenService?
+    var userTextInputPageOperator: UserTextInputPageOperator?
 
     class var storyboardIdentifier: String { get { return "AddTarget" } }
     class var presentAuthCredentialsSegueId: String { get { return "PresentAuthCredentials" } }
@@ -20,6 +22,9 @@ class AddTargetViewController: UIViewController {
         concourseURLTextField?.delegate = self
 
         addTargetButton?.enabled = false
+
+        guard let userTextInputPageOperator = userTextInputPageOperator else { return }
+        userTextInputPageOperator.delegate = self
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -45,25 +50,24 @@ class AddTargetViewController: UIViewController {
 
         authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURL) { authMethods, error in
             if authMethods == nil || authMethods!.count == 0 {
-                unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main",
-                                                                    concourseURL: concourseURL) { token, error in
-                                                                        guard let token = token else {
-                                                                            let alert = UIAlertController(title: "Authorization Failed",
-                                                                                                          message: error?.details,
-                                                                                                          preferredStyle: .Alert)
-                                                                            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                                                                            dispatch_async(dispatch_get_main_queue()) {
-                                                                                self.presentViewController(alert, animated: true, completion: nil)
-                                                                            }
+                unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main", concourseURL: concourseURL) { token, error in
+                    guard let token = token else {
+                        let alert = UIAlertController(title: "Authorization Failed",
+                                                      message: error?.details,
+                                                      preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        }
 
-                                                                            return
-                                                                        }
+                        return
+                    }
 
-                                                                        let newTarget = Target(name: targetName,
-                                                                                               api: concourseURL,
-                                                                                               teamName: "main",
-                                                                                               token: token)
-                                                                        self.addTargetDelegate?.onTargetAdded(newTarget)
+                    let newTarget = Target(name: targetName,
+                                           api: concourseURL,
+                                           teamName: "main",
+                                           token: token)
+                    self.addTargetDelegate?.onTargetAdded(newTarget)
                 }
             } else {
                 dispatch_async(dispatch_get_main_queue()) {
@@ -113,6 +117,26 @@ extension AddTargetViewController: AuthCredentialsDelegate {
                                     token: token)
                 addTargetDelegate.onTargetAdded(target)
             }
+        }
+    }
+}
+
+extension AddTargetViewController: UserTextInputPageDelegate {
+    var textFields: [UITextField] {
+        get {
+            return [targetNameTextField!, concourseURLTextField!]
+        }
+    }
+
+    var pageView: UIView {
+        get {
+            return view
+        }
+    }
+
+    var pageScrollView: UIScrollView {
+        get {
+            return scrollView!
         }
     }
 }

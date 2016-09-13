@@ -43,6 +43,7 @@ class AddTargetViewControllerSpec: QuickSpec {
             var mockAddTargetDelegate: MockAddTargetDelegate!
             var mockAuthMethodsService: MockAuthMethodsService!
             var mockUnauthenticatedTokenService: MockUnauthenticatedTokenService!
+            var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
             var navigationController: UINavigationController!
             var mockAuthCredentialsViewController: AuthCredentialsViewController!
@@ -63,13 +64,34 @@ class AddTargetViewControllerSpec: QuickSpec {
                 mockUnauthenticatedTokenService = MockUnauthenticatedTokenService()
                 subject.unauthenticatedTokenService = mockUnauthenticatedTokenService
 
+                mockUserTextInputPageOperator = UserTextInputPageOperator()
+                subject.userTextInputPageOperator = mockUserTextInputPageOperator
+
                 navigationController = UINavigationController(rootViewController: subject)
                 Fleet.setApplicationWindowRootViewController(navigationController)
             }
 
             describe("After the view has loaded") {
-                it("will have the correct title") {
+                it("has the correct title") {
                     expect(subject.title).to(equal("Add Target"))
+                }
+
+                it("sets itself as the delegate for its UserTextInputPageOperator") {
+                    expect(mockUserTextInputPageOperator.delegate).to(beIdenticalTo(subject))
+                }
+
+                describe("As a UserTextInputPageDelegate") {
+                    it("provides its text views") {
+                        expect(subject.textFields).to(contain([subject.targetNameTextField, subject.concourseURLTextField]))
+                    }
+
+                    it("provides a screen view") {
+                        expect(subject.pageView).to(beIdenticalTo(subject.view))
+                    }
+
+                    it("provides a scroll view") {
+                        expect(subject.pageScrollView).to(beIdenticalTo(subject.scrollView))
+                    }
                 }
 
                 describe("Availability of the 'Add Target' button") {

@@ -11,6 +11,9 @@
 		7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */; };
 		7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */; };
 		7B2EAE401D85F5CE00A91234 /* BuildDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3F1D85F5CE00A91234 /* BuildDataDeserializerSpec.swift */; };
+		7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */; };
+		7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */; };
+		7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */; };
 		7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */; };
 		7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */; };
 		7BA032111D843FE300F20E23 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320E1D843FE300F20E23 /* Token.swift */; };
@@ -98,6 +101,9 @@
 		7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildServiceSpec.swift; sourceTree = "<group>"; };
 		7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDataDeserializer.swift; sourceTree = "<group>"; };
 		7B2EAE3F1D85F5CE00A91234 /* BuildDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDataDeserializerSpec.swift; sourceTree = "<group>"; };
+		7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageOperator.swift; sourceTree = "<group>"; };
+		7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageOperatorSpec.swift; sourceTree = "<group>"; };
+		7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageDelegate.swift; sourceTree = "<group>"; };
 		7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializer.swift; sourceTree = "<group>"; };
 		7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthenticatedTokenService.swift; sourceTree = "<group>"; };
 		7BA0320E1D843FE300F20E23 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -166,7 +172,7 @@
 		AE343E6D1D7F66D8008251CA /* Fleet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fleet.framework; path = Carthage/Build/iOS/Fleet.framework; sourceTree = "<group>"; };
 		AE343E871D7F8AA9008251CA /* NSUserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsService.swift; sourceTree = "<group>"; };
 		AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCoreExtensions.framework; path = Carthage/Build/iOS/SwiftCoreExtensions.framework; sourceTree = "<group>"; };
-		AEA5D50B1D7F2CEC00D76EBA /* ConcourseCI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcourseCI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEA5D50B1D7F2CEC00D76EBA /* FrequentFlyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrequentFlyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AEA5D51A1D7F2CEC00D76EBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -196,6 +202,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B2F958E1D8700D100094226 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */,
+				7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
+		7B4625B21D87A45800769B0B /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
 		7BA032001D843E3800F20E23 /* Target */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,7 +392,7 @@
 		AEA5D50C1D7F2CEC00D76EBA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AEA5D50B1D7F2CEC00D76EBA /* ConcourseCI.app */,
+				AEA5D50B1D7F2CEC00D76EBA /* FrequentFlyer.app */,
 				AEA5D51F1D7F2CEC00D76EBA /* FrequentFlyerTests.xctest */,
 			);
 			name = Products;
@@ -384,6 +407,7 @@
 				AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */,
 				AEA5D51A1D7F2CEC00D76EBA /* Info.plist */,
 				AE343E871D7F8AA9008251CA /* NSUserDefaultsService.swift */,
+				7B2F958E1D8700D100094226 /* Input */,
 				7BA032051D843EDD00F20E23 /* Authentication */,
 				7BA032041D843E5800F20E23 /* HTTP */,
 				7BA032031D843E5200F20E23 /* Error */,
@@ -397,6 +421,7 @@
 		AEA5D5221D7F2CEC00D76EBA /* FrequentFlyerTests */ = {
 			isa = PBXGroup;
 			children = (
+				7B4625B21D87A45800769B0B /* Input */,
 				7BA032061D843F2200F20E23 /* Authentication */,
 				7BA032071D843F2800F20E23 /* HTTP */,
 				7BA032081D843F2C00F20E23 /* Error */,
@@ -426,7 +451,7 @@
 			);
 			name = FrequentFlyer;
 			productName = FrequentFlyer;
-			productReference = AEA5D50B1D7F2CEC00D76EBA /* ConcourseCI.app */;
+			productReference = AEA5D50B1D7F2CEC00D76EBA /* FrequentFlyer.app */;
 			productType = "com.apple.product-type.application";
 		};
 		AEA5D51E1D7F2CEC00D76EBA /* FrequentFlyerTests */ = {
@@ -551,6 +576,7 @@
 				7BA032191D843FEE00F20E23 /* Error.swift in Sources */,
 				7BA032141D843FE800F20E23 /* HTTPResponse.swift in Sources */,
 				AE343E881D7F8AA9008251CA /* NSUserDefaultsService.swift in Sources */,
+				7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */,
 				7BA032231D843FF300F20E23 /* BuildsViewController.swift in Sources */,
 				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
 				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
@@ -584,6 +610,7 @@
 				7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */,
 				7BA0326B1D8441E200F20E23 /* AuthMethod.swift in Sources */,
 				7BA0323C1D843FFE00F20E23 /* TargetListDataDeserializer.swift in Sources */,
+				7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */,
 				7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -604,6 +631,7 @@
 				7B2EAE401D85F5CE00A91234 /* BuildDataDeserializerSpec.swift in Sources */,
 				7BA0325B1D84401900F20E23 /* TeamPipelinesServiceSpec.swift in Sources */,
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
+				7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */,
 				7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */,
 				7BA0326D1D84465800F20E23 /* AuthMethodSpec.swift in Sources */,
 				7BA032711D84826400F20E23 /* AuthCredentialsViewControllerSpec.swift in Sources */,
