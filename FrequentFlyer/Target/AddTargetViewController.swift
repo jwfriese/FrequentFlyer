@@ -124,7 +124,9 @@ extension AddTargetViewController: AuthCredentialsDelegate {
 extension AddTargetViewController: UserTextInputPageDelegate {
     var textFields: [UITextField] {
         get {
-            return [targetNameTextField!, concourseURLTextField!]
+            guard let targetNameTextField = targetNameTextField else { return [] }
+            guard let concourseURLTextField = concourseURLTextField else { return [] }
+            return [targetNameTextField, concourseURLTextField]
         }
     }
 
@@ -136,7 +138,8 @@ extension AddTargetViewController: UserTextInputPageDelegate {
 
     var pageScrollView: UIScrollView {
         get {
-            return scrollView!
+            guard let scrollView = scrollView else { return UIScrollView() }
+            return scrollView
         }
     }
 }

@@ -37,6 +37,8 @@ class TargetListViewController: UIViewController {
                 authMethodsService.httpClient = HTTPClient()
                 authMethodsService.authMethodsDataDeserializer = AuthMethodDataDeserializer()
                 addTargetViewController.authMethodsService = authMethodsService
+
+                addTargetViewController.userTextInputPageOperator = UserTextInputPageOperator()
             }
         } else if segue.identifier == TargetListViewController.showTargetBuildsSegueId {
             if let teamPipelinesViewController = segue.destinationViewController as? TeamPipelinesViewController {

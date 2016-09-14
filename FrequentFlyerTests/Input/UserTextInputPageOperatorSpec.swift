@@ -99,10 +99,6 @@ class UserTextInputPageOperatorSpec: QuickSpec {
                         expect(delegate.scrollView.scrollIndicatorInsets).to(equal(UIEdgeInsetsMake(0, 0, 200, 0)))
                     }
 
-                    it("adjusts the delegate scroll view's content offset") {
-                        expect(delegate.scrollView.contentOffset).to(equal(CGPointMake(0, 100)))
-                    }
-
                     describe("When the keyboard disappears") {
                         beforeEach {
                             let keyboardHideNotification = NSNotification(name: UIKeyboardWillHideNotification, object: nil)

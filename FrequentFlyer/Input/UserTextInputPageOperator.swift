@@ -38,20 +38,12 @@ class UserTextInputPageOperator {
         guard let delegate = delegate else {
             throw BasicError(details: "UserTextInputPageOperator requires a UserTextInputPageDelegate to function")
         }
-        guard let activeTextField = activeTextField else { return }
 
         let userInfo: NSDictionary = notification.userInfo!
         let keyboardSize = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey)!.CGRectValue.size
         let contentInsets = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
         delegate.pageScrollView.contentInset = contentInsets
         delegate.pageScrollView.scrollIndicatorInsets = contentInsets
-
-        var viewRect = delegate.pageView.frame
-        viewRect.size.height -= keyboardSize.height
-        if CGRectContainsPoint(viewRect, activeTextField.frame.origin) {
-            let scrollPoint = CGPointMake(0, activeTextField.frame.origin.y - keyboardSize.height)
-            delegate.pageScrollView.setContentOffset(scrollPoint, animated: true)
-        }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) throws {

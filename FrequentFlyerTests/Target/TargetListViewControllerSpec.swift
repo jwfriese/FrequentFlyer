@@ -141,6 +141,10 @@ class TargetListViewControllerSpec: QuickSpec {
                         expect(authMethodsService.authMethodsDataDeserializer).toNot(beNil())
                     }
 
+                    it("sets a UserTextInputPageOperator on the controller") {
+                        expect(mockAddTargetViewController.userTextInputPageOperator).toNot(beNil())
+                    }
+
                     describe("Handling addition of a target") {
                         var addedTarget: Target!
 
