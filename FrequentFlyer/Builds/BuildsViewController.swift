@@ -20,7 +20,7 @@ class BuildsViewController: UIViewController {
         guard let target = target else { return }
         guard let buildsService = buildsService else { return }
 
-        title = "\(pipeline.name) Builds"
+        title = "Builds"
         buildsTableView?.dataSource = self
         buildsTableView?.delegate = self
 
@@ -28,7 +28,7 @@ class BuildsViewController: UIViewController {
             var buildsForPipeline: [Build]?
             if let builds = builds {
                 buildsForPipeline = builds.filter { build in
-                    return build.pipelineName == self.pipeline?.name
+                    return build.pipelineName == pipeline.name
                 }
             }
 

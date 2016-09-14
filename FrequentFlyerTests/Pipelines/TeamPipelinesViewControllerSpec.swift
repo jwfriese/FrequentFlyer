@@ -46,7 +46,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                 }
 
                 it("sets the title") {
-                    expect(subject.title).to(equal("turtle target Pipelines"))
+                    expect(subject.title).to(equal("Pipelines"))
                 }
 
                 it("sets itself as the data source for its table view") {

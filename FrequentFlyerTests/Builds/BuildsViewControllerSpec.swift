@@ -47,7 +47,7 @@ class BuildsViewControllerSpec: QuickSpec {
                 }
 
                 it("sets its title") {
-                    expect(subject.title).to(equal("turtle pipeline Builds"))
+                    expect(subject.title).to(equal("Builds"))
                 }
 
                 it("sets itself as the data source of its table view") {

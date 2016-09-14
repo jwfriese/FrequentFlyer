@@ -16,7 +16,7 @@ class TeamPipelinesViewController: UIViewController {
         guard let target = target else { return }
         guard let teamPipelinesService = teamPipelinesService else { return }
 
-        title = "\(target.name) Pipelines"
+        title = "Pipelines"
         teamPipelinesService.getPipelines(forTarget: target) { pipelines, error in
             self.pipelines = pipelines
             dispatch_async(dispatch_get_main_queue()) {
