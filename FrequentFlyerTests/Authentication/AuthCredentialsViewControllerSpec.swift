@@ -30,10 +30,21 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
             }
         }
 
+        class MockKeychainWrapper: KeychainWrapper {
+            var capturedAuthInfo: AuthInfo?
+            var capturedTargetName: String?
+
+            override func saveAuthInfo(authInfo: AuthInfo, forTargetWithName targetName: String) {
+                capturedAuthInfo = authInfo
+                capturedTargetName = targetName
+            }
+        }
+
         describe("AuthCredentialsViewController") {
             var subject: AuthCredentialsViewController!
             var mockAuthServiceConsumer: MockAuthServiceConsumer!
             var mockBasicAuthTokenService: MockBasicAuthTokenService!
+            var mockKeychainWrapper: MockKeychainWrapper!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -45,6 +56,10 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
                 mockBasicAuthTokenService = MockBasicAuthTokenService()
                 subject.basicAuthTokenService = mockBasicAuthTokenService
 
+                mockKeychainWrapper = MockKeychainWrapper()
+                subject.keychainWrapper = mockKeychainWrapper
+
+                subject.targetName = "turtle target"
                 subject.concourseURLString = "concourse URL"
             }
 
@@ -134,6 +149,11 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
 
                             let token = Token(value: "turtle token")
                             completion(token, nil)
+                        }
+
+                        it("asks the KeychainWrapper to save the authentication info for this target") {
+                            expect(mockKeychainWrapper.capturedAuthInfo).to(equal(AuthInfo(username: "turtle username", token: Token(value: "turtle token"))))
+                            expect(mockKeychainWrapper.capturedTargetName).to(equal("turtle target"))
                         }
 
                         it("passes the token along to the delegate") {

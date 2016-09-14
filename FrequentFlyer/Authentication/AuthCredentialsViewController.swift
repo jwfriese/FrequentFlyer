@@ -7,7 +7,9 @@ class AuthCredentialsViewController: UIViewController {
 
     var authServiceConsumer: AuthServiceConsumer?
     var basicAuthTokenService: BasicAuthTokenService?
+    var targetName: String?
     var concourseURLString: String?
+    var keychainWrapper: KeychainWrapper?
 
     class var storyboardIdentifier: String { get { return "AuthCredentials" } }
 
@@ -23,8 +25,10 @@ class AuthCredentialsViewController: UIViewController {
         guard let basicAuthTokenService = basicAuthTokenService else { return }
         guard let username = usernameTextField?.text else { return }
         guard let password = passwordTextField?.text else { return }
+        guard let targetName = targetName else { return }
         guard let concourseURL = concourseURLString else { return }
         guard let authCredentialsDelegate = authServiceConsumer else { return }
+        guard let keychainWrapper = keychainWrapper else { return }
 
         basicAuthTokenService.getToken(forTeamWithName: "main", concourseURL: concourseURL, username: username, password: password) { token, error in
             if let error = error {
@@ -38,6 +42,8 @@ class AuthCredentialsViewController: UIViewController {
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
             } else if let token = token {
+                let authInfo = AuthInfo(username: username, token: token)
+                keychainWrapper.saveAuthInfo(authInfo, forTargetWithName: targetName)
                 authCredentialsDelegate.onAuthenticationCompleted(withToken: token)
             }
         }

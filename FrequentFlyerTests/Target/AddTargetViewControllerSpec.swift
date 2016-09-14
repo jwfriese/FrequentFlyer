@@ -189,8 +189,16 @@ class AddTargetViewControllerSpec: QuickSpec {
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.basicAuthTokenService?.tokenDataDeserializer).toEventuallyNot(beNil())
                         }
 
+                        it("sets the entered target name on the modal") {
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.targetName).toEventually(equal("turtle target"))
+                        }
+
                         it("sets the entered Concourse URL on the modal") {
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.concourseURLString).toEventually(equal("concourse URL"))
+                        }
+
+                        it("sets a KeychainWrapper on the modal") {
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.keychainWrapper).toEventuallyNot(beNil())
                         }
 
                         describe("When the modal finishes collecting credentials") {

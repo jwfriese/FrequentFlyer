@@ -37,7 +37,9 @@ class AddTargetViewController: UIViewController {
                 basicAuthTokenService.tokenDataDeserializer = TokenDataDeserializer()
                 authCredentialsViewController.basicAuthTokenService = basicAuthTokenService
 
+                authCredentialsViewController.targetName = targetNameTextField?.text
                 authCredentialsViewController.concourseURLString = concourseURLTextField?.text
+                authCredentialsViewController.keychainWrapper = KeychainWrapper()
             }
         }
     }

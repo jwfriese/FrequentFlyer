@@ -74,13 +74,18 @@
 		7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */; };
 		7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */; };
 		7BA032891D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */; };
+		7BEDE1FA1D8980F10054D13B /* AuthInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE1F91D8980F10054D13B /* AuthInfo.swift */; };
+		7BEDE1FC1D89819B0054D13B /* AuthInfoSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE1FB1D89819B0054D13B /* AuthInfoSpec.swift */; };
+		7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEDE1FD1D8986C40054D13B /* Locksmith.framework */; };
+		7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */; };
+		7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2031D8989910054D13B /* KeychainWrapper.swift */; };
+		7BEDE2071D8989A70054D13B /* KeychainPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2061D8989A70054D13B /* KeychainPersistable.swift */; };
 		AE343E3C1D7F4FB8008251CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */; };
 		AE343E3D1D7F4FB8008251CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3B1D7F4FB8008251CA /* Main.storyboard */; };
 		AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E411D7F5143008251CA /* AppDelegateSpec.swift */; };
 		AE343E651D7F624B008251CA /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE343E631D7F624B008251CA /* Nimble.framework */; };
 		AE343E661D7F624B008251CA /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE343E641D7F624B008251CA /* Quick.framework */; };
 		AE343E6E1D7F66D8008251CA /* Fleet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE343E6D1D7F66D8008251CA /* Fleet.framework */; };
-		AE343E881D7F8AA9008251CA /* NSUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E871D7F8AA9008251CA /* NSUserDefaultsService.swift */; };
 		AE96536E1D807F3C00EDF682 /* SwiftCoreExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */; };
 		AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */; };
 		AEA5D5161D7F2CEC00D76EBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */; };
@@ -164,13 +169,18 @@
 		7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodDataDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
 		7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewControllerSpec.swift; sourceTree = "<group>"; };
+		7BEDE1F91D8980F10054D13B /* AuthInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthInfo.swift; sourceTree = "<group>"; };
+		7BEDE1FB1D89819B0054D13B /* AuthInfoSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthInfoSpec.swift; sourceTree = "<group>"; };
+		7BEDE1FD1D8986C40054D13B /* Locksmith.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Locksmith.framework; path = Carthage/Build/iOS/Locksmith.framework; sourceTree = "<group>"; };
+		7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsService.swift; sourceTree = "<group>"; };
+		7BEDE2031D8989910054D13B /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		7BEDE2061D8989A70054D13B /* KeychainPersistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPersistable.swift; sourceTree = "<group>"; };
 		AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE343E3B1D7F4FB8008251CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		AE343E411D7F5143008251CA /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
 		AE343E631D7F624B008251CA /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		AE343E641D7F624B008251CA /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		AE343E6D1D7F66D8008251CA /* Fleet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fleet.framework; path = Carthage/Build/iOS/Fleet.framework; sourceTree = "<group>"; };
-		AE343E871D7F8AA9008251CA /* NSUserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsService.swift; sourceTree = "<group>"; };
 		AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCoreExtensions.framework; path = Carthage/Build/iOS/SwiftCoreExtensions.framework; sourceTree = "<group>"; };
 		AEA5D50B1D7F2CEC00D76EBA /* FrequentFlyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrequentFlyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +195,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +304,7 @@
 				7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */,
 				7BA0327A1D84BC9300F20E23 /* AuthType.swift */,
 				7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */,
+				7BEDE1F91D8980F10054D13B /* AuthInfo.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -308,6 +320,7 @@
 				7BA032761D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift */,
 				7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */,
 				7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */,
+				7BEDE1FB1D89819B0054D13B /* AuthInfoSpec.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -368,9 +381,20 @@
 			path = Target;
 			sourceTree = "<group>";
 		};
+		7BEDE2001D8989400054D13B /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */,
+				7BEDE2031D8989910054D13B /* KeychainWrapper.swift */,
+				7BEDE2061D8989A70054D13B /* KeychainPersistable.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BEDE1FD1D8986C40054D13B /* Locksmith.framework */,
 				AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */,
 				AE343E6D1D7F66D8008251CA /* Fleet.framework */,
 				AE343E631D7F624B008251CA /* Nimble.framework */,
@@ -406,7 +430,7 @@
 				AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */,
 				AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */,
 				AEA5D51A1D7F2CEC00D76EBA /* Info.plist */,
-				AE343E871D7F8AA9008251CA /* NSUserDefaultsService.swift */,
+				7BEDE2001D8989400054D13B /* Persistence */,
 				7B2F958E1D8700D100094226 /* Input */,
 				7BA032051D843EDD00F20E23 /* Authentication */,
 				7BA032041D843E5800F20E23 /* HTTP */,
@@ -444,6 +468,7 @@
 				AEA5D5071D7F2CEC00D76EBA /* Sources */,
 				AEA5D5081D7F2CEC00D76EBA /* Frameworks */,
 				AEA5D5091D7F2CEC00D76EBA /* Resources */,
+				7BEDE1FF1D8986D50054D13B /* Copy Carthage frameworks */,
 			);
 			buildRules = (
 			);
@@ -533,6 +558,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7BEDE1FF1D8986D50054D13B /* Copy Carthage frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Locksmith.framework",
+			);
+			name = "Copy Carthage frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
 		AE343E671D7F6259008251CA /* Copy Carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -575,9 +615,10 @@
 				7BA032301D843FF900F20E23 /* PipelineDataDeserializer.swift in Sources */,
 				7BA032191D843FEE00F20E23 /* Error.swift in Sources */,
 				7BA032141D843FE800F20E23 /* HTTPResponse.swift in Sources */,
-				AE343E881D7F8AA9008251CA /* NSUserDefaultsService.swift in Sources */,
+				7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */,
 				7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */,
 				7BA032231D843FF300F20E23 /* BuildsViewController.swift in Sources */,
+				7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */,
 				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
 				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
 				7BA032271D843FF300F20E23 /* Build.swift in Sources */,
@@ -604,6 +645,7 @@
 				7BA0323F1D843FFE00F20E23 /* AddTargetDelegate.swift in Sources */,
 				7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */,
 				7BA032391D843FFE00F20E23 /* TargetListViewController.swift in Sources */,
+				7BEDE2071D8989A70054D13B /* KeychainPersistable.swift in Sources */,
 				AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */,
 				7BA0323B1D843FFE00F20E23 /* TargetListService.swift in Sources */,
 				7BA0322D1D843FF900F20E23 /* TeamPipelinesViewController.swift in Sources */,
@@ -612,6 +654,7 @@
 				7BA0323C1D843FFE00F20E23 /* TargetListDataDeserializer.swift in Sources */,
 				7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */,
 				7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */,
+				7BEDE1FA1D8980F10054D13B /* AuthInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,6 +683,7 @@
 				7BA032641D84401E00F20E23 /* TargetListViewControllerSpec.swift in Sources */,
 				7BA032541D84401400F20E23 /* BuildSpec.swift in Sources */,
 				7BA032651D84401E00F20E23 /* TargetListServiceSpec.swift in Sources */,
+				7BEDE1FC1D89819B0054D13B /* AuthInfoSpec.swift in Sources */,
 				7BA032441D84400400F20E23 /* TokenDataDeserializerSpec.swift in Sources */,
 				7BA032521D84401400F20E23 /* BuildsViewControllerSpec.swift in Sources */,
 				7BA032671D84401E00F20E23 /* AddTargetViewControllerSpec.swift in Sources */,
@@ -764,6 +808,10 @@
 			buildSettings = {
 				APP_DELEGATE_NAME = AppDelegate;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = FrequentFlyer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
@@ -777,6 +825,10 @@
 			buildSettings = {
 				APP_DELEGATE_NAME = AppDelegate;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = FrequentFlyer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
