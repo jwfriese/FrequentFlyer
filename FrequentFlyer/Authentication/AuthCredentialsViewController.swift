@@ -5,7 +5,7 @@ class AuthCredentialsViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField?
     @IBOutlet weak var submitButton: UIButton?
 
-    var authCredentialsDelegate: AuthCredentialsDelegate?
+    var authServiceConsumer: AuthServiceConsumer?
     var basicAuthTokenService: BasicAuthTokenService?
     var concourseURLString: String?
 
@@ -24,7 +24,7 @@ class AuthCredentialsViewController: UIViewController {
         guard let username = usernameTextField?.text else { return }
         guard let password = passwordTextField?.text else { return }
         guard let concourseURL = concourseURLString else { return }
-        guard let authCredentialsDelegate = authCredentialsDelegate else { return }
+        guard let authCredentialsDelegate = authServiceConsumer else { return }
 
         basicAuthTokenService.getToken(forTeamWithName: "main", concourseURL: concourseURL, username: username, password: password) { token, error in
             if let error = error {
@@ -38,7 +38,7 @@ class AuthCredentialsViewController: UIViewController {
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
             } else if let token = token {
-                authCredentialsDelegate.onCredentialsEntered(token)
+                authCredentialsDelegate.onAuthenticationCompleted(withToken: token)
             }
         }
     }

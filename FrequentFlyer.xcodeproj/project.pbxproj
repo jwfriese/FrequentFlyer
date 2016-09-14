@@ -65,7 +65,7 @@
 		7BA0326D1D84465800F20E23 /* AuthMethodSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0326C1D84465800F20E23 /* AuthMethodSpec.swift */; };
 		7BA0326F1D84824100F20E23 /* AuthCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0326E1D84824100F20E23 /* AuthCredentialsViewController.swift */; };
 		7BA032711D84826400F20E23 /* AuthCredentialsViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032701D84826400F20E23 /* AuthCredentialsViewControllerSpec.swift */; };
-		7BA032731D84890100F20E23 /* AuthCredentialsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032721D84890100F20E23 /* AuthCredentialsDelegate.swift */; };
+		7BA032731D84890100F20E23 /* AuthServiceConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032721D84890100F20E23 /* AuthServiceConsumer.swift */; };
 		7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */; };
 		7BA032771D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032761D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift */; };
 		7BA032791D84908000F20E23 /* AuthMethodsServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */; };
@@ -155,7 +155,7 @@
 		7BA0326C1D84465800F20E23 /* AuthMethodSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodSpec.swift; sourceTree = "<group>"; };
 		7BA0326E1D84824100F20E23 /* AuthCredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCredentialsViewController.swift; sourceTree = "<group>"; };
 		7BA032701D84826400F20E23 /* AuthCredentialsViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCredentialsViewControllerSpec.swift; sourceTree = "<group>"; };
-		7BA032721D84890100F20E23 /* AuthCredentialsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCredentialsDelegate.swift; sourceTree = "<group>"; };
+		7BA032721D84890100F20E23 /* AuthServiceConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthServiceConsumer.swift; sourceTree = "<group>"; };
 		7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAuthTokenService.swift; sourceTree = "<group>"; };
 		7BA032761D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAuthTokenServiceSpec.swift; sourceTree = "<group>"; };
 		7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodsServiceSpec.swift; sourceTree = "<group>"; };
@@ -289,7 +289,7 @@
 				7BA032681D8441AC00F20E23 /* AuthMethodsService.swift */,
 				7BA0326A1D8441E200F20E23 /* AuthMethod.swift */,
 				7BA0326E1D84824100F20E23 /* AuthCredentialsViewController.swift */,
-				7BA032721D84890100F20E23 /* AuthCredentialsDelegate.swift */,
+				7BA032721D84890100F20E23 /* AuthServiceConsumer.swift */,
 				7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */,
 				7BA0327A1D84BC9300F20E23 /* AuthType.swift */,
 				7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */,
@@ -596,7 +596,7 @@
 				7BA032691D8441AC00F20E23 /* AuthMethodsService.swift in Sources */,
 				7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */,
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
-				7BA032731D84890100F20E23 /* AuthCredentialsDelegate.swift in Sources */,
+				7BA032731D84890100F20E23 /* AuthServiceConsumer.swift in Sources */,
 				7BA0323A1D843FFE00F20E23 /* TargetListTableViewCell.swift in Sources */,
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
 				7BA0326F1D84824100F20E23 /* AuthCredentialsViewController.swift in Sources */,

@@ -30,7 +30,7 @@ class AddTargetViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == AddTargetViewController.presentAuthCredentialsSegueId {
             if let authCredentialsViewController = segue.destinationViewController as? AuthCredentialsViewController {
-                authCredentialsViewController.authCredentialsDelegate = self
+                authCredentialsViewController.authServiceConsumer = self
 
                 let basicAuthTokenService = BasicAuthTokenService()
                 basicAuthTokenService.httpClient = HTTPClient()
@@ -103,8 +103,8 @@ extension AddTargetViewController: UITextFieldDelegate {
     }
 }
 
-extension AddTargetViewController: AuthCredentialsDelegate {
-    func onCredentialsEntered(token: Token) {
+extension AddTargetViewController: AuthServiceConsumer {
+    func onAuthenticationCompleted(withToken token: Token) {
         guard let targetName = targetNameTextField?.text else { return }
         guard let concourseURL = concourseURLTextField?.text else { return }
         guard let addTargetDelegate = addTargetDelegate else { return }

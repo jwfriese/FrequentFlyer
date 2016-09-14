@@ -6,10 +6,10 @@ import Fleet
 
 class AuthCredentialsViewControllerSpec: QuickSpec {
     override func spec() {
-        class MockAuthCredentialsDelegate: AuthCredentialsDelegate {
+        class MockAuthServiceConsumer: AuthServiceConsumer {
             var capturedToken: Token?
 
-            func onCredentialsEntered(token: Token) {
+            func onAuthenticationCompleted(withToken token: Token) {
                 capturedToken = token
             }
         }
@@ -32,15 +32,15 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
 
         describe("AuthCredentialsViewController") {
             var subject: AuthCredentialsViewController!
-            var mockAuthCredentialsDelegate: MockAuthCredentialsDelegate!
+            var mockAuthServiceConsumer: MockAuthServiceConsumer!
             var mockBasicAuthTokenService: MockBasicAuthTokenService!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 subject = storyboard.instantiateViewControllerWithIdentifier(AuthCredentialsViewController.storyboardIdentifier) as? AuthCredentialsViewController
 
-                mockAuthCredentialsDelegate = MockAuthCredentialsDelegate()
-                subject.authCredentialsDelegate = mockAuthCredentialsDelegate
+                mockAuthServiceConsumer = MockAuthServiceConsumer()
+                subject.authServiceConsumer = mockAuthServiceConsumer
 
                 mockBasicAuthTokenService = MockBasicAuthTokenService()
                 subject.basicAuthTokenService = mockBasicAuthTokenService
@@ -137,7 +137,7 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
                         }
 
                         it("passes the token along to the delegate") {
-                            expect(mockAuthCredentialsDelegate.capturedToken).to(equal(Token(value: "turtle token")))
+                            expect(mockAuthServiceConsumer.capturedToken).to(equal(Token(value: "turtle token")))
                         }
                     }
 
