@@ -4,6 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -279,78 +280,89 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-4S-nYl">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-4S-nYl">
                                 <rect key="frame" x="20" y="64" width="560" height="536"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0K-PP-EEo" userLabel="Scroll View Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                        <subviews>
-                                            <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4UN-8n-ZNK">
-                                                <rect key="frame" x="32" y="72" width="99" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k5J-Kx-TgM">
-                                                <rect key="frame" x="155" y="68" width="373" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Concourse URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysM-4v-PdI">
-                                                <rect key="frame" x="11" y="129" width="120" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iC4-Ed-wBP">
-                                                <rect key="frame" x="155" y="124" width="373" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deX-hu-q20">
-                                                <rect key="frame" x="247" y="186" width="107" height="39"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                <state key="normal" title="Add Target"/>
-                                                <connections>
-                                                    <action selector="onAddTargetTapped" destination="0Be-Y2-4FU" eventType="touchUpInside" id="VcW-pg-gEV"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="4UN-8n-ZNK" firstAttribute="leading" secondItem="M0K-PP-EEo" secondAttribute="leading" constant="32" id="Aka-Ba-yPV"/>
-                                            <constraint firstAttribute="trailing" secondItem="k5J-Kx-TgM" secondAttribute="trailing" constant="72" id="Az6-Kb-Zkv"/>
-                                            <constraint firstItem="iC4-Ed-wBP" firstAttribute="centerY" secondItem="ysM-4v-PdI" secondAttribute="centerY" id="Eiy-b0-bFA"/>
-                                            <constraint firstItem="ysM-4v-PdI" firstAttribute="trailing" secondItem="4UN-8n-ZNK" secondAttribute="trailing" id="FVv-Zh-ymd"/>
-                                            <constraint firstItem="deX-hu-q20" firstAttribute="centerX" secondItem="M0K-PP-EEo" secondAttribute="centerX" id="Hi9-UQ-TfZ"/>
-                                            <constraint firstItem="deX-hu-q20" firstAttribute="top" secondItem="iC4-Ed-wBP" secondAttribute="bottom" constant="32" id="HiH-bc-3e0"/>
-                                            <constraint firstItem="4UN-8n-ZNK" firstAttribute="top" secondItem="M0K-PP-EEo" secondAttribute="top" constant="72" id="ORJ-hO-5Kz"/>
-                                            <constraint firstItem="ysM-4v-PdI" firstAttribute="top" secondItem="4UN-8n-ZNK" secondAttribute="bottom" constant="36" id="UZJ-xj-KWH"/>
-                                            <constraint firstItem="k5J-Kx-TgM" firstAttribute="leading" secondItem="4UN-8n-ZNK" secondAttribute="trailing" constant="24" id="dws-1h-lWh"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="deX-hu-q20" secondAttribute="bottom" constant="48" id="kIL-Kd-hdH"/>
-                                            <constraint firstItem="iC4-Ed-wBP" firstAttribute="leading" secondItem="k5J-Kx-TgM" secondAttribute="leading" id="kYP-C1-3zG"/>
-                                            <constraint firstItem="k5J-Kx-TgM" firstAttribute="centerY" secondItem="4UN-8n-ZNK" secondAttribute="centerY" id="nRa-QN-zpD"/>
-                                            <constraint firstItem="iC4-Ed-wBP" firstAttribute="trailing" secondItem="k5J-Kx-TgM" secondAttribute="trailing" id="xiB-do-Lh6"/>
-                                        </constraints>
-                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4UN-8n-ZNK">
+                                        <rect key="frame" x="24" y="32" width="99" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k5J-Kx-TgM">
+                                        <rect key="frame" x="147" y="28" width="389" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Concourse URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysM-4v-PdI">
+                                        <rect key="frame" x="3" y="101" width="120" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iC4-Ed-wBP">
+                                        <rect key="frame" x="147" y="96" width="389" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deX-hu-q20">
+                                        <rect key="frame" x="226" y="174" width="107" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Add Target"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onAddTargetTapped" destination="0Be-Y2-4FU" eventType="touchUpInside" id="VcW-pg-gEV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="M0K-PP-EEo" firstAttribute="leading" secondItem="kzc-4S-nYl" secondAttribute="leading" id="EUu-CT-PAk"/>
-                                    <constraint firstItem="M0K-PP-EEo" firstAttribute="top" secondItem="kzc-4S-nYl" secondAttribute="top" id="XnV-gu-fJc"/>
-                                    <constraint firstAttribute="trailing" secondItem="M0K-PP-EEo" secondAttribute="trailing" id="gsG-9y-9gh"/>
-                                    <constraint firstAttribute="bottom" secondItem="M0K-PP-EEo" secondAttribute="bottom" id="kER-U4-Y8R"/>
+                                    <constraint firstItem="4UN-8n-ZNK" firstAttribute="top" secondItem="kzc-4S-nYl" secondAttribute="top" constant="32" id="0L4-Y6-TXY"/>
+                                    <constraint firstItem="ysM-4v-PdI" firstAttribute="top" secondItem="4UN-8n-ZNK" secondAttribute="bottom" constant="48" id="DAB-Sa-gYo"/>
+                                    <constraint firstItem="k5J-Kx-TgM" firstAttribute="leading" secondItem="4UN-8n-ZNK" secondAttribute="trailing" constant="24" id="Kt2-Oc-g4s"/>
+                                    <constraint firstItem="deX-hu-q20" firstAttribute="centerX" secondItem="kzc-4S-nYl" secondAttribute="centerX" id="LPW-Ve-lFh"/>
+                                    <constraint firstAttribute="trailing" secondItem="k5J-Kx-TgM" secondAttribute="trailing" constant="12" id="NYJ-4G-xEn"/>
+                                    <constraint firstItem="iC4-Ed-wBP" firstAttribute="leading" secondItem="k5J-Kx-TgM" secondAttribute="leading" id="RGh-9b-sV4"/>
+                                    <constraint firstItem="ysM-4v-PdI" firstAttribute="trailing" secondItem="4UN-8n-ZNK" secondAttribute="trailing" id="UaO-NA-JJb"/>
+                                    <constraint firstItem="4UN-8n-ZNK" firstAttribute="leading" secondItem="kzc-4S-nYl" secondAttribute="leading" constant="24" id="YDk-ba-zlq"/>
+                                    <constraint firstItem="k5J-Kx-TgM" firstAttribute="centerY" secondItem="4UN-8n-ZNK" secondAttribute="centerY" id="cKB-Pv-VlO"/>
+                                    <constraint firstItem="iC4-Ed-wBP" firstAttribute="centerY" secondItem="ysM-4v-PdI" secondAttribute="centerY" id="nwP-gW-ZtJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="deX-hu-q20" secondAttribute="bottom" constant="72" id="raN-dJ-M1J"/>
+                                    <constraint firstItem="deX-hu-q20" firstAttribute="top" secondItem="iC4-Ed-wBP" secondAttribute="bottom" constant="48" id="t5e-oG-Bgb"/>
+                                    <constraint firstItem="iC4-Ed-wBP" firstAttribute="trailing" secondItem="k5J-Kx-TgM" secondAttribute="trailing" id="ycF-g2-BDL"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="M0K-PP-EEo" firstAttribute="width" secondItem="PAp-MD-Gpz" secondAttribute="width" id="1p8-4f-4fs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="k5J-Kx-TgM" secondAttribute="trailing" constant="24" id="7aj-Qk-4W1"/>
                             <constraint firstItem="qh0-x1-2QF" firstAttribute="top" secondItem="kzc-4S-nYl" secondAttribute="bottom" id="RP2-dV-k0L"/>
-                            <constraint firstItem="M0K-PP-EEo" firstAttribute="height" secondItem="PAp-MD-Gpz" secondAttribute="height" id="eOO-IQ-MaN"/>
+                            <constraint firstItem="k5J-Kx-TgM" firstAttribute="width" relation="greaterThanOrEqual" secondItem="PAp-MD-Gpz" secondAttribute="width" multiplier="0.3" id="Xra-39-eaP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kzc-4S-nYl" secondAttribute="trailing" id="iLI-Iz-MZV"/>
                             <constraint firstItem="kzc-4S-nYl" firstAttribute="top" secondItem="x6i-VT-uej" secondAttribute="bottom" id="rO6-9d-fwW"/>
                             <constraint firstItem="kzc-4S-nYl" firstAttribute="leading" secondItem="PAp-MD-Gpz" secondAttribute="leadingMargin" id="zrJ-Yi-cRV"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Xra-39-eaP"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="addTargetButton" destination="deX-hu-q20" id="gjG-Fi-ioe"/>
