@@ -80,6 +80,10 @@
 		7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */; };
 		7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2031D8989910054D13B /* KeychainWrapper.swift */; };
 		7BEDE2071D8989A70054D13B /* KeychainPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2061D8989A70054D13B /* KeychainPersistable.swift */; };
+		7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2091D89E6300054D13B /* Factory.swift */; };
+		7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */; };
+		7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */; };
+		7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2241D8C29770054D13B /* FactoryError.swift */; };
 		AE343E3C1D7F4FB8008251CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */; };
 		AE343E3D1D7F4FB8008251CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3B1D7F4FB8008251CA /* Main.storyboard */; };
 		AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E411D7F5143008251CA /* AppDelegateSpec.swift */; };
@@ -175,6 +179,10 @@
 		7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsService.swift; sourceTree = "<group>"; };
 		7BEDE2031D8989910054D13B /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		7BEDE2061D8989A70054D13B /* KeychainPersistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPersistable.swift; sourceTree = "<group>"; };
+		7BEDE2091D89E6300054D13B /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactory.swift; sourceTree = "<group>"; };
+		7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactorySpec.swift; sourceTree = "<group>"; };
+		7BEDE2241D8C29770054D13B /* FactoryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryError.swift; sourceTree = "<group>"; };
 		AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE343E3B1D7F4FB8008251CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		AE343E411D7F5143008251CA /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
@@ -391,6 +399,25 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		7BEDE2081D89E6080054D13B /* TestFactories */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDE2091D89E6300054D13B /* Factory.swift */,
+				7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */,
+				7BEDE2241D8C29770054D13B /* FactoryError.swift */,
+				7BEDE20D1D8AC0780054D13B /* Tests */,
+			);
+			path = TestFactories;
+			sourceTree = "<group>";
+		};
+		7BEDE20D1D8AC0780054D13B /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +472,7 @@
 		AEA5D5221D7F2CEC00D76EBA /* FrequentFlyerTests */ = {
 			isa = PBXGroup;
 			children = (
+				7BEDE2081D89E6080054D13B /* TestFactories */,
 				7B4625B21D87A45800769B0B /* Input */,
 				7BA032061D843F2200F20E23 /* Authentication */,
 				7BA032071D843F2800F20E23 /* HTTP */,
@@ -674,7 +702,9 @@
 				7B2EAE401D85F5CE00A91234 /* BuildDataDeserializerSpec.swift in Sources */,
 				7BA0325B1D84401900F20E23 /* TeamPipelinesServiceSpec.swift in Sources */,
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
+				7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */,
 				7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */,
+				7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */,
 				7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */,
 				7BA0326D1D84465800F20E23 /* AuthMethodSpec.swift in Sources */,
 				7BA032711D84826400F20E23 /* AuthCredentialsViewControllerSpec.swift in Sources */,
@@ -692,6 +722,8 @@
 				7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */,
 				7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */,
 				7BA032661D84401E00F20E23 /* TargetListDataDeserializerSpec.swift in Sources */,
+				7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */,
+				7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */,
 				7BA0324C1D84400E00F20E23 /* DeserializationErrorSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
