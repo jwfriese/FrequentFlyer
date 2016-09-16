@@ -179,24 +179,31 @@ class AddTargetViewControllerSpec: QuickSpec {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockAuthCredentialsViewController))
                         }
 
-                        it("sets itself as the AuthCredentialsDelegate of the modal") {
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.authCredentialsDelegate).toEventually(beIdenticalTo(subject))
+                        it("sets itself as the AuthServiceConsumer of the modal") {
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.authServiceConsumer).toEventually(beIdenticalTo(subject))
                         }
 
                         it("sets a BasicAuthTokenService on the modal") {
-
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.basicAuthTokenService).toEventuallyNot(beNil())
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.basicAuthTokenService?.httpClient).toEventuallyNot(beNil())
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.basicAuthTokenService?.tokenDataDeserializer).toEventuallyNot(beNil())
+                        }
+
+                        it("sets the entered target name on the modal") {
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.targetName).toEventually(equal("turtle target"))
                         }
 
                         it("sets the entered Concourse URL on the modal") {
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.concourseURLString).toEventually(equal("concourse URL"))
                         }
 
+                        it("sets a KeychainWrapper on the modal") {
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? AuthCredentialsViewController)?.keychainWrapper).toEventuallyNot(beNil())
+                        }
+
                         describe("When the modal finishes collecting credentials") {
                             beforeEach {
-                                subject.onCredentialsEntered(Token(value: "turtle token"))
+                                subject.onAuthenticationCompleted(withToken: Token(value: "turtle token"))
                             }
 
                             it("dismisses the auth credentials modal") {

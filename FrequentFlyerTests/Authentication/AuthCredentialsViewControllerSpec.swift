@@ -6,10 +6,10 @@ import Fleet
 
 class AuthCredentialsViewControllerSpec: QuickSpec {
     override func spec() {
-        class MockAuthCredentialsDelegate: AuthCredentialsDelegate {
+        class MockAuthServiceConsumer: AuthServiceConsumer {
             var capturedToken: Token?
 
-            func onCredentialsEntered(token: Token) {
+            func onAuthenticationCompleted(withToken token: Token) {
                 capturedToken = token
             }
         }
@@ -30,21 +30,36 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
             }
         }
 
+        class MockKeychainWrapper: KeychainWrapper {
+            var capturedAuthInfo: AuthInfo?
+            var capturedTargetName: String?
+
+            override func saveAuthInfo(authInfo: AuthInfo, forTargetWithName targetName: String) {
+                capturedAuthInfo = authInfo
+                capturedTargetName = targetName
+            }
+        }
+
         describe("AuthCredentialsViewController") {
             var subject: AuthCredentialsViewController!
-            var mockAuthCredentialsDelegate: MockAuthCredentialsDelegate!
+            var mockAuthServiceConsumer: MockAuthServiceConsumer!
             var mockBasicAuthTokenService: MockBasicAuthTokenService!
+            var mockKeychainWrapper: MockKeychainWrapper!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 subject = storyboard.instantiateViewControllerWithIdentifier(AuthCredentialsViewController.storyboardIdentifier) as? AuthCredentialsViewController
 
-                mockAuthCredentialsDelegate = MockAuthCredentialsDelegate()
-                subject.authCredentialsDelegate = mockAuthCredentialsDelegate
+                mockAuthServiceConsumer = MockAuthServiceConsumer()
+                subject.authServiceConsumer = mockAuthServiceConsumer
 
                 mockBasicAuthTokenService = MockBasicAuthTokenService()
                 subject.basicAuthTokenService = mockBasicAuthTokenService
 
+                mockKeychainWrapper = MockKeychainWrapper()
+                subject.keychainWrapper = mockKeychainWrapper
+
+                subject.targetName = "turtle target"
                 subject.concourseURLString = "concourse URL"
             }
 
@@ -136,8 +151,13 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
                             completion(token, nil)
                         }
 
+                        it("asks the KeychainWrapper to save the authentication info for this target") {
+                            expect(mockKeychainWrapper.capturedAuthInfo).to(equal(AuthInfo(username: "turtle username", token: Token(value: "turtle token"))))
+                            expect(mockKeychainWrapper.capturedTargetName).to(equal("turtle target"))
+                        }
+
                         it("passes the token along to the delegate") {
-                            expect(mockAuthCredentialsDelegate.capturedToken).to(equal(Token(value: "turtle token")))
+                            expect(mockAuthServiceConsumer.capturedToken).to(equal(Token(value: "turtle token")))
                         }
                     }
 
