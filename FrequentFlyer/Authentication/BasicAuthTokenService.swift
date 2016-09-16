@@ -16,7 +16,8 @@ class BasicAuthTokenService {
         request.HTTPMethod = "GET"
 
         let usernamePasswordData = "\(username):\(password)".dataUsingEncoding(NSUTF8StringEncoding)
-        let base64EncodedAuthenticationDetails = usernamePasswordData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
+        let base64EncodedAuthenticationDetails = usernamePasswordData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
+
         request.addValue("Basic \(base64EncodedAuthenticationDetails)", forHTTPHeaderField: "Authorization")
 
         httpClient.doRequest(request) { data, response, error in

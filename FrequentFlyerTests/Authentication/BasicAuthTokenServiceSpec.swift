@@ -41,6 +41,23 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                 subject.tokenDataDeserializer = mockTokenDataDeserializer
             }
 
+            describe("Generating the base64 encoded auth header for a super-long username:password glob") {
+                beforeEach {
+                    let crazyUsername = "561fc0a5-e06a-4bab-ab90-9a9beb55d8bc"
+                    let crazyPassword = "4d79db14-2e04-4408-8388-bdc3d0fba25a"
+                    subject.getToken(forTeamWithName: "turtle_team_name", concourseURL: "https://concourse.com", username: crazyUsername, password: crazyPassword, completion: nil)
+                }
+
+                it("generates a base64 string from the username:password glob without any newlines") {
+                    guard let request = mockHTTPClient.capturedRequest else {
+                        fail("Failed to make a call to the HTTPClient")
+                        return
+                    }
+
+                    expect(request.allHTTPHeaderFields?["Authorization"]).to(equal("Basic NTYxZmMwYTUtZTA2YS00YmFiLWFiOTAtOWE5YmViNTVkOGJjOjRkNzlkYjE0LTJlMDQtNDQwOC04Mzg4LWJkYzNkMGZiYTI1YQ=="))
+                }
+            }
+
             describe("Fetching a token with basic authentication") {
                 var capturedToken: Token?
                 var capturedError: Error?
