@@ -72,8 +72,8 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                     Fleet.setApplicationWindowRootViewController(navigationController)
                 }
 
-                it("sets a title") {
-                    expect(subject.title).to(equal("Login"))
+                it("sets a blank title") {
+                    expect(subject.title).to(equal(""))
                 }
 
                 it("sets up its Concourse URL entry text field") {

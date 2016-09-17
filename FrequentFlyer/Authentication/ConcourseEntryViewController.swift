@@ -15,7 +15,7 @@ class ConcourseEntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Login"
+        title = ""
 
         concourseURLEntryField?.autocorrectionType = .No
         concourseURLEntryField?.keyboardType = .URL
