@@ -9,8 +9,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let navigationController = storyboard.instantiateInitialViewController() as? UINavigationController
-        let targetListViewController = navigationController?.topViewController as? TargetListViewController
-        targetListViewController?.targetListService = TargetListService()
+        let concourseEntryViewController = navigationController?.topViewController as! ConcourseEntryViewController
+
+        let authMethodsService = AuthMethodsService()
+        authMethodsService.httpClient = HTTPClient()
+        authMethodsService.authMethodsDataDeserializer = AuthMethodDataDeserializer()
+        concourseEntryViewController.authMethodsService = authMethodsService
+
+        let unauthenticatedTokenService = UnauthenticatedTokenService()
+        unauthenticatedTokenService.httpClient = HTTPClient()
+        unauthenticatedTokenService.tokenDataDeserializer = TokenDataDeserializer()
+        concourseEntryViewController.unauthenticatedTokenService = unauthenticatedTokenService
+
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 

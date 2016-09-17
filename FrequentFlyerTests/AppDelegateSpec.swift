@@ -16,18 +16,32 @@ class AppDelegateSpec: QuickSpec {
                     subject.application(application, didFinishLaunchingWithOptions: nil)
                 }
 
-                it("will have set up the main window with a navigation controller containing a TargetListViewController") {
+                it("sets up the main window with a navigation controller containing a ConcourseEntryViewController and sets up the ConcourseEntryViewController with its dependencies") {
                     guard let rootNavigationController = subject.window?.rootViewController as? UINavigationController else {
                         fail("Failed to set the application window up with a navigation controller")
                         return
                     }
 
-                    guard let targetListViewController = rootNavigationController.topViewController as? TargetListViewController else {
-                        fail("Failed to set root view controller as a TargetListViewController")
+                    guard let concouseEntryViewController = rootNavigationController.topViewController as? ConcourseEntryViewController else {
+                        fail("Failed to set root view controller as a ConcourseEntryViewController")
                         return
                     }
 
-                    expect(targetListViewController.targetListService).toNot(beNil())
+                    guard let authMethodsService = concouseEntryViewController.authMethodsService else {
+                        fail("Failed to set AuthMethodsService on the ConcourseEntryViewController")
+                        return
+                    }
+
+                    expect(authMethodsService.httpClient).toNot(beNil())
+                    expect(authMethodsService.authMethodsDataDeserializer).toNot(beNil())
+
+                    guard let unauthenticatedTokenService = concouseEntryViewController.unauthenticatedTokenService else {
+                        fail("Failed to set UnauthenticatedTokenService on the ConcourseEntryViewController")
+                        return
+                    }
+
+                    expect(unauthenticatedTokenService.httpClient).toNot(beNil())
+                    expect(unauthenticatedTokenService.tokenDataDeserializer).toNot(beNil())
                 }
             }
         }

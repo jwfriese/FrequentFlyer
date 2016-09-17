@@ -4,54 +4,52 @@ import Nimble
 import Fleet
 @testable import FrequentFlyer
 
-class AuthCredentialsViewControllerSpec: QuickSpec {
+class BasicUserAuthViewControllerSpec: QuickSpec {
+    class MockBasicAuthTokenService: BasicAuthTokenService {
+        var capturedTeamName: String?
+        var capturedConcourseURL: String?
+        var capturedUsername: String?
+        var capturedPassword: String?
+        var capturedCompletion: ((Token?, Error?) -> ())?
+
+        override func getToken(forTeamWithName teamName: String, concourseURL: String, username: String, password: String, completion: ((Token?, Error?) -> ())?) {
+            capturedTeamName = teamName
+            capturedConcourseURL = concourseURL
+            capturedUsername = username
+            capturedPassword = password
+            capturedCompletion = completion
+        }
+    }
+
+    class MockKeychainWrapper: KeychainWrapper {
+        var capturedAuthInfo: AuthInfo?
+        var capturedTargetName: String?
+
+        override func saveAuthInfo(authInfo: AuthInfo, forTargetWithName targetName: String) {
+            capturedAuthInfo = authInfo
+            capturedTargetName = targetName
+        }
+    }
+
+    class MockTeamPipelinesViewController: TeamPipelinesViewController {
+        override func viewDidLoad() { }
+    }
+
     override func spec() {
-        class MockAuthServiceConsumer: AuthServiceConsumer {
-            var capturedToken: Token?
-
-            func onAuthenticationCompleted(withToken token: Token) {
-                capturedToken = token
-            }
-        }
-
-        class MockBasicAuthTokenService: BasicAuthTokenService {
-            var capturedTeamName: String?
-            var capturedConcourseURL: String?
-            var capturedUsername: String?
-            var capturedPassword: String?
-            var capturedCompletion: ((Token?, Error?) -> ())?
-
-            override func getToken(forTeamWithName teamName: String, concourseURL: String, username: String, password: String, completion: ((Token?, Error?) -> ())?) {
-                capturedTeamName = teamName
-                capturedConcourseURL = concourseURL
-                capturedUsername = username
-                capturedPassword = password
-                capturedCompletion = completion
-            }
-        }
-
-        class MockKeychainWrapper: KeychainWrapper {
-            var capturedAuthInfo: AuthInfo?
-            var capturedTargetName: String?
-
-            override func saveAuthInfo(authInfo: AuthInfo, forTargetWithName targetName: String) {
-                capturedAuthInfo = authInfo
-                capturedTargetName = targetName
-            }
-        }
-
-        describe("AuthCredentialsViewController") {
-            var subject: AuthCredentialsViewController!
-            var mockAuthServiceConsumer: MockAuthServiceConsumer!
+        describe("BasicUserAuthViewController") {
+            var subject: BasicUserAuthViewController!
             var mockBasicAuthTokenService: MockBasicAuthTokenService!
             var mockKeychainWrapper: MockKeychainWrapper!
 
+            var mockTeamPipelinesViewController: MockTeamPipelinesViewController!
+
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                subject = storyboard.instantiateViewControllerWithIdentifier(AuthCredentialsViewController.storyboardIdentifier) as? AuthCredentialsViewController
 
-                mockAuthServiceConsumer = MockAuthServiceConsumer()
-                subject.authServiceConsumer = mockAuthServiceConsumer
+                mockTeamPipelinesViewController = MockTeamPipelinesViewController()
+                try! storyboard.bindViewController(mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
+
+                subject = storyboard.instantiateViewControllerWithIdentifier(BasicUserAuthViewController.storyboardIdentifier) as! BasicUserAuthViewController
 
                 mockBasicAuthTokenService = MockBasicAuthTokenService()
                 subject.basicAuthTokenService = mockBasicAuthTokenService
@@ -59,7 +57,6 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
                 mockKeychainWrapper = MockKeychainWrapper()
                 subject.keychainWrapper = mockKeychainWrapper
 
-                subject.targetName = "turtle target"
                 subject.concourseURLString = "concourse URL"
             }
 
@@ -67,6 +64,10 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
                 beforeEach {
                     let navigationController = UINavigationController(rootViewController: subject)
                     Fleet.setApplicationWindowRootViewController(navigationController)
+                }
+
+                it("sets its title") {
+                    expect(subject.title).to(equal("Login"))
                 }
 
                 describe("Availability of the 'Submit' button") {
@@ -153,11 +154,24 @@ class AuthCredentialsViewControllerSpec: QuickSpec {
 
                         it("asks the KeychainWrapper to save the authentication info for this target") {
                             expect(mockKeychainWrapper.capturedAuthInfo).to(equal(AuthInfo(username: "turtle username", token: Token(value: "turtle token"))))
-                            expect(mockKeychainWrapper.capturedTargetName).to(equal("turtle target"))
+                            expect(mockKeychainWrapper.capturedTargetName).to(equal("target"))
                         }
 
-                        it("passes the token along to the delegate") {
-                            expect(mockAuthServiceConsumer.capturedToken).to(equal(Token(value: "turtle token")))
+                        it("replaces itself with the TeamPipelinesViewController") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
+                        }
+
+                        it("creates a new target from the entered information and view controller") {
+                            let expectedTarget = Target(name: "target", api: "concourse URL",
+                                                        teamName: "main", token: Token(value: "turtle token")
+                            )
+                            expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
+                        }
+
+                        it("sets a TeamPipelinesService on the view controller") {
+                            expect(mockTeamPipelinesViewController.teamPipelinesService).toEventuallyNot(beNil())
+                            expect(mockTeamPipelinesViewController.teamPipelinesService?.httpClient).toEventuallyNot(beNil())
+                            expect(mockTeamPipelinesViewController.teamPipelinesService?.pipelineDataDeserializer).toEventuallyNot(beNil())
                         }
                     }
 

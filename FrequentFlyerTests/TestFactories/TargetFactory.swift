@@ -1,4 +1,5 @@
 import Foundation
+import SwiftCoreExtensions
 @testable import FrequentFlyer
 
 extension Factory {

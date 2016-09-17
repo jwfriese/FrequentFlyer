@@ -1,33 +1,47 @@
 import UIKit
 
-class AuthCredentialsViewController: UIViewController {
+class BasicUserAuthViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView?
     @IBOutlet weak var usernameTextField: UITextField?
     @IBOutlet weak var passwordTextField: UITextField?
     @IBOutlet weak var submitButton: UIButton?
 
-    var authServiceConsumer: AuthServiceConsumer?
     var basicAuthTokenService: BasicAuthTokenService?
-    var targetName: String?
     var concourseURLString: String?
     var keychainWrapper: KeychainWrapper?
 
-    class var storyboardIdentifier: String { get { return "AuthCredentials" } }
+    class var storyboardIdentifier: String { get { return "BasicUserAuth" } }
+    class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "Login"
         usernameTextField?.delegate = self
         passwordTextField?.delegate = self
         submitButton?.enabled = false
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == BasicUserAuthViewController.setTeamPipelinesAsRootPageSegueId {
+            guard let target = sender as? Target else { return }
+            guard let teamPipelinesViewController = segue.destinationViewController as? TeamPipelinesViewController else {
+                return
+            }
+
+            teamPipelinesViewController.target = target
+
+            let teamPipelinesService = TeamPipelinesService()
+            teamPipelinesService.httpClient = HTTPClient()
+            teamPipelinesService.pipelineDataDeserializer = PipelineDataDeserializer()
+            teamPipelinesViewController.teamPipelinesService = teamPipelinesService
+        }
     }
 
     @IBAction func submitButtonTapped() {
         guard let basicAuthTokenService = basicAuthTokenService else { return }
         guard let username = usernameTextField?.text else { return }
         guard let password = passwordTextField?.text else { return }
-        guard let targetName = targetName else { return }
         guard let concourseURL = concourseURLString else { return }
-        guard let authCredentialsDelegate = authServiceConsumer else { return }
         guard let keychainWrapper = keychainWrapper else { return }
 
         basicAuthTokenService.getToken(forTeamWithName: "main", concourseURL: concourseURL, username: username, password: password) { token, error in
@@ -43,14 +57,20 @@ class AuthCredentialsViewController: UIViewController {
                 }
             } else if let token = token {
                 let authInfo = AuthInfo(username: username, token: token)
-                keychainWrapper.saveAuthInfo(authInfo, forTargetWithName: targetName)
-                authCredentialsDelegate.onAuthenticationCompleted(withToken: token)
+                keychainWrapper.saveAuthInfo(authInfo, forTargetWithName: "target")
+                let newTarget = Target(name: "target",
+                                       api: concourseURL,
+                                       teamName: "main",
+                                       token: token)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.performSegueWithIdentifier(ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
+                }
             }
         }
     }
 }
 
-extension AuthCredentialsViewController: UITextFieldDelegate {
+extension BasicUserAuthViewController: UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if textField === usernameTextField {
             if string != "" {
