@@ -5,7 +5,7 @@ import Nimble
 
 class AuthMethodDataDeserializerSpec: QuickSpec {
     override func spec() {
-        describe("AuthMethodDataDeserializer") {
+        fdescribe("AuthMethodDataDeserializer") {
             var subject: AuthMethodDataDeserializer!
 
             beforeEach {
@@ -21,7 +21,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             "type" : "basic"
                         ],
                         [
-                            "type" : "basic"
+                            "type" : "oauth"
                         ]
                     ]
 
@@ -41,7 +41,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                     }
 
                     expect(authMethods[0]).to(equal(AuthMethod(type: .Basic)))
-                    expect(authMethods[1]).to(equal(AuthMethod(type: .Basic)))
+                    expect(authMethods[1]).to(equal(AuthMethod(type: .Github)))
                 }
 
                 it("returns no error") {

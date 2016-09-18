@@ -9,5 +9,5 @@ struct AuthMethod {
 extension AuthMethod: Equatable {}
 
 func ==(lhs: AuthMethod, rhs: AuthMethod) -> Bool {
-    return true
+    return lhs.type == rhs.type
 }

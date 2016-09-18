@@ -18,6 +18,8 @@ class AuthMethodDataDeserializer {
             var type = AuthType.Basic
             if typeString == "basic" {
                 type = .Basic
+            } else if typeString == "oauth" {
+                type = .Github
             }
 
             authMethods.append(AuthMethod(type: type))
