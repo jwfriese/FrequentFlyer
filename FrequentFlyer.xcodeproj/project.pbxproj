@@ -12,6 +12,9 @@
 		7B0E70821D8DC08500686532 /* BasicUserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70811D8DC08500686532 /* BasicUserAuthViewController.swift */; };
 		7B0E70841D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70831D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift */; };
 		7B0E70881D8DDC1B00686532 /* SetTeamPipelinesAsRootPageSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70871D8DDC1B00686532 /* SetTeamPipelinesAsRootPageSegue.swift */; };
+		7B0E708A1D8E030600686532 /* AuthMethodListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70891D8E030600686532 /* AuthMethodListViewController.swift */; };
+		7B0E708C1D8E033600686532 /* AuthMethodListViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E708B1D8E033600686532 /* AuthMethodListViewControllerSpec.swift */; };
+		7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */; };
 		7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */; };
 		7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */; };
 		7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */; };
@@ -103,6 +106,9 @@
 		7B0E70811D8DC08500686532 /* BasicUserAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicUserAuthViewController.swift; sourceTree = "<group>"; };
 		7B0E70831D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicUserAuthViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B0E70871D8DDC1B00686532 /* SetTeamPipelinesAsRootPageSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetTeamPipelinesAsRootPageSegue.swift; sourceTree = "<group>"; };
+		7B0E70891D8E030600686532 /* AuthMethodListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodListViewController.swift; sourceTree = "<group>"; };
+		7B0E708B1D8E033600686532 /* AuthMethodListViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodListViewControllerSpec.swift; sourceTree = "<group>"; };
+		7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayWrapper.swift; sourceTree = "<group>"; };
 		7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildService.swift; sourceTree = "<group>"; };
 		7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildServiceSpec.swift; sourceTree = "<group>"; };
 		7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDataDeserializer.swift; sourceTree = "<group>"; };
@@ -205,6 +211,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B0E708E1D8E12ED00686532 /* Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */,
+			);
+			path = Wrappers;
+			sourceTree = "<group>";
+		};
 		7B2F958E1D8700D100094226 /* Input */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,6 +306,7 @@
 				7BEDE1F91D8980F10054D13B /* AuthInfo.swift */,
 				7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */,
 				7B0E70811D8DC08500686532 /* BasicUserAuthViewController.swift */,
+				7B0E70891D8E030600686532 /* AuthMethodListViewController.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -309,6 +324,7 @@
 				7BEDE1FB1D89819B0054D13B /* AuthInfoSpec.swift */,
 				7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */,
 				7B0E70831D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift */,
+				7B0E708B1D8E033600686532 /* AuthMethodListViewControllerSpec.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -433,6 +449,7 @@
 				AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */,
 				AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */,
 				AEA5D51A1D7F2CEC00D76EBA /* Info.plist */,
+				7B0E708E1D8E12ED00686532 /* Wrappers */,
 				7BEDE2001D8989400054D13B /* Persistence */,
 				7B2F958E1D8700D100094226 /* Input */,
 				7BA032051D843EDD00F20E23 /* Authentication */,
@@ -616,6 +633,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B0E708A1D8E030600686532 /* AuthMethodListViewController.swift in Sources */,
 				7BA032301D843FF900F20E23 /* PipelineDataDeserializer.swift in Sources */,
 				7BA032191D843FEE00F20E23 /* Error.swift in Sources */,
 				7BA032141D843FE800F20E23 /* HTTPResponse.swift in Sources */,
@@ -644,6 +662,7 @@
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
 				7B0E70821D8DC08500686532 /* BasicUserAuthViewController.swift in Sources */,
+				7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */,
 				7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */,
 				7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */,
 				7BEDE2071D8989A70054D13B /* KeychainPersistable.swift in Sources */,
@@ -671,6 +690,7 @@
 				7BA032791D84908000F20E23 /* AuthMethodsServiceSpec.swift in Sources */,
 				7BA032891D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift in Sources */,
 				7B0E70841D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift in Sources */,
+				7B0E708C1D8E033600686532 /* AuthMethodListViewControllerSpec.swift in Sources */,
 				7B2EAE401D85F5CE00A91234 /* BuildDataDeserializerSpec.swift in Sources */,
 				7BA0325B1D84401900F20E23 /* TeamPipelinesServiceSpec.swift in Sources */,
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,

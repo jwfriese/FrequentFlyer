@@ -28,8 +28,8 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
             capturedCompletionHandler = completion
         }
     }
-
-    class MockBasicUserAuthViewController: BasicUserAuthViewController {
+    
+    class MockAuthMethodListViewController: AuthMethodListViewController {
         override func viewDidLoad() { }
     }
 
@@ -43,14 +43,14 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
             var mockAuthMethodsService: MockAuthMethodsService!
             var mockUnauthenticatedTokenService: MockUnauthenticatedTokenService!
 
-            var mockBasicUserAuthViewController: MockBasicUserAuthViewController!
+            var mockAuthMethodListViewController: MockAuthMethodListViewController!
             var mockTeamPipelinesViewController: MockTeamPipelinesViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
-                mockBasicUserAuthViewController = MockBasicUserAuthViewController()
-                try! storyboard.bindViewController(mockBasicUserAuthViewController, toIdentifier: BasicUserAuthViewController.storyboardIdentifier)
+                
+                mockAuthMethodListViewController = MockAuthMethodListViewController()
+                try! storyboard.bindViewController(mockAuthMethodListViewController, toIdentifier: AuthMethodListViewController.storyboardIdentifier)
 
                 mockTeamPipelinesViewController = MockTeamPipelinesViewController()
                 try! storyboard.bindViewController(mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
@@ -123,33 +123,31 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         expect(mockAuthMethodsService.capturedConcourseURL).to(equal("concourse URL"))
                     }
 
-                    describe("When the auth methods service call resolves with a basic auth method and no error") {
+                    describe("When the auth methods service call resolves with some auth methods and no error") {
                         beforeEach {
                             guard let completion = mockAuthMethodsService.capturedCompletion else {
                                 fail("Failed to pass completion handler to AuthMethodsService")
                                 return
                             }
 
-                            let authMethod = AuthMethod(type: .Basic)
-                            completion([authMethod], nil)
+                            let basicAuthMethod = AuthMethod(type: .Basic)
+                            let githubAuthMethod = AuthMethod(type: .Github)
+                            completion([basicAuthMethod, githubAuthMethod], nil)
                         }
-
-                        it("presents a BasicUserAuthViewController") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockBasicUserAuthViewController))
+                        
+                        it("presents an AuthMethodListViewController") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockAuthMethodListViewController))
                         }
-
-                        it("sets a BasicAuthTokenService on the view controller") {
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? MockBasicUserAuthViewController)?.basicAuthTokenService).toEventuallyNot(beNil())
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? MockBasicUserAuthViewController)?.basicAuthTokenService?.httpClient).toEventuallyNot(beNil())
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? MockBasicUserAuthViewController)?.basicAuthTokenService?.tokenDataDeserializer).toEventuallyNot(beNil())
+                        
+                        it("sets the fetched auth methods on the view controller") {
+                            expect(mockAuthMethodListViewController.authMethods).toEventually(equal([
+                                AuthMethod(type: .Basic),
+                                AuthMethod(type: .Github)
+                                ]))
                         }
-
+                        
                         it("sets the entered Concourse URL on the view controller") {
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? MockBasicUserAuthViewController)?.concourseURLString).toEventually(equal("concourse URL"))
-                        }
-
-                        it("sets a KeychainWrapper on the view controller") {
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? MockBasicUserAuthViewController)?.keychainWrapper).toEventuallyNot(beNil())
+                            expect(mockAuthMethodListViewController.concourseURLString).toEventually(equal("concourse URL"))
                         }
                     }
 

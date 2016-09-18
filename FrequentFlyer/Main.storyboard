@@ -20,7 +20,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="323-m1-Sfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-613" y="587"/>
+            <point key="canvasLocation" x="-1065" y="587"/>
         </scene>
         <!--Concourse Entry View Controller-->
         <scene sceneID="CCP-CR-93H">
@@ -84,12 +84,46 @@
                         <outlet property="scrollView" destination="0f2-3M-bKj" id="LIT-C9-FvR"/>
                         <outlet property="submitButton" destination="z9d-gU-Ttz" id="3Gb-DW-7Ze"/>
                         <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetTeamPipelinesAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="vJK-D0-aXI"/>
-                        <segue destination="m6d-Ut-E7B" kind="show" identifier="ShowBasicUserAuth" id="ePr-Sq-9sQ"/>
+                        <segue destination="UoJ-HU-CXU" kind="show" identifier="ShowAuthMethodList" id="5Ci-Az-Hta"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBl-dN-Z3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="182" y="587"/>
+            <point key="canvasLocation" x="-356" y="587"/>
+        </scene>
+        <!--Auth Method List View Controller-->
+        <scene sceneID="yWX-Jg-dw4">
+            <objects>
+                <viewController storyboardIdentifier="AuthMethodList" id="UoJ-HU-CXU" customClass="AuthMethodListViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qsJ-j1-X7N"/>
+                        <viewControllerLayoutGuide type="bottom" id="i9f-m6-875"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IpE-Gl-Ijb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7Of-Mn-B5q">
+                                <rect key="frame" x="20" y="64" width="560" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="7Of-Mn-B5q" secondAttribute="trailing" id="XmZ-ll-GxB"/>
+                            <constraint firstItem="7Of-Mn-B5q" firstAttribute="top" secondItem="qsJ-j1-X7N" secondAttribute="bottom" id="g49-Fg-FfI"/>
+                            <constraint firstItem="7Of-Mn-B5q" firstAttribute="leading" secondItem="IpE-Gl-Ijb" secondAttribute="leadingMargin" id="hhn-HH-Ngf"/>
+                            <constraint firstItem="i9f-m6-875" firstAttribute="top" secondItem="7Of-Mn-B5q" secondAttribute="bottom" id="swl-DH-Bpm"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="authMethodListTableView" destination="7Of-Mn-B5q" id="GIt-fM-REa"/>
+                        <segue destination="m6d-Ut-E7B" kind="show" identifier="ShowBasicUserAuth" id="x9V-1g-Fiy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SDN-bc-91C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="357" y="587"/>
         </scene>
         <!--Team Pipelines View Controller-->
         <scene sceneID="Ycc-d0-je9">
@@ -148,7 +182,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9WN-af-Wxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="182" y="1333"/>
+            <point key="canvasLocation" x="254" y="1369"/>
         </scene>
         <!--Builds View Controller-->
         <scene sceneID="Lx7-fD-UrQ">
@@ -455,6 +489,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="N7T-gv-tcr"/>
+        <segue reference="vJK-D0-aXI"/>
     </inferredMetricsTieBreakers>
 </document>

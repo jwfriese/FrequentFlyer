@@ -15,7 +15,7 @@ class AuthMethodDataDeserializer {
         for authMethodsDictionary in authMethodsJSON {
             guard let typeString = authMethodsDictionary["type"] as? String else { continue }
 
-            var type = AuthType.None
+            var type = AuthType.Basic
             if typeString == "basic" {
                 type = .Basic
             }
