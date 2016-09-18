@@ -29,7 +29,7 @@ class ConcourseEntryViewController: UIViewController {
             guard let authMethodListViewController = segue.destinationViewController as? AuthMethodListViewController else {
                 return
             }
-            
+
             guard let concourseURLString = concourseURLEntryField?.text else { return }
             guard let authMethodWrapper = sender as? ArrayWrapper<AuthMethod> else { return }
 

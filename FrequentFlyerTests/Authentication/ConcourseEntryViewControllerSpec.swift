@@ -28,7 +28,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
             capturedCompletionHandler = completion
         }
     }
-    
+
     class MockAuthMethodListViewController: AuthMethodListViewController {
         override func viewDidLoad() { }
     }
@@ -48,7 +48,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                
+
                 mockAuthMethodListViewController = MockAuthMethodListViewController()
                 try! storyboard.bindViewController(mockAuthMethodListViewController, toIdentifier: AuthMethodListViewController.storyboardIdentifier)
 
@@ -134,18 +134,18 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                             let githubAuthMethod = AuthMethod(type: .Github)
                             completion([basicAuthMethod, githubAuthMethod], nil)
                         }
-                        
+
                         it("presents an AuthMethodListViewController") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockAuthMethodListViewController))
                         }
-                        
+
                         it("sets the fetched auth methods on the view controller") {
                             expect(mockAuthMethodListViewController.authMethods).toEventually(equal([
                                 AuthMethod(type: .Basic),
                                 AuthMethod(type: .Github)
                                 ]))
                         }
-                        
+
                         it("sets the entered Concourse URL on the view controller") {
                             expect(mockAuthMethodListViewController.concourseURLString).toEventually(equal("concourse URL"))
                         }

@@ -13,7 +13,7 @@ class AuthMethodSpec: QuickSpec {
                     expect(methodOne).to(equal(methodTwo))
                 }
             }
-            
+
             context("When the auth methods are different") {
                 it("returns true") {
                     let methodOne = AuthMethod(type: .Basic)
