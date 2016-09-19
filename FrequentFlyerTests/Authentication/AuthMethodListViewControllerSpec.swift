@@ -134,6 +134,10 @@ class AuthMethodListViewControllerSpec: QuickSpec {
                             expect(mockGithubAuthViewController.tokenValidationService).toEventuallyNot(beNil())
                             expect(mockGithubAuthViewController.tokenValidationService?.httpClient).toEventuallyNot(beNil())
                         }
+
+                        it("sets a UserTextInputPageOperator on the view controller") {
+                            expect(mockGithubAuthViewController.userTextInputPageOperator).toEventuallyNot(beNil())
+                        }
                     }
                 }
             }

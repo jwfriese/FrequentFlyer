@@ -11,6 +11,7 @@ class GithubAuthViewController: UIViewController {
     var keychainWrapper: KeychainWrapper?
     var browserAgent: BrowserAgent?
     var tokenValidationService: TokenValidationService?
+    var userTextInputPageOperator: UserTextInputPageOperator?
 
     class var storyboardIdentifier: String { get { return "GithubAuth" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
@@ -22,6 +23,7 @@ class GithubAuthViewController: UIViewController {
 
         tokenTextField?.delegate = self
         submitButton?.enabled = false
+        userTextInputPageOperator?.delegate = self
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -91,4 +93,10 @@ extension GithubAuthViewController: UITextFieldDelegate {
         submitButton?.enabled = false
         return true
     }
+}
+
+extension GithubAuthViewController: UserTextInputPageDelegate {
+    var textFields: [UITextField] { get { return [tokenTextField!] } }
+    var pageView: UIView { get { return view } }
+    var pageScrollView: UIScrollView { get { return scrollView! } }
 }

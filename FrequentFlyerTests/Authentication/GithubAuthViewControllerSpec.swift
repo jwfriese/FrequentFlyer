@@ -45,6 +45,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
             var mockKeychainWrapper: MockKeychainWrapper!
             var mockBrowserAgent: MockBrowserAgent!
             var mockTokenValidationService: MockTokenValidationService!
+            var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
             var mockTeamPipelinesViewController: MockTeamPipelinesViewController!
 
@@ -67,6 +68,9 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                 mockTokenValidationService = MockTokenValidationService()
                 subject.tokenValidationService = mockTokenValidationService
+
+                mockUserTextInputPageOperator = UserTextInputPageOperator()
+                subject.userTextInputPageOperator = mockUserTextInputPageOperator
             }
 
             describe("After the view has loaded") {
@@ -81,6 +85,25 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                 it("sets itself as its token text field's delegate") {
                     expect(subject.tokenTextField?.delegate).to(beIdenticalTo(subject))
+                }
+
+                it("sets itself as its UserTextInputPageOperator's delegate") {
+                    expect(mockUserTextInputPageOperator.delegate).to(beIdenticalTo(subject))
+                }
+
+                describe("As a UserTextInputPageDelegate") {
+                    it("returns text fields") {
+                        expect(subject.textFields.count).to(equal(1))
+                        expect(subject.textFields[0]).to(beIdenticalTo(subject?.tokenTextField))
+                    }
+
+                    it("returns a page view") {
+                        expect(subject.pageView).to(beIdenticalTo(subject.view))
+                    }
+
+                    it("returns a page scrolls view") {
+                        expect(subject.pageScrollView).to(beIdenticalTo(subject.scrollView))
+                    }
                 }
 
                 describe("Availability of the 'Get Token' button") {

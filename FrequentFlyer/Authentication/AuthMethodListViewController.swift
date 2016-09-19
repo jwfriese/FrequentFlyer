@@ -52,6 +52,8 @@ class AuthMethodListViewController: UIViewController {
             let tokenValidationService = TokenValidationService()
             tokenValidationService.httpClient = HTTPClient()
             githubAuthViewController.tokenValidationService = tokenValidationService
+
+            githubAuthViewController.userTextInputPageOperator = UserTextInputPageOperator()
         }
     }
 }
