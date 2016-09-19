@@ -15,6 +15,11 @@
 		7B0E708A1D8E030600686532 /* AuthMethodListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70891D8E030600686532 /* AuthMethodListViewController.swift */; };
 		7B0E708C1D8E033600686532 /* AuthMethodListViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E708B1D8E033600686532 /* AuthMethodListViewControllerSpec.swift */; };
 		7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */; };
+		7B0E70941D8E248800686532 /* GithubAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70931D8E248800686532 /* GithubAuthViewController.swift */; };
+		7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */; };
+		7B0E70991D8F009600686532 /* BrowserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70981D8F009600686532 /* BrowserAgent.swift */; };
+		7B0E709B1D8F0BA400686532 /* TokenValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */; };
+		7B0E709D1D8F0BBC00686532 /* TokenValidationServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */; };
 		7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */; };
 		7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */; };
 		7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */; };
@@ -109,6 +114,11 @@
 		7B0E70891D8E030600686532 /* AuthMethodListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodListViewController.swift; sourceTree = "<group>"; };
 		7B0E708B1D8E033600686532 /* AuthMethodListViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodListViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayWrapper.swift; sourceTree = "<group>"; };
+		7B0E70931D8E248800686532 /* GithubAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAuthViewController.swift; sourceTree = "<group>"; };
+		7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAuthViewControllerSpec.swift; sourceTree = "<group>"; };
+		7B0E70981D8F009600686532 /* BrowserAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserAgent.swift; sourceTree = "<group>"; };
+		7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidationService.swift; sourceTree = "<group>"; };
+		7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidationServiceSpec.swift; sourceTree = "<group>"; };
 		7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildService.swift; sourceTree = "<group>"; };
 		7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildServiceSpec.swift; sourceTree = "<group>"; };
 		7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDataDeserializer.swift; sourceTree = "<group>"; };
@@ -219,6 +229,14 @@
 			path = Wrappers;
 			sourceTree = "<group>";
 		};
+		7B0E70971D8F007B00686532 /* Interapp */ = {
+			isa = PBXGroup;
+			children = (
+				7B0E70981D8F009600686532 /* BrowserAgent.swift */,
+			);
+			path = Interapp;
+			sourceTree = "<group>";
+		};
 		7B2F958E1D8700D100094226 /* Input */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +325,8 @@
 				7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */,
 				7B0E70811D8DC08500686532 /* BasicUserAuthViewController.swift */,
 				7B0E70891D8E030600686532 /* AuthMethodListViewController.swift */,
+				7B0E70931D8E248800686532 /* GithubAuthViewController.swift */,
+				7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -325,6 +345,8 @@
 				7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */,
 				7B0E70831D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift */,
 				7B0E708B1D8E033600686532 /* AuthMethodListViewControllerSpec.swift */,
+				7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */,
+				7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -449,6 +471,7 @@
 				AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */,
 				AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */,
 				AEA5D51A1D7F2CEC00D76EBA /* Info.plist */,
+				7B0E70971D8F007B00686532 /* Interapp */,
 				7B0E708E1D8E12ED00686532 /* Wrappers */,
 				7BEDE2001D8989400054D13B /* Persistence */,
 				7B2F958E1D8700D100094226 /* Input */,
@@ -639,6 +662,7 @@
 				7BA032141D843FE800F20E23 /* HTTPResponse.swift in Sources */,
 				7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */,
 				7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */,
+				7B0E70991D8F009600686532 /* BrowserAgent.swift in Sources */,
 				7BA032231D843FF300F20E23 /* BuildsViewController.swift in Sources */,
 				7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */,
 				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
@@ -656,6 +680,7 @@
 				7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */,
 				7BA0322E1D843FF900F20E23 /* TeamPipelinesService.swift in Sources */,
 				7BA032241D843FF300F20E23 /* BuildsTableViewHeaderView.swift in Sources */,
+				7B0E70941D8E248800686532 /* GithubAuthViewController.swift in Sources */,
 				7BA032251D843FF300F20E23 /* BuildsService.swift in Sources */,
 				7BA032691D8441AC00F20E23 /* AuthMethodsService.swift in Sources */,
 				7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */,
@@ -671,6 +696,7 @@
 				7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */,
 				7BA0326B1D8441E200F20E23 /* AuthMethod.swift in Sources */,
 				7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */,
+				7B0E709B1D8F0BA400686532 /* TokenValidationService.swift in Sources */,
 				7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */,
 				7BEDE1FA1D8980F10054D13B /* AuthInfo.swift in Sources */,
 			);
@@ -696,6 +722,7 @@
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
 				7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */,
 				7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */,
+				7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */,
 				7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */,
 				7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */,
 				7BA0326D1D84465800F20E23 /* AuthMethodSpec.swift in Sources */,
@@ -709,6 +736,7 @@
 				7BA032551D84401400F20E23 /* BuildsDataDeserializerSpec.swift in Sources */,
 				7BA032491D84400900F20E23 /* HTTPClientSpec.swift in Sources */,
 				7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */,
+				7B0E709D1D8F0BBC00686532 /* TokenValidationServiceSpec.swift in Sources */,
 				7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */,
 				7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */,
 				7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */,

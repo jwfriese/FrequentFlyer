@@ -12,6 +12,7 @@ class AuthMethodListViewController: UIViewController {
 
     class var storyboardIdentifier: String { get { return "AuthMethodList" } }
     class var showBasicUserAuthSegueId: String { get { return "ShowBasicUserAuth" } }
+    class var showGithubAuthSegueId: String { get { return "ShowGithubAuth" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,23 @@ class AuthMethodListViewController: UIViewController {
             basicAuthTokenService.httpClient = HTTPClient()
             basicAuthTokenService.tokenDataDeserializer = TokenDataDeserializer()
             basicUserAuthViewController.basicAuthTokenService = basicAuthTokenService
+        } else if segue.identifier == AuthMethodListViewController.showGithubAuthSegueId {
+            guard let githubAuthViewController = segue.destinationViewController as? GithubAuthViewController else {
+                return
+            }
+
+            guard let githubAuthURLString = sender as? String else { return }
+            githubAuthViewController.githubAuthURLString = githubAuthURLString
+
+            guard let concourseURLString = concourseURLString else { return }
+            githubAuthViewController.concourseURLString = concourseURLString
+
+            githubAuthViewController.keychainWrapper = KeychainWrapper()
+            githubAuthViewController.browserAgent = BrowserAgent()
+
+            let tokenValidationService = TokenValidationService()
+            tokenValidationService.httpClient = HTTPClient()
+            githubAuthViewController.tokenValidationService = tokenValidationService
         }
     }
 }
@@ -63,11 +81,13 @@ extension AuthMethodListViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let authMethods = authMethods else { return }
 
-        switch authMethods[indexPath.row].type {
+        let authMethod = authMethods[indexPath.row]
+
+        switch authMethod.type {
         case .Basic:
             performSegueWithIdentifier(AuthMethodListViewController.showBasicUserAuthSegueId, sender: nil)
         case .Github:
-            break
+            performSegueWithIdentifier(AuthMethodListViewController.showGithubAuthSegueId, sender: authMethod.url)
         }
     }
 }

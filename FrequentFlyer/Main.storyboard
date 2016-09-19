@@ -119,6 +119,7 @@
                     <connections>
                         <outlet property="authMethodListTableView" destination="7Of-Mn-B5q" id="GIt-fM-REa"/>
                         <segue destination="m6d-Ut-E7B" kind="show" identifier="ShowBasicUserAuth" id="x9V-1g-Fiy"/>
+                        <segue destination="1H1-8y-8ag" kind="show" identifier="ShowGithubAuth" id="uZ7-EK-IpZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDN-bc-91C" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -303,6 +304,108 @@
                 </view>
             </objects>
             <point key="canvasLocation" x="1084" y="1496"/>
+        </scene>
+        <!--Github Auth View Controller-->
+        <scene sceneID="eJq-k8-dfq">
+            <objects>
+                <viewController storyboardIdentifier="GithubAuth" id="1H1-8y-8ag" customClass="GithubAuthViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rpV-IG-T4i"/>
+                        <viewControllerLayoutGuide type="bottom" id="1SO-o2-Dlf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vw3-Px-wBY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BDo-G9-LMk">
+                                <rect key="frame" x="20" y="64" width="560" height="536"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1. Open the link below to get an authentication token from Github" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mES-qh-DXN">
+                                        <rect key="frame" x="32" y="48" width="496" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dnz-VJ-GP8">
+                                        <rect key="frame" x="237" y="117" width="87" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <state key="normal" title="Get Token"/>
+                                        <connections>
+                                            <action selector="openGithubAuthPageButtonTapped" destination="1H1-8y-8ag" eventType="touchUpInside" id="QRY-cV-IVM"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Token" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdD-N9-yhc">
+                                        <rect key="frame" x="24" y="317" width="46" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uyc-at-zAN">
+                                        <rect key="frame" x="94" y="313" width="442" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UXx-Jp-ZYT">
+                                        <rect key="frame" x="250" y="391" width="61" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <state key="normal" title="Submit"/>
+                                        <connections>
+                                            <action selector="submitButtonTapped" destination="1H1-8y-8ag" eventType="touchUpInside" id="uv8-hf-jzq"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. Enter the token Github provides" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7f-ki-HNn">
+                                        <rect key="frame" x="150" y="248" width="261" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="UXx-Jp-ZYT" firstAttribute="centerX" secondItem="BDo-G9-LMk" secondAttribute="centerX" id="4lS-O9-vnQ"/>
+                                    <constraint firstItem="cdD-N9-yhc" firstAttribute="top" secondItem="Dnz-VJ-GP8" secondAttribute="bottom" constant="43" id="5fc-xA-H7Q"/>
+                                    <constraint firstItem="U7f-ki-HNn" firstAttribute="centerX" secondItem="BDo-G9-LMk" secondAttribute="centerX" id="9L4-PX-aXY"/>
+                                    <constraint firstItem="Dnz-VJ-GP8" firstAttribute="centerX" secondItem="BDo-G9-LMk" secondAttribute="centerX" id="PUE-lK-P5m"/>
+                                    <constraint firstItem="UXx-Jp-ZYT" firstAttribute="top" secondItem="Uyc-at-zAN" secondAttribute="bottom" constant="48" id="Qp3-z0-pSq"/>
+                                    <constraint firstItem="Dnz-VJ-GP8" firstAttribute="top" secondItem="mES-qh-DXN" secondAttribute="bottom" constant="48" id="RFL-pm-WsK"/>
+                                    <constraint firstAttribute="bottom" secondItem="UXx-Jp-ZYT" secondAttribute="bottom" constant="72" id="SEH-0G-EPU"/>
+                                    <constraint firstItem="Uyc-at-zAN" firstAttribute="leading" secondItem="cdD-N9-yhc" secondAttribute="trailing" constant="24" id="WGD-D7-84g"/>
+                                    <constraint firstItem="cdD-N9-yhc" firstAttribute="top" secondItem="U7f-ki-HNn" secondAttribute="bottom" constant="48" id="aEg-ng-ur2"/>
+                                    <constraint firstItem="Uyc-at-zAN" firstAttribute="centerY" secondItem="cdD-N9-yhc" secondAttribute="centerY" id="cJP-Uz-rQS"/>
+                                    <constraint firstItem="mES-qh-DXN" firstAttribute="top" secondItem="BDo-G9-LMk" secondAttribute="top" constant="48" id="dIO-Uv-Pad"/>
+                                    <constraint firstAttribute="trailing" secondItem="Uyc-at-zAN" secondAttribute="trailing" constant="12" id="jg6-hb-nwk"/>
+                                    <constraint firstItem="U7f-ki-HNn" firstAttribute="top" secondItem="Dnz-VJ-GP8" secondAttribute="bottom" constant="96" id="oJV-Lb-cJ5"/>
+                                    <constraint firstItem="mES-qh-DXN" firstAttribute="centerX" secondItem="BDo-G9-LMk" secondAttribute="centerX" id="s4t-t7-McP"/>
+                                    <constraint firstItem="cdD-N9-yhc" firstAttribute="leading" secondItem="BDo-G9-LMk" secondAttribute="leading" constant="24" id="uh0-jw-PhI"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="5fc-xA-H7Q"/>
+                                    </mask>
+                                </variation>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BDo-G9-LMk" firstAttribute="leading" secondItem="vw3-Px-wBY" secondAttribute="leadingMargin" id="4Aa-3y-oNe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BDo-G9-LMk" secondAttribute="trailing" id="KvY-P9-jWv"/>
+                            <constraint firstItem="mES-qh-DXN" firstAttribute="leading" secondItem="vw3-Px-wBY" secondAttribute="leadingMargin" constant="32" id="ZrZ-OS-7Cj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mES-qh-DXN" secondAttribute="trailing" constant="32" id="cUw-Hg-ig4"/>
+                            <constraint firstItem="BDo-G9-LMk" firstAttribute="top" secondItem="rpV-IG-T4i" secondAttribute="bottom" id="hSQ-BM-cgU"/>
+                            <constraint firstItem="1SO-o2-Dlf" firstAttribute="top" secondItem="BDo-G9-LMk" secondAttribute="bottom" id="uGG-4z-tAk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Uyc-at-zAN" secondAttribute="trailing" constant="24" id="yS1-iy-mls"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="openGithubAuthPageButton" destination="Dnz-VJ-GP8" id="xai-QY-hjK"/>
+                        <outlet property="scrollView" destination="BDo-G9-LMk" id="1Yk-rR-KoT"/>
+                        <outlet property="submitButton" destination="UXx-Jp-ZYT" id="qvr-b6-dwS"/>
+                        <outlet property="tokenTextField" destination="Uyc-at-zAN" id="lhM-yn-7Eu"/>
+                        <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetTeamPipelinesAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="8fK-Iz-ap1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4J2-fl-yth" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1106" y="-112"/>
         </scene>
         <!--Basic User Auth View Controller-->
         <scene sceneID="uhI-0n-Co5">
@@ -489,6 +592,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vJK-D0-aXI"/>
+        <segue reference="8fK-Iz-ap1"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -73,7 +73,7 @@ class AuthMethodsServiceSpec: QuickSpec {
                             return
                         }
 
-                        deserializedAuthMethods = [AuthMethod(type: .Basic)]
+                        deserializedAuthMethods = [AuthMethod(type: .Basic, url: ".com")]
                         mockAuthMethodDataDeserializer.toReturnAuthMethods = deserializedAuthMethods
 
                         validAuthMethodResponseData = "valid auth method data".dataUsingEncoding(NSUTF8StringEncoding)

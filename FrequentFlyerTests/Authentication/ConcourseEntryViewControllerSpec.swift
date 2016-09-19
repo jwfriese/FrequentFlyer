@@ -130,8 +130,8 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                                 return
                             }
 
-                            let basicAuthMethod = AuthMethod(type: .Basic)
-                            let githubAuthMethod = AuthMethod(type: .Github)
+                            let basicAuthMethod = AuthMethod(type: .Basic, url: "basic-auth.com")
+                            let githubAuthMethod = AuthMethod(type: .Github, url: "github-auth.com")
                             completion([basicAuthMethod, githubAuthMethod], nil)
                         }
 
@@ -141,8 +141,8 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                         it("sets the fetched auth methods on the view controller") {
                             expect(mockAuthMethodListViewController.authMethods).toEventually(equal([
-                                AuthMethod(type: .Basic),
-                                AuthMethod(type: .Github)
+                                AuthMethod(type: .Basic, url: "basic-auth.com"),
+                                AuthMethod(type: .Github, url: "github-auth.com")
                                 ]))
                         }
 
