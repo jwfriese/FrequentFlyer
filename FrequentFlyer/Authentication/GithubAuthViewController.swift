@@ -4,6 +4,7 @@ class GithubAuthViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView?
     @IBOutlet weak var openGithubAuthPageButton: UIButton?
     @IBOutlet weak var tokenTextField: UITextField?
+    @IBOutlet weak var stayLoggedInSwitch: UISwitch?
     @IBOutlet weak var submitButton: UIButton?
 
     var concourseURLString: String?
@@ -69,8 +70,11 @@ class GithubAuthViewController: UIViewController {
                 }
             } else {
                 let token = Token(value: tokenString)
-                let authInfo = AuthInfo(username: "user", token: token)
-                keychainWrapper.saveAuthInfo(authInfo, forTargetWithName: "target")
+                if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.on {
+                    let authInfo = AuthInfo(username: "user", token: token)
+                    keychainWrapper.saveAuthInfo(authInfo, forTargetWithName: "target")
+                }
+
                 let newTarget = Target(name: "target",
                                        api: concourseURLString,
                                        teamName: "main",
