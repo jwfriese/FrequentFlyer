@@ -15,7 +15,7 @@ class BasicUserAuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Login"
+        title = ""
         usernameTextField?.delegate = self
         passwordTextField?.delegate = self
         submitButton?.enabled = false

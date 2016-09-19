@@ -66,8 +66,8 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                     Fleet.setApplicationWindowRootViewController(navigationController)
                 }
 
-                it("sets its title") {
-                    expect(subject.title).to(equal("Login"))
+                it("sets a blank title") {
+                    expect(subject.title).to(equal(""))
                 }
 
                 describe("Availability of the 'Submit' button") {
