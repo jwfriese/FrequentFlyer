@@ -56,12 +56,11 @@ class BasicUserAuthViewController: UIViewController {
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
             } else if let token = token {
-                let authInfo = AuthInfo(username: username, token: token)
-                keychainWrapper.saveAuthInfo(authInfo, forTargetWithName: "target")
                 let newTarget = Target(name: "target",
                                        api: concourseURL,
                                        teamName: "main",
                                        token: token)
+                keychainWrapper.saveTarget(newTarget)
                 dispatch_async(dispatch_get_main_queue()) {
                     self.performSegueWithIdentifier(ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
                 }

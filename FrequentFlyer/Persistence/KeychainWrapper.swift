@@ -2,25 +2,27 @@ import Foundation
 import Locksmith
 
 class KeychainWrapper {
-    func saveAuthInfo(authInfo: AuthInfo, forTargetWithName targetName: String) {
+    func saveTarget(target: Target) {
         do {
-            let accountName = "\(authInfo.username):\(targetName)"
-            try Locksmith.updateData(authInfo.data,
+            let accountName = "target"
+            try Locksmith.updateData(target.data,
                                      forUserAccount: accountName,
-                                     inService: AuthInfo.serviceName)
+                                     inService: Target.serviceName)
         } catch {
-            print("Error saving data to the keychain for user '\(authInfo.account)' and target '\(targetName)'")
+            print("Error saving logged-in target data to the keychain")
         }
     }
 
-    func retrieveAuthInfo(forUserWithName username: String, andTargetWithName targetName: String) -> AuthInfo? {
-        let accountName = "\(username):\(targetName)"
-        guard let data = Locksmith.loadDataForUserAccount(accountName, inService: AuthInfo.serviceName)
+    func retrieveTarget() -> Target? {
+        let accountName = "target"
+        guard let data = Locksmith.loadDataForUserAccount(accountName, inService: Target.serviceName)
             else { return nil }
 
-        guard let username = data["username"] as? String else { return nil }
+        guard let name = data["name"] as? String else { return nil }
+        guard let api = data["api"] as? String else { return nil }
+        guard let teamName = data["teamName"] as? String else { return nil }
         guard let tokenValue = data["token"] as? String else { return nil }
 
-        return AuthInfo(username: username, token: Token(value: tokenValue))
+        return Target(name: name, api: api, teamName: teamName, token: Token(value: tokenValue))
     }
 }

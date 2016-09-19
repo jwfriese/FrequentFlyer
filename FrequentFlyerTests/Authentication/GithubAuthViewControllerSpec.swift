@@ -6,12 +6,10 @@ import Fleet
 
 class GithubAuthViewControllerSpec: QuickSpec {
     class MockKeychainWrapper: KeychainWrapper {
-        var capturedAuthInfo: AuthInfo?
-        var capturedTargetName: String?
+        var capturedTarget: Target?
 
-        override func saveAuthInfo(authInfo: AuthInfo, forTargetWithName targetName: String) {
-            capturedAuthInfo = authInfo
-            capturedTargetName = targetName
+        override func saveTarget(target: Target) {
+            capturedTarget = target
         }
     }
 
@@ -178,8 +176,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
                             }
 
                             it("does not save anything to the keychain") {
-                                expect(mockKeychainWrapper.capturedAuthInfo).to(beNil())
-                                expect(mockKeychainWrapper.capturedTargetName).to(beNil())
+                                expect(mockKeychainWrapper.capturedTarget).to(beNil())
                             }
 
                             it("replaces itself with the TeamPipelinesViewController") {
@@ -212,20 +209,23 @@ class GithubAuthViewControllerSpec: QuickSpec {
                                 completion(nil)
                             }
 
-                            it("asks the KeychainWrapper to save the authentication info for this target") {
-                                expect(mockKeychainWrapper.capturedAuthInfo).to(equal(AuthInfo(username: "user", token: Token(value: "token of the Github Turtle"))))
-                                expect(mockKeychainWrapper.capturedTargetName).to(equal("target"))
-                            }
-
                             it("replaces itself with the TeamPipelinesViewController") {
                                 expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
                             }
 
-                            it("creates a new target from the entered information and view controller") {
+                            it("creates a new target from the entered information and sets it on the view controller") {
                                 let expectedTarget = Target(name: "target", api: "turtle_concourse.com",
                                                             teamName: "main", token: Token(value: "token of the Github Turtle")
                                 )
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
+                            }
+
+                            it("asks the KeychainWrapper to save the new target") {
+                                let expectedTarget = Target(name: "target", api: "turtle_concourse.com",
+                                                            teamName: "main", token: Token(value: "token of the Github Turtle")
+                                )
+
+                                expect(mockKeychainWrapper.capturedTarget).to(equal(expectedTarget))
                             }
 
                             it("sets a TeamPipelinesService on the view controller") {

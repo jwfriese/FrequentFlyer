@@ -22,12 +22,10 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
     }
 
     class MockKeychainWrapper: KeychainWrapper {
-        var capturedAuthInfo: AuthInfo?
-        var capturedTargetName: String?
+        var capturedTarget: Target?
 
-        override func saveAuthInfo(authInfo: AuthInfo, forTargetWithName targetName: String) {
-            capturedAuthInfo = authInfo
-            capturedTargetName = targetName
+        override func saveTarget(target: Target) {
+            capturedTarget = target
         }
     }
 
@@ -152,11 +150,6 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                             completion(token, nil)
                         }
 
-                        it("asks the KeychainWrapper to save the authentication info for this target") {
-                            expect(mockKeychainWrapper.capturedAuthInfo).to(equal(AuthInfo(username: "turtle username", token: Token(value: "turtle token"))))
-                            expect(mockKeychainWrapper.capturedTargetName).to(equal("target"))
-                        }
-
                         it("replaces itself with the TeamPipelinesViewController") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
                         }
@@ -166,6 +159,13 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                                                         teamName: "main", token: Token(value: "turtle token")
                             )
                             expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
+                        }
+
+                        it("asks the KeychainWrapper to save newly created target") {
+                            let expectedTarget = Target(name: "target", api: "concourse URL",
+                                                        teamName: "main", token: Token(value: "turtle token")
+                            )
+                            expect(mockKeychainWrapper.capturedTarget).to(equal(expectedTarget))
                         }
 
                         it("sets a TeamPipelinesService on the view controller") {

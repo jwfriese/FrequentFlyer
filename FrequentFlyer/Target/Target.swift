@@ -23,3 +23,22 @@ func ==(lhs: Target, rhs: Target) -> Bool {
         lhs.teamName == rhs.teamName &&
         lhs.token == rhs.token
 }
+
+extension Target: KeychainPersistable {
+    static var serviceName: String {
+        get {
+            return "Authentication"
+        }
+    }
+
+    var data: [String : AnyObject] {
+        get {
+            return [
+                "name" : name,
+                "api" : api,
+                "teamName" : teamName,
+                "token" : token.value
+            ]
+        }
+    }
+}

@@ -70,15 +70,14 @@ class GithubAuthViewController: UIViewController {
                 }
             } else {
                 let token = Token(value: tokenString)
-                if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.on {
-                    let authInfo = AuthInfo(username: "user", token: token)
-                    keychainWrapper.saveAuthInfo(authInfo, forTargetWithName: "target")
-                }
-
                 let newTarget = Target(name: "target",
                                        api: concourseURLString,
                                        teamName: "main",
                                        token: token)
+                if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.on {
+                    keychainWrapper.saveTarget(newTarget)
+                }
+
                 dispatch_async(dispatch_get_main_queue()) {
                     self.performSegueWithIdentifier(GithubAuthViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
                 }
