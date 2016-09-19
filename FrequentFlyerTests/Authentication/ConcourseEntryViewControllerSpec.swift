@@ -42,6 +42,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
             var subject: ConcourseEntryViewController!
             var mockAuthMethodsService: MockAuthMethodsService!
             var mockUnauthenticatedTokenService: MockUnauthenticatedTokenService!
+            var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
             var mockAuthMethodListViewController: MockAuthMethodListViewController!
             var mockTeamPipelinesViewController: MockTeamPipelinesViewController!
@@ -62,6 +63,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                 mockUnauthenticatedTokenService = MockUnauthenticatedTokenService()
                 subject.unauthenticatedTokenService = mockUnauthenticatedTokenService
+
+                mockUserTextInputPageOperator = UserTextInputPageOperator()
+                subject.userTextInputPageOperator = mockUserTextInputPageOperator
             }
 
             describe("After the view loads") {
@@ -84,6 +88,25 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                     expect(concourseURLEntryTextField.autocorrectionType).to(equal(UITextAutocorrectionType.No))
                     expect(concourseURLEntryTextField.keyboardType).to(equal(UIKeyboardType.URL))
+                }
+
+                it("sets itself as the UserTextInputPageOperator's delegate") {
+                    expect(mockUserTextInputPageOperator.delegate).to(beIdenticalTo(subject))
+                }
+
+                describe("As a UserTextInputPageDelegate") {
+                    it("returns text fields") {
+                        expect(subject.textFields.count).to(equal(1))
+                        expect(subject.textFields[0]).to(beIdenticalTo(subject?.concourseURLEntryField))
+                    }
+
+                    it("returns a page view") {
+                        expect(subject.pageView).to(beIdenticalTo(subject.view))
+                    }
+
+                    it("returns a page scrolls view") {
+                        expect(subject.pageScrollView).to(beIdenticalTo(subject.scrollView))
+                    }
                 }
 
                 describe("Availability of the 'Submit' button") {

@@ -27,6 +27,8 @@ class AppDelegateSpec: QuickSpec {
                         return
                     }
 
+                    expect(concouseEntryViewController.userTextInputPageOperator).toNot(beNil())
+
                     guard let authMethodsService = concouseEntryViewController.authMethodsService else {
                         fail("Failed to set AuthMethodsService on the ConcourseEntryViewController")
                         return

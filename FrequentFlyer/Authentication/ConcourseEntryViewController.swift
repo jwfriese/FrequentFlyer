@@ -7,6 +7,7 @@ class ConcourseEntryViewController: UIViewController {
 
     var authMethodsService: AuthMethodsService?
     var unauthenticatedTokenService: UnauthenticatedTokenService?
+    var userTextInputPageOperator: UserTextInputPageOperator?
 
     class var storyboardIdentifier: String { get { return "ConcourseEntry" } }
     class var showAuthMethodListSegueId: String { get { return "ShowAuthMethodList" } }
@@ -22,6 +23,8 @@ class ConcourseEntryViewController: UIViewController {
 
         concourseURLEntryField?.delegate = self
         submitButton?.enabled = false
+
+        userTextInputPageOperator?.delegate = self
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -99,4 +102,10 @@ extension ConcourseEntryViewController: UITextFieldDelegate {
         submitButton?.enabled = false
         return true
     }
+}
+
+extension ConcourseEntryViewController: UserTextInputPageDelegate {
+    var textFields: [UITextField] { get { return [concourseURLEntryField!] } }
+    var pageView: UIView { get { return view } }
+    var pageScrollView: UIScrollView { get { return scrollView! } }
 }
