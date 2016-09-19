@@ -18,10 +18,12 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                 beforeEach {
                     let validDataJSONArray = [
                         [
-                            "type" : "basic"
+                            "type" : "basic",
+                            "auth_url": "basic_turtle.com"
                         ],
                         [
-                            "type" : "basic"
+                            "type" : "oauth",
+                            "auth_url": "oauth_turtle.com"
                         ]
                     ]
 
@@ -40,8 +42,8 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                         return
                     }
 
-                    expect(authMethods[0]).to(equal(AuthMethod(type: .Basic)))
-                    expect(authMethods[1]).to(equal(AuthMethod(type: .Basic)))
+                    expect(authMethods[0]).to(equal(AuthMethod(type: .Basic, url: "basic_turtle.com")))
+                    expect(authMethods[1]).to(equal(AuthMethod(type: .Github, url: "oauth_turtle.com")))
                 }
 
                 it("returns no error") {
@@ -56,10 +58,12 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                     beforeEach {
                         let partiallyValidDataJSONArray = [
                             [
-                                "type" : "basic"
+                                "type" : "basic",
+                                "auth_url": "basic_turtle.com"
                             ],
                             [
-                                "somethingelse" : "value"
+                                "somethingelse" : "value",
+                                "auth_url": "basic_crab.com"
                             ]
                         ]
 
@@ -78,7 +82,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             return
                         }
 
-                        expect(authMethods[0]).to(equal(AuthMethod(type: .Basic)))
+                        expect(authMethods[0]).to(equal(AuthMethod(type: .Basic, url: "basic_turtle.com")))
                     }
 
                     it("returns no error") {
@@ -90,10 +94,12 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                     beforeEach {
                         let partiallyValidDataJSONArray = [
                             [
-                                "type" : "basic"
+                                "type" : "basic",
+                                "auth_url": "basic_turtle.com"
                             ],
                             [
-                                "type" : 1
+                                "type" : 1,
+                                "auth_url": "basic_turtle.com"
                             ]
                         ]
 
@@ -112,7 +118,78 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             return
                         }
 
-                        expect(authMethods[0]).to(equal(AuthMethod(type: .Basic)))
+                        expect(authMethods[0]).to(equal(AuthMethod(type: .Basic, url: "basic_turtle.com")))
+                    }
+
+                    it("returns no error") {
+                        expect(result.error).to(beNil())
+                    }
+                }
+
+                context("Missing required 'auth_url' field") {
+                    beforeEach {
+                        let partiallyValidDataJSONArray = [
+                            [
+                                "type" : "basic",
+                            ],
+                            [
+                                "type" : "oauth",
+                                "auth_url": "basic_crab.com"
+                            ]
+                        ]
+
+                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        result = subject.deserialize(partiallyValidData)
+                    }
+
+                    it("returns an auth method for each valid JSON auth method entry") {
+                        guard let authMethods = result.authMethods else {
+                            fail("Failed to return any auth methods from the JSON data")
+                            return
+                        }
+
+                        if authMethods.count != 1 {
+                            fail("Expected to return 1 auth method, returned \(authMethods.count)")
+                            return
+                        }
+
+                        expect(authMethods[0]).to(equal(AuthMethod(type: .Github, url: "basic_crab.com")))
+                    }
+
+                    it("returns no error") {
+                        expect(result.error).to(beNil())
+                    }
+                }
+
+                context("'auth_url' field is not a string") {
+                    beforeEach {
+                        let partiallyValidDataJSONArray = [
+                            [
+                                "type" : "basic",
+                                "auth_url": "basic_turtle.com"
+                            ],
+                            [
+                                "type" : "basic",
+                                "auth_url": 1
+                            ]
+                        ]
+
+                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        result = subject.deserialize(partiallyValidData)
+                    }
+
+                    it("returns a auth method for each valid JSON auth method entry") {
+                        guard let authMethods = result.authMethods else {
+                            fail("Failed to return any auth methods from the JSON data")
+                            return
+                        }
+
+                        if authMethods.count != 1 {
+                            fail("Expected to return 1 auth method, returned \(authMethods.count)")
+                            return
+                        }
+
+                        expect(authMethods[0]).to(equal(AuthMethod(type: .Basic, url: "basic_turtle.com")))
                     }
 
                     it("returns no error") {

@@ -1,4 +1,4 @@
 enum AuthType {
-    case None
     case Basic
+    case Github
 }

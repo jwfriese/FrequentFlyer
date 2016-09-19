@@ -7,9 +7,10 @@ class ConcourseEntryViewController: UIViewController {
 
     var authMethodsService: AuthMethodsService?
     var unauthenticatedTokenService: UnauthenticatedTokenService?
+    var userTextInputPageOperator: UserTextInputPageOperator?
 
     class var storyboardIdentifier: String { get { return "ConcourseEntry" } }
-    class var showBasicUserAuthSegueId: String { get { return "ShowBasicUserAuth" } }
+    class var showAuthMethodListSegueId: String { get { return "ShowAuthMethodList" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
 
     override func viewDidLoad() {
@@ -22,23 +23,23 @@ class ConcourseEntryViewController: UIViewController {
 
         concourseURLEntryField?.delegate = self
         submitButton?.enabled = false
+
+        userTextInputPageOperator?.delegate = self
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == ConcourseEntryViewController.showBasicUserAuthSegueId {
-            guard let basicUserAuthViewController = segue.destinationViewController as? BasicUserAuthViewController else {
+        if segue.identifier == ConcourseEntryViewController.showAuthMethodListSegueId {
+            guard let authMethodListViewController = segue.destinationViewController as? AuthMethodListViewController else {
                 return
             }
 
             guard let concourseURLString = concourseURLEntryField?.text else { return }
-            basicUserAuthViewController.concourseURLString = concourseURLString
-            basicUserAuthViewController.keychainWrapper = KeychainWrapper()
+            guard let authMethodWrapper = sender as? ArrayWrapper<AuthMethod> else { return }
 
-            let basicAuthTokenService = BasicAuthTokenService()
-            basicAuthTokenService.httpClient = HTTPClient()
-            basicAuthTokenService.tokenDataDeserializer = TokenDataDeserializer()
-            basicUserAuthViewController.basicAuthTokenService = basicAuthTokenService
-        } else if segue.identifier == ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId {
+            authMethodListViewController.authMethods = authMethodWrapper.array
+            authMethodListViewController.concourseURLString = concourseURLString
+        }
+        else if segue.identifier == ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
             guard let teamPipelinesViewController = segue.destinationViewController as? TeamPipelinesViewController else {
                 return
@@ -83,7 +84,8 @@ class ConcourseEntryViewController: UIViewController {
                 }
             } else {
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.performSegueWithIdentifier(ConcourseEntryViewController.showBasicUserAuthSegueId, sender: nil)
+                    let wrappedAuthMethods = ArrayWrapper<AuthMethod>(array: authMethods!)
+                    self.performSegueWithIdentifier(ConcourseEntryViewController.showAuthMethodListSegueId, sender: wrappedAuthMethods)
                 }
             }
         }
@@ -100,4 +102,10 @@ extension ConcourseEntryViewController: UITextFieldDelegate {
         submitButton?.enabled = false
         return true
     }
+}
+
+extension ConcourseEntryViewController: UserTextInputPageDelegate {
+    var textFields: [UITextField] { get { return [concourseURLEntryField!] } }
+    var pageView: UIView { get { return view } }
+    var pageScrollView: UIScrollView { get { return scrollView! } }
 }
