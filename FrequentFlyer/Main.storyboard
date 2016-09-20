@@ -491,8 +491,17 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stay Logged In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDD-Yr-8ra">
+                                        <rect key="frame" x="139" y="207" width="115" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YM6-hw-pwM">
+                                        <rect key="frame" x="338" y="202" width="51" height="31"/>
+                                    </switch>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHS-Oc-4nI">
-                                        <rect key="frame" x="245" y="190" width="70" height="39"/>
+                                        <rect key="frame" x="245" y="281" width="70" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <state key="normal" title="Submit"/>
                                         <connections>
@@ -501,8 +510,11 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="dDD-Yr-8ra" firstAttribute="leading" secondItem="Xra-J7-Ovn" secondAttribute="leading" constant="24" id="9Si-cL-qNz"/>
                                     <constraint firstItem="QQF-XU-5Gx" firstAttribute="centerY" secondItem="5TR-PR-Myy" secondAttribute="centerY" id="Ahn-Xm-duK"/>
-                                    <constraint firstItem="fHS-Oc-4nI" firstAttribute="top" secondItem="Xra-J7-Ovn" secondAttribute="bottom" constant="36" id="KEZ-9R-HiR"/>
+                                    <constraint firstItem="YM6-hw-pwM" firstAttribute="centerY" secondItem="dDD-Yr-8ra" secondAttribute="centerY" id="DrW-gl-jdz"/>
+                                    <constraint firstItem="fHS-Oc-4nI" firstAttribute="top" secondItem="YM6-hw-pwM" secondAttribute="bottom" constant="48" id="HaO-r8-23z"/>
+                                    <constraint firstItem="fHS-Oc-4nI" firstAttribute="top" secondItem="Xra-J7-Ovn" secondAttribute="bottom" constant="60" id="KEZ-9R-HiR"/>
                                     <constraint firstItem="fHS-Oc-4nI" firstAttribute="centerX" secondItem="tl8-8B-Y8o" secondAttribute="centerX" id="LSD-Mg-rwo"/>
                                     <constraint firstItem="5TR-PR-Myy" firstAttribute="leading" secondItem="tl8-8B-Y8o" secondAttribute="leading" constant="24" id="OVN-j3-5kU"/>
                                     <constraint firstItem="Xra-J7-Ovn" firstAttribute="trailing" secondItem="QQF-XU-5Gx" secondAttribute="trailing" id="TNM-gT-oyp"/>
@@ -510,6 +522,8 @@
                                     <constraint firstItem="QZM-lK-FPV" firstAttribute="trailing" secondItem="5TR-PR-Myy" secondAttribute="trailing" id="Tb0-q2-aG7"/>
                                     <constraint firstAttribute="trailing" secondItem="QQF-XU-5Gx" secondAttribute="trailing" constant="12" id="Uhh-gN-66Q"/>
                                     <constraint firstItem="QZM-lK-FPV" firstAttribute="top" secondItem="5TR-PR-Myy" secondAttribute="bottom" constant="36" id="WfG-Id-Giy"/>
+                                    <constraint firstItem="YM6-hw-pwM" firstAttribute="top" secondItem="Xra-J7-Ovn" secondAttribute="bottom" constant="48" id="Yp8-Pt-y7T"/>
+                                    <constraint firstItem="YM6-hw-pwM" firstAttribute="leading" secondItem="dDD-Yr-8ra" secondAttribute="trailing" constant="84" id="cuS-BI-kqX"/>
                                     <constraint firstAttribute="bottom" secondItem="fHS-Oc-4nI" secondAttribute="bottom" constant="72" id="eRu-Cg-cWk"/>
                                     <constraint firstItem="Xra-J7-Ovn" firstAttribute="leading" secondItem="QZM-lK-FPV" secondAttribute="trailing" constant="24" id="gJQ-Ir-aW3"/>
                                     <constraint firstItem="Xra-J7-Ovn" firstAttribute="centerY" secondItem="QZM-lK-FPV" secondAttribute="centerY" id="heQ-jO-y8v"/>
@@ -519,6 +533,7 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="gJQ-Ir-aW3"/>
+                                        <exclude reference="KEZ-9R-HiR"/>
                                     </mask>
                                 </variation>
                             </scrollView>
@@ -535,6 +550,7 @@
                     <connections>
                         <outlet property="passwordTextField" destination="Xra-J7-Ovn" id="4wl-J0-4mq"/>
                         <outlet property="scrollView" destination="tl8-8B-Y8o" id="W6m-S4-Ws9"/>
+                        <outlet property="stayLoggedInSwitch" destination="YM6-hw-pwM" id="sf1-h4-ecz"/>
                         <outlet property="submitButton" destination="fHS-Oc-4nI" id="Hme-I2-ssd"/>
                         <outlet property="usernameTextField" destination="QQF-XU-5Gx" id="DR1-69-PZY"/>
                         <outlet property="view" destination="WLr-WC-2C4" id="jex-o3-R6a"/>
@@ -639,6 +655,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ED3-jq-hhL"/>
+        <segue reference="N7T-gv-tcr"/>
     </inferredMetricsTieBreakers>
 </document>

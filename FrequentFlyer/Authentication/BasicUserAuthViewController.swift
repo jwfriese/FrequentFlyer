@@ -4,6 +4,7 @@ class BasicUserAuthViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView?
     @IBOutlet weak var usernameTextField: UITextField?
     @IBOutlet weak var passwordTextField: UITextField?
+    @IBOutlet weak var stayLoggedInSwitch: UISwitch?
     @IBOutlet weak var submitButton: UIButton?
 
     var basicAuthTokenService: BasicAuthTokenService?
@@ -60,7 +61,10 @@ class BasicUserAuthViewController: UIViewController {
                                        api: concourseURL,
                                        teamName: "main",
                                        token: token)
-                keychainWrapper.saveTarget(newTarget)
+                if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.on {
+                    keychainWrapper.saveTarget(newTarget)
+                }
+
                 dispatch_async(dispatch_get_main_queue()) {
                     self.performSegueWithIdentifier(ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
                 }

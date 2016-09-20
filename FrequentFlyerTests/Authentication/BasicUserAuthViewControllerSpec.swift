@@ -140,38 +140,78 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                     }
 
                     describe("When the BasicAuthTokenService resolves with a token") {
-                        beforeEach {
-                            guard let completion = mockBasicAuthTokenService.capturedCompletion else {
-                                fail("Failed to call BasicAuthTokenService with a completion handler")
-                                return
+                        describe("When the 'Stay Logged In' switch is off") {
+                            beforeEach {
+                                subject.stayLoggedInSwitch?.on = false
+
+                                guard let completion = mockBasicAuthTokenService.capturedCompletion else {
+                                    fail("Failed to call BasicAuthTokenService with a completion handler")
+                                    return
+                                }
+
+                                let token = Token(value: "turtle token")
+                                completion(token, nil)
                             }
 
-                            let token = Token(value: "turtle token")
-                            completion(token, nil)
+                            it("does not save anything to the keychain") {
+                                expect(mockKeychainWrapper.capturedTarget).to(beNil())
+                            }
+
+                            it("replaces itself with the TeamPipelinesViewController") {
+                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
+                            }
+
+                            it("creates a new target from the entered information and view controller") {
+                                let expectedTarget = Target(name: "target", api: "concourse URL",
+                                                            teamName: "main", token: Token(value: "turtle token")
+                                )
+
+                                expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
+                            }
+
+                            it("sets a TeamPipelinesService on the view controller") {
+                                expect(mockTeamPipelinesViewController.teamPipelinesService).toEventuallyNot(beNil())
+                                expect(mockTeamPipelinesViewController.teamPipelinesService?.httpClient).toEventuallyNot(beNil())
+                                expect(mockTeamPipelinesViewController.teamPipelinesService?.pipelineDataDeserializer).toEventuallyNot(beNil())
+                            }
                         }
 
-                        it("replaces itself with the TeamPipelinesViewController") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
-                        }
+                        describe("When the 'Stay Logged In' switch is on") {
+                            beforeEach {
+                                subject.stayLoggedInSwitch?.on = true
 
-                        it("creates a new target from the entered information and view controller") {
-                            let expectedTarget = Target(name: "target", api: "concourse URL",
-                                                        teamName: "main", token: Token(value: "turtle token")
-                            )
-                            expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
-                        }
+                                guard let completion = mockBasicAuthTokenService.capturedCompletion else {
+                                    fail("Failed to call BasicAuthTokenService with a completion handler")
+                                    return
+                                }
 
-                        it("asks the KeychainWrapper to save newly created target") {
-                            let expectedTarget = Target(name: "target", api: "concourse URL",
-                                                        teamName: "main", token: Token(value: "turtle token")
-                            )
-                            expect(mockKeychainWrapper.capturedTarget).to(equal(expectedTarget))
-                        }
+                                let token = Token(value: "turtle token")
+                                completion(token, nil)
+                            }
 
-                        it("sets a TeamPipelinesService on the view controller") {
-                            expect(mockTeamPipelinesViewController.teamPipelinesService).toEventuallyNot(beNil())
-                            expect(mockTeamPipelinesViewController.teamPipelinesService?.httpClient).toEventuallyNot(beNil())
-                            expect(mockTeamPipelinesViewController.teamPipelinesService?.pipelineDataDeserializer).toEventuallyNot(beNil())
+                            it("replaces itself with the TeamPipelinesViewController") {
+                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
+                            }
+
+                            it("creates a new target from the entered information and view controller") {
+                                let expectedTarget = Target(name: "target", api: "concourse URL",
+                                                            teamName: "main", token: Token(value: "turtle token")
+                                )
+                                expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
+                            }
+
+                            it("asks the KeychainWrapper to save the newly created target") {
+                                let expectedTarget = Target(name: "target", api: "concourse URL",
+                                                            teamName: "main", token: Token(value: "turtle token")
+                                )
+                                expect(mockKeychainWrapper.capturedTarget).to(equal(expectedTarget))
+                            }
+
+                            it("sets a TeamPipelinesService on the view controller") {
+                                expect(mockTeamPipelinesViewController.teamPipelinesService).toEventuallyNot(beNil())
+                                expect(mockTeamPipelinesViewController.teamPipelinesService?.httpClient).toEventuallyNot(beNil())
+                                expect(mockTeamPipelinesViewController.teamPipelinesService?.pipelineDataDeserializer).toEventuallyNot(beNil())
+                            }
                         }
                     }
 
