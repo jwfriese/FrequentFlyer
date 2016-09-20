@@ -1,6 +1,5 @@
 import UIKit
 
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -9,19 +8,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let navigationController = storyboard.instantiateInitialViewController() as? UINavigationController
-        let concourseEntryViewController = navigationController?.topViewController as! ConcourseEntryViewController
 
-        concourseEntryViewController.userTextInputPageOperator = UserTextInputPageOperator()
-
-        let authMethodsService = AuthMethodsService()
-        authMethodsService.httpClient = HTTPClient()
-        authMethodsService.authMethodsDataDeserializer = AuthMethodDataDeserializer()
-        concourseEntryViewController.authMethodsService = authMethodsService
-
-        let unauthenticatedTokenService = UnauthenticatedTokenService()
-        unauthenticatedTokenService.httpClient = HTTPClient()
-        unauthenticatedTokenService.tokenDataDeserializer = TokenDataDeserializer()
-        concourseEntryViewController.unauthenticatedTokenService = unauthenticatedTokenService
+        let appRouterViewController = navigationController?.topViewController as! AppRouterViewController
+        appRouterViewController.keychainWrapper = KeychainWrapper()
 
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

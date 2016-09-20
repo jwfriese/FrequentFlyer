@@ -65,5 +65,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>App Delegate Name</key>
+	<string>$(APP_DELEGATE_NAME)</string>
 </dict>
 </plist>

@@ -16,34 +16,18 @@ class AppDelegateSpec: QuickSpec {
                     subject.application(application, didFinishLaunchingWithOptions: nil)
                 }
 
-                it("sets up the main window with a navigation controller containing a ConcourseEntryViewController and sets up the ConcourseEntryViewController with its dependencies") {
+                it("sets up the main window with a navigation controller containing a AppRouterViewController and sets up the AppRouterViewController with its dependencies") {
                     guard let rootNavigationController = subject.window?.rootViewController as? UINavigationController else {
                         fail("Failed to set the application window up with a navigation controller")
                         return
                     }
 
-                    guard let concouseEntryViewController = rootNavigationController.topViewController as? ConcourseEntryViewController else {
-                        fail("Failed to set root view controller as a ConcourseEntryViewController")
+                    guard let appRouterViewController = rootNavigationController.topViewController as? AppRouterViewController else {
+                        fail("Failed to set root view controller as a AppRouterViewController")
                         return
                     }
 
-                    expect(concouseEntryViewController.userTextInputPageOperator).toNot(beNil())
-
-                    guard let authMethodsService = concouseEntryViewController.authMethodsService else {
-                        fail("Failed to set AuthMethodsService on the ConcourseEntryViewController")
-                        return
-                    }
-
-                    expect(authMethodsService.httpClient).toNot(beNil())
-                    expect(authMethodsService.authMethodsDataDeserializer).toNot(beNil())
-
-                    guard let unauthenticatedTokenService = concouseEntryViewController.unauthenticatedTokenService else {
-                        fail("Failed to set UnauthenticatedTokenService on the ConcourseEntryViewController")
-                        return
-                    }
-
-                    expect(unauthenticatedTokenService.httpClient).toNot(beNil())
-                    expect(unauthenticatedTokenService.tokenDataDeserializer).toNot(beNil())
+                    expect(appRouterViewController.keychainWrapper).toNot(beNil())
                 }
             }
         }
