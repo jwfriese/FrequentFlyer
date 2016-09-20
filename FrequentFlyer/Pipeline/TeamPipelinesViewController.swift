@@ -2,14 +2,17 @@ import UIKit
 
 class TeamPipelinesViewController: UIViewController {
     @IBOutlet weak var teamPipelinesTableView: UITableView?
+    @IBOutlet weak var logoutBarButtonItem: UIBarButtonItem?
 
     var target: Target?
     var teamPipelinesService: TeamPipelinesService?
+    var keychainWrapper: KeychainWrapper?
 
     var pipelines: [Pipeline]?
 
     class var storyboardIdentifier: String { get { return "TeamPipelines" } }
     class var showBuildsSegueId: String { get { return "ShowBuilds" } }
+    class var setConcourseEntryAsRootPageSegueId: String { get { return "SetConcourseEntryAsRootPage" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +45,32 @@ class TeamPipelinesViewController: UIViewController {
             buildsService.httpClient = HTTPClient()
             buildsService.buildsDataDeserializer = BuildsDataDeserializer()
             buildsViewController.buildsService = buildsService
+        } else if segue.identifier == TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId {
+            guard let concourseEntryViewController = segue.destinationViewController as? ConcourseEntryViewController else {
+                return
+            }
+
+            concourseEntryViewController.userTextInputPageOperator = UserTextInputPageOperator()
+
+            let authMethodsService = AuthMethodsService()
+            authMethodsService.httpClient = HTTPClient()
+            authMethodsService.authMethodsDataDeserializer = AuthMethodDataDeserializer()
+            concourseEntryViewController.authMethodsService = authMethodsService
+
+            let unauthenticatedTokenService = UnauthenticatedTokenService()
+            unauthenticatedTokenService.httpClient = HTTPClient()
+            unauthenticatedTokenService.tokenDataDeserializer = TokenDataDeserializer()
+            concourseEntryViewController.unauthenticatedTokenService = unauthenticatedTokenService
+
+            concourseEntryViewController.navigationItem.hidesBackButton = true
+        }
+    }
+
+    @IBAction func logoutTapped() {
+        guard let keychainWrapper = keychainWrapper else { return }
+        keychainWrapper.deleteTarget()
+        dispatch_async(dispatch_get_main_queue()) {
+            self.performSegueWithIdentifier(TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
         }
     }
 }

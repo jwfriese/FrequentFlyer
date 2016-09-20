@@ -152,7 +152,7 @@
         <!--Team Pipelines View Controller-->
         <scene sceneID="Ycc-d0-je9">
             <objects>
-                <viewController storyboardIdentifier="TeamPipelines" automaticallyAdjustsScrollViewInsets="NO" id="aNH-9e-yKD" customClass="TeamPipelinesViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeamPipelines" automaticallyAdjustsScrollViewInsets="NO" id="aNH-9e-yKD" userLabel="Team Pipelines View Controller" customClass="TeamPipelinesViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3aQ-Wg-Pfj"/>
                         <viewControllerLayoutGuide type="bottom" id="ZLh-97-86X"/>
@@ -199,9 +199,18 @@
                             <constraint firstItem="PWe-7J-igF" firstAttribute="leading" secondItem="0je-yI-F7S" secondAttribute="leadingMargin" id="gXx-f7-k98"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="WdF-cD-ur3">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="CDV-jc-y0b">
+                            <connections>
+                                <action selector="logoutTapped" destination="aNH-9e-yKD" id="2bx-Cc-YXY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="logoutBarButtonItem" destination="CDV-jc-y0b" id="TlG-zK-i81"/>
                         <outlet property="teamPipelinesTableView" destination="PWe-7J-igF" id="FA8-CU-nCp"/>
                         <segue destination="jtb-Tk-Uhg" kind="show" identifier="ShowBuilds" id="kmM-zp-azD"/>
+                        <segue destination="rvu-Hz-VhO" kind="custom" identifier="SetConcourseEntryAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="mf8-JP-wQv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9WN-af-Wxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -655,6 +664,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="mf8-JP-wQv"/>
         <segue reference="N7T-gv-tcr"/>
     </inferredMetricsTieBreakers>
 </document>

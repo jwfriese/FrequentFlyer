@@ -174,6 +174,10 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                                 expect(mockTeamPipelinesViewController.teamPipelinesService?.httpClient).toEventuallyNot(beNil())
                                 expect(mockTeamPipelinesViewController.teamPipelinesService?.pipelineDataDeserializer).toEventuallyNot(beNil())
                             }
+
+                            it("sets a KeychainWrapper on the view controller") {
+                                expect(mockTeamPipelinesViewController.keychainWrapper).toEventuallyNot(beNil())
+                            }
                         }
 
                         describe("When the 'Stay Logged In' switch is on") {

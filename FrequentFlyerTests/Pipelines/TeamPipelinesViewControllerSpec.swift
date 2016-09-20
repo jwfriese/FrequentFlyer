@@ -5,29 +5,50 @@ import Fleet
 @testable import FrequentFlyer
 
 class TeamPipelinesViewControllerSpec: QuickSpec {
-    override func spec() {
-        class MockTeamPipelinesService: TeamPipelinesService {
-            var capturedTarget: Target?
-            var capturedCompletion: (([Pipeline]?, Error?) -> ())?
+    class MockTeamPipelinesService: TeamPipelinesService {
+        var capturedTarget: Target?
+        var capturedCompletion: (([Pipeline]?, Error?) -> ())?
 
-            override func getPipelines(forTarget target: Target, completion: (([Pipeline]?, Error?) -> ())?) {
-                capturedTarget = target
-                capturedCompletion = completion
-            }
+        override func getPipelines(forTarget target: Target, completion: (([Pipeline]?, Error?) -> ())?) {
+            capturedTarget = target
+            capturedCompletion = completion
         }
+    }
 
+    class MockKeychainWrapper: KeychainWrapper {
+        var didCallDelete = false
+
+        override func deleteTarget() {
+            didCallDelete = true
+        }
+    }
+
+    class MockBuildsViewController: BuildsViewController {
+        override func viewDidLoad() { }
+    }
+
+    class MockConcourseEntryViewController: ConcourseEntryViewController {
+        override func viewDidLoad() { }
+    }
+
+    override func spec() {
         describe("TeamPipelinesViewController"){
             var subject: TeamPipelinesViewController!
             var mockTeamPipelinesService: MockTeamPipelinesService!
+            var mockKeychainWrapper: MockKeychainWrapper!
 
-            var mockBuildsViewController: BuildsViewController!
+            var mockBuildsViewController: MockBuildsViewController!
+            var mockConcourseEntryViewController: MockConcourseEntryViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 subject = storyboard.instantiateViewControllerWithIdentifier(TeamPipelinesViewController.storyboardIdentifier) as! TeamPipelinesViewController
 
-                mockBuildsViewController = BuildsViewController()
+                mockBuildsViewController = MockBuildsViewController()
                 try! storyboard.bindViewController(mockBuildsViewController, toIdentifier: BuildsViewController.storyboardIdentifier)
+
+                mockConcourseEntryViewController = MockConcourseEntryViewController()
+                try! storyboard.bindViewController(mockConcourseEntryViewController, toIdentifier: ConcourseEntryViewController.storyboardIdentifier)
 
                 subject.target = Target(name: "turtle target",
                     api: "turtle api",
@@ -37,6 +58,9 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                 mockTeamPipelinesService = MockTeamPipelinesService()
                 subject.teamPipelinesService = mockTeamPipelinesService
+
+                mockKeychainWrapper = MockKeychainWrapper()
+                subject.keychainWrapper = mockKeychainWrapper
             }
 
             describe("After the view has loaded") {
@@ -69,6 +93,36 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                 it("always has one section in the table view") {
                     expect(subject.numberOfSectionsInTableView(subject.teamPipelinesTableView!)).to(equal(1))
+                }
+
+                describe("Tapping the 'Logout' navigation item") {
+                    beforeEach {
+                        subject.logoutBarButtonItem?.tap()
+                    }
+
+                    it("asks its KeychainWrapper to delete its target") {
+                        expect(mockKeychainWrapper.didCallDelete).to(beTrue())
+                    }
+
+                    it("sets the app to the concourse entry page") {
+                        expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockConcourseEntryViewController))
+                    }
+
+                    it("sets a UserTextInputPageOperator on the view controller") {
+                        expect(mockConcourseEntryViewController.userTextInputPageOperator).toEventuallyNot(beNil())
+                    }
+
+                    it("sets an AuthMethodsService on the view controller") {
+                        expect(mockConcourseEntryViewController.authMethodsService).toEventuallyNot(beNil())
+                        expect(mockConcourseEntryViewController.authMethodsService?.httpClient).toEventuallyNot(beNil())
+                        expect(mockConcourseEntryViewController.authMethodsService?.authMethodsDataDeserializer).toEventuallyNot(beNil())
+                    }
+
+                    it("sets an UnauthenticatedTokenService on the view controller") {
+                        expect(mockConcourseEntryViewController.unauthenticatedTokenService).toEventuallyNot(beNil())
+                        expect(mockConcourseEntryViewController.unauthenticatedTokenService?.httpClient).toEventuallyNot(beNil())
+                        expect(mockConcourseEntryViewController.unauthenticatedTokenService?.tokenDataDeserializer).toEventuallyNot(beNil())
+                    }
                 }
 
                 describe("When the pipelines service call resolves with a list of pipelines") {

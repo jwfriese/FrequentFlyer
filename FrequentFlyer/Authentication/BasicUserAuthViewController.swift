@@ -35,6 +35,8 @@ class BasicUserAuthViewController: UIViewController {
             teamPipelinesService.httpClient = HTTPClient()
             teamPipelinesService.pipelineDataDeserializer = PipelineDataDeserializer()
             teamPipelinesViewController.teamPipelinesService = teamPipelinesService
+
+            teamPipelinesViewController.keychainWrapper = KeychainWrapper()
         }
     }
 
