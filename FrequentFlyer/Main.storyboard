@@ -375,13 +375,13 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stay Logged In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJH-YP-MBy">
-                                        <rect key="frame" x="94" y="379" width="115" height="21"/>
+                                        <rect key="frame" x="46" y="379" width="115" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="z4U-kR-TS7">
-                                        <rect key="frame" x="269" y="374" width="51" height="31"/>
+                                        <rect key="frame" x="221" y="374" width="51" height="31"/>
                                     </switch>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UXx-Jp-ZYT">
                                         <rect key="frame" x="250" y="448" width="61" height="35"/>
@@ -413,7 +413,7 @@
                                     <constraint firstItem="z4U-kR-TS7" firstAttribute="centerY" secondItem="jJH-YP-MBy" secondAttribute="centerY" id="ri3-Xn-CbZ"/>
                                     <constraint firstItem="mES-qh-DXN" firstAttribute="centerX" secondItem="BDo-G9-LMk" secondAttribute="centerX" id="s4t-t7-McP"/>
                                     <constraint firstItem="cdD-N9-yhc" firstAttribute="leading" secondItem="BDo-G9-LMk" secondAttribute="leading" constant="24" id="uh0-jw-PhI"/>
-                                    <constraint firstItem="jJH-YP-MBy" firstAttribute="leading" secondItem="Uyc-at-zAN" secondAttribute="leading" id="yiL-D1-bkv"/>
+                                    <constraint firstItem="jJH-YP-MBy" firstAttribute="leading" secondItem="Uyc-at-zAN" secondAttribute="leading" constant="-48" id="yiL-D1-bkv"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -491,14 +491,14 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stay Logged In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDD-Yr-8ra">
-                                        <rect key="frame" x="139" y="207" width="115" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stay Logged In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDD-Yr-8ra">
+                                        <rect key="frame" x="67" y="207" width="115" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YM6-hw-pwM">
-                                        <rect key="frame" x="338" y="202" width="51" height="31"/>
+                                        <rect key="frame" x="230" y="202" width="51" height="31"/>
                                     </switch>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHS-Oc-4nI">
                                         <rect key="frame" x="245" y="281" width="70" height="39"/>
@@ -510,7 +510,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="dDD-Yr-8ra" firstAttribute="leading" secondItem="Xra-J7-Ovn" secondAttribute="leading" constant="24" id="9Si-cL-qNz"/>
+                                    <constraint firstItem="dDD-Yr-8ra" firstAttribute="leading" secondItem="Xra-J7-Ovn" secondAttribute="leading" constant="-48" id="9Si-cL-qNz"/>
                                     <constraint firstItem="QQF-XU-5Gx" firstAttribute="centerY" secondItem="5TR-PR-Myy" secondAttribute="centerY" id="Ahn-Xm-duK"/>
                                     <constraint firstItem="YM6-hw-pwM" firstAttribute="centerY" secondItem="dDD-Yr-8ra" secondAttribute="centerY" id="DrW-gl-jdz"/>
                                     <constraint firstItem="fHS-Oc-4nI" firstAttribute="top" secondItem="YM6-hw-pwM" secondAttribute="bottom" constant="48" id="HaO-r8-23z"/>
@@ -523,7 +523,7 @@
                                     <constraint firstAttribute="trailing" secondItem="QQF-XU-5Gx" secondAttribute="trailing" constant="12" id="Uhh-gN-66Q"/>
                                     <constraint firstItem="QZM-lK-FPV" firstAttribute="top" secondItem="5TR-PR-Myy" secondAttribute="bottom" constant="36" id="WfG-Id-Giy"/>
                                     <constraint firstItem="YM6-hw-pwM" firstAttribute="top" secondItem="Xra-J7-Ovn" secondAttribute="bottom" constant="48" id="Yp8-Pt-y7T"/>
-                                    <constraint firstItem="YM6-hw-pwM" firstAttribute="leading" secondItem="dDD-Yr-8ra" secondAttribute="trailing" constant="84" id="cuS-BI-kqX"/>
+                                    <constraint firstItem="YM6-hw-pwM" firstAttribute="leading" secondItem="dDD-Yr-8ra" secondAttribute="trailing" constant="48" id="cuS-BI-kqX"/>
                                     <constraint firstAttribute="bottom" secondItem="fHS-Oc-4nI" secondAttribute="bottom" constant="72" id="eRu-Cg-cWk"/>
                                     <constraint firstItem="Xra-J7-Ovn" firstAttribute="leading" secondItem="QZM-lK-FPV" secondAttribute="trailing" constant="24" id="gJQ-Ir-aW3"/>
                                     <constraint firstItem="Xra-J7-Ovn" firstAttribute="centerY" secondItem="QZM-lK-FPV" secondAttribute="centerY" id="heQ-jO-y8v"/>
