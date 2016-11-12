@@ -27,7 +27,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                         ]
                     ]
 
-                    let validData = try! NSJSONSerialization.dataWithJSONObject(validDataJSONArray, options: .PrettyPrinted)
+                    let validData = try! JSONSerialization.data(withJSONObject: validDataJSONArray, options: .prettyPrinted)
                     result = subject.deserialize(validData)
                 }
 
@@ -42,8 +42,8 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                         return
                     }
 
-                    expect(authMethods[0]).to(equal(AuthMethod(type: .Basic, url: "basic_turtle.com")))
-                    expect(authMethods[1]).to(equal(AuthMethod(type: .Github, url: "oauth_turtle.com")))
+                    expect(authMethods[0]).to(equal(AuthMethod(type: .basic, url: "basic_turtle.com")))
+                    expect(authMethods[1]).to(equal(AuthMethod(type: .github, url: "oauth_turtle.com")))
                 }
 
                 it("returns no error") {
@@ -67,7 +67,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -82,7 +82,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             return
                         }
 
-                        expect(authMethods[0]).to(equal(AuthMethod(type: .Basic, url: "basic_turtle.com")))
+                        expect(authMethods[0]).to(equal(AuthMethod(type: .basic, url: "basic_turtle.com")))
                     }
 
                     it("returns no error") {
@@ -103,7 +103,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -118,7 +118,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             return
                         }
 
-                        expect(authMethods[0]).to(equal(AuthMethod(type: .Basic, url: "basic_turtle.com")))
+                        expect(authMethods[0]).to(equal(AuthMethod(type: .basic, url: "basic_turtle.com")))
                     }
 
                     it("returns no error") {
@@ -138,7 +138,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -153,7 +153,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             return
                         }
 
-                        expect(authMethods[0]).to(equal(AuthMethod(type: .Github, url: "basic_crab.com")))
+                        expect(authMethods[0]).to(equal(AuthMethod(type: .github, url: "basic_crab.com")))
                     }
 
                     it("returns no error") {
@@ -174,7 +174,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -189,7 +189,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                             return
                         }
 
-                        expect(authMethods[0]).to(equal(AuthMethod(type: .Basic, url: "basic_turtle.com")))
+                        expect(authMethods[0]).to(equal(AuthMethod(type: .basic, url: "basic_turtle.com")))
                     }
 
                     it("returns no error") {
@@ -204,7 +204,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                 beforeEach {
                     let authMethodsDataString = "some string"
 
-                    let invalidAuthMethodsData = authMethodsDataString.dataUsingEncoding(NSUTF8StringEncoding)
+                    let invalidAuthMethodsData = authMethodsDataString.data(using: String.Encoding.utf8)
                     result = subject.deserialize(invalidAuthMethodsData!)
                 }
 
@@ -213,7 +213,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns an error") {
-                    expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .InvalidInputFormat)))
+                    expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat)))
                 }
             }
         }

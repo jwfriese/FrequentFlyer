@@ -8,9 +8,9 @@ class BuildsViewControllerSpec: QuickSpec {
     override func spec() {
         class MockBuildsService: BuildsService {
             var capturedTarget: Target?
-            var capturedCompletion: (([Build]?, Error?) -> ())?
+            var capturedCompletion: (([Build]?, FFError?) -> ())?
 
-            override func getBuilds(forTarget target: Target, completion: (([Build]?, Error?) -> ())?) {
+            override func getBuilds(forTarget target: Target, completion: (([Build]?, FFError?) -> ())?) {
                 capturedTarget = target
                 capturedCompletion = completion
             }
@@ -25,9 +25,9 @@ class BuildsViewControllerSpec: QuickSpec {
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 mockBuildDetailViewController = BuildDetailViewController()
-                try! storyboard.bindViewController(mockBuildDetailViewController, toIdentifier: BuildDetailViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockBuildDetailViewController, toIdentifier: BuildDetailViewController.storyboardIdentifier)
 
-                subject = storyboard.instantiateViewControllerWithIdentifier(BuildsViewController.storyboardIdentifier) as! BuildsViewController
+                subject = storyboard.instantiateViewController(withIdentifier: BuildsViewController.storyboardIdentifier) as! BuildsViewController
 
                 mockBuildsService = MockBuildsService()
                 subject.buildsService = mockBuildsService
@@ -68,7 +68,7 @@ class BuildsViewControllerSpec: QuickSpec {
                 }
 
                 it("always has one section in its table view") {
-                    expect(subject.numberOfSectionsInTableView(subject.buildsTableView!)).to(equal(1))
+                    expect(subject.numberOfSections(in: subject.buildsTableView!)).to(equal(1))
                 }
 
                 describe("The table view's header view") {
@@ -95,7 +95,7 @@ class BuildsViewControllerSpec: QuickSpec {
                     }
 
                     it("creates a cell in each row for each build with correct pipeline name returned by the service") {
-                        let cellOneOpt = subject.tableView(subject.buildsTableView!, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as? BuildTableViewCell
+                        let cellOneOpt = subject.tableView(subject.buildsTableView!, cellForRowAt: IndexPath(row: 0, section: 0)) as? BuildTableViewCell
                         guard let cellOne = cellOneOpt else {
                             fail("Failed to fetch a BuildTableViewCell")
                             return
@@ -104,7 +104,7 @@ class BuildsViewControllerSpec: QuickSpec {
                         expect(cellOne.jobNameLabel?.text).to(equal("turtle job"))
                         expect(cellOne.statusLabel?.text).to(equal("turtle last status"))
 
-                        let cellTwoOpt = subject.tableView(subject.buildsTableView!, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as? BuildTableViewCell
+                        let cellTwoOpt = subject.tableView(subject.buildsTableView!, cellForRowAt: IndexPath(row: 1, section: 0)) as? BuildTableViewCell
                         guard let cellTwo = cellTwoOpt else {
                             fail("Failed to fetch a BuildTableViewCell")
                             return
@@ -116,7 +116,7 @@ class BuildsViewControllerSpec: QuickSpec {
 
                     describe("Tapping on a cell") {
                         beforeEach {
-                            subject.tableView(subject.buildsTableView!, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                            subject.tableView(subject.buildsTableView!, didSelectRowAt: IndexPath(row: 0, section: 0))
                         }
 
                         it("displays a detail page for the build associated with the selected row") {

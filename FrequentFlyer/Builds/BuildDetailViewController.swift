@@ -39,11 +39,11 @@ class BuildDetailViewController: UIViewController {
                 alertMessage = error?.details
             }
 
-            let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
-            dispatch_async(dispatch_get_main_queue()) {
-                self.presentViewController(alert, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }

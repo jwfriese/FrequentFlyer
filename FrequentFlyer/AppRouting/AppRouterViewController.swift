@@ -7,9 +7,9 @@ class AppRouterViewController: UIViewController {
     class var setConcourseEntryAsRootPageSegueId: String { get { return "SetConcourseEntryAsRootPage" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == AppRouterViewController.setConcourseEntryAsRootPageSegueId {
-            guard let concourseEntryViewController = segue.destinationViewController as? ConcourseEntryViewController else {
+            guard let concourseEntryViewController = segue.destination as? ConcourseEntryViewController else {
                 return
             }
 
@@ -28,7 +28,7 @@ class AppRouterViewController: UIViewController {
             concourseEntryViewController.navigationItem.hidesBackButton = true
         } else if segue.identifier == AppRouterViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
-            guard let teamPipelinesViewController = segue.destinationViewController as? TeamPipelinesViewController else {
+            guard let teamPipelinesViewController = segue.destination as? TeamPipelinesViewController else {
                 return
             }
 
@@ -49,9 +49,9 @@ class AppRouterViewController: UIViewController {
         guard let keychainWrapper = keychainWrapper else { return }
 
         if let savedTarget = keychainWrapper.retrieveTarget() {
-            performSegueWithIdentifier(AppRouterViewController.setTeamPipelinesAsRootPageSegueId, sender: savedTarget)
+            performSegue(withIdentifier: AppRouterViewController.setTeamPipelinesAsRootPageSegueId, sender: savedTarget)
         } else {
-            performSegueWithIdentifier(AppRouterViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
+            performSegue(withIdentifier: AppRouterViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
         }
     }
 }

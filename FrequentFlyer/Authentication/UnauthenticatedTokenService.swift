@@ -4,17 +4,17 @@ class UnauthenticatedTokenService {
     var httpClient: HTTPClient?
     var tokenDataDeserializer: TokenDataDeserializer?
 
-    func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String, completion: ((Token?, Error?) -> ())?) {
+    func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String, completion: ((Token?, FFError?) -> ())?) {
         guard let httpClient = httpClient else { return }
         guard let tokenDataDeserializer = tokenDataDeserializer else { return }
 
         let urlString = concourseURL + "/api/v1/teams/\(teamName)/auth/token"
-        let url = NSURL(string: urlString)
-        let request = NSMutableURLRequest(URL: url!)
+        let url = URL(string: urlString)
+        let request = NSMutableURLRequest(url: url!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPMethod = "GET"
+        request.httpMethod = "GET"
 
-        httpClient.doRequest(request) { data, response, error in
+        httpClient.doRequest(request as URLRequest) { data, response, error in
             guard let completion = completion else { return }
             guard let data = data else {
                 completion(nil, error)

@@ -6,21 +6,21 @@ import Nimble
 class AuthMethodsServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
-            var capturedRequest: NSURLRequest?
-            var capturedCompletion: ((NSData?, HTTPResponse?, Error?) -> ())?
+            var capturedRequest: URLRequest?
+            var capturedCompletion: ((Data?, HTTPResponse?, FFError?) -> ())?
 
-            override func doRequest(request: NSURLRequest, completion: ((NSData?, HTTPResponse?, Error?) -> ())?) {
+            override func doRequest(_ request: URLRequest, completion: ((Data?, HTTPResponse?, FFError?) -> ())?) {
                 capturedRequest = request
                 capturedCompletion = completion
             }
         }
 
         class MockAuthMethodDataDeserializer: AuthMethodDataDeserializer {
-            var capturedData: NSData?
+            var capturedData: Data?
             var toReturnAuthMethods: [AuthMethod]?
             var toReturnDeserializationError: DeserializationError?
 
-            override func deserialize(data: NSData) -> (authMethods: [AuthMethod]?, error: DeserializationError?) {
+            override func deserialize(_ data: Data) -> (authMethods: [AuthMethod]?, error: DeserializationError?) {
                 capturedData = data
                 return (toReturnAuthMethods, toReturnDeserializationError)
             }
@@ -43,7 +43,7 @@ class AuthMethodsServiceSpec: QuickSpec {
 
             describe("Fetching auth methods for a target") {
                 var capturedAuthMethods: [AuthMethod]?
-                var capturedError: Error?
+                var capturedError: FFError?
 
                 beforeEach {
                     subject.getMethods(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com") { authMethods, error in
@@ -59,12 +59,12 @@ class AuthMethodsServiceSpec: QuickSpec {
                     }
 
                     expect(request.allHTTPHeaderFields?["Content-Type"]).to(equal("application/json"))
-                    expect(request.HTTPMethod).to(equal("GET"))
-                    expect(request.URL?.absoluteString).to(equal("https://concourse.com/api/v1/teams/turtle_team_name/auth/methods"))
+                    expect(request.httpMethod).to(equal("GET"))
+                    expect(request.url?.absoluteString).to(equal("https://concourse.com/api/v1/teams/turtle_team_name/auth/methods"))
                 }
 
                 describe("When the request resolves with a success response and auth method data") {
-                    var validAuthMethodResponseData: NSData!
+                    var validAuthMethodResponseData: Data!
                     var deserializedAuthMethods: [AuthMethod]!
 
                     beforeEach {
@@ -73,11 +73,11 @@ class AuthMethodsServiceSpec: QuickSpec {
                             return
                         }
 
-                        deserializedAuthMethods = [AuthMethod(type: .Basic, url: ".com")]
+                        deserializedAuthMethods = [AuthMethod(type: .basic, url: ".com")]
                         mockAuthMethodDataDeserializer.toReturnAuthMethods = deserializedAuthMethods
 
-                        validAuthMethodResponseData = "valid auth method data".dataUsingEncoding(NSUTF8StringEncoding)
-                        completion(validAuthMethodResponseData, HTTPResponseImpl(statusCode: 200), nil)
+                        validAuthMethodResponseData = "valid auth method data".data(using: String.Encoding.utf8)
+                        completion(validAuthMethodResponseData as Data?, HTTPResponseImpl(statusCode: 200), nil)
                     }
 
                     it("passes the data to the deserializer") {
@@ -94,7 +94,7 @@ class AuthMethodsServiceSpec: QuickSpec {
                 }
 
                 describe("When the request resolves with a success response and deserialization fails") {
-                    var invalidAuthMethodData: NSData!
+                    var invalidAuthMethodData: Data!
 
                     beforeEach {
                         guard let completion = mockHTTPClient.capturedCompletion else {
@@ -102,10 +102,10 @@ class AuthMethodsServiceSpec: QuickSpec {
                             return
                         }
 
-                        mockAuthMethodDataDeserializer.toReturnDeserializationError = DeserializationError(details: "some deserialization error details", type: .InvalidInputFormat)
+                        mockAuthMethodDataDeserializer.toReturnDeserializationError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
 
-                        invalidAuthMethodData = "valid auth method data".dataUsingEncoding(NSUTF8StringEncoding)
-                        completion(invalidAuthMethodData, HTTPResponseImpl(statusCode: 200), nil)
+                        invalidAuthMethodData = "valid auth method data".data(using: String.Encoding.utf8)
+                        completion(invalidAuthMethodData as Data?, HTTPResponseImpl(statusCode: 200), nil)
                     }
 
                     it("passes the data to the deserializer") {
@@ -122,7 +122,7 @@ class AuthMethodsServiceSpec: QuickSpec {
                             return
                         }
 
-                        expect(capturedError as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .InvalidInputFormat)))
+                        expect(capturedError as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
                     }
                 }
 

@@ -6,21 +6,21 @@ import Nimble
 class TeamPipelinesServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
-            var capturedRequest: NSURLRequest?
-            var capturedCompletion: ((NSData?, HTTPResponse?, Error?) -> ())?
+            var capturedRequest: URLRequest?
+            var capturedCompletion: ((Data?, HTTPResponse?, FFError?) -> ())?
 
-            override func doRequest(request: NSURLRequest, completion: ((NSData?, HTTPResponse?, Error?) -> ())?) {
+            override func doRequest(_ request: URLRequest, completion: ((Data?, HTTPResponse?, FFError?) -> ())?) {
                 capturedRequest = request
                 capturedCompletion = completion
             }
         }
 
         class MockPipelineDataDeserializer: PipelineDataDeserializer {
-            var capturedData: NSData?
+            var capturedData: Data?
             var toReturnPipelines: [Pipeline]?
             var toReturnError: DeserializationError?
 
-            override func deserialize(data: NSData) -> ([Pipeline]?, DeserializationError?) {
+            override func deserialize(_ data: Data) -> ([Pipeline]?, DeserializationError?) {
                 capturedData = data
                 return (toReturnPipelines, toReturnError)
             }
@@ -63,10 +63,10 @@ class TeamPipelinesServiceSpec: QuickSpec {
                         return
                     }
 
-                    expect(request.URL?.absoluteString).to(equal("https://api.com/api/v1/teams/turtle_team_name/pipelines"))
+                    expect(request.url?.absoluteString).to(equal("https://api.com/api/v1/teams/turtle_team_name/pipelines"))
                     expect(request.allHTTPHeaderFields?["Content-Type"]).to(equal("application/json"))
                     expect(request.allHTTPHeaderFields?["Authorization"]).to(equal("Bearer turtle auth token"))
-                    expect(request.HTTPMethod).to(equal("GET"))
+                    expect(request.httpMethod).to(equal("GET"))
                 }
 
                 describe("When the request resolves with a success response and valid pipeline data") {
@@ -80,7 +80,7 @@ class TeamPipelinesServiceSpec: QuickSpec {
                             Pipeline(name: "turtle super pipeline")
                         ]
 
-                        let validPipelineData = "valid pipeline data".dataUsingEncoding(NSUTF8StringEncoding)
+                        let validPipelineData = "valid pipeline data".data(using: String.Encoding.utf8)
                         completion(validPipelineData!, HTTPResponseImpl(statusCode: 200), nil)
                     }
 
@@ -90,7 +90,7 @@ class TeamPipelinesServiceSpec: QuickSpec {
                             return
                         }
 
-                        let expectedData = "valid pipeline data".dataUsingEncoding(NSUTF8StringEncoding)
+                        let expectedData = "valid pipeline data".data(using: String.Encoding.utf8)
                         expect(data).to(equal(expectedData!))
                     }
 
@@ -110,9 +110,9 @@ class TeamPipelinesServiceSpec: QuickSpec {
                             return
                         }
 
-                        mockPipelineDataDeserializer.toReturnError = DeserializationError(details: "error details", type: .InvalidInputFormat)
+                        mockPipelineDataDeserializer.toReturnError = DeserializationError(details: "error details", type: .invalidInputFormat)
 
-                        let invalidData = "invalid data".dataUsingEncoding(NSUTF8StringEncoding)
+                        let invalidData = "invalid data".data(using: String.Encoding.utf8)
                         completion(invalidData, HTTPResponseImpl(statusCode: 200), nil)
                     }
 
@@ -121,7 +121,7 @@ class TeamPipelinesServiceSpec: QuickSpec {
                     }
 
                     it("calls the completion handler with the error that came from the deserializer") {
-                        expect(resultError as? DeserializationError).to(equal(DeserializationError(details: "error details", type: .InvalidInputFormat)))
+                        expect(resultError as? DeserializationError).to(equal(DeserializationError(details: "error details", type: .invalidInputFormat)))
                     }
                 }
 

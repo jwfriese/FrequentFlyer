@@ -1,6 +1,6 @@
 struct AuthMethod {
-    private(set) var type: AuthType
-    private(set) var url: String
+    fileprivate(set) var type: AuthType
+    fileprivate(set) var url: String
 
     init(type: AuthType, url: String) {
         self.type = type

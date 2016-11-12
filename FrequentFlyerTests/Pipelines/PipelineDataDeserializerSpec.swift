@@ -27,7 +27,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
                         ]
                     ]
 
-                    let validData = try! NSJSONSerialization.dataWithJSONObject(validDataJSONArray, options: .PrettyPrinted)
+                    let validData = try! JSONSerialization.data(withJSONObject: validDataJSONArray, options: .prettyPrinted)
                     result = subject.deserialize(validData)
                 }
 
@@ -70,7 +70,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -111,7 +111,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -142,7 +142,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
                 beforeEach {
                     let pipelinesDataString = "some string"
 
-                    let invalidPipelinesData = pipelinesDataString.dataUsingEncoding(NSUTF8StringEncoding)
+                    let invalidPipelinesData = pipelinesDataString.data(using: String.Encoding.utf8)
                     result = subject.deserialize(invalidPipelinesData!)
                 }
 
@@ -151,7 +151,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns an error") {
-                    expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .InvalidInputFormat)))
+                    expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat)))
                 }
             }
         }

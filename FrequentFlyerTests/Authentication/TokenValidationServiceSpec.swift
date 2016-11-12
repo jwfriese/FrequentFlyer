@@ -6,10 +6,10 @@ import Fleet
 
 class TokenValidationServiceSpec: QuickSpec {
     class MockHTTPClient: HTTPClient {
-        var capturedRequest: NSURLRequest?
-        var capturedCompletion: ((NSData?, HTTPResponse?, Error?) -> ())?
+        var capturedRequest: URLRequest?
+        var capturedCompletion: ((Data?, HTTPResponse?, FFError?) -> ())?
 
-        override func doRequest(request: NSURLRequest, completion: ((NSData?, HTTPResponse?, Error?) -> ())?) {
+        override func doRequest(_ request: URLRequest, completion: ((Data?, HTTPResponse?, FFError?) -> ())?) {
             capturedRequest = request
             capturedCompletion = completion
         }
@@ -28,7 +28,7 @@ class TokenValidationServiceSpec: QuickSpec {
             }
 
             describe("Validating a token") {
-                var capturedError: Error?
+                var capturedError: FFError?
 
                 beforeEach {
                     let token = Token(value: "valid turtle token")
@@ -44,8 +44,8 @@ class TokenValidationServiceSpec: QuickSpec {
                         return
                     }
 
-                    expect(request.URL?.absoluteString).to(equal("turtle_concourse.com/api/v1/containers"))
-                    expect(request.HTTPMethod).to(equal("GET"))
+                    expect(request.url?.absoluteString).to(equal("turtle_concourse.com/api/v1/containers"))
+                    expect(request.httpMethod).to(equal("GET"))
                     expect(request.allHTTPHeaderFields?["Content-Type"]).to(equal("application/json"))
                     expect(request.allHTTPHeaderFields?["Authorization"]).to(equal("Bearer valid turtle token"))
                 }
@@ -61,7 +61,7 @@ class TokenValidationServiceSpec: QuickSpec {
                         // the completion handler with nil.
                         capturedError = BasicError(details: "error")
 
-                        let doesNotMatterData = NSData()
+                        let doesNotMatterData = Data()
                         completion(doesNotMatterData, HTTPResponseImpl(statusCode: 200), nil)
                     }
 

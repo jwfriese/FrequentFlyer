@@ -1,23 +1,23 @@
 enum DeserializationErrorType {
-    case MissingRequiredData
-    case InvalidInputFormat
-    case TypeMismatch
+    case missingRequiredData
+    case invalidInputFormat
+    case typeMismatch
 
     func description() -> String {
         switch(self) {
-        case MissingRequiredData:
+        case .missingRequiredData:
             return "MissingRequiredData"
-        case .InvalidInputFormat:
+        case .invalidInputFormat:
             return "InvalidInputFormat"
-        case .TypeMismatch:
+        case .typeMismatch:
             return "TypeMismatch"
         }
     }
 }
 
-struct DeserializationError: Error {
-    private(set) var details: String
-    private(set) var type: DeserializationErrorType
+struct DeserializationError: FFError {
+    fileprivate(set) var details: String
+    fileprivate(set) var type: DeserializationErrorType
 
     init(details: String, type: DeserializationErrorType) {
         self.details = details

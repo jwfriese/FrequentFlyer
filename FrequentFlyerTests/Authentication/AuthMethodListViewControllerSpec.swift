@@ -24,16 +24,16 @@ class AuthMethodListViewControllerSpec: QuickSpec {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 mockBasicUserAuthViewController = MockBasicUserAuthViewController()
-                try! storyboard.bindViewController(mockBasicUserAuthViewController, toIdentifier: BasicUserAuthViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockBasicUserAuthViewController, toIdentifier: BasicUserAuthViewController.storyboardIdentifier)
 
                 mockGithubAuthViewController = MockGithubAuthViewController()
-                try! storyboard.bindViewController(mockGithubAuthViewController, toIdentifier: GithubAuthViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockGithubAuthViewController, toIdentifier: GithubAuthViewController.storyboardIdentifier)
 
-                subject = storyboard.instantiateViewControllerWithIdentifier(AuthMethodListViewController.storyboardIdentifier) as? AuthMethodListViewController
+                subject = storyboard.instantiateViewController(withIdentifier: AuthMethodListViewController.storyboardIdentifier) as? AuthMethodListViewController
 
                 subject.authMethods = [
-                    AuthMethod(type: .Basic, url: "basic-auth.com"),
-                    AuthMethod(type: .Github, url: "github-auth.com")
+                    AuthMethod(type: .basic, url: "basic-auth.com"),
+                    AuthMethod(type: .github, url: "github-auth.com")
                 ]
                 subject.concourseURLString = "turtle concourse"
             }
@@ -62,7 +62,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
                     }
 
                     it("creates a cell in each of the rows for each of the auth methods") {
-                        let cellOne = subject.tableView(subject.authMethodListTableView!, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                        let cellOne = subject.tableView(subject.authMethodListTableView!, cellForRowAt: IndexPath(row: 0, section: 0))
                         expect(cellOne).toNot(beNil())
 
                         guard let cellOneLabel = cellOne.textLabel else {
@@ -71,7 +71,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
                         }
                         expect(cellOneLabel.text).to(equal("Basic"))
 
-                        let cellTwo = subject.tableView(subject.authMethodListTableView!, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                        let cellTwo = subject.tableView(subject.authMethodListTableView!, cellForRowAt: IndexPath(row: 1, section: 0))
                         expect(cellTwo).toNot(beNil())
 
                         guard let cellTwoLabel = cellTwo.textLabel else {
@@ -83,7 +83,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
 
                     describe("Tapping a basic auth cell") {
                         beforeEach {
-                            subject.tableView(subject.authMethodListTableView!, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                            subject.tableView(subject.authMethodListTableView!, didSelectRowAt: IndexPath(row: 0, section: 0))
                         }
 
                         it("presents a BasicUserAuthViewController") {
@@ -107,7 +107,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
 
                     describe("Tapping a Github auth cell") {
                         beforeEach {
-                            subject.tableView(subject.authMethodListTableView!, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                            subject.tableView(subject.authMethodListTableView!, didSelectRowAt: IndexPath(row: 1, section: 0))
                         }
 
                         it("presents a GithubAuthViewController") {

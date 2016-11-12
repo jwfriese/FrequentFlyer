@@ -22,7 +22,7 @@ class TeamPipelinesViewController: UIViewController {
         title = "Pipelines"
         teamPipelinesService.getPipelines(forTarget: target) { pipelines, error in
             self.pipelines = pipelines
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.teamPipelinesTableView?.reloadData()
             }
         }
@@ -31,10 +31,10 @@ class TeamPipelinesViewController: UIViewController {
         teamPipelinesTableView?.delegate = self
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == TeamPipelinesViewController.showBuildsSegueId {
-            guard let buildsViewController = segue.destinationViewController as? BuildsViewController else { return  }
-            guard let indexPath = sender as? NSIndexPath else { return }
+            guard let buildsViewController = segue.destination as? BuildsViewController else { return  }
+            guard let indexPath = sender as? IndexPath else { return }
             guard let pipeline = pipelines?[indexPath.row] else { return }
             guard let target = target else { return }
 
@@ -46,7 +46,7 @@ class TeamPipelinesViewController: UIViewController {
             buildsService.buildsDataDeserializer = BuildsDataDeserializer()
             buildsViewController.buildsService = buildsService
         } else if segue.identifier == TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId {
-            guard let concourseEntryViewController = segue.destinationViewController as? ConcourseEntryViewController else {
+            guard let concourseEntryViewController = segue.destination as? ConcourseEntryViewController else {
                 return
             }
 
@@ -69,31 +69,31 @@ class TeamPipelinesViewController: UIViewController {
     @IBAction func logoutTapped() {
         guard let keychainWrapper = keychainWrapper else { return }
         keychainWrapper.deleteTarget()
-        dispatch_async(dispatch_get_main_queue()) {
-            self.performSegueWithIdentifier(TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
         }
     }
 }
 
 extension TeamPipelinesViewController: UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let pipelines = pipelines else { return 0 }
         return pipelines.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = teamPipelinesTableView?.dequeueReusableCellWithIdentifier(PipelineTableViewCell.cellReuseIdentifier, forIndexPath: indexPath) as! PipelineTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = teamPipelinesTableView?.dequeueReusableCell(withIdentifier: PipelineTableViewCell.cellReuseIdentifier, for: indexPath) as! PipelineTableViewCell
         cell.nameLabel?.text = pipelines?[indexPath.row].name
         return cell
     }
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 }
 
 extension TeamPipelinesViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier(TeamPipelinesViewController.showBuildsSegueId, sender: indexPath)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: TeamPipelinesViewController.showBuildsSegueId, sender: indexPath)
     }
 }

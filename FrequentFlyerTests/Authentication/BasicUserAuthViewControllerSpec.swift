@@ -10,9 +10,9 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
         var capturedConcourseURL: String?
         var capturedUsername: String?
         var capturedPassword: String?
-        var capturedCompletion: ((Token?, Error?) -> ())?
+        var capturedCompletion: ((Token?, FFError?) -> ())?
 
-        override func getToken(forTeamWithName teamName: String, concourseURL: String, username: String, password: String, completion: ((Token?, Error?) -> ())?) {
+        override func getToken(forTeamWithName teamName: String, concourseURL: String, username: String, password: String, completion: ((Token?, FFError?) -> ())?) {
             capturedTeamName = teamName
             capturedConcourseURL = concourseURL
             capturedUsername = username
@@ -24,7 +24,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
     class MockKeychainWrapper: KeychainWrapper {
         var capturedTarget: Target?
 
-        override func saveTarget(target: Target) {
+        override func saveTarget(_ target: Target) {
             capturedTarget = target
         }
     }
@@ -45,9 +45,9 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 mockTeamPipelinesViewController = MockTeamPipelinesViewController()
-                try! storyboard.bindViewController(mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
 
-                subject = storyboard.instantiateViewControllerWithIdentifier(BasicUserAuthViewController.storyboardIdentifier) as! BasicUserAuthViewController
+                subject = storyboard.instantiateViewController(withIdentifier: BasicUserAuthViewController.storyboardIdentifier) as! BasicUserAuthViewController
 
                 mockBasicAuthTokenService = MockBasicAuthTokenService()
                 subject.basicAuthTokenService = mockBasicAuthTokenService
@@ -70,37 +70,37 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
 
                 describe("Availability of the 'Submit' button") {
                     it("is disabled just after the view is loaded") {
-                        expect(subject.submitButton!.enabled).to(beFalse())
+                        expect(subject.submitButton!.isEnabled).to(beFalse())
                     }
 
                     describe("When only the 'Username' field has text") {
                         beforeEach {
-                            try! subject.usernameTextField?.enterText("turtle target")
+                            try! subject.usernameTextField?.enter(text: "turtle target")
                         }
 
                         it("leaves the button disabled") {
-                            expect(subject.submitButton!.enabled).to(beFalse())
+                            expect(subject.submitButton!.isEnabled).to(beFalse())
                         }
                     }
 
                     describe("When only the 'Password' field has text") {
                         beforeEach {
-                            try! subject.passwordTextField?.enterText("Concourse turtle")
+                            try! subject.passwordTextField?.enter(text: "Concourse turtle")
                         }
 
                         it("leaves the button disabled") {
-                            expect(subject.submitButton!.enabled).to(beFalse())
+                            expect(subject.submitButton!.isEnabled).to(beFalse())
                         }
                     }
 
                     describe("When both the 'Username' field and the 'Password' field have text") {
                         beforeEach {
-                            try! subject.usernameTextField?.enterText("turtle target")
-                            try! subject.passwordTextField?.enterText("Concourse turtle")
+                            try! subject.usernameTextField?.enter(text: "turtle target")
+                            try! subject.passwordTextField?.enter(text: "Concourse turtle")
                         }
 
                         it("enables the button") {
-                            expect(subject.submitButton!.enabled).to(beTrue())
+                            expect(subject.submitButton!.isEnabled).to(beTrue())
                         }
 
                         describe("When the 'Username' field is cleared") {
@@ -109,7 +109,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                             }
 
                             it("disables the button") {
-                                expect(subject.submitButton!.enabled).to(beFalse())
+                                expect(subject.submitButton!.isEnabled).to(beFalse())
                             }
                         }
 
@@ -119,7 +119,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                             }
 
                             it("disables the button") {
-                                expect(subject.submitButton!.enabled).to(beFalse())
+                                expect(subject.submitButton!.isEnabled).to(beFalse())
                             }
                         }
                     }
@@ -127,8 +127,8 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
 
                 describe("Entering auth credentials and submitting") {
                     beforeEach {
-                        try! subject.usernameTextField?.enterText("turtle username")
-                        try! subject.passwordTextField?.enterText("turtle password")
+                        try! subject.usernameTextField?.enter(text: "turtle username")
+                        try! subject.passwordTextField?.enter(text: "turtle password")
                         subject.submitButton?.tap()
                     }
 
@@ -142,7 +142,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                     describe("When the BasicAuthTokenService resolves with a token") {
                         describe("When the 'Stay Logged In' switch is off") {
                             beforeEach {
-                                subject.stayLoggedInSwitch?.on = false
+                                subject.stayLoggedInSwitch?.isOn = false
 
                                 guard let completion = mockBasicAuthTokenService.capturedCompletion else {
                                     fail("Failed to call BasicAuthTokenService with a completion handler")
@@ -182,7 +182,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
 
                         describe("When the 'Stay Logged In' switch is on") {
                             beforeEach {
-                                subject.stayLoggedInSwitch?.on = true
+                                subject.stayLoggedInSwitch?.isOn = true
 
                                 guard let completion = mockBasicAuthTokenService.capturedCompletion else {
                                     fail("Failed to call BasicAuthTokenService with a completion handler")

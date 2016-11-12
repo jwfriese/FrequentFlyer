@@ -1,17 +1,17 @@
 import Foundation
 
 class BuildDataDeserializer {
-    func deserialize(data: NSData) -> (build: Build?, error: DeserializationError?) {
-        var buildJSONObject: AnyObject?
+    func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
+        var buildJSONObject: Any?
         do {
-            buildJSONObject = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+            buildJSONObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
         } catch { }
 
         guard let buildJSON = buildJSONObject as? NSDictionary else {
-            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .InvalidInputFormat))
+            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
         }
 
-        guard let idObject = buildJSON.valueForKey("id") else {
+        guard let idObject = buildJSON.value(forKey: "id") else {
             return missingDataErrorCaseForKey("id")
         }
 
@@ -19,7 +19,7 @@ class BuildDataDeserializer {
             return typeMismatchErrorCaseForKey("id", expectedType: "an integer")
         }
 
-        guard let jobNameObject = buildJSON.valueForKey("job_name") else {
+        guard let jobNameObject = buildJSON.value(forKey: "job_name") else {
             return missingDataErrorCaseForKey("job_name")
         }
 
@@ -27,7 +27,7 @@ class BuildDataDeserializer {
             return typeMismatchErrorCaseForKey("job_name", expectedType: "a string")
         }
 
-        guard let statusObject = buildJSON.valueForKey("status") else {
+        guard let statusObject = buildJSON.value(forKey: "status") else {
             return missingDataErrorCaseForKey("status")
         }
 
@@ -35,7 +35,7 @@ class BuildDataDeserializer {
             return typeMismatchErrorCaseForKey("status", expectedType: "a string")
         }
 
-        guard let pipelineNameObject = buildJSON.valueForKey("pipeline_name") else {
+        guard let pipelineNameObject = buildJSON.value(forKey: "pipeline_name") else {
             return missingDataErrorCaseForKey("pipeline_name")
         }
 
@@ -51,13 +51,13 @@ class BuildDataDeserializer {
         return (build, nil)
     }
 
-    private func missingDataErrorCaseForKey(key: String) -> (Build?, DeserializationError?) {
-        let error = DeserializationError(details: "Missing required '\(key)' field", type: .MissingRequiredData)
+    fileprivate func missingDataErrorCaseForKey(_ key: String) -> (Build?, DeserializationError?) {
+        let error = DeserializationError(details: "Missing required '\(key)' field", type: .missingRequiredData)
         return (nil, error)
     }
 
-    private func typeMismatchErrorCaseForKey(key: String, expectedType: String) -> (Build?, DeserializationError?) {
-        let error = DeserializationError(details: "Expected value for '\(key)' field to be \(expectedType)", type: .TypeMismatch)
+    fileprivate func typeMismatchErrorCaseForKey(_ key: String, expectedType: String) -> (Build?, DeserializationError?) {
+        let error = DeserializationError(details: "Expected value for '\(key)' field to be \(expectedType)", type: .typeMismatch)
         return (nil, error)
     }
 }

@@ -10,9 +10,9 @@ class BuildDetailViewControllerSpec: QuickSpec {
             var capturedTarget: Target?
             var capturedJobName: String?
             var capturedPipelineName: String?
-            var capturedCompletion: ((Build?, Error?) -> ())?
+            var capturedCompletion: ((Build?, FFError?) -> ())?
 
-            override func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String, completion: ((Build?, Error?) -> ())?) {
+            override func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String, completion: ((Build?, FFError?) -> ())?) {
                 capturedTarget = target
                 capturedJobName = jobName
                 capturedPipelineName = pipelineName
@@ -26,7 +26,7 @@ class BuildDetailViewControllerSpec: QuickSpec {
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                subject = storyboard.instantiateViewControllerWithIdentifier(BuildDetailViewController.storyboardIdentifier) as! BuildDetailViewController
+                subject = storyboard.instantiateViewController(withIdentifier: BuildDetailViewController.storyboardIdentifier) as! BuildDetailViewController
 
                 let target = Target(name: "turtle target",
                     api: "turtle api",

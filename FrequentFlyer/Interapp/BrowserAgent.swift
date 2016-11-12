@@ -1,7 +1,7 @@
 import UIKit
 
 class BrowserAgent {
-    func openInBrowser(url: NSURL) {
-        UIApplication.sharedApplication().openURL(url)
+    func openInBrowser(_ url: URL) {
+        UIApplication.shared.openURL(url)
     }
 }

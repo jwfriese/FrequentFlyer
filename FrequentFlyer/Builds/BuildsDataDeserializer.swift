@@ -1,14 +1,14 @@
 import Foundation
 
 class BuildsDataDeserializer {
-    func deserialize(buildsData: NSData) -> (builds: [Build]?, error: DeserializationError?) {
-        var buildsJSONObject: AnyObject?
+    func deserialize(_ buildsData: Data) -> (builds: [Build]?, error: DeserializationError?) {
+        var buildsJSONObject: Any?
         do {
-            buildsJSONObject = try NSJSONSerialization.JSONObjectWithData(buildsData, options: .AllowFragments)
+            buildsJSONObject = try JSONSerialization.jsonObject(with: buildsData, options: .allowFragments)
         } catch { }
 
         guard let buildsJSON = buildsJSONObject as? Array<NSDictionary> else {
-            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .InvalidInputFormat))
+            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
         }
 
         var builds = [Build]()

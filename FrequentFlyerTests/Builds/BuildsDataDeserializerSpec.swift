@@ -31,7 +31,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                         ]
                     ]
 
-                    let validData = try! NSJSONSerialization.dataWithJSONObject(validDataJSONArray, options: .PrettyPrinted)
+                    let validData = try! JSONSerialization.data(withJSONObject: validDataJSONArray, options: .prettyPrinted)
                     result = subject.deserialize(validData)
                 }
 
@@ -80,7 +80,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -127,7 +127,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -173,7 +173,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -220,7 +220,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -266,7 +266,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -313,7 +313,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -359,7 +359,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -406,7 +406,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                             ]
                         ]
 
-                        let partiallyValidData = try! NSJSONSerialization.dataWithJSONObject(partiallyValidDataJSONArray, options: .PrettyPrinted)
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
                         result = subject.deserialize(partiallyValidData)
                     }
 
@@ -437,7 +437,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                 beforeEach {
                     let buildsDataString = "some string"
 
-                    let invalidbuildsData = buildsDataString.dataUsingEncoding(NSUTF8StringEncoding)
+                    let invalidbuildsData = buildsDataString.data(using: String.Encoding.utf8)
                     result = subject.deserialize(invalidbuildsData!)
                 }
 
@@ -446,7 +446,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns an error") {
-                    expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .InvalidInputFormat)))
+                    expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat)))
                 }
             }
         }

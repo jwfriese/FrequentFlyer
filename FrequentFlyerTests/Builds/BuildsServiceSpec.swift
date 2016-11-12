@@ -6,21 +6,21 @@ import Nimble
 class BuildsServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
-            var capturedRequest: NSURLRequest?
-            var capturedCompletion: ((NSData?, HTTPResponse?, Error?) -> ())?
+            var capturedRequest: URLRequest?
+            var capturedCompletion: ((Data?, HTTPResponse?, FFError?) -> ())?
 
-            override func doRequest(request: NSURLRequest, completion: ((NSData?, HTTPResponse?, Error?) -> ())?) {
+            override func doRequest(_ request: URLRequest, completion: ((Data?, HTTPResponse?, FFError?) -> ())?) {
                 capturedRequest = request
                 capturedCompletion = completion
             }
         }
 
         class MockBuildsDataDeserializer: BuildsDataDeserializer {
-            var capturedData: NSData?
+            var capturedData: Data?
             var toReturnBuilds: [Build]?
             var toReturnError: DeserializationError?
 
-            override func deserialize(buildsData: NSData) -> (builds: [Build]?, error: DeserializationError?) {
+            override func deserialize(_ buildsData: Data) -> (builds: [Build]?, error: DeserializationError?) {
                 capturedData = buildsData
                 return (toReturnBuilds, toReturnError)
             }
@@ -62,10 +62,10 @@ class BuildsServiceSpec: QuickSpec {
                         return
                     }
 
-                    expect(request.URL?.absoluteString).to(equal("https://turtle_api.com/api/v1/builds"))
+                    expect(request.url?.absoluteString).to(equal("https://turtle_api.com/api/v1/builds"))
                     expect(request.allHTTPHeaderFields?["Content-Type"]).to(equal("application/json"))
                     expect(request.allHTTPHeaderFields?["Authorization"]).to(equal("Bearer turtle token"))
-                    expect(request.HTTPMethod).to(equal("GET"))
+                    expect(request.httpMethod).to(equal("GET"))
                 }
 
                 describe("When the HTTP request resolves with a success response and valid builds data") {
@@ -79,12 +79,12 @@ class BuildsServiceSpec: QuickSpec {
                         let buildTwo = Build(id: 1, jobName: "job 1", status: "status 1", pipelineName: "pipeline")
                         mockBuildsDataDeserializer.toReturnBuilds = [buildOne, buildTwo]
 
-                        let validBuildsData = "valid builds data".dataUsingEncoding(NSUTF8StringEncoding)
+                        let validBuildsData = "valid builds data".data(using: String.Encoding.utf8)
                         completion(validBuildsData, HTTPResponseImpl(statusCode: 200), nil)
                     }
 
                     it("passes the data along to the deserializer") {
-                        let expectedData = "valid builds data".dataUsingEncoding(NSUTF8StringEncoding)
+                        let expectedData = "valid builds data".data(using: String.Encoding.utf8)
                         expect(mockBuildsDataDeserializer.capturedData).to(equal(expectedData))
                     }
 
@@ -109,14 +109,14 @@ class BuildsServiceSpec: QuickSpec {
                             return
                         }
 
-                        mockBuildsDataDeserializer.toReturnError = DeserializationError(details: "error details", type: .InvalidInputFormat)
+                        mockBuildsDataDeserializer.toReturnError = DeserializationError(details: "error details", type: .invalidInputFormat)
 
-                        let invalidBuildsData = "invalid builds data".dataUsingEncoding(NSUTF8StringEncoding)
+                        let invalidBuildsData = "invalid builds data".data(using: String.Encoding.utf8)
                         completion(invalidBuildsData, HTTPResponseImpl(statusCode: 200), nil)
                     }
 
                     it("passes the data along to the deserializer") {
-                        let expectedData = "invalid builds data".dataUsingEncoding(NSUTF8StringEncoding)
+                        let expectedData = "invalid builds data".data(using: String.Encoding.utf8)
                         expect(mockBuildsDataDeserializer.capturedData).to(equal(expectedData))
                     }
 
@@ -125,7 +125,7 @@ class BuildsServiceSpec: QuickSpec {
                     }
 
                     it("calls the completion handler with the error that comes from the deserializer") {
-                        expect(resultError as? DeserializationError).to(equal(DeserializationError(details: "error details", type: .InvalidInputFormat)))
+                        expect(resultError as? DeserializationError).to(equal(DeserializationError(details: "error details", type: .invalidInputFormat)))
                     }
                 }
 

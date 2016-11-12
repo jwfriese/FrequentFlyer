@@ -14,7 +14,7 @@ class UserTextInputPageOperatorSpec: QuickSpec {
                 fatalError("init(coder:) has not been implemented")
             }
 
-            private override func isFirstResponder() -> Bool {
+            fileprivate override var isFirstResponder : Bool {
                 return true
             }
         }
@@ -25,19 +25,19 @@ class UserTextInputPageOperatorSpec: QuickSpec {
             let view = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 800))
             let scrollView = UIScrollView()
 
-            private var textFields: [UITextField] {
+            fileprivate var textFields: [UITextField] {
                 get {
                     return [inactiveView, activeView]
                 }
             }
 
-            private var pageView: UIView {
+            fileprivate var pageView: UIView {
                 get {
                     return view
                 }
             }
 
-            private var pageScrollView: UIScrollView {
+            fileprivate var pageScrollView: UIScrollView {
                 get {
                     return scrollView
                 }
@@ -53,7 +53,7 @@ class UserTextInputPageOperatorSpec: QuickSpec {
 
             describe("Registering without a delegate set") {
                 it("throws an error when UserTextInputPageOperator.keyboardDidShow is called") {
-                    expect { try subject.keyboardDidShow(NSNotification(name: "", object: nil)) }.to(throwError() { error in
+                    expect { try subject.keyboardDidShow(NSNotification(name: NSNotification.Name(rawValue: ""), object: nil) as Notification) }.to(throwError() { error in
                         guard let basicError = error as? BasicError else {
                             fail("Failed to throw BasicError")
                             return
@@ -64,7 +64,7 @@ class UserTextInputPageOperatorSpec: QuickSpec {
                 }
 
                 it("throws an error when UserTextInputPageOperator.keyboardWillHide is called") {
-                    expect { try subject.keyboardWillHide(NSNotification(name: "", object: nil)) }.to(throwError() { error in
+                    expect { try subject.keyboardWillHide(NSNotification(name: NSNotification.Name(rawValue: ""), object: nil) as Notification) }.to(throwError() { error in
                         guard let basicError = error as? BasicError else {
                             fail("Failed to throw BasicError")
                             return
@@ -87,11 +87,11 @@ class UserTextInputPageOperatorSpec: QuickSpec {
                 describe("When the keyboard appears") {
                     beforeEach {
                         let keyboardFrameRect = CGRect(x: 0, y: 0, width: 100, height: 200)
-                        let keyboardAppearsNotification = NSNotification(name: UIKeyboardDidShowNotification, object: nil, userInfo: [
-                            UIKeyboardFrameBeginUserInfoKey : NSValue(CGRect: keyboardFrameRect)
+                        let keyboardAppearsNotification = NSNotification(name: NSNotification.Name.UIKeyboardDidShow, object: nil, userInfo: [
+                            UIKeyboardFrameBeginUserInfoKey : NSValue(cgRect: keyboardFrameRect)
                             ])
 
-                        NSNotificationCenter.defaultCenter().postNotification(keyboardAppearsNotification)
+                        NotificationCenter.default.post(keyboardAppearsNotification as Notification)
                     }
 
                     it("adjusts the delegate scroll view's content insets") {
@@ -101,13 +101,13 @@ class UserTextInputPageOperatorSpec: QuickSpec {
 
                     describe("When the keyboard disappears") {
                         beforeEach {
-                            let keyboardHideNotification = NSNotification(name: UIKeyboardWillHideNotification, object: nil)
-                            NSNotificationCenter.defaultCenter().postNotification(keyboardHideNotification)
+                            let keyboardHideNotification = NSNotification(name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+                            NotificationCenter.default.post(keyboardHideNotification as Notification)
                         }
 
                         it("adjusts the delegate scroll view's content insets") {
-                            expect(delegate.scrollView.contentInset).to(equal(UIEdgeInsetsZero))
-                            expect(delegate.scrollView.scrollIndicatorInsets).to(equal(UIEdgeInsetsZero))
+                            expect(delegate.scrollView.contentInset).to(equal(UIEdgeInsets.zero))
+                            expect(delegate.scrollView.scrollIndicatorInsets).to(equal(UIEdgeInsets.zero))
                         }
                     }
                 }

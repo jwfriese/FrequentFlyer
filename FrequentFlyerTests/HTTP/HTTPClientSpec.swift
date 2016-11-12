@@ -14,16 +14,16 @@ class HTTPClientSpec: QuickSpec {
 
             describe("Performing a request") {
                 context("When the request returns with a success response") {
-                    var capturedData: NSData?
+                    var capturedData: Data?
                     var capturedResponse: HTTPResponse?
-                    var capturedError: Error?
+                    var capturedError: FFError?
 
                     beforeEach {
                         // Set capturedError to some garbage value up front to ensure that the handler gets passed nil
                         capturedError = BasicError(details: "test error")
 
-                        let request = NSMutableURLRequest(URL: NSURL(string: "http://localhost:8181/successyeah")!)
-                        subject.doRequest(request) { data, response, error in
+                        let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8181/successyeah")! as URL)
+                        subject.doRequest(request as URLRequest) { data, response, error in
                             capturedData = data
                             capturedResponse = response
                             capturedError = error
@@ -31,7 +31,7 @@ class HTTPClientSpec: QuickSpec {
                     }
 
                     it("calls the completion handler with the response data") {
-                        let testServerData = "{\"success\" : \"yeah\" }".dataUsingEncoding(NSUTF8StringEncoding)
+                        let testServerData = "{\"success\" : \"yeah\" }".data(using: String.Encoding.utf8)
                         expect(capturedData).toEventually(equal(testServerData))
                     }
 
@@ -46,16 +46,16 @@ class HTTPClientSpec: QuickSpec {
                 }
 
                 context("When the request returns with an error-type response") {
-                    var capturedData: NSData?
+                    var capturedData: Data?
                     var capturedResponse: HTTPResponse?
-                    var capturedError: Error?
+                    var capturedError: FFError?
 
                     beforeEach {
                         // Set capturedData to some garbage value up front to ensure that the handler gets passed nil
-                        capturedData = NSData()
+                        capturedData = Data()
 
-                        let request = NSMutableURLRequest(URL: NSURL(string: "http://localhost:8181/errorplease")!)
-                        subject.doRequest(request) { data, response, error in
+                        let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8181/errorplease")! as URL)
+                        subject.doRequest(request as URLRequest) { data, response, error in
                             capturedData = data
                             capturedResponse = response
                             capturedError = error
@@ -78,17 +78,17 @@ class HTTPClientSpec: QuickSpec {
                 }
 
                 context("When the request completely bombs") {
-                    var capturedData: NSData?
+                    var capturedData: Data?
                     var capturedResponse: HTTPResponse?
-                    var capturedError: Error?
+                    var capturedError: FFError?
 
                     beforeEach {
                         // Set capturedData and capturedResponse to some garbage value up front to ensure that the handler gets passed nil
-                        capturedData = NSData()
+                        capturedData = Data()
                         capturedResponse = HTTPResponseImpl(statusCode: 9001)
 
-                        let request = NSMutableURLRequest(URL: NSURL(string: "http://")!)
-                        subject.doRequest(request) { data, response, error in
+                        let request = NSMutableURLRequest(url: NSURL(string: "http://")! as URL)
+                        subject.doRequest(request as URLRequest) { data, response, error in
                             capturedData = data
                             capturedResponse = response
                             capturedError = error

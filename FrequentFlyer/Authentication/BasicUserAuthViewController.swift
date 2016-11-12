@@ -19,13 +19,13 @@ class BasicUserAuthViewController: UIViewController {
         title = ""
         usernameTextField?.delegate = self
         passwordTextField?.delegate = self
-        submitButton?.enabled = false
+        submitButton?.isEnabled = false
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == BasicUserAuthViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
-            guard let teamPipelinesViewController = segue.destinationViewController as? TeamPipelinesViewController else {
+            guard let teamPipelinesViewController = segue.destination as? TeamPipelinesViewController else {
                 return
             }
 
@@ -51,24 +51,24 @@ class BasicUserAuthViewController: UIViewController {
             if let error = error {
                 let alert = UIAlertController(title: "Authorization Failed",
                                               message: error.details,
-                                              preferredStyle: .Alert
+                                              preferredStyle: .alert
                 )
-                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.presentViewController(alert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
                 }
             } else if let token = token {
                 let newTarget = Target(name: "target",
                                        api: concourseURL,
                                        teamName: "main",
                                        token: token)
-                if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.on {
+                if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.isOn {
                     keychainWrapper.saveTarget(newTarget)
                 }
 
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.performSegueWithIdentifier(ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
                 }
             }
         }
@@ -76,26 +76,26 @@ class BasicUserAuthViewController: UIViewController {
 }
 
 extension BasicUserAuthViewController: UITextFieldDelegate {
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField === usernameTextField {
             if string != "" {
-                submitButton?.enabled = passwordTextField?.text != ""
+                submitButton?.isEnabled = passwordTextField?.text != ""
             } else {
-                submitButton?.enabled = false
+                submitButton?.isEnabled = false
             }
         } else if textField === passwordTextField {
             if string != "" {
-                submitButton?.enabled = usernameTextField?.text != ""
+                submitButton?.isEnabled = usernameTextField?.text != ""
             } else {
-                submitButton?.enabled = false
+                submitButton?.isEnabled = false
             }
         }
 
         return true
     }
 
-    func textFieldShouldClear(textField: UITextField) -> Bool {
-        submitButton?.enabled = false
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        submitButton?.isEnabled = false
         return true
     }
 }

@@ -3,18 +3,18 @@ import SwiftCoreExtensions
 @testable import FrequentFlyer
 
 extension Factory {
-    private static var defaultTargetInfo: [String : AnyObject] {
+    fileprivate static var defaultTargetInfo: [String : AnyObject] {
         get {
             return [
-                "name" : "turtle name",
-                "api" : "https://turtle.com",
-                "teamName" : "turtle team",
-                "token" : "turtle token"
+                "name" : "turtle name" as AnyObject,
+                "api" : "https://turtle.com" as AnyObject,
+                "teamName" : "turtle team" as AnyObject,
+                "token" : "turtle token" as AnyObject
             ]
         }
     }
 
-    static private func _createTarget(overrides: NSDictionary) throws -> Target {
+    static fileprivate func _createTarget(_ overrides: NSDictionary) throws -> Target {
         guard let name = overrides["name"] as? String else {
             throw FactoryPropertyTypeError(propertyName: "name", expectedType: String.self)
         }
@@ -38,8 +38,8 @@ extension Factory {
         )
     }
 
-    static func createTarget(overrides: [String : AnyObject] = [:]) throws -> Target {
-        let allOverrides = try! Factory.defaultTargetInfo.merge(overrides, overwriteCollisions: true)
+    static func createTarget(_ overrides: [String : AnyObject] = [:]) throws -> Target {
+        let allOverrides = try! Factory.defaultTargetInfo.merge(overrides as NSDictionary, overwriteCollisions: true)
         return try Factory._createTarget(allOverrides)
     }
 }

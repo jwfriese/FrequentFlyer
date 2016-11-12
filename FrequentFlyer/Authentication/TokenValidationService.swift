@@ -3,19 +3,19 @@ import Foundation
 class TokenValidationService {
     var httpClient: HTTPClient?
 
-    func validate(token token: Token, forConcourse concourseURLString: String, completion: ((Error?) -> ())?) {
+    func validate(token: Token, forConcourse concourseURLString: String, completion: ((FFError?) -> ())?) {
         guard let completion = completion else { return }
         guard let httpClient = httpClient else { return }
 
         let urlString = "\(concourseURLString)/api/v1/containers"
-        let url = NSURL(string: urlString)!
-        let request = NSMutableURLRequest(URL: url)
+        let url = URL(string: urlString)!
+        let request = NSMutableURLRequest(url: url)
 
-        request.HTTPMethod = "GET"
+        request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token.value)", forHTTPHeaderField: "Authorization")
 
-        httpClient.doRequest(request) { _, response, error in
+        httpClient.doRequest(request as URLRequest) { _, response, error in
             if response?.statusCode == 401 {
                 completion(error)
             } else {

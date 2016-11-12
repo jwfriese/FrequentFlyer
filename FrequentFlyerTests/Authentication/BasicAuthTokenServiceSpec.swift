@@ -6,21 +6,21 @@ import Nimble
 class BasicAuthTokenServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
-            var capturedRequest: NSURLRequest?
-            var capturedCompletion: ((NSData?, HTTPResponse?, Error?) -> ())?
+            var capturedRequest: URLRequest?
+            var capturedCompletion: ((Data?, HTTPResponse?, FFError?) -> ())?
 
-            override func doRequest(request: NSURLRequest, completion: ((NSData?, HTTPResponse?, Error?) -> ())?) {
+            override func doRequest(_ request: URLRequest, completion: ((Data?, HTTPResponse?, FFError?) -> ())?) {
                 capturedRequest = request
                 capturedCompletion = completion
             }
         }
 
         class MockTokenDataDeserializer: TokenDataDeserializer {
-            var capturedTokenData: NSData?
+            var capturedTokenData: Data?
             var toReturnToken: Token?
             var toReturnDeserializationError: DeserializationError?
 
-            override func deserialize(tokenData: NSData) -> (token: Token?, error: DeserializationError?) {
+            override func deserialize(_ tokenData: Data) -> (token: Token?, error: DeserializationError?) {
                 capturedTokenData = tokenData
                 return (toReturnToken, toReturnDeserializationError)
             }
@@ -60,7 +60,7 @@ class BasicAuthTokenServiceSpec: QuickSpec {
 
             describe("Fetching a token with basic authentication") {
                 var capturedToken: Token?
-                var capturedError: Error?
+                var capturedError: FFError?
 
                 beforeEach {
                     subject.getToken(forTeamWithName: "turtle_team_name", concourseURL: "https://concourse.com", username: "u", password: "p") { token, error in
@@ -75,16 +75,16 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                         return
                     }
 
-                    expect(request.HTTPMethod).to(equal("GET"))
+                    expect(request.httpMethod).to(equal("GET"))
                     expect(request.allHTTPHeaderFields?["Content-Type"]).to(equal("application/json"))
-                    expect(request.URL?.absoluteString).to(equal("https://concourse.com/api/v1/teams/turtle_team_name/auth/token"))
+                    expect(request.url?.absoluteString).to(equal("https://concourse.com/api/v1/teams/turtle_team_name/auth/token"))
 
                     // "dTpw" is the result of base-64 encoding "u:p", the username and password values passed in
                     expect(request.allHTTPHeaderFields?["Authorization"]).to(equal("Basic dTpw"))
                 }
 
                 describe("When the token auth call resolves with success response and valid data") {
-                    var validTokenResponseData: NSData!
+                    var validTokenResponseData: Data!
                     var deserializedToken: Token!
 
                     beforeEach {
@@ -96,7 +96,7 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                         deserializedToken = Token(value: "turtle auth token")
                         mockTokenDataDeserializer.toReturnToken = deserializedToken
 
-                        validTokenResponseData = "valid token data".dataUsingEncoding(NSUTF8StringEncoding)
+                        validTokenResponseData = "valid token data".data(using: String.Encoding.utf8)
                         completion(validTokenResponseData, HTTPResponseImpl(statusCode: 200), nil)
                     }
 
@@ -138,7 +138,7 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                 }
 
                 describe("When the token auth call resolves with success response and deserialization fails") {
-                    var invalidTokenDataResponse: NSData!
+                    var invalidTokenDataResponse: Data!
 
                     beforeEach {
                         guard let completion = mockHTTPClient.capturedCompletion else {
@@ -146,9 +146,9 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                             return
                         }
 
-                        mockTokenDataDeserializer.toReturnDeserializationError = DeserializationError(details: "some deserialization error details", type: .InvalidInputFormat)
+                        mockTokenDataDeserializer.toReturnDeserializationError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
 
-                        invalidTokenDataResponse = "valid token data".dataUsingEncoding(NSUTF8StringEncoding)
+                        invalidTokenDataResponse = "valid token data".data(using: String.Encoding.utf8)
                         completion(invalidTokenDataResponse, HTTPResponseImpl(statusCode: 200), nil)
                     }
 
@@ -166,7 +166,7 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                             return
                         }
 
-                        expect(capturedError as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .InvalidInputFormat)))
+                        expect(capturedError as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
                     }
                 }
             }

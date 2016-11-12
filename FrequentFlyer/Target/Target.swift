@@ -1,8 +1,8 @@
 class Target {
-    private(set) var name: String
-    private(set) var api: String
-    private(set) var teamName: String
-    private(set) var token: Token
+    fileprivate(set) var name: String
+    fileprivate(set) var api: String
+    fileprivate(set) var teamName: String
+    fileprivate(set) var token: Token
 
     init(name: String,
          api: String,
@@ -34,10 +34,10 @@ extension Target: KeychainPersistable {
     var data: [String : AnyObject] {
         get {
             return [
-                "name" : name,
-                "api" : api,
-                "teamName" : teamName,
-                "token" : token.value
+                "name" : name as AnyObject,
+                "api" : api as AnyObject,
+                "teamName" : teamName as AnyObject,
+                "token" : token.value as AnyObject
             ]
         }
     }

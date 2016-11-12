@@ -4,7 +4,7 @@ protocol HTTPResponse {
 }
 
 struct HTTPResponseImpl: HTTPResponse {
-    private(set) var statusCode: Int
+    fileprivate(set) var statusCode: Int
 
     init(statusCode: Int) {
         self.statusCode = statusCode

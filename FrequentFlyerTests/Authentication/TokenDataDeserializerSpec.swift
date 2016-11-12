@@ -22,7 +22,7 @@ class TokenDataDeserializerSpec: QuickSpec {
                             "value" : "token value"
                         ]
 
-                        let validTokenData = try! NSJSONSerialization.dataWithJSONObject(validTokenDataDictionary, options: .PrettyPrinted)
+                        let validTokenData = try! JSONSerialization.data(withJSONObject: validTokenDataDictionary, options: .prettyPrinted)
                         result = subject.deserialize(validTokenData)
                     }
 
@@ -38,7 +38,7 @@ class TokenDataDeserializerSpec: QuickSpec {
                 context("Given data originating from a JSON string") {
                     beforeEach {
                         let tokenDataString = "{\"type\":\"token type\",\"value\":\"token value\"}"
-                        let tokenData = tokenDataString.dataUsingEncoding(NSUTF8StringEncoding)
+                        let tokenData = tokenDataString.data(using: String.Encoding.utf8)
 
                         result = subject.deserialize(tokenData!)
                     }
@@ -62,7 +62,7 @@ class TokenDataDeserializerSpec: QuickSpec {
                             "type" : "token type"
                         ]
 
-                        let invalidTokenData = try! NSJSONSerialization.dataWithJSONObject(invalidTokenDataDictionary, options: .PrettyPrinted)
+                        let invalidTokenData = try! JSONSerialization.data(withJSONObject: invalidTokenDataDictionary, options: .prettyPrinted)
                         result = subject.deserialize(invalidTokenData)
                     }
 
@@ -71,7 +71,7 @@ class TokenDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'value' key", type: .MissingRequiredData)))
+                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'value' key", type: .missingRequiredData)))
                     }
                 }
 
@@ -80,9 +80,9 @@ class TokenDataDeserializerSpec: QuickSpec {
                         let invalidTokenDataDictionary = [
                             "type" : "token type",
                             "value" : 1
-                        ]
+                        ] as [String : Any]
 
-                        let invalidTokenData = try! NSJSONSerialization.dataWithJSONObject(invalidTokenDataDictionary, options: .PrettyPrinted)
+                        let invalidTokenData = try! JSONSerialization.data(withJSONObject: invalidTokenDataDictionary, options: .prettyPrinted)
                         result = subject.deserialize(invalidTokenData)
                     }
 
@@ -91,7 +91,7 @@ class TokenDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'value' key to be a string", type: .TypeMismatch)))
+                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'value' key to be a string", type: .typeMismatch)))
                     }
                 }
 
@@ -99,7 +99,7 @@ class TokenDataDeserializerSpec: QuickSpec {
                     beforeEach {
                         let tokenDataString = "some string"
 
-                        let invalidTokenData = tokenDataString.dataUsingEncoding(NSUTF8StringEncoding)
+                        let invalidTokenData = tokenDataString.data(using: String.Encoding.utf8)
                         result = subject.deserialize(invalidTokenData!)
                     }
 
@@ -108,7 +108,7 @@ class TokenDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .InvalidInputFormat)))
+                        expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat)))
                     }
                 }
             }

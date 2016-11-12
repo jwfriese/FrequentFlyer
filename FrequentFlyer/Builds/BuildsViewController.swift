@@ -33,16 +33,16 @@ class BuildsViewController: UIViewController {
             }
 
             self.builds = buildsForPipeline
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.buildsTableView?.reloadData()
             }
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == BuildsViewController.showBuildDetailSegueId {
-            guard let buildDetailViewController = segue.destinationViewController as? BuildDetailViewController else { return }
-            guard let indexPath = sender as? NSIndexPath else { return }
+            guard let buildDetailViewController = segue.destination as? BuildDetailViewController else { return }
+            guard let indexPath = sender as? IndexPath else { return }
             guard let build = builds?[indexPath.row] else { return }
             guard let target = target else { return }
 
@@ -58,17 +58,17 @@ class BuildsViewController: UIViewController {
 }
 
 extension BuildsViewController: UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let builds = builds else { return 0 }
         return builds.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = buildsTableView?.dequeueReusableCellWithIdentifier(BuildTableViewCell.cellReuseIdentifier, forIndexPath: indexPath) as! BuildTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = buildsTableView?.dequeueReusableCell(withIdentifier: BuildTableViewCell.cellReuseIdentifier, for: indexPath) as! BuildTableViewCell
         let build = builds?[indexPath.row]
 
         if let buildId = build?.id {
@@ -83,15 +83,15 @@ extension BuildsViewController: UITableViewDataSource {
 }
 
 extension BuildsViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
 
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return buildsTableHeaderView
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier(BuildsViewController.showBuildDetailSegueId, sender: indexPath)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: BuildsViewController.showBuildDetailSegueId, sender: indexPath)
     }
 }

@@ -1,8 +1,8 @@
 struct Build {
-    private(set) var id: Int
-    private(set) var jobName: String
-    private(set) var status: String
-    private(set) var pipelineName: String
+    fileprivate(set) var id: Int
+    fileprivate(set) var jobName: String
+    fileprivate(set) var status: String
+    fileprivate(set) var pipelineName: String
 
     init(id: Int, jobName: String, status: String, pipelineName: String) {
         self.id = id

@@ -7,9 +7,9 @@ import Fleet
 class TeamPipelinesViewControllerSpec: QuickSpec {
     class MockTeamPipelinesService: TeamPipelinesService {
         var capturedTarget: Target?
-        var capturedCompletion: (([Pipeline]?, Error?) -> ())?
+        var capturedCompletion: (([Pipeline]?, FFError?) -> ())?
 
-        override func getPipelines(forTarget target: Target, completion: (([Pipeline]?, Error?) -> ())?) {
+        override func getPipelines(forTarget target: Target, completion: (([Pipeline]?, FFError?) -> ())?) {
             capturedTarget = target
             capturedCompletion = completion
         }
@@ -42,13 +42,13 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                subject = storyboard.instantiateViewControllerWithIdentifier(TeamPipelinesViewController.storyboardIdentifier) as! TeamPipelinesViewController
+                subject = storyboard.instantiateViewController(withIdentifier: TeamPipelinesViewController.storyboardIdentifier) as! TeamPipelinesViewController
 
                 mockBuildsViewController = MockBuildsViewController()
-                try! storyboard.bindViewController(mockBuildsViewController, toIdentifier: BuildsViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockBuildsViewController, toIdentifier: BuildsViewController.storyboardIdentifier)
 
                 mockConcourseEntryViewController = MockConcourseEntryViewController()
-                try! storyboard.bindViewController(mockConcourseEntryViewController, toIdentifier: ConcourseEntryViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockConcourseEntryViewController, toIdentifier: ConcourseEntryViewController.storyboardIdentifier)
 
                 subject.target = Target(name: "turtle target",
                     api: "turtle api",
@@ -92,7 +92,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                 }
 
                 it("always has one section in the table view") {
-                    expect(subject.numberOfSectionsInTableView(subject.teamPipelinesTableView!)).to(equal(1))
+                    expect(subject.numberOfSections(in: subject.teamPipelinesTableView!)).to(equal(1))
                 }
 
                 describe("Tapping the 'Logout' navigation item") {
@@ -142,7 +142,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     }
 
                     it("creates a cell in each of the rows for each of the pipelines returned") {
-                        let cellOne = subject.tableView(subject.teamPipelinesTableView!, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as? PipelineTableViewCell
+                        let cellOne = subject.tableView(subject.teamPipelinesTableView!, cellForRowAt: IndexPath(row: 0, section: 0)) as? PipelineTableViewCell
                         expect(cellOne).toNot(beNil())
 
                         guard let cellOneNameLabel = cellOne?.nameLabel else {
@@ -151,7 +151,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                         }
                         expect(cellOneNameLabel.text).to(equal("turtle pipeline one"))
 
-                        let cellTwo = subject.tableView(subject.teamPipelinesTableView!, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as?PipelineTableViewCell
+                        let cellTwo = subject.tableView(subject.teamPipelinesTableView!, cellForRowAt: IndexPath(row: 1, section: 0)) as?PipelineTableViewCell
                         expect(cellTwo).toNot(beNil())
 
                         guard let cellTwoNameLabel = cellTwo?.nameLabel else {
@@ -163,7 +163,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                     describe("Tapping one of the cells") {
                         beforeEach {
-                            subject.tableView(subject.teamPipelinesTableView!, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                            subject.tableView(subject.teamPipelinesTableView!, didSelectRowAt: IndexPath(row: 0, section: 0))
                         }
 
                         it("sets up and presents the pipeline's builds page") {

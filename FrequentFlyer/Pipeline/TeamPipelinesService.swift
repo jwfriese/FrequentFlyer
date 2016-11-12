@@ -4,19 +4,19 @@ class TeamPipelinesService {
     var httpClient: HTTPClient?
     var pipelineDataDeserializer: PipelineDataDeserializer?
 
-    func getPipelines(forTarget target: Target, completion: (([Pipeline]?, Error?) -> ())?) {
+    func getPipelines(forTarget target: Target, completion: (([Pipeline]?, FFError?) -> ())?) {
         guard let httpClient = httpClient else { return }
 
-        guard let url = NSURL(string: target.api + "/api/v1/teams/" + target.teamName + "/pipelines") else {
+        guard let url = URL(string: target.api + "/api/v1/teams/" + target.teamName + "/pipelines") else {
             return
         }
 
-        let request = NSMutableURLRequest(URL: url)
+        let request = NSMutableURLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer \(target.token.value)", forHTTPHeaderField: "Authorization")
-        request.HTTPMethod = "GET"
+        request.httpMethod = "GET"
 
-        httpClient.doRequest(request) { data, response, error in
+        httpClient.doRequest(request as URLRequest) { data, response, error in
             guard let completion = completion else {
                 return
             }

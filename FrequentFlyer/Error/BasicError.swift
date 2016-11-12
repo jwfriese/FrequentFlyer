@@ -1,5 +1,5 @@
-struct BasicError: Error {
-    private(set) var details: String
+struct BasicError: FFError {
+    fileprivate(set) var details: String
 
     init(details: String) {
         self.details = details

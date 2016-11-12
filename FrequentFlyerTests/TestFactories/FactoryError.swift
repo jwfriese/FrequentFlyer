@@ -1,8 +1,8 @@
-protocol FactoryError: ErrorType, CustomStringConvertible {}
+protocol FactoryError: Error, CustomStringConvertible {}
 
 struct FactoryPropertyTypeError<T>: FactoryError {
-    private var propertyName: String
-    private var expectedType: T
+    fileprivate var propertyName: String
+    fileprivate var expectedType: T
 
     init(propertyName: String, expectedType: T) {
         self.propertyName = propertyName
@@ -11,7 +11,7 @@ struct FactoryPropertyTypeError<T>: FactoryError {
 
     var description: String {
         get {
-            return "Invalid type for property override with name '\(propertyName)' (expected type='\(String(expectedType))'"
+            return "Invalid type for property override with name '\(propertyName)' (expected type='\(String(describing: expectedType))'"
         }
     }
 }

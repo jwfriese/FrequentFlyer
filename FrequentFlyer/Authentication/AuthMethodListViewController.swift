@@ -21,9 +21,9 @@ class AuthMethodListViewController: UIViewController {
         authMethodListTableView?.dataSource = self
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == AuthMethodListViewController.showBasicUserAuthSegueId {
-            guard let basicUserAuthViewController = segue.destinationViewController as? BasicUserAuthViewController else {
+            guard let basicUserAuthViewController = segue.destination as? BasicUserAuthViewController else {
                 return
             }
 
@@ -36,7 +36,7 @@ class AuthMethodListViewController: UIViewController {
             basicAuthTokenService.tokenDataDeserializer = TokenDataDeserializer()
             basicUserAuthViewController.basicAuthTokenService = basicAuthTokenService
         } else if segue.identifier == AuthMethodListViewController.showGithubAuthSegueId {
-            guard let githubAuthViewController = segue.destinationViewController as? GithubAuthViewController else {
+            guard let githubAuthViewController = segue.destination as? GithubAuthViewController else {
                 return
             }
 
@@ -59,18 +59,18 @@ class AuthMethodListViewController: UIViewController {
 }
 
 extension AuthMethodListViewController: UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let authMethods = authMethods else { return 0 }
         return authMethods.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         if let authMethods = authMethods {
             switch authMethods[indexPath.row].type {
-            case .Basic:
+            case .basic:
                 cell.textLabel?.text = "Basic"
-            case .Github:
+            case .github:
                 cell.textLabel?.text = "Github"
             }
         }
@@ -80,16 +80,16 @@ extension AuthMethodListViewController: UITableViewDataSource {
 }
 
 extension AuthMethodListViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let authMethods = authMethods else { return }
 
         let authMethod = authMethods[indexPath.row]
 
         switch authMethod.type {
-        case .Basic:
-            performSegueWithIdentifier(AuthMethodListViewController.showBasicUserAuthSegueId, sender: nil)
-        case .Github:
-            performSegueWithIdentifier(AuthMethodListViewController.showGithubAuthSegueId, sender: authMethod.url)
+        case .basic:
+            performSegue(withIdentifier: AuthMethodListViewController.showBasicUserAuthSegueId, sender: nil)
+        case .github:
+            performSegue(withIdentifier: AuthMethodListViewController.showGithubAuthSegueId, sender: authMethod.url)
         }
     }
 }

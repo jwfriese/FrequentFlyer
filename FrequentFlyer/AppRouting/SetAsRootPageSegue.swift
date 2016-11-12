@@ -6,8 +6,8 @@ class SetAsRootPageSegue: UIStoryboardSegue {
     }
 
     override func perform() {
-        if let navigationController = sourceViewController.navigationController {
-            navigationController.setViewControllers([destinationViewController], animated: true)
+        if let navigationController = source.navigationController {
+            navigationController.setViewControllers([destination], animated: true)
         } else {
             print("SetAsRootPageSegue requires that the source view controller is in a navigation controller")
         }

@@ -23,14 +23,14 @@ class GithubAuthViewController: UIViewController {
         title = ""
 
         tokenTextField?.delegate = self
-        submitButton?.enabled = false
+        submitButton?.isEnabled = false
         userTextInputPageOperator?.delegate = self
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == GithubAuthViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
-            guard let teamPipelinesViewController = segue.destinationViewController as? TeamPipelinesViewController else {
+            guard let teamPipelinesViewController = segue.destination as? TeamPipelinesViewController else {
                 return
             }
 
@@ -49,7 +49,7 @@ class GithubAuthViewController: UIViewController {
         guard let githubAuthURLString = githubAuthURLString else { return }
         guard let browserAgent = browserAgent else { return }
 
-        guard let url = NSURL(string: githubAuthURLString) else { return }
+        guard let url = URL(string: githubAuthURLString) else { return }
         browserAgent.openInBrowser(url)
     }
 
@@ -63,12 +63,12 @@ class GithubAuthViewController: UIViewController {
             if let error = error {
                 let alert = UIAlertController(title: "Authorization Failed",
                                               message: error.details,
-                                              preferredStyle: .Alert
+                                              preferredStyle: .alert
                 )
-                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.presentViewController(alert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
                 }
             } else {
                 let token = Token(value: tokenString)
@@ -76,12 +76,12 @@ class GithubAuthViewController: UIViewController {
                                        api: concourseURLString,
                                        teamName: "main",
                                        token: token)
-                if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.on {
+                if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.isOn {
                     keychainWrapper.saveTarget(newTarget)
                 }
 
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.performSegueWithIdentifier(GithubAuthViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: GithubAuthViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
                 }
             }
         }
@@ -89,13 +89,13 @@ class GithubAuthViewController: UIViewController {
 }
 
 extension GithubAuthViewController: UITextFieldDelegate {
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        submitButton?.enabled = tokenTextField?.text != ""
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        submitButton?.isEnabled = tokenTextField?.text != ""
         return true
     }
 
-    func textFieldShouldClear(textField: UITextField) -> Bool {
-        submitButton?.enabled = false
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        submitButton?.isEnabled = false
         return true
     }
 }

@@ -8,9 +8,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
     class MockAuthMethodsService: AuthMethodsService {
         var capturedTeamName: String?
         var capturedConcourseURL: String?
-        var capturedCompletion: (([AuthMethod]?, Error?) -> ())?
+        var capturedCompletion: (([AuthMethod]?, FFError?) -> ())?
 
-        override func getMethods(forTeamName teamName: String, concourseURL: String, completion: (([AuthMethod]?, Error?) -> ())?) {
+        override func getMethods(forTeamName teamName: String, concourseURL: String, completion: (([AuthMethod]?, FFError?) -> ())?) {
             capturedTeamName = teamName
             capturedConcourseURL = concourseURL
             capturedCompletion = completion
@@ -20,9 +20,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
     class MockUnauthenticatedTokenService: UnauthenticatedTokenService {
         var capturedTeamName: String?
         var capturedConcourseURL: String?
-        var capturedCompletionHandler: ((Token?, Error?) -> ())?
+        var capturedCompletionHandler: ((Token?, FFError?) -> ())?
 
-        override func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String, completion: ((Token?, Error?) -> ())?) {
+        override func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String, completion: ((Token?, FFError?) -> ())?) {
             capturedTeamName = teamName
             capturedConcourseURL = concourseURL
             capturedCompletionHandler = completion
@@ -51,12 +51,12 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 mockAuthMethodListViewController = MockAuthMethodListViewController()
-                try! storyboard.bindViewController(mockAuthMethodListViewController, toIdentifier: AuthMethodListViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockAuthMethodListViewController, toIdentifier: AuthMethodListViewController.storyboardIdentifier)
 
                 mockTeamPipelinesViewController = MockTeamPipelinesViewController()
-                try! storyboard.bindViewController(mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
 
-                subject = storyboard.instantiateViewControllerWithIdentifier(ConcourseEntryViewController.storyboardIdentifier) as! ConcourseEntryViewController
+                subject = storyboard.instantiateViewController(withIdentifier: ConcourseEntryViewController.storyboardIdentifier) as! ConcourseEntryViewController
 
                 mockAuthMethodsService = MockAuthMethodsService()
                 subject.authMethodsService = mockAuthMethodsService
@@ -86,7 +86,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         return
                     }
 
-                    expect(concourseURLEntryTextField.autocorrectionType).to(equal(UITextAutocorrectionType.No))
+                    expect(concourseURLEntryTextField.autocorrectionType).to(equal(UITextAutocorrectionType.no))
                     expect(concourseURLEntryTextField.keyboardType).to(equal(UIKeyboardType.URL))
                 }
 
@@ -111,16 +111,16 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                 describe("Availability of the 'Submit' button") {
                     it("is disabled just after the view is loaded") {
-                        expect(subject.submitButton?.enabled).to(beFalse())
+                        expect(subject.submitButton?.isEnabled).to(beFalse())
                     }
 
                     describe("When the 'Concourse URL' field has text") {
                         beforeEach {
-                            try! subject.concourseURLEntryField?.enterText("turtle url")
+                            try! subject.concourseURLEntryField?.enter(text: "turtle url")
                         }
 
                         it("enables the button") {
-                            expect(subject.submitButton!.enabled).to(beTrue())
+                            expect(subject.submitButton!.isEnabled).to(beTrue())
                         }
 
                         describe("When the 'Concourse URL' field is cleared") {
@@ -129,7 +129,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                             }
 
                             it("disables the button") {
-                                expect(subject.submitButton!.enabled).to(beFalse())
+                                expect(subject.submitButton!.isEnabled).to(beFalse())
                             }
                         }
                     }
@@ -137,7 +137,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                 describe("Entering a Concourse URL and hitting 'Submit'") {
                     beforeEach {
-                        try! subject.concourseURLEntryField?.enterText("concourse URL")
+                        try! subject.concourseURLEntryField?.enter(text: "concourse URL")
                         subject.submitButton?.tap()
                     }
 
@@ -153,8 +153,8 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                                 return
                             }
 
-                            let basicAuthMethod = AuthMethod(type: .Basic, url: "basic-auth.com")
-                            let githubAuthMethod = AuthMethod(type: .Github, url: "github-auth.com")
+                            let basicAuthMethod = AuthMethod(type: .basic, url: "basic-auth.com")
+                            let githubAuthMethod = AuthMethod(type: .github, url: "github-auth.com")
                             completion([basicAuthMethod, githubAuthMethod], nil)
                         }
 
@@ -164,8 +164,8 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                         it("sets the fetched auth methods on the view controller") {
                             expect(mockAuthMethodListViewController.authMethods).toEventually(equal([
-                                AuthMethod(type: .Basic, url: "basic-auth.com"),
-                                AuthMethod(type: .Github, url: "github-auth.com")
+                                AuthMethod(type: .basic, url: "basic-auth.com"),
+                                AuthMethod(type: .github, url: "github-auth.com")
                                 ]))
                         }
 

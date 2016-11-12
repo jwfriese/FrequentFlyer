@@ -33,12 +33,12 @@ class AppRouterViewControllerSpec: QuickSpec {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 mockConcourseEntryViewController = MockConcourseEntryViewController()
-                try! storyboard.bindViewController(mockConcourseEntryViewController, toIdentifier: ConcourseEntryViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockConcourseEntryViewController, toIdentifier: ConcourseEntryViewController.storyboardIdentifier)
 
                 mockTeamPipelinesViewController = MockTeamPipelinesViewController()
-                try! storyboard.bindViewController(mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
 
-                subject = storyboard.instantiateViewControllerWithIdentifier(AppRouterViewController.storyboardIdentifier) as! AppRouterViewController
+                subject = storyboard.instantiateViewController(withIdentifier: AppRouterViewController.storyboardIdentifier) as! AppRouterViewController
 
                 mockKeychainWrapper = MockKeychainWrapper()
                 subject.keychainWrapper = mockKeychainWrapper

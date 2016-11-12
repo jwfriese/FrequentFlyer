@@ -1,14 +1,14 @@
 import Foundation
 
 class AuthMethodDataDeserializer {
-    func deserialize(data: NSData) -> (authMethods: [AuthMethod]?, error: DeserializationError?) {
-        var authMethodsJSONObject: AnyObject?
+    func deserialize(_ data: Data) -> (authMethods: [AuthMethod]?, error: DeserializationError?) {
+        var authMethodsJSONObject: Any?
         do {
-            authMethodsJSONObject = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+            authMethodsJSONObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
         } catch { }
 
         guard let authMethodsJSON = authMethodsJSONObject as? Array<NSDictionary> else {
-            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .InvalidInputFormat))
+            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
         }
 
         var authMethods = [AuthMethod]()
@@ -16,11 +16,11 @@ class AuthMethodDataDeserializer {
             guard let typeString = authMethodsDictionary["type"] as? String else { continue }
             guard let urlString = authMethodsDictionary["auth_url"] as? String else { continue }
 
-            var type = AuthType.Basic
+            var type = AuthType.basic
             if typeString == "basic" {
-                type = .Basic
+                type = .basic
             } else if typeString == "oauth" {
-                type = .Github
+                type = .github
             }
 
             authMethods.append(AuthMethod(type: type, url: urlString))

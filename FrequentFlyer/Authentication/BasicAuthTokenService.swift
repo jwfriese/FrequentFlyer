@@ -5,22 +5,22 @@ class BasicAuthTokenService {
     var tokenDataDeserializer: TokenDataDeserializer?
 
     func getToken(forTeamWithName teamName: String, concourseURL: String,
-                                  username: String, password: String, completion: ((Token?, Error?) -> ())?) {
+                                  username: String, password: String, completion: ((Token?, FFError?) -> ())?) {
         guard let httpClient = httpClient else { return }
         guard let tokenDataDeserializer = tokenDataDeserializer else { return }
 
         let urlString = concourseURL + "/api/v1/teams/\(teamName)/auth/token"
-        let url = NSURL(string: urlString)
-        let request = NSMutableURLRequest(URL: url!)
+        let url = URL(string: urlString)
+        let request = NSMutableURLRequest(url: url!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPMethod = "GET"
+        request.httpMethod = "GET"
 
-        let usernamePasswordData = "\(username):\(password)".dataUsingEncoding(NSUTF8StringEncoding)
-        let base64EncodedAuthenticationDetails = usernamePasswordData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
+        let usernamePasswordData = "\(username):\(password)".data(using: String.Encoding.utf8)
+        let base64EncodedAuthenticationDetails = usernamePasswordData!.base64EncodedString(options: NSData.Base64EncodingOptions())
 
         request.addValue("Basic \(base64EncodedAuthenticationDetails)", forHTTPHeaderField: "Authorization")
 
-        httpClient.doRequest(request) { data, response, error in
+        httpClient.doRequest(request as URLRequest) { data, response, error in
             guard let completion = completion else { return }
             guard let data = data else {
                 completion(nil, error)

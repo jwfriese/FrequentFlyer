@@ -11,9 +11,9 @@ class AppDelegateSpec: QuickSpec {
             describe("After launching") {
                 beforeEach {
                     subject = AppDelegate()
-                    let application = UIApplication.sharedApplication()
+                    let application = UIApplication.shared
                     application.delegate = subject
-                    subject.application(application, didFinishLaunchingWithOptions: nil)
+                    let _ = subject.application(application, didFinishLaunchingWithOptions: nil)
                 }
 
                 it("sets up the main window with a navigation controller containing a AppRouterViewController and sets up the AppRouterViewController with its dependencies") {

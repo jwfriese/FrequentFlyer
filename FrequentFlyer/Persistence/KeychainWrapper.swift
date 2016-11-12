@@ -2,11 +2,11 @@ import Foundation
 import Locksmith
 
 class KeychainWrapper {
-    private class var accountName: String { get { return "target" } }
+    fileprivate class var accountName: String { get { return "target" } }
 
-    func saveTarget(target: Target) {
+    func saveTarget(_ target: Target) {
         do {
-            try Locksmith.updateData(target.data,
+            try Locksmith.updateData(data: target.data,
                                      forUserAccount: KeychainWrapper.accountName,
                                      inService: Target.serviceName)
         } catch {
@@ -15,7 +15,7 @@ class KeychainWrapper {
     }
 
     func retrieveTarget() -> Target? {
-        guard let data = Locksmith.loadDataForUserAccount(KeychainWrapper.accountName,
+        guard let data = Locksmith.loadDataForUserAccount(userAccount: KeychainWrapper.accountName,
                                                           inService: Target.serviceName)
             else { return nil }
 
@@ -29,7 +29,7 @@ class KeychainWrapper {
 
     func deleteTarget() {
         do {
-            try Locksmith.deleteDataForUserAccount(KeychainWrapper.accountName,
+            try Locksmith.deleteDataForUserAccount(userAccount: KeychainWrapper.accountName,
                                                    inService: Target.serviceName)
         } catch {
             print("Error saving logged-in target data to the keychain")

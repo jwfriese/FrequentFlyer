@@ -8,15 +8,15 @@ class GithubAuthViewControllerSpec: QuickSpec {
     class MockKeychainWrapper: KeychainWrapper {
         var capturedTarget: Target?
 
-        override func saveTarget(target: Target) {
+        override func saveTarget(_ target: Target) {
             capturedTarget = target
         }
     }
 
     class MockBrowserAgent: BrowserAgent {
-        var capturedURL: NSURL?
+        var capturedURL: URL?
 
-        override func openInBrowser(url: NSURL) {
+        override func openInBrowser(_ url: URL) {
             capturedURL = url
         }
     }
@@ -24,9 +24,9 @@ class GithubAuthViewControllerSpec: QuickSpec {
     class MockTokenValidationService: TokenValidationService {
         var capturedToken: Token?
         var capturedConcourseURLString: String?
-        var capturedCompletion: ((Error?) -> ())?
+        var capturedCompletion: ((FFError?) -> ())?
 
-        override func validate(token token: Token, forConcourse concourseURLString: String, completion: ((Error?) -> ())?) {
+        override func validate(token: Token, forConcourse concourseURLString: String, completion: ((FFError?) -> ())?) {
             capturedToken = token
             capturedConcourseURLString = concourseURLString
             capturedCompletion = completion
@@ -51,9 +51,9 @@ class GithubAuthViewControllerSpec: QuickSpec {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 mockTeamPipelinesViewController = MockTeamPipelinesViewController()
-                try! storyboard.bindViewController(mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
+                try! storyboard.bind(viewController: mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
 
-                subject = storyboard.instantiateViewControllerWithIdentifier(GithubAuthViewController.storyboardIdentifier) as! GithubAuthViewController
+                subject = storyboard.instantiateViewController(withIdentifier: GithubAuthViewController.storyboardIdentifier) as! GithubAuthViewController
 
                 subject.concourseURLString = "turtle_concourse.com"
                 subject.githubAuthURLString = "turtle_github.com"
@@ -106,22 +106,22 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                 describe("Availability of the 'Get Token' button") {
                     it("is always enabled") {
-                        expect(subject.openGithubAuthPageButton?.enabled).to(beTrue())
+                        expect(subject.openGithubAuthPageButton?.isEnabled).to(beTrue())
                     }
                 }
 
                 describe("Availability of the 'Submit' button") {
                     it("is disabled just after the view is loaded") {
-                        expect(subject.submitButton!.enabled).to(beFalse())
+                        expect(subject.submitButton!.isEnabled).to(beFalse())
                     }
 
                     describe("When the 'Token' field has text") {
                         beforeEach {
-                            try! subject.tokenTextField?.enterText("token of the Github Turtle")
+                            try! subject.tokenTextField?.enter(text: "token of the Github Turtle")
                         }
 
                         it("enables the button") {
-                            expect(subject.submitButton!.enabled).to(beTrue())
+                            expect(subject.submitButton!.isEnabled).to(beTrue())
                         }
 
                         describe("When the 'Token' field is cleared") {
@@ -130,7 +130,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
                             }
 
                             it("disables the button") {
-                                expect(subject.submitButton!.enabled).to(beFalse())
+                                expect(subject.submitButton!.isEnabled).to(beFalse())
                             }
                         }
                     }
@@ -153,7 +153,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                 describe("Entering a token and hitting the 'Submit' button") {
                     beforeEach {
-                        try! subject.tokenTextField?.enterText("token of the Github Turtle")
+                        try! subject.tokenTextField?.enter(text: "token of the Github Turtle")
                         subject.submitButton?.tap()
                     }
 
@@ -165,7 +165,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
                     describe("When the validation call returns with no error") {
                         describe("When 'Stay Logged In' switch is off") {
                             beforeEach {
-                                subject.stayLoggedInSwitch?.on = false
+                                subject.stayLoggedInSwitch?.isOn = false
 
                                 guard let completion = mockTokenValidationService.capturedCompletion else {
                                     fail("Failed to call TokenValidationService with a completion handler")
@@ -199,7 +199,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                         describe("When 'Stay Logged In' switch is on") {
                             beforeEach {
-                                subject.stayLoggedInSwitch?.on = true
+                                subject.stayLoggedInSwitch?.isOn = true
 
                                 guard let completion = mockTokenValidationService.capturedCompletion else {
                                     fail("Failed to call TokenValidationService with a completion handler")

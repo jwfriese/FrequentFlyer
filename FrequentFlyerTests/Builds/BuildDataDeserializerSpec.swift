@@ -22,9 +22,9 @@ class BuildDataDeserializerSpec: QuickSpec {
                         "job_name" : "turtle job name",
                         "pipeline_name" : "turtle pipeline name"
 
-                    ]
+                    ] as [String : Any]
 
-                    let validData = try! NSJSONSerialization.dataWithJSONObject(validDataJSONArray, options: .PrettyPrinted)
+                    let validData = try! JSONSerialization.data(withJSONObject: validDataJSONArray, options: .prettyPrinted)
                     result = subject.deserialize(validData)
                 }
 
@@ -46,9 +46,9 @@ class BuildDataDeserializerSpec: QuickSpec {
                             "id" : 2,
                             "job_name" : "turtle job name",
                             "pipeline_name" : "turtle pipeline name"
-                        ]
+                        ] as [String : Any]
 
-                        let invalidData = try! NSJSONSerialization.dataWithJSONObject(invalidDataJSON, options: .PrettyPrinted)
+                        let invalidData = try! JSONSerialization.data(withJSONObject: invalidDataJSON, options: .prettyPrinted)
                         result = subject.deserialize(invalidData)
                     }
 
@@ -57,7 +57,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'status' field", type: .MissingRequiredData)))
+                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'status' field", type: .missingRequiredData)))
                     }
                 }
 
@@ -68,9 +68,9 @@ class BuildDataDeserializerSpec: QuickSpec {
                             "status" : 100,
                             "job_name" : "turtle job name",
                             "pipeline_name" : "turtle pipeline name"
-                        ]
+                        ] as [String : Any]
 
-                        let invalidJSONData = try! NSJSONSerialization.dataWithJSONObject(invalidJSONDictionary, options: .PrettyPrinted)
+                        let invalidJSONData = try! JSONSerialization.data(withJSONObject: invalidJSONDictionary, options: .prettyPrinted)
                         result = subject.deserialize(invalidJSONData)
                     }
 
@@ -79,7 +79,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'status' field to be a string", type: .TypeMismatch)))
+                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'status' field to be a string", type: .typeMismatch)))
                     }
                 }
 
@@ -89,9 +89,9 @@ class BuildDataDeserializerSpec: QuickSpec {
                             "id" : 1,
                             "status" : "status 1",
                             "pipeline_name" : "turtle pipeline name"
-                        ]
+                        ] as [String : Any]
 
-                        let invalidJSONData = try! NSJSONSerialization.dataWithJSONObject(invalidJSONDictionary, options: .PrettyPrinted)
+                        let invalidJSONData = try! JSONSerialization.data(withJSONObject: invalidJSONDictionary, options: .prettyPrinted)
                         result = subject.deserialize(invalidJSONData)
                     }
 
@@ -100,7 +100,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'job_name' field", type: .MissingRequiredData)))
+                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'job_name' field", type: .missingRequiredData)))
                     }
                 }
 
@@ -111,9 +111,9 @@ class BuildDataDeserializerSpec: QuickSpec {
                             "status" : "status 1",
                             "job_name" : 1000,
                             "pipeline_name" : "turtle pipeline name"
-                        ]
+                        ] as [String : Any]
 
-                        let invalidJSONData = try! NSJSONSerialization.dataWithJSONObject(invalidJSONDictionary, options: .PrettyPrinted)
+                        let invalidJSONData = try! JSONSerialization.data(withJSONObject: invalidJSONDictionary, options: .prettyPrinted)
                         result = subject.deserialize(invalidJSONData)
                     }
 
@@ -122,7 +122,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'job_name' field to be a string", type: .TypeMismatch)))
+                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'job_name' field to be a string", type: .typeMismatch)))
                     }
                 }
 
@@ -134,7 +134,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                             "pipeline_name" : "turtle pipeline name"
                         ]
 
-                        let invalidJSONData = try! NSJSONSerialization.dataWithJSONObject(invalidJSONDictionary, options: .PrettyPrinted)
+                        let invalidJSONData = try! JSONSerialization.data(withJSONObject: invalidJSONDictionary, options: .prettyPrinted)
                         result = subject.deserialize(invalidJSONData)
                     }
 
@@ -143,7 +143,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'id' field", type: .MissingRequiredData)))
+                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'id' field", type: .missingRequiredData)))
                     }
                 }
 
@@ -156,7 +156,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                             "pipeline_name" : "turtle pipeline name"
                         ]
 
-                        let invalidJSONData = try! NSJSONSerialization.dataWithJSONObject(invalidJSONDictionary, options: .PrettyPrinted)
+                        let invalidJSONData = try! JSONSerialization.data(withJSONObject: invalidJSONDictionary, options: .prettyPrinted)
                         result = subject.deserialize(invalidJSONData)
                     }
 
@@ -165,7 +165,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'id' field to be an integer", type: .TypeMismatch)))
+                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'id' field to be an integer", type: .typeMismatch)))
                     }
                 }
 
@@ -175,9 +175,9 @@ class BuildDataDeserializerSpec: QuickSpec {
                             "id" : 3,
                             "status" : "status",
                             "job_name" : "turtle job name"
-                        ]
+                        ] as [String : Any]
 
-                        let invalidJSONData = try! NSJSONSerialization.dataWithJSONObject(invalidJSONDictionary, options: .PrettyPrinted)
+                        let invalidJSONData = try! JSONSerialization.data(withJSONObject: invalidJSONDictionary, options: .prettyPrinted)
                         result = subject.deserialize(invalidJSONData)
                     }
 
@@ -186,7 +186,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'pipeline_name' field", type: .MissingRequiredData)))
+                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'pipeline_name' field", type: .missingRequiredData)))
                     }
                 }
 
@@ -197,9 +197,9 @@ class BuildDataDeserializerSpec: QuickSpec {
                             "status" : "status",
                             "job_name" : "turtle job name",
                             "pipeline_name" : 1
-                        ]
+                        ] as [String : Any]
 
-                        let invalidJSONData = try! NSJSONSerialization.dataWithJSONObject(invalidJSONDictionary, options: .PrettyPrinted)
+                        let invalidJSONData = try! JSONSerialization.data(withJSONObject: invalidJSONDictionary, options: .prettyPrinted)
                         result = subject.deserialize(invalidJSONData)
                     }
 
@@ -208,7 +208,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'pipeline_name' field to be a string", type: .TypeMismatch)))
+                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'pipeline_name' field to be a string", type: .typeMismatch)))
                     }
                 }
             }
@@ -219,7 +219,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                 beforeEach {
                     let buildDataString = "some string"
 
-                    let invalidbuildData = buildDataString.dataUsingEncoding(NSUTF8StringEncoding)
+                    let invalidbuildData = buildDataString.data(using: String.Encoding.utf8)
                     result = subject.deserialize(invalidbuildData!)
                 }
 
@@ -228,7 +228,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns an error") {
-                    expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .InvalidInputFormat)))
+                    expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat)))
                 }
             }
         }

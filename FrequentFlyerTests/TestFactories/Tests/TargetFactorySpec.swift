@@ -26,7 +26,7 @@ class TargetFactorySpec: QuickSpec {
                     var target: Target!
 
                     beforeEach {
-                        target = try! Factory.createTarget(["name" : "crab name"])
+                        target = try! Factory.createTarget(["name" : "crab name" as AnyObject])
                     }
 
                     it("sets the override value for 'name' property") {
@@ -42,7 +42,7 @@ class TargetFactorySpec: QuickSpec {
 
                 context("When the overriding value is not a string") {
                     it("throws an error") {
-                        expect { try Factory.createTarget(["name" : 1]) }.to(throwError() { (error: FactoryPropertyTypeError<String>) in
+                        expect { try Factory.createTarget(["name" : 1 as AnyObject]) }.to(throwError() { (error: FactoryPropertyTypeError<String>) in
                             expect(error.description).to(equal("Invalid type for property override with name 'name' (expected type='String'"))
                             })
                     }
@@ -54,7 +54,7 @@ class TargetFactorySpec: QuickSpec {
                     var target: Target!
 
                     beforeEach {
-                        target = try! Factory.createTarget(["api" : "https://crab.com"])
+                        target = try! Factory.createTarget(["api" : "https://crab.com" as AnyObject])
                     }
 
                     it("sets the override value for 'api' property") {
@@ -70,7 +70,7 @@ class TargetFactorySpec: QuickSpec {
 
                 context("When the overriding value is not a string") {
                     it("throws an error") {
-                        expect { try Factory.createTarget(["api" : 1]) }.to(throwError() { (error: FactoryPropertyTypeError<String>) in
+                        expect { try Factory.createTarget(["api" : 1 as AnyObject]) }.to(throwError() { (error: FactoryPropertyTypeError<String>) in
                             expect(error.description).to(equal("Invalid type for property override with name 'api' (expected type='String'"))
                             })
                     }
@@ -82,7 +82,7 @@ class TargetFactorySpec: QuickSpec {
                     var target: Target!
 
                     beforeEach {
-                        target = try! Factory.createTarget(["teamName" : "crab team"])
+                        target = try! Factory.createTarget(["teamName" : "crab team" as AnyObject])
                     }
 
                     it("sets the override value for 'teamName' property") {
@@ -98,7 +98,7 @@ class TargetFactorySpec: QuickSpec {
 
                 context("When the overriding value is not a string") {
                     it("throws an error") {
-                        expect { try Factory.createTarget(["teamName" : 1]) }.to(throwError() { (error: FactoryPropertyTypeError<String>) in
+                        expect { try Factory.createTarget(["teamName" : 1 as AnyObject]) }.to(throwError() { (error: FactoryPropertyTypeError<String>) in
                             expect(error.description).to(equal("Invalid type for property override with name 'teamName' (expected type='String'"))
                             })
                     }
@@ -110,7 +110,7 @@ class TargetFactorySpec: QuickSpec {
                     var target: Target!
 
                     beforeEach {
-                        target = try! Factory.createTarget(["token" : "crab token"])
+                        target = try! Factory.createTarget(["token" : "crab token" as AnyObject])
                     }
 
                     it("sets the override value for 'token' property") {
@@ -126,7 +126,7 @@ class TargetFactorySpec: QuickSpec {
 
                 context("When the overriding value is not a string") {
                     it("throws an error") {
-                        expect { try Factory.createTarget(["token" : 1]) }.to(throwError() { (error: FactoryPropertyTypeError<String>) in
+                        expect { try Factory.createTarget(["token" : 1 as AnyObject]) }.to(throwError() { (error: FactoryPropertyTypeError<String>) in
                             expect(error.description).to(equal("Invalid type for property override with name 'token' (expected type='String'"))
                             })
                     }

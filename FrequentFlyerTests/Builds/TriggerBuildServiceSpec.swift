@@ -6,21 +6,21 @@ import Nimble
 class TriggerBuildServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
-            var capturedRequest: NSURLRequest?
-            var capturedCompletion: ((NSData?, HTTPResponse?, Error?) -> ())?
+            var capturedRequest: URLRequest?
+            var capturedCompletion: ((Data?, HTTPResponse?, FFError?) -> ())?
 
-            override func doRequest(request: NSURLRequest, completion: ((NSData?, HTTPResponse?, Error?) -> ())?) {
+            override func doRequest(_ request: URLRequest, completion: ((Data?, HTTPResponse?, FFError?) -> ())?) {
                 capturedRequest = request
                 capturedCompletion = completion
             }
         }
 
         class MockBuildDataDeserializer: BuildDataDeserializer {
-            var capturedData: NSData?
+            var capturedData: Data?
             var toReturnBuild: Build?
             var toReturnError: DeserializationError?
 
-            override func deserialize(data: NSData) -> (build: Build?, error: DeserializationError?) {
+            override func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
                 capturedData = data
                 return (toReturnBuild, toReturnError)
             }
@@ -43,7 +43,7 @@ class TriggerBuildServiceSpec: QuickSpec {
 
             describe("Triggering a new build for a job") {
                 var capturedBuild: Build?
-                var capturedError: Error?
+                var capturedError: FFError?
 
                 beforeEach {
                     let target = Target(name: "turtle target",
@@ -64,8 +64,8 @@ class TriggerBuildServiceSpec: QuickSpec {
                         return
                     }
 
-                    expect(request.HTTPMethod).to(equal("POST"))
-                    expect(request.URL?.absoluteString).to(equal("https://turtles.com/api/v1/teams/turtle_team/pipelines/crab_pipeline/jobs/crab_job/builds"))
+                    expect(request.httpMethod).to(equal("POST"))
+                    expect(request.url?.absoluteString).to(equal("https://turtles.com/api/v1/teams/turtle_team/pipelines/crab_pipeline/jobs/crab_job/builds"))
                     expect(request.allHTTPHeaderFields?["Content-Type"]).to(equal("application/json"))
                     expect(request.allHTTPHeaderFields?["Authorization"]).to(equal("Bearer turtle token value"))
                 }
@@ -83,12 +83,12 @@ class TriggerBuildServiceSpec: QuickSpec {
                             status: "turtle status",
                             pipelineName: "turtle pipeline")
 
-                        let buildData = "build data".dataUsingEncoding(NSUTF8StringEncoding)
+                        let buildData = "build data".data(using: String.Encoding.utf8)
                         completion(buildData, HTTPResponseImpl(statusCode: 200), nil)
                     }
 
                     it("passes the data to the deserializer") {
-                        expect(mockBuildDataDeserializer.capturedData).to(equal("build data".dataUsingEncoding(NSUTF8StringEncoding)))
+                        expect(mockBuildDataDeserializer.capturedData).to(equal("build data".data(using: String.Encoding.utf8)))
                     }
 
                     it("resolves the service's completion handler using the build the deserializer returns") {
@@ -129,7 +129,7 @@ class TriggerBuildServiceSpec: QuickSpec {
                 }
 
                 describe("When the request resolves with success response and deserialization fails") {
-                    var invalidBuildData: NSData!
+                    var invalidBuildData: Data!
 
                     beforeEach {
                         guard let completion = mockHTTPClient.capturedCompletion else {
@@ -137,9 +137,9 @@ class TriggerBuildServiceSpec: QuickSpec {
                             return
                         }
 
-                        mockBuildDataDeserializer.toReturnError = DeserializationError(details: "some deserialization error details", type: .InvalidInputFormat)
+                        mockBuildDataDeserializer.toReturnError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
 
-                        invalidBuildData = "invalid build data".dataUsingEncoding(NSUTF8StringEncoding)
+                        invalidBuildData = "invalid build data".data(using: String.Encoding.utf8)
                         completion(invalidBuildData, HTTPResponseImpl(statusCode: 200), nil)
                     }
 
@@ -157,7 +157,7 @@ class TriggerBuildServiceSpec: QuickSpec {
                             return
                         }
 
-                        expect(capturedError as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .InvalidInputFormat)))
+                        expect(capturedError as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
                     }
                 }
             }

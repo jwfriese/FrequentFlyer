@@ -11,11 +11,11 @@ class UserTextInputPageOperator {
         }
     }
 
-    private var activeTextField: UITextField? {
+    fileprivate var activeTextField: UITextField? {
         get {
             if let delegate = delegate {
                 for textField in delegate.textFields {
-                    if textField.isFirstResponder() {
+                    if textField.isFirstResponder {
                         return textField
                     }
                 }
@@ -26,32 +26,32 @@ class UserTextInputPageOperator {
     }
 
     func registerKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserTextInputPageOperator.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserTextInputPageOperator.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UserTextInputPageOperator.keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UserTextInputPageOperator.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     func unregisterKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
-    @objc func keyboardDidShow(notification: NSNotification) throws {
+    @objc func keyboardDidShow(_ notification: Notification) throws {
         guard let delegate = delegate else {
             throw BasicError(details: "UserTextInputPageOperator requires a UserTextInputPageDelegate to function")
         }
 
-        let userInfo: NSDictionary = notification.userInfo!
-        let keyboardSize = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey)!.CGRectValue.size
+        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardSize = (userInfo.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
         let contentInsets = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
         delegate.pageScrollView.contentInset = contentInsets
         delegate.pageScrollView.scrollIndicatorInsets = contentInsets
     }
 
-    @objc func keyboardWillHide(notification: NSNotification) throws {
+    @objc func keyboardWillHide(_ notification: Notification) throws {
         guard let delegate = delegate else {
             throw BasicError(details: "UserTextInputPageOperator requires a UserTextInputPageDelegate to function")
         }
 
-        delegate.pageScrollView.contentInset = UIEdgeInsetsZero
-        delegate.pageScrollView.scrollIndicatorInsets = UIEdgeInsetsZero
+        delegate.pageScrollView.contentInset = UIEdgeInsets.zero
+        delegate.pageScrollView.scrollIndicatorInsets = UIEdgeInsets.zero
     }
 }

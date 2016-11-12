@@ -8,7 +8,7 @@ class BasicErrorSpec: QuickSpec {
         describe("BasicError") {
             it("can be converted into a string") {
                 let error = BasicError(details: "error details")
-                let errorString = String(error)
+                let errorString = String(describing: error)
 
                 expect(errorString).to(equal("Error { details: \"error details\" }"))
             }
