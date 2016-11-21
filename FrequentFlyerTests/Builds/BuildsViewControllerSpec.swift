@@ -24,7 +24,7 @@ class BuildsViewControllerSpec: QuickSpec {
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                mockBuildDetailViewController = try! storyboard.mockIdentifier(BuildDetailViewController.storyboardIdentifier, usingMockFor: BuildDetailViewController.self) as! BuildDetailViewController
+                mockBuildDetailViewController = try! storyboard.mockIdentifier(BuildDetailViewController.storyboardIdentifier, usingMockFor: BuildDetailViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: BuildsViewController.storyboardIdentifier) as! BuildsViewController
 

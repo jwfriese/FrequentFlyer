@@ -42,9 +42,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockAuthMethodListViewController = try! storyboard.mockIdentifier(AuthMethodListViewController.storyboardIdentifier, usingMockFor: AuthMethodListViewController.self) as! AuthMethodListViewController
+                mockAuthMethodListViewController = try! storyboard.mockIdentifier(AuthMethodListViewController.storyboardIdentifier, usingMockFor: AuthMethodListViewController.self)
 
-                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self) as! TeamPipelinesViewController
+                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: ConcourseEntryViewController.storyboardIdentifier) as! ConcourseEntryViewController
 

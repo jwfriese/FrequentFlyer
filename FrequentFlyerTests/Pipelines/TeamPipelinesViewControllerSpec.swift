@@ -36,8 +36,8 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 subject = storyboard.instantiateViewController(withIdentifier: TeamPipelinesViewController.storyboardIdentifier) as! TeamPipelinesViewController
 
-                mockBuildsViewController = try! storyboard.mockIdentifier(BuildsViewController.storyboardIdentifier, usingMockFor: BuildsViewController.self) as! BuildsViewController
-                mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self) as! ConcourseEntryViewController
+                mockBuildsViewController = try! storyboard.mockIdentifier(BuildsViewController.storyboardIdentifier, usingMockFor: BuildsViewController.self)
+                mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self)
 
                 subject.target = Target(name: "turtle target",
                     api: "turtle api",

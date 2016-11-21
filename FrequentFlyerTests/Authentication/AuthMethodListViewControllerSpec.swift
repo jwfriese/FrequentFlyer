@@ -15,9 +15,9 @@ class AuthMethodListViewControllerSpec: QuickSpec {
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockBasicUserAuthViewController = try! storyboard.mockIdentifier(BasicUserAuthViewController.storyboardIdentifier, usingMockFor: BasicUserAuthViewController.self) as! BasicUserAuthViewController
+                mockBasicUserAuthViewController = try! storyboard.mockIdentifier(BasicUserAuthViewController.storyboardIdentifier, usingMockFor: BasicUserAuthViewController.self)
 
-                mockGithubAuthViewController = try! storyboard.mockIdentifier(GithubAuthViewController.storyboardIdentifier, usingMockFor: GithubAuthViewController.self) as! GithubAuthViewController
+                mockGithubAuthViewController = try! storyboard.mockIdentifier(GithubAuthViewController.storyboardIdentifier, usingMockFor: GithubAuthViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: AuthMethodListViewController.storyboardIdentifier) as? AuthMethodListViewController
 

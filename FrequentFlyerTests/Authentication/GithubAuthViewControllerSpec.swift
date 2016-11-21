@@ -46,7 +46,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self) as! TeamPipelinesViewController
+                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: GithubAuthViewController.storyboardIdentifier) as! GithubAuthViewController
 
