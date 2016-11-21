@@ -5,29 +5,19 @@ import Fleet
 @testable import FrequentFlyer
 
 class AuthMethodListViewControllerSpec: QuickSpec {
-    class MockBasicUserAuthViewController: BasicUserAuthViewController {
-        override func viewDidLoad() { }
-    }
-
-    class MockGithubAuthViewController: GithubAuthViewController {
-        override func viewDidLoad() { }
-    }
-
     override func spec() {
         describe("AuthMethodListViewController") {
             var subject: AuthMethodListViewController!
 
-            var mockBasicUserAuthViewController: MockBasicUserAuthViewController!
-            var mockGithubAuthViewController: MockGithubAuthViewController!
+            var mockBasicUserAuthViewController: BasicUserAuthViewController!
+            var mockGithubAuthViewController: GithubAuthViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockBasicUserAuthViewController = MockBasicUserAuthViewController()
-                try! storyboard.bind(viewController: mockBasicUserAuthViewController, toIdentifier: BasicUserAuthViewController.storyboardIdentifier)
+                mockBasicUserAuthViewController = try! storyboard.mockIdentifier(BasicUserAuthViewController.storyboardIdentifier, usingMockFor: BasicUserAuthViewController.self) as! BasicUserAuthViewController
 
-                mockGithubAuthViewController = MockGithubAuthViewController()
-                try! storyboard.bind(viewController: mockGithubAuthViewController, toIdentifier: GithubAuthViewController.storyboardIdentifier)
+                mockGithubAuthViewController = try! storyboard.mockIdentifier(GithubAuthViewController.storyboardIdentifier, usingMockFor: GithubAuthViewController.self) as! GithubAuthViewController
 
                 subject = storyboard.instantiateViewController(withIdentifier: AuthMethodListViewController.storyboardIdentifier) as? AuthMethodListViewController
 
@@ -91,17 +81,17 @@ class AuthMethodListViewControllerSpec: QuickSpec {
                         }
 
                         it("sets a BasicAuthTokenService on the view controller") {
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? MockBasicUserAuthViewController)?.basicAuthTokenService).toEventuallyNot(beNil())
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? MockBasicUserAuthViewController)?.basicAuthTokenService?.httpClient).toEventuallyNot(beNil())
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? MockBasicUserAuthViewController)?.basicAuthTokenService?.tokenDataDeserializer).toEventuallyNot(beNil())
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BasicUserAuthViewController)?.basicAuthTokenService).toEventuallyNot(beNil())
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BasicUserAuthViewController)?.basicAuthTokenService?.httpClient).toEventuallyNot(beNil())
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BasicUserAuthViewController)?.basicAuthTokenService?.tokenDataDeserializer).toEventuallyNot(beNil())
                         }
 
                         it("sets the entered Concourse URL on the view controller") {
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? MockBasicUserAuthViewController)?.concourseURLString).toEventually(equal("turtle concourse"))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BasicUserAuthViewController)?.concourseURLString).toEventually(equal("turtle concourse"))
                         }
 
                         it("sets a KeychainWrapper on the view controller") {
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? MockBasicUserAuthViewController)?.keychainWrapper).toEventuallyNot(beNil())
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BasicUserAuthViewController)?.keychainWrapper).toEventuallyNot(beNil())
                         }
                     }
 

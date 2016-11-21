@@ -13,30 +13,20 @@ class AppRouterViewControllerSpec: QuickSpec {
         }
     }
 
-    class MockConcourseEntryViewController: ConcourseEntryViewController {
-        override func viewDidLoad() { }
-    }
-
-    class MockTeamPipelinesViewController: TeamPipelinesViewController {
-        override func viewDidLoad() { }
-    }
-
     override func spec() {
         describe("AppRouterViewController") {
             var subject: AppRouterViewController!
             var mockKeychainWrapper: MockKeychainWrapper!
 
-            var mockConcourseEntryViewController: MockConcourseEntryViewController!
-            var mockTeamPipelinesViewController: MockTeamPipelinesViewController!
+            var mockConcourseEntryViewController: ConcourseEntryViewController!
+            var mockTeamPipelinesViewController: TeamPipelinesViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockConcourseEntryViewController = MockConcourseEntryViewController()
-                try! storyboard.bind(viewController: mockConcourseEntryViewController, toIdentifier: ConcourseEntryViewController.storyboardIdentifier)
+                mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self) as! ConcourseEntryViewController
 
-                mockTeamPipelinesViewController = MockTeamPipelinesViewController()
-                try! storyboard.bind(viewController: mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
+                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self) as! TeamPipelinesViewController
 
                 subject = storyboard.instantiateViewController(withIdentifier: AppRouterViewController.storyboardIdentifier) as! AppRouterViewController
 
