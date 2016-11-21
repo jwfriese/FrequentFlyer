@@ -33,10 +33,6 @@ class GithubAuthViewControllerSpec: QuickSpec {
         }
     }
 
-    class MockTeamPipelinesViewController: TeamPipelinesViewController {
-        override func viewDidLoad() { }
-    }
-
     override func spec() {
         describe("GithubAuthViewController") {
             var subject: GithubAuthViewController!
@@ -45,13 +41,12 @@ class GithubAuthViewControllerSpec: QuickSpec {
             var mockTokenValidationService: MockTokenValidationService!
             var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
-            var mockTeamPipelinesViewController: MockTeamPipelinesViewController!
+            var mockTeamPipelinesViewController: TeamPipelinesViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockTeamPipelinesViewController = MockTeamPipelinesViewController()
-                try! storyboard.bind(viewController: mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
+                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: GithubAuthViewController.storyboardIdentifier) as! GithubAuthViewController
 

@@ -23,32 +23,21 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
         }
     }
 
-    class MockBuildsViewController: BuildsViewController {
-        override func viewDidLoad() { }
-    }
-
-    class MockConcourseEntryViewController: ConcourseEntryViewController {
-        override func viewDidLoad() { }
-    }
-
     override func spec() {
         describe("TeamPipelinesViewController"){
             var subject: TeamPipelinesViewController!
             var mockTeamPipelinesService: MockTeamPipelinesService!
             var mockKeychainWrapper: MockKeychainWrapper!
 
-            var mockBuildsViewController: MockBuildsViewController!
-            var mockConcourseEntryViewController: MockConcourseEntryViewController!
+            var mockBuildsViewController: BuildsViewController!
+            var mockConcourseEntryViewController: ConcourseEntryViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 subject = storyboard.instantiateViewController(withIdentifier: TeamPipelinesViewController.storyboardIdentifier) as! TeamPipelinesViewController
 
-                mockBuildsViewController = MockBuildsViewController()
-                try! storyboard.bind(viewController: mockBuildsViewController, toIdentifier: BuildsViewController.storyboardIdentifier)
-
-                mockConcourseEntryViewController = MockConcourseEntryViewController()
-                try! storyboard.bind(viewController: mockConcourseEntryViewController, toIdentifier: ConcourseEntryViewController.storyboardIdentifier)
+                mockBuildsViewController = try! storyboard.mockIdentifier(BuildsViewController.storyboardIdentifier, usingMockFor: BuildsViewController.self)
+                mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self)
 
                 subject.target = Target(name: "turtle target",
                     api: "turtle api",
@@ -167,26 +156,23 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                         }
 
                         it("sets up and presents the pipeline's builds page") {
-                            guard let buildsViewController = Fleet.getApplicationScreen()?.topmostViewController as? BuildsViewController else {
-                                fail("Failed to present BuildsViewController")
-                                return
+                            func topmostViewControllerAsBuilds() -> BuildsViewController? {
+                                return Fleet.getApplicationScreen()?.topmostViewController as? BuildsViewController
                             }
 
-                            expect(buildsViewController.pipeline).to(equal(Pipeline(name: "turtle pipeline one")))
+                            expect(topmostViewControllerAsBuilds()).toEventually(beIdenticalTo(mockBuildsViewController))
+                            expect(topmostViewControllerAsBuilds()?.pipeline).toEventually(equal(Pipeline(name: "turtle pipeline one")))
+
                             let expectedTarget = Target(name: "turtle target",
                                                         api: "turtle api",
                                                         teamName: "turtle team",
                                                         token: Token(value: "turtle token value")
                             )
-                            expect(buildsViewController.target).to(equal(expectedTarget))
+                            expect(topmostViewControllerAsBuilds()?.target).toEventually(equal(expectedTarget))
 
-                            guard let buildsService = buildsViewController.buildsService else {
-                                fail("Failed to set a BuildsService on the BuildsViewController")
-                                return
-                            }
-
-                            expect(buildsService.httpClient).toNot(beNil())
-                            expect(buildsService.buildsDataDeserializer).toNot(beNil())
+                            expect(topmostViewControllerAsBuilds()?.buildsService).toEventuallyNot(beNil())
+                            expect(topmostViewControllerAsBuilds()?.buildsService?.httpClient).toEventuallyNot(beNil())
+                            expect(topmostViewControllerAsBuilds()?.buildsService?.buildsDataDeserializer).toEventuallyNot(beNil())
                         }
                     }
                 }

@@ -29,7 +29,7 @@ class HTTPClient {
                 let error = BasicError(details: errorDetails!)
                 completion(nil, httpResponse, error)
             }
-        }) 
+        })
 
         dataTask.resume()
     }

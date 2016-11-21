@@ -29,14 +29,6 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
         }
     }
 
-    class MockAuthMethodListViewController: AuthMethodListViewController {
-        override func viewDidLoad() { }
-    }
-
-    class MockTeamPipelinesViewController: TeamPipelinesViewController {
-        override func viewDidLoad() { }
-    }
-
     override func spec() {
         describe("ConcourseEntryViewController") {
             var subject: ConcourseEntryViewController!
@@ -44,17 +36,15 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
             var mockUnauthenticatedTokenService: MockUnauthenticatedTokenService!
             var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
-            var mockAuthMethodListViewController: MockAuthMethodListViewController!
-            var mockTeamPipelinesViewController: MockTeamPipelinesViewController!
+            var mockAuthMethodListViewController: AuthMethodListViewController!
+            var mockTeamPipelinesViewController: TeamPipelinesViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockAuthMethodListViewController = MockAuthMethodListViewController()
-                try! storyboard.bind(viewController: mockAuthMethodListViewController, toIdentifier: AuthMethodListViewController.storyboardIdentifier)
+                mockAuthMethodListViewController = try! storyboard.mockIdentifier(AuthMethodListViewController.storyboardIdentifier, usingMockFor: AuthMethodListViewController.self)
 
-                mockTeamPipelinesViewController = MockTeamPipelinesViewController()
-                try! storyboard.bind(viewController: mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
+                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: ConcourseEntryViewController.storyboardIdentifier) as! ConcourseEntryViewController
 

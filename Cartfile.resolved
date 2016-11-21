@@ -1,4 +1,4 @@
-git "https://github.com/jwfriese/Fleet" "c1bfdb07b0bd27d4516faf07a423fbae5279e19e"
+git "https://github.com/jwfriese/Fleet" "2c691e551937711ef7e96577b76e6fd7a32da71a"
 git "https://github.com/matthewpalmer/Locksmith" "b80a90c1044b0445f8339040f027d9c89868116a"
 git "https://github.com/Quick/Nimble" "3720e6b0f6de6d6435f79f8a174fb4bb92df5dc4"
 git "https://github.com/Quick/Quick" "b441ba9d4abdc87fc153c55de947834b737bbe04"

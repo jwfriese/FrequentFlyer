@@ -29,23 +29,18 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
         }
     }
 
-    class MockTeamPipelinesViewController: TeamPipelinesViewController {
-        override func viewDidLoad() { }
-    }
-
     override func spec() {
         describe("BasicUserAuthViewController") {
             var subject: BasicUserAuthViewController!
             var mockBasicAuthTokenService: MockBasicAuthTokenService!
             var mockKeychainWrapper: MockKeychainWrapper!
 
-            var mockTeamPipelinesViewController: MockTeamPipelinesViewController!
+            var mockTeamPipelinesViewController: TeamPipelinesViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockTeamPipelinesViewController = MockTeamPipelinesViewController()
-                try! storyboard.bind(viewController: mockTeamPipelinesViewController, toIdentifier: TeamPipelinesViewController.storyboardIdentifier)
+                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: BasicUserAuthViewController.storyboardIdentifier) as! BasicUserAuthViewController
 
