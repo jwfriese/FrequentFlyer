@@ -62,3 +62,6 @@ Carthage/Build
 
 fastlane/report.xml
 fastlane/screenshots
+
+# Test executable
+test
