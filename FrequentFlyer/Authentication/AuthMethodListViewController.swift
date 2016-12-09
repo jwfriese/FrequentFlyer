@@ -47,7 +47,7 @@ class AuthMethodListViewController: UIViewController {
             githubAuthViewController.concourseURLString = concourseURLString
 
             githubAuthViewController.keychainWrapper = KeychainWrapper()
-            githubAuthViewController.browserAgent = BrowserAgent()
+            githubAuthViewController.httpSessionUtils = HTTPSessionUtils()
 
             let tokenValidationService = TokenValidationService()
             tokenValidationService.httpClient = HTTPClient()

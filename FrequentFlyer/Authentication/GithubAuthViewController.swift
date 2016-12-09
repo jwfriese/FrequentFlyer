@@ -10,12 +10,13 @@ class GithubAuthViewController: UIViewController {
     var concourseURLString: String?
     var githubAuthURLString: String?
     var keychainWrapper: KeychainWrapper?
-    var browserAgent: BrowserAgent?
+    var httpSessionUtils: HTTPSessionUtils?
     var tokenValidationService: TokenValidationService?
     var userTextInputPageOperator: UserTextInputPageOperator?
 
     class var storyboardIdentifier: String { get { return "GithubAuth" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
+    class var showGithubAuthenticationWebPageSegueId: String { get { return "ShowGithubAuthenticationWebPage" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,15 +43,21 @@ class GithubAuthViewController: UIViewController {
             teamPipelinesViewController.teamPipelinesService = teamPipelinesService
 
             teamPipelinesViewController.keychainWrapper = KeychainWrapper()
+        } else if segue.identifier == GithubAuthViewController.showGithubAuthenticationWebPageSegueId {
+            guard let githubAuthURLString = githubAuthURLString else { return }
+
+            guard let webViewController = segue.destination as? WebViewController else {
+                return
+            }
+
+            webViewController.webPageURL = URL(string: githubAuthURLString)
         }
     }
 
     @IBAction func openGithubAuthPageButtonTapped() {
-        guard let githubAuthURLString = githubAuthURLString else { return }
-        guard let browserAgent = browserAgent else { return }
-
-        guard let url = URL(string: githubAuthURLString) else { return }
-        browserAgent.openInBrowser(url)
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: GithubAuthViewController.showGithubAuthenticationWebPageSegueId, sender: nil)
+        }
     }
 
     @IBAction func submitButtonTapped() {
@@ -58,6 +65,9 @@ class GithubAuthViewController: UIViewController {
         guard let tokenValidationService = tokenValidationService else { return }
         guard let tokenString = tokenTextField?.text else { return }
         guard let keychainWrapper = keychainWrapper else { return }
+        guard let httpSessionUtils = httpSessionUtils else { return }
+
+        httpSessionUtils.deleteCookies()
 
         tokenValidationService.validate(token: Token(value: tokenString), forConcourse: concourseURLString) { error in
             if let error = error {

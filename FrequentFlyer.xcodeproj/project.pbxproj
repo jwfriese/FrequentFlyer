@@ -26,6 +26,10 @@
 		7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */; };
 		7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */; };
 		7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */; };
+		7B5F952B1DFAF573005E0DD2 /* HTTPSessionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */; };
+		7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */; };
+		7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */; };
+		7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F95341DFAF605005E0DD2 /* WebViewController.swift */; };
 		7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */; };
 		7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */; };
 		7BA032111D843FE300F20E23 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320E1D843FE300F20E23 /* Token.swift */; };
@@ -127,6 +131,10 @@
 		7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageOperator.swift; sourceTree = "<group>"; };
 		7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageOperatorSpec.swift; sourceTree = "<group>"; };
 		7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageDelegate.swift; sourceTree = "<group>"; };
+		7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPSessionUtils.swift; sourceTree = "<group>"; };
+		7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewControllerSpec.swift; sourceTree = "<group>"; };
+		7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = web_view_controller_test.html; sourceTree = "<group>"; };
+		7B5F95341DFAF605005E0DD2 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializer.swift; sourceTree = "<group>"; };
 		7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthenticatedTokenService.swift; sourceTree = "<group>"; };
 		7BA0320E1D843FE300F20E23 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -258,6 +266,31 @@
 			path = Input;
 			sourceTree = "<group>";
 		};
+		7B5F952D1DFAF5BE005E0DD2 /* NativeWeb */ = {
+			isa = PBXGroup;
+			children = (
+				7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */,
+				7B5F95301DFAF5D6005E0DD2 /* TestData */,
+			);
+			path = NativeWeb;
+			sourceTree = "<group>";
+		};
+		7B5F95301DFAF5D6005E0DD2 /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */,
+			);
+			path = TestData;
+			sourceTree = "<group>";
+		};
+		7B5F95331DFAF5F0005E0DD2 /* NativeWeb */ = {
+			isa = PBXGroup;
+			children = (
+				7B5F95341DFAF605005E0DD2 /* WebViewController.swift */,
+			);
+			path = NativeWeb;
+			sourceTree = "<group>";
+		};
 		7BA032001D843E3800F20E23 /* Target */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +340,7 @@
 		7BA032041D843E5800F20E23 /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
+				7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */,
 				7BA032121D843FE800F20E23 /* HTTPResponse.swift */,
 				7BA032131D843FE800F20E23 /* HTTPClient.swift */,
 			);
@@ -496,6 +530,7 @@
 				7BEDE2001D8989400054D13B /* Persistence */,
 				7B2F958E1D8700D100094226 /* Input */,
 				7BA032051D843EDD00F20E23 /* Authentication */,
+				7B5F95331DFAF5F0005E0DD2 /* NativeWeb */,
 				7BA032041D843E5800F20E23 /* HTTP */,
 				7BA032031D843E5200F20E23 /* Error */,
 				7BA032021D843E4700F20E23 /* Builds */,
@@ -515,6 +550,7 @@
 				7BCAEFEF1D902AAF00BC817D /* AppRouting */,
 				7B4625B21D87A45800769B0B /* Input */,
 				7BA032061D843F2200F20E23 /* Authentication */,
+				7B5F952D1DFAF5BE005E0DD2 /* NativeWeb */,
 				7BA032071D843F2800F20E23 /* HTTP */,
 				7BA032081D843F2C00F20E23 /* Error */,
 				7BA032091D843F3000F20E23 /* Builds */,
@@ -620,6 +656,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,6 +746,7 @@
 				7BA032691D8441AC00F20E23 /* AuthMethodsService.swift in Sources */,
 				7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */,
 				7BCAEFF51D902B4E00BC817D /* SetAsRootPageSegue.swift in Sources */,
+				7B5F952B1DFAF573005E0DD2 /* HTTPSessionUtils.swift in Sources */,
 				7BA48F501DD763E4008BDE19 /* Error+FrequentFlyer.swift in Sources */,
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
@@ -716,6 +754,7 @@
 				7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */,
 				7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */,
 				7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */,
+				7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */,
 				7BEDE2071D8989A70054D13B /* KeychainPersistable.swift in Sources */,
 				AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */,
 				7BA0322D1D843FF900F20E23 /* TeamPipelinesViewController.swift in Sources */,
@@ -764,6 +803,7 @@
 				7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */,
 				7B0E709D1D8F0BBC00686532 /* TokenValidationServiceSpec.swift in Sources */,
 				7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */,
+				7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */,
 				7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */,
 				7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */,
 				7BA0324C1D84400E00F20E23 /* DeserializationErrorSpec.swift in Sources */,
