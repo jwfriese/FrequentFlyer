@@ -602,7 +602,9 @@
 				TargetAttributes = {
 					AEA5D50A1D7F2CEC00D76EBA = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = J9CKPFYEQU;
 						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
 					};
 					AEA5D51E1D7F2CEC00D76EBA = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -856,7 +858,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jwfriese.concourseci;
 				PRODUCT_MODULE_NAME = FrequentFlyer;
 				PRODUCT_NAME = FrequentFlyer;
-				PROVISIONING_PROFILE = "e2f667d4-3e9c-4b6d-aa45-b33025233955";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = Automatic;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -867,6 +870,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = J9CKPFYEQU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -876,6 +881,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
 				PRODUCT_MODULE_NAME = "$(inherited)";
 				PRODUCT_NAME = "$(inherited)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Test;
@@ -947,7 +953,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jwfriese.concourseci;
 				PRODUCT_MODULE_NAME = FrequentFlyer;
 				PRODUCT_NAME = FrequentFlyer;
-				PROVISIONING_PROFILE = "e2f667d4-3e9c-4b6d-aa45-b33025233955";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = Automatic;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -995,7 +1002,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jwfriese.concourseci;
 				PRODUCT_MODULE_NAME = FrequentFlyer;
 				PRODUCT_NAME = FrequentFlyer;
-				PROVISIONING_PROFILE = "ac09705c-b438-4dd6-8ecc-67b3f8f43ec6";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = Automatic;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1007,6 +1015,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = J9CKPFYEQU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1016,6 +1026,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
 				PRODUCT_MODULE_NAME = "$(inherited)";
 				PRODUCT_NAME = "$(inherited)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1024,6 +1035,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = J9CKPFYEQU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
