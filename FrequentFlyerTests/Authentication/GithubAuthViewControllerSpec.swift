@@ -136,6 +136,18 @@ class GithubAuthViewControllerSpec: QuickSpec {
                             }
                         }
                     }
+
+                    describe("When pasting text into the 'Token' field") {
+                        beforeEach {
+                            try! subject.tokenTextField?.focus()
+                            subject.tokenTextField?.paste(text: "some text")
+                            subject.tokenTextField?.unfocus()
+                        }
+
+                        it("enables the button") {
+                            expect(subject.submitButton!.isEnabled).to(beTrue())
+                        }
+                    }
                 }
 
                 describe("Tapping on the 'Get Token' button") {

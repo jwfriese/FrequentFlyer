@@ -100,7 +100,8 @@ class GithubAuthViewController: UIViewController {
 
 extension GithubAuthViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        submitButton?.isEnabled = tokenTextField?.text != ""
+        let willHaveText = string != ""
+        submitButton?.isEnabled = willHaveText
         return true
     }
 
