@@ -116,8 +116,8 @@ class AuthMethodListViewControllerSpec: QuickSpec {
                             expect(mockGithubAuthViewController.keychainWrapper).toEventuallyNot(beNil())
                         }
 
-                        it("sets a BrowserAgent on the view controller") {
-                            expect(mockGithubAuthViewController.browserAgent).toEventuallyNot(beNil())
+                        it("sets an HTTPSessionUtils on the view controller") {
+                            expect(mockGithubAuthViewController.httpSessionUtils).toEventuallyNot(beNil())
                         }
 
                         it("sets a TokenValidationService on the view controller") {

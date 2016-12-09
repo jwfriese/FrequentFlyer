@@ -13,11 +13,11 @@ class GithubAuthViewControllerSpec: QuickSpec {
         }
     }
 
-    class MockBrowserAgent: BrowserAgent {
-        var capturedURL: URL?
+    class MockHTTPSessionUtils: HTTPSessionUtils {
+        var didDeleteCookies: Bool = false
 
-        override func openInBrowser(_ url: URL) {
-            capturedURL = url
+        override func deleteCookies() {
+            didDeleteCookies = true
         }
     }
 
@@ -33,18 +33,25 @@ class GithubAuthViewControllerSpec: QuickSpec {
         }
     }
 
+    class MockWebViewController: WebViewController {
+        override func viewDidLoad() { }
+    }
+
     override func spec() {
         describe("GithubAuthViewController") {
             var subject: GithubAuthViewController!
             var mockKeychainWrapper: MockKeychainWrapper!
-            var mockBrowserAgent: MockBrowserAgent!
+            var mockHTTPSessionUtils: MockHTTPSessionUtils!
             var mockTokenValidationService: MockTokenValidationService!
             var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
             var mockTeamPipelinesViewController: TeamPipelinesViewController!
+            var mockWebViewController: WebViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+                mockWebViewController = try! storyboard.mockIdentifier(WebViewController.storyboardIdentifier , usingMockFor: WebViewController.self)
 
                 mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
@@ -56,8 +63,8 @@ class GithubAuthViewControllerSpec: QuickSpec {
                 mockKeychainWrapper = MockKeychainWrapper()
                 subject.keychainWrapper = mockKeychainWrapper
 
-                mockBrowserAgent = MockBrowserAgent()
-                subject.browserAgent = mockBrowserAgent
+                mockHTTPSessionUtils = MockHTTPSessionUtils()
+                subject.httpSessionUtils = mockHTTPSessionUtils
 
                 mockTokenValidationService = MockTokenValidationService()
                 subject.tokenValidationService = mockTokenValidationService
@@ -136,13 +143,23 @@ class GithubAuthViewControllerSpec: QuickSpec {
                         subject.openGithubAuthPageButton?.tap()
                     }
 
-                    it("asks the BrowserAgent to open the Github auth URL") {
-                        guard let url = mockBrowserAgent.capturedURL else {
-                            fail("Failed to call the BrowserAgent with Github auth URL")
-                            return
-                        }
+                    it("presents a WebViewController") {
+                        expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockWebViewController))
+                    }
 
-                        expect(url.absoluteString).to(equal("turtle_github.com"))
+                    describe("The presented web view") {
+                        it("is loaded with the given auth URL") {
+                            let predicate: () -> Bool = {
+                                guard let webViewController = Fleet.getApplicationScreen()?.topmostViewController as? WebViewController else {
+                                    return false
+                                }
+
+                                let url = webViewController.webPageURL
+                                return url?.absoluteString == "turtle_github.com"
+                            }
+
+                            expect(predicate()).toEventually(beTrue())
+                        }
                     }
                 }
 
@@ -155,6 +172,10 @@ class GithubAuthViewControllerSpec: QuickSpec {
                     it("uses the token verification service to check that the token is valid") {
                         expect(mockTokenValidationService.capturedToken).to(equal(Token(value: "token of the Github Turtle")))
                         expect(mockTokenValidationService.capturedConcourseURLString).to(equal("turtle_concourse.com"))
+                    }
+
+                    it("uses the HTTPSessionUtils to delete all cookies") {
+                        expect(mockHTTPSessionUtils.didDeleteCookies).to(beTrue())
                     }
 
                     describe("When the validation call returns with no error") {
