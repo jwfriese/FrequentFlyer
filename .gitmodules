@@ -1,0 +1,3 @@
+[submodule "Externals/EventSource"]
+	path = Externals/EventSource
+	url = https://github.com/jwfriese/EventSource

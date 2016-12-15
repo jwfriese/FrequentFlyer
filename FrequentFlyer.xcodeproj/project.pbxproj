@@ -18,6 +18,11 @@
 		7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */; };
 		7B0E709B1D8F0BA400686532 /* TokenValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */; };
 		7B0E709D1D8F0BBC00686532 /* TokenValidationServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */; };
+		7B1B544B1E01912D0094D0B3 /* SSEConnectionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1B544A1E01912D0094D0B3 /* SSEConnectionSpec.swift */; };
+		7B1B544D1E0191D40094D0B3 /* SSEConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1B544C1E0191D40094D0B3 /* SSEConnection.swift */; };
+		7B258D551DFD9B6E00B37E54 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B258D541DFD9B6E00B37E54 /* LogsViewController.swift */; };
+		7B258D571DFD9E4F00B37E54 /* SSEService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B258D561DFD9E4F00B37E54 /* SSEService.swift */; };
+		7B258D591DFD9E6100B37E54 /* LogsViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B258D581DFD9E6100B37E54 /* LogsViewControllerSpec.swift */; };
 		7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */; };
 		7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */; };
 		7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */; };
@@ -29,6 +34,8 @@
 		7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */; };
 		7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */; };
 		7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F95341DFAF605005E0DD2 /* WebViewController.swift */; };
+		7B65D4B01E02455F00C894D8 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B65D4AF1E02455F00C894D8 /* LogEvent.swift */; };
+		7B94EC4D1DFD90AC007186D9 /* EventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94EC4C1DFD90AC007186D9 /* EventSource.swift */; };
 		7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */; };
 		7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */; };
 		7BA032111D843FE300F20E23 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320E1D843FE300F20E23 /* Token.swift */; };
@@ -76,11 +83,16 @@
 		7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */; };
 		7BA032891D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */; };
 		7BA48F501DD763E4008BDE19 /* Error+FrequentFlyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */; };
+		7BCA3D0F1E019D6E0078723A /* SSEEventParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA3D0E1E019D6E0078723A /* SSEEventParser.swift */; };
+		7BCA3D111E019D910078723A /* SSEEventParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA3D101E019D910078723A /* SSEEventParserSpec.swift */; };
 		7BCAEFE81D901A4C00BC817D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFE71D901A4C00BC817D /* main.swift */; };
 		7BCAEFEA1D901AA000BC817D /* TestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFE91D901AA000BC817D /* TestAppDelegate.swift */; };
 		7BCAEFF11D902AE500BC817D /* AppRouterViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF01D902AE500BC817D /* AppRouterViewControllerSpec.swift */; };
 		7BCAEFF31D902AEB00BC817D /* AppRouterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF21D902AEB00BC817D /* AppRouterViewController.swift */; };
 		7BCAEFF51D902B4E00BC817D /* SetAsRootPageSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF41D902B4E00BC817D /* SetAsRootPageSegue.swift */; };
+		7BCBF2A51E004204007D8623 /* SSEEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCBF2A41E004204007D8623 /* SSEEvent.swift */; };
+		7BCBF2A71E00613E007D8623 /* EventSourceCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */; };
+		7BDBD4FB1E017EFE00909A87 /* SSEServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDBD4FA1E017EFE00909A87 /* SSEServiceSpec.swift */; };
 		7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEDE1FD1D8986C40054D13B /* Locksmith.framework */; };
 		7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */; };
 		7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2031D8989910054D13B /* KeychainWrapper.swift */; };
@@ -122,6 +134,11 @@
 		7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAuthViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidationService.swift; sourceTree = "<group>"; };
 		7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidationServiceSpec.swift; sourceTree = "<group>"; };
+		7B1B544A1E01912D0094D0B3 /* SSEConnectionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEConnectionSpec.swift; sourceTree = "<group>"; };
+		7B1B544C1E0191D40094D0B3 /* SSEConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEConnection.swift; sourceTree = "<group>"; };
+		7B258D541DFD9B6E00B37E54 /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
+		7B258D561DFD9E4F00B37E54 /* SSEService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEService.swift; sourceTree = "<group>"; };
+		7B258D581DFD9E6100B37E54 /* LogsViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildService.swift; sourceTree = "<group>"; };
 		7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildServiceSpec.swift; sourceTree = "<group>"; };
 		7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDataDeserializer.swift; sourceTree = "<group>"; };
@@ -133,6 +150,8 @@
 		7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = web_view_controller_test.html; sourceTree = "<group>"; };
 		7B5F95341DFAF605005E0DD2 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		7B65D4AF1E02455F00C894D8 /* LogEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
+		7B94EC4C1DFD90AC007186D9 /* EventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventSource.swift; path = EventSource/EventSource.swift; sourceTree = "<group>"; };
 		7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializer.swift; sourceTree = "<group>"; };
 		7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthenticatedTokenService.swift; sourceTree = "<group>"; };
 		7BA0320E1D843FE300F20E23 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -180,11 +199,16 @@
 		7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
 		7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+FrequentFlyer.swift"; sourceTree = "<group>"; };
+		7BCA3D0E1E019D6E0078723A /* SSEEventParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEEventParser.swift; sourceTree = "<group>"; };
+		7BCA3D101E019D910078723A /* SSEEventParserSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEEventParserSpec.swift; sourceTree = "<group>"; };
 		7BCAEFE71D901A4C00BC817D /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		7BCAEFE91D901AA000BC817D /* TestAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAppDelegate.swift; sourceTree = "<group>"; };
 		7BCAEFF01D902AE500BC817D /* AppRouterViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouterViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BCAEFF21D902AEB00BC817D /* AppRouterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouterViewController.swift; sourceTree = "<group>"; };
 		7BCAEFF41D902B4E00BC817D /* SetAsRootPageSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAsRootPageSegue.swift; sourceTree = "<group>"; };
+		7BCBF2A41E004204007D8623 /* SSEEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSEEvent.swift; path = EventSource/SSEEvent.swift; sourceTree = "<group>"; };
+		7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSourceCreator.swift; sourceTree = "<group>"; };
+		7BDBD4FA1E017EFE00909A87 /* SSEServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEServiceSpec.swift; sourceTree = "<group>"; };
 		7BEDE1FD1D8986C40054D13B /* Locksmith.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Locksmith.framework; path = Carthage/Build/iOS/Locksmith.framework; sourceTree = "<group>"; };
 		7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsService.swift; sourceTree = "<group>"; };
 		7BEDE2031D8989910054D13B /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
@@ -281,6 +305,23 @@
 			path = NativeWeb;
 			sourceTree = "<group>";
 		};
+		7B94EC3F1DFD9036007186D9 /* Externals */ = {
+			isa = PBXGroup;
+			children = (
+				7B94EC401DFD9047007186D9 /* EventSource */,
+			);
+			path = Externals;
+			sourceTree = "<group>";
+		};
+		7B94EC401DFD9047007186D9 /* EventSource */ = {
+			isa = PBXGroup;
+			children = (
+				7BCBF2A41E004204007D8623 /* SSEEvent.swift */,
+				7B94EC4C1DFD90AC007186D9 /* EventSource.swift */,
+			);
+			path = EventSource;
+			sourceTree = "<group>";
+		};
 		7BA032001D843E3800F20E23 /* Target */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,6 +354,11 @@
 				7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */,
 				7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */,
 				7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */,
+				7B258D541DFD9B6E00B37E54 /* LogsViewController.swift */,
+				7B258D561DFD9E4F00B37E54 /* SSEService.swift */,
+				7B1B544C1E0191D40094D0B3 /* SSEConnection.swift */,
+				7BCA3D0E1E019D6E0078723A /* SSEEventParser.swift */,
+				7B65D4AF1E02455F00C894D8 /* LogEvent.swift */,
 			);
 			path = Builds;
 			sourceTree = "<group>";
@@ -333,6 +379,7 @@
 				7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */,
 				7BA032121D843FE800F20E23 /* HTTPResponse.swift */,
 				7BA032131D843FE800F20E23 /* HTTPClient.swift */,
+				7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */,
 			);
 			path = HTTP;
 			sourceTree = "<group>";
@@ -404,6 +451,10 @@
 				7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */,
 				7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */,
 				7B2EAE3F1D85F5CE00A91234 /* BuildDataDeserializerSpec.swift */,
+				7B258D581DFD9E6100B37E54 /* LogsViewControllerSpec.swift */,
+				7BDBD4FA1E017EFE00909A87 /* SSEServiceSpec.swift */,
+				7B1B544A1E01912D0094D0B3 /* SSEConnectionSpec.swift */,
+				7BCA3D101E019D910078723A /* SSEEventParserSpec.swift */,
 			);
 			path = Builds;
 			sourceTree = "<group>";
@@ -489,6 +540,7 @@
 		AEA5D5021D7F2CEC00D76EBA = {
 			isa = PBXGroup;
 			children = (
+				7B94EC3F1DFD9036007186D9 /* Externals */,
 				AE343E681D7F628C008251CA /* Frameworks */,
 				AEA5D50D1D7F2CEC00D76EBA /* FrequentFlyer */,
 				AEA5D5221D7F2CEC00D76EBA /* FrequentFlyerTests */,
@@ -709,7 +761,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B0E708A1D8E030600686532 /* AuthMethodListViewController.swift in Sources */,
+				7BCA3D0F1E019D6E0078723A /* SSEEventParser.swift in Sources */,
 				7BA032301D843FF900F20E23 /* PipelineDataDeserializer.swift in Sources */,
+				7B1B544D1E0191D40094D0B3 /* SSEConnection.swift in Sources */,
 				7BA032141D843FE800F20E23 /* HTTPResponse.swift in Sources */,
 				7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */,
 				7BCAEFF31D902AEB00BC817D /* AppRouterViewController.swift in Sources */,
@@ -725,6 +779,7 @@
 				7BA0322F1D843FF900F20E23 /* PipelineTableViewCell.swift in Sources */,
 				7BCAEFE81D901A4C00BC817D /* main.swift in Sources */,
 				7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */,
+				7BCBF2A51E004204007D8623 /* SSEEvent.swift in Sources */,
 				7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */,
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
 				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
@@ -733,6 +788,7 @@
 				7BA032241D843FF300F20E23 /* BuildsTableViewHeaderView.swift in Sources */,
 				7B0E70941D8E248800686532 /* GithubAuthViewController.swift in Sources */,
 				7BA032251D843FF300F20E23 /* BuildsService.swift in Sources */,
+				7B65D4B01E02455F00C894D8 /* LogEvent.swift in Sources */,
 				7BA032691D8441AC00F20E23 /* AuthMethodsService.swift in Sources */,
 				7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */,
 				7BCAEFF51D902B4E00BC817D /* SetAsRootPageSegue.swift in Sources */,
@@ -742,11 +798,15 @@
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
 				7B0E70821D8DC08500686532 /* BasicUserAuthViewController.swift in Sources */,
 				7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */,
+				7B258D571DFD9E4F00B37E54 /* SSEService.swift in Sources */,
 				7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */,
 				7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */,
+				7BCBF2A71E00613E007D8623 /* EventSourceCreator.swift in Sources */,
 				7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */,
+				7B94EC4D1DFD90AC007186D9 /* EventSource.swift in Sources */,
 				7BEDE2071D8989A70054D13B /* KeychainPersistable.swift in Sources */,
 				AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */,
+				7B258D551DFD9B6E00B37E54 /* LogsViewController.swift in Sources */,
 				7BA0322D1D843FF900F20E23 /* TeamPipelinesViewController.swift in Sources */,
 				7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */,
 				7BA0326B1D8441E200F20E23 /* AuthMethod.swift in Sources */,
@@ -776,6 +836,8 @@
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
 				7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */,
 				7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */,
+				7B1B544B1E01912D0094D0B3 /* SSEConnectionSpec.swift in Sources */,
+				7B258D591DFD9E6100B37E54 /* LogsViewControllerSpec.swift in Sources */,
 				7BCAEFF11D902AE500BC817D /* AppRouterViewControllerSpec.swift in Sources */,
 				7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */,
 				7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */,
@@ -788,6 +850,7 @@
 				7BA032441D84400400F20E23 /* TokenDataDeserializerSpec.swift in Sources */,
 				7BA032521D84401400F20E23 /* BuildsViewControllerSpec.swift in Sources */,
 				7B0E70801D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift in Sources */,
+				7BCA3D111E019D910078723A /* SSEEventParserSpec.swift in Sources */,
 				7BA032551D84401400F20E23 /* BuildsDataDeserializerSpec.swift in Sources */,
 				7BA032491D84400900F20E23 /* HTTPClientSpec.swift in Sources */,
 				7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */,
@@ -797,6 +860,7 @@
 				7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */,
 				7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */,
 				7BA0324C1D84400E00F20E23 /* DeserializationErrorSpec.swift in Sources */,
+				7BDBD4FB1E017EFE00909A87 /* SSEServiceSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,6 +926,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = Automatic;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Test;
@@ -957,6 +1022,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = Automatic;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1006,6 +1072,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = Automatic;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};

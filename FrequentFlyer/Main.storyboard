@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3d8-pO-wnR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3d8-pO-wnR">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -240,7 +240,7 @@
                                 <color key="sectionIndexTrackingBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BuildCell" id="3Ar-L3-vzz" customClass="BuildTableViewCell" customModule="FrequentFlyer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="343" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Ar-L3-vzz" id="7II-dP-NvI">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
@@ -649,10 +649,19 @@
                                     <action selector="onRetriggerButtonTapped" destination="PRv-Xz-CyK" eventType="touchUpInside" id="ZVI-oi-Lad"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hM6-4e-w4E">
+                                <rect key="frame" x="136.5" y="437" width="102" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="View Logs"/>
+                                <connections>
+                                    <segue destination="c0A-BD-EeK" kind="show" identifier="ShowLogs" id="K46-8B-na1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fzv-DS-g01" firstAttribute="leading" secondItem="ykb-kT-5Tu" secondAttribute="leading" id="95n-Yp-Ram"/>
+                            <constraint firstItem="hM6-4e-w4E" firstAttribute="top" secondItem="AAv-Hb-614" secondAttribute="bottom" constant="27" id="9Q8-N4-ipZ"/>
                             <constraint firstItem="UQQ-If-cMD" firstAttribute="top" secondItem="ap3-rR-nkF" secondAttribute="bottom" constant="72" id="AF4-ru-STY"/>
                             <constraint firstItem="AAv-Hb-614" firstAttribute="centerX" secondItem="lJt-AR-evM" secondAttribute="centerX" id="Hby-bI-vSy"/>
                             <constraint firstItem="AAv-Hb-614" firstAttribute="centerX" secondItem="fzv-DS-g01" secondAttribute="centerX" id="I9m-YF-PHS"/>
@@ -663,6 +672,7 @@
                             <constraint firstItem="0zV-Zf-Zz9" firstAttribute="leading" secondItem="UQQ-If-cMD" secondAttribute="trailing" constant="96" id="aal-Pe-vTR"/>
                             <constraint firstItem="LKS-Mc-Ypd" firstAttribute="leading" secondItem="UQQ-If-cMD" secondAttribute="leading" id="bZg-U7-xNJ"/>
                             <constraint firstItem="Jyk-bc-JlA" firstAttribute="top" secondItem="LKS-Mc-Ypd" secondAttribute="bottom" constant="72" id="cqM-CK-Mrj"/>
+                            <constraint firstItem="hM6-4e-w4E" firstAttribute="centerX" secondItem="lJt-AR-evM" secondAttribute="centerX" id="el2-DG-R57"/>
                             <constraint firstItem="AAv-Hb-614" firstAttribute="top" secondItem="fzv-DS-g01" secondAttribute="bottom" constant="72" id="fG2-Gp-a0C"/>
                             <constraint firstItem="LKS-Mc-Ypd" firstAttribute="top" secondItem="UQQ-If-cMD" secondAttribute="bottom" constant="72" id="oum-6s-2qe"/>
                             <constraint firstItem="0zV-Zf-Zz9" firstAttribute="centerY" secondItem="UQQ-If-cMD" secondAttribute="centerY" id="rbE-Tf-bcL"/>
@@ -679,11 +689,47 @@
                         <outlet property="pipelineValueLabel" destination="0zV-Zf-Zz9" id="2tp-iI-WSy"/>
                         <outlet property="retriggerButton" destination="AAv-Hb-614" id="LTL-1w-deL"/>
                         <outlet property="statusValueLabel" destination="fzv-DS-g01" id="BaK-PU-HPu"/>
+                        <outlet property="viewLogsButton" destination="hM6-4e-w4E" id="Ldf-uX-R89"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0F-6M-SLl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1820" y="1496"/>
+        </scene>
+        <!--Logs View Controller-->
+        <scene sceneID="2Vg-Kn-0Gg">
+            <objects>
+                <viewController storyboardIdentifier="LogsViewController" id="c0A-BD-EeK" customClass="LogsViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d3Q-Tk-kP1"/>
+                        <viewControllerLayoutGuide type="bottom" id="oby-lF-ms6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GfO-Tr-Pg8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1ue-SR-ah7">
+                                <rect key="frame" x="24" y="68" width="327" height="591"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1ue-SR-ah7" firstAttribute="leading" secondItem="GfO-Tr-Pg8" secondAttribute="leadingMargin" constant="8" id="3m3-Tg-o3A"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1ue-SR-ah7" secondAttribute="trailing" constant="8" id="fGh-I0-g5d"/>
+                            <constraint firstItem="1ue-SR-ah7" firstAttribute="top" secondItem="d3Q-Tk-kP1" secondAttribute="bottom" constant="48" id="o4M-2c-ESv"/>
+                            <constraint firstItem="oby-lF-ms6" firstAttribute="top" secondItem="1ue-SR-ah7" secondAttribute="bottom" constant="8" id="vrR-nr-y9P"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="logOutputView" destination="1ue-SR-ah7" id="cl5-qk-EXu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f1d-g2-dM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2612" y="1496"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

@@ -5,12 +5,14 @@ class BuildDetailViewController: UIViewController {
     @IBOutlet weak var jobValueLabel: UILabel?
     @IBOutlet weak var statusValueLabel: UILabel?
     @IBOutlet weak var retriggerButton: UIButton?
+    @IBOutlet weak var viewLogsButton: UIButton?
 
     var build: Build?
     var target: Target?
     var triggerBuildService: TriggerBuildService?
 
     class var storyboardIdentifier: String { get { return "BuildDetail" } }
+    class var showLogsSegueId: String { get { return "ShowLogs" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,21 @@ class BuildDetailViewController: UIViewController {
         pipelineValueLabel?.text = build.pipelineName
         jobValueLabel?.text = build.jobName
         statusValueLabel?.text = build.status
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == BuildDetailViewController.showLogsSegueId {
+            guard let logsViewController = segue.destination as? LogsViewController else {
+                return
+            }
+
+            let sseService = SSEService()
+            sseService.eventSourceCreator = EventSourceCreator()
+
+            logsViewController.sseService = sseService
+            logsViewController.build = build
+            logsViewController.target = target
+        }
     }
 
     @IBAction func onRetriggerButtonTapped() {
