@@ -20,6 +20,7 @@
 		7B0E709D1D8F0BBC00686532 /* TokenValidationServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */; };
 		7B1B544B1E01912D0094D0B3 /* SSEConnectionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1B544A1E01912D0094D0B3 /* SSEConnectionSpec.swift */; };
 		7B1B544D1E0191D40094D0B3 /* SSEConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1B544C1E0191D40094D0B3 /* SSEConnection.swift */; };
+		7B1B787D1E02E0120040664B /* LogEventSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1B787C1E02E0120040664B /* LogEventSpec.swift */; };
 		7B258D551DFD9B6E00B37E54 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B258D541DFD9B6E00B37E54 /* LogsViewController.swift */; };
 		7B258D571DFD9E4F00B37E54 /* SSEService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B258D561DFD9E4F00B37E54 /* SSEService.swift */; };
 		7B258D591DFD9E6100B37E54 /* LogsViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B258D581DFD9E6100B37E54 /* LogsViewControllerSpec.swift */; };
@@ -136,6 +137,7 @@
 		7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidationServiceSpec.swift; sourceTree = "<group>"; };
 		7B1B544A1E01912D0094D0B3 /* SSEConnectionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEConnectionSpec.swift; sourceTree = "<group>"; };
 		7B1B544C1E0191D40094D0B3 /* SSEConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEConnection.swift; sourceTree = "<group>"; };
+		7B1B787C1E02E0120040664B /* LogEventSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEventSpec.swift; sourceTree = "<group>"; };
 		7B258D541DFD9B6E00B37E54 /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
 		7B258D561DFD9E4F00B37E54 /* SSEService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEService.swift; sourceTree = "<group>"; };
 		7B258D581DFD9E6100B37E54 /* LogsViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewControllerSpec.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				7BDBD4FA1E017EFE00909A87 /* SSEServiceSpec.swift */,
 				7B1B544A1E01912D0094D0B3 /* SSEConnectionSpec.swift */,
 				7BCA3D101E019D910078723A /* SSEEventParserSpec.swift */,
+				7B1B787C1E02E0120040664B /* LogEventSpec.swift */,
 			);
 			path = Builds;
 			sourceTree = "<group>";
@@ -836,6 +839,7 @@
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
 				7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */,
 				7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */,
+				7B1B787D1E02E0120040664B /* LogEventSpec.swift in Sources */,
 				7B1B544B1E01912D0094D0B3 /* SSEConnectionSpec.swift in Sources */,
 				7B258D591DFD9E6100B37E54 /* LogsViewControllerSpec.swift in Sources */,
 				7BCAEFF11D902AE500BC817D /* AppRouterViewControllerSpec.swift in Sources */,
