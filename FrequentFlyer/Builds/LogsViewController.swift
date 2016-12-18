@@ -7,6 +7,7 @@ class LogsViewController: UIViewController {
     var build: Build?
 
     var sseService: SSEService?
+    var logsStylingParser: LogsStylingParser?
 
     class var storyboardIdentifier: String { get { return "LogsViewController" } }
 
@@ -24,14 +25,14 @@ class LogsViewController: UIViewController {
     fileprivate var onMessagesReceived: (([LogEvent]) -> ()) {
         get {
             return { messages in
-                guard let logOutputView = self.logOutputView else {
-                    return
-                }
+                guard let logOutputView = self.logOutputView else { return }
+                guard let logsStylingParser = self.logsStylingParser else { return }
 
                 let existingText = logOutputView.text!
                 var textToAdd = ""
                 for message in messages {
-                    textToAdd += message.payload
+                    let parsedPayload = logsStylingParser.stripStylingCoding(originalString: message.payload)
+                    textToAdd += parsedPayload
                     textToAdd += "\n"
                 }
 

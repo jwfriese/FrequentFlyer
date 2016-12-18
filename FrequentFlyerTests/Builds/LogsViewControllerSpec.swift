@@ -30,9 +30,26 @@ class LogsViewControllerSpec: QuickSpec {
             }
         }
 
+        class MockLogsStylingParser: LogsStylingParser {
+            private var toReturnMap = [String : String]()
+
+            func mockStripStylingCoding(when input: String, thenReturn toReturn: String) {
+                toReturnMap[input] = toReturn
+            }
+
+            override func stripStylingCoding(originalString: String) -> String {
+                if let string = toReturnMap[originalString] {
+                    return string
+                }
+
+                return ""
+            }
+        }
+
         describe("LogsViewController") {
             var subject: LogsViewController!
             var mockSSEService: MockSSEService!
+            var mockLogsStylingParser: MockLogsStylingParser!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -40,6 +57,9 @@ class LogsViewControllerSpec: QuickSpec {
 
                 mockSSEService = MockSSEService()
                 subject.sseService = mockSSEService
+
+                mockLogsStylingParser = MockLogsStylingParser()
+                subject.logsStylingParser = mockLogsStylingParser
 
                 subject.build = Build(id: 15, jobName: "turtle-job", status: "pending", pipelineName: "turtle-pipeline")
                 subject.target = try! Factory.createTarget()
@@ -66,13 +86,17 @@ class LogsViewControllerSpec: QuickSpec {
 
                         let turtleLogEvent = LogEvent(payload: "turtle log entry")
                         let crabLogEvent = LogEvent(payload: "crab log entry")
+
+                        mockLogsStylingParser.mockStripStylingCoding(when: "turtle log entry", thenReturn: "parsed turtle log entry")
+                        mockLogsStylingParser.mockStripStylingCoding(when: "crab log entry", thenReturn: "parsed crab log entry")
+
                         let logs = [turtleLogEvent, crabLogEvent]
                         logsCallback(logs)
                     }
 
                     it("appends the logs to the log view") {
-                        expect(subject.logOutputView?.text).toEventually(contain("turtle log entry"))
-                        expect(subject.logOutputView?.text).toEventually(contain("crab log entry"))
+                        expect(subject.logOutputView?.text).toEventually(contain("parsed turtle log entry"))
+                        expect(subject.logOutputView?.text).toEventually(contain("parsed crab log entry"))
                     }
                 }
             }

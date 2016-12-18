@@ -138,6 +138,8 @@ class BuildDetailViewControllerSpec: QuickSpec {
                         expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.sseService).toEventuallyNot(beNil())
                         expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.sseService?.eventSourceCreator).toEventuallyNot(beNil())
 
+                        expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.logsStylingParser).toEventuallyNot(beNil())
+
                         let expectedTarget = Target(name: "turtle target",
                                                     api: "turtle api",
                                                     teamName: "turtle team name",

@@ -84,6 +84,9 @@
 		7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */; };
 		7BA032891D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */; };
 		7BA48F501DD763E4008BDE19 /* Error+FrequentFlyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */; };
+		7BC074EE1E06D5D300883F71 /* LogsStylingParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC074ED1E06D5D300883F71 /* LogsStylingParser.swift */; };
+		7BC074F01E06D62B00883F71 /* LogsStylingParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC074EF1E06D62B00883F71 /* LogsStylingParserSpec.swift */; };
+		7BC074F41E06DF7E00883F71 /* StylingDescriptorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC074F31E06DF7E00883F71 /* StylingDescriptorBuilder.swift */; };
 		7BCA3D0F1E019D6E0078723A /* SSEEventParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA3D0E1E019D6E0078723A /* SSEEventParser.swift */; };
 		7BCA3D111E019D910078723A /* SSEEventParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA3D101E019D910078723A /* SSEEventParserSpec.swift */; };
 		7BCAEFE81D901A4C00BC817D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFE71D901A4C00BC817D /* main.swift */; };
@@ -201,6 +204,9 @@
 		7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
 		7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+FrequentFlyer.swift"; sourceTree = "<group>"; };
+		7BC074ED1E06D5D300883F71 /* LogsStylingParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsStylingParser.swift; sourceTree = "<group>"; };
+		7BC074EF1E06D62B00883F71 /* LogsStylingParserSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsStylingParserSpec.swift; sourceTree = "<group>"; };
+		7BC074F31E06DF7E00883F71 /* StylingDescriptorBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylingDescriptorBuilder.swift; sourceTree = "<group>"; };
 		7BCA3D0E1E019D6E0078723A /* SSEEventParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEEventParser.swift; sourceTree = "<group>"; };
 		7BCA3D101E019D910078723A /* SSEEventParserSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEEventParserSpec.swift; sourceTree = "<group>"; };
 		7BCAEFE71D901A4C00BC817D /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -361,6 +367,8 @@
 				7B1B544C1E0191D40094D0B3 /* SSEConnection.swift */,
 				7BCA3D0E1E019D6E0078723A /* SSEEventParser.swift */,
 				7B65D4AF1E02455F00C894D8 /* LogEvent.swift */,
+				7BC074ED1E06D5D300883F71 /* LogsStylingParser.swift */,
+				7BC074F31E06DF7E00883F71 /* StylingDescriptorBuilder.swift */,
 			);
 			path = Builds;
 			sourceTree = "<group>";
@@ -458,6 +466,7 @@
 				7B1B544A1E01912D0094D0B3 /* SSEConnectionSpec.swift */,
 				7BCA3D101E019D910078723A /* SSEEventParserSpec.swift */,
 				7B1B787C1E02E0120040664B /* LogEventSpec.swift */,
+				7BC074EF1E06D62B00883F71 /* LogsStylingParserSpec.swift */,
 			);
 			path = Builds;
 			sourceTree = "<group>";
@@ -768,6 +777,7 @@
 				7BA032301D843FF900F20E23 /* PipelineDataDeserializer.swift in Sources */,
 				7B1B544D1E0191D40094D0B3 /* SSEConnection.swift in Sources */,
 				7BA032141D843FE800F20E23 /* HTTPResponse.swift in Sources */,
+				7BC074F41E06DF7E00883F71 /* StylingDescriptorBuilder.swift in Sources */,
 				7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */,
 				7BCAEFF31D902AEB00BC817D /* AppRouterViewController.swift in Sources */,
 				7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */,
@@ -793,6 +803,7 @@
 				7BA032251D843FF300F20E23 /* BuildsService.swift in Sources */,
 				7B65D4B01E02455F00C894D8 /* LogEvent.swift in Sources */,
 				7BA032691D8441AC00F20E23 /* AuthMethodsService.swift in Sources */,
+				7BC074EE1E06D5D300883F71 /* LogsStylingParser.swift in Sources */,
 				7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */,
 				7BCAEFF51D902B4E00BC817D /* SetAsRootPageSegue.swift in Sources */,
 				7B5F952B1DFAF573005E0DD2 /* HTTPSessionUtils.swift in Sources */,
@@ -846,6 +857,7 @@
 				7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */,
 				7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */,
 				7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */,
+				7BC074F01E06D62B00883F71 /* LogsStylingParserSpec.swift in Sources */,
 				7BCAEFEA1D901AA000BC817D /* TestAppDelegate.swift in Sources */,
 				7BA0326D1D84465800F20E23 /* AuthMethodSpec.swift in Sources */,
 				7BA032771D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift in Sources */,

@@ -34,6 +34,8 @@ class BuildDetailViewController: UIViewController {
             sseService.eventSourceCreator = EventSourceCreator()
 
             logsViewController.sseService = sseService
+
+            logsViewController.logsStylingParser = LogsStylingParser()
             logsViewController.build = build
             logsViewController.target = target
         }
