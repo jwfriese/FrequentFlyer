@@ -35,16 +35,6 @@ class LogsStylingParserSpec: QuickSpec {
                         expect(result).to(equal("turtle"))
                     }
                 }
-
-                describe("When the input string has a style code opened that does not close") {
-                    beforeEach {
-                        result = subject.stripStylingCoding(originalString: "tu[32mr[0mtle[1m[91mturtle")
-                    }
-
-                    it("returns the string with all valid styling stripped") {
-                        expect(result).to(equal("turtle[1m[91mturtle"))
-                    }
-                }
             }
         }
     }

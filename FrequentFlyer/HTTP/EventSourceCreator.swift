@@ -1,4 +1,4 @@
-import Foundation
+import EventSource
 
 class EventSourceCreator {
     func create(withURL url: String, headers: [String : String]) -> EventSource {

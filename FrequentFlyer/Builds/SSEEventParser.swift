@@ -1,4 +1,5 @@
 import Foundation
+import EventSource
 
 class SSEEventParser {
     func parseConcourseEventFromSSEEvent(event: SSEEvent) -> (log: LogEvent?, error: FFError?) {

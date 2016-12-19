@@ -3,6 +3,7 @@ import Quick
 import Nimble
 
 @testable import FrequentFlyer
+import EventSource
 
 class SSEServiceSpec: QuickSpec {
     class MockEventSourceCreator: EventSourceCreator {

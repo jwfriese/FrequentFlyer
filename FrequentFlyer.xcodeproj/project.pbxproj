@@ -36,7 +36,6 @@
 		7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */; };
 		7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F95341DFAF605005E0DD2 /* WebViewController.swift */; };
 		7B65D4B01E02455F00C894D8 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B65D4AF1E02455F00C894D8 /* LogEvent.swift */; };
-		7B94EC4D1DFD90AC007186D9 /* EventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94EC4C1DFD90AC007186D9 /* EventSource.swift */; };
 		7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */; };
 		7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */; };
 		7BA032111D843FE300F20E23 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320E1D843FE300F20E23 /* Token.swift */; };
@@ -94,7 +93,6 @@
 		7BCAEFF11D902AE500BC817D /* AppRouterViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF01D902AE500BC817D /* AppRouterViewControllerSpec.swift */; };
 		7BCAEFF31D902AEB00BC817D /* AppRouterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF21D902AEB00BC817D /* AppRouterViewController.swift */; };
 		7BCAEFF51D902B4E00BC817D /* SetAsRootPageSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF41D902B4E00BC817D /* SetAsRootPageSegue.swift */; };
-		7BCBF2A51E004204007D8623 /* SSEEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCBF2A41E004204007D8623 /* SSEEvent.swift */; };
 		7BCBF2A71E00613E007D8623 /* EventSourceCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */; };
 		7BDBD4FB1E017EFE00909A87 /* SSEServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDBD4FA1E017EFE00909A87 /* SSEServiceSpec.swift */; };
 		7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEDE1FD1D8986C40054D13B /* Locksmith.framework */; };
@@ -105,6 +103,7 @@
 		7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */; };
 		7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */; };
 		7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2241D8C29770054D13B /* FactoryError.swift */; };
+		7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFBA6941E0754DB00B71891 /* EventSource.framework */; };
 		AE343E3C1D7F4FB8008251CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */; };
 		AE343E3D1D7F4FB8008251CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3B1D7F4FB8008251CA /* Main.storyboard */; };
 		AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E411D7F5143008251CA /* AppDelegateSpec.swift */; };
@@ -156,7 +155,6 @@
 		7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = web_view_controller_test.html; sourceTree = "<group>"; };
 		7B5F95341DFAF605005E0DD2 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		7B65D4AF1E02455F00C894D8 /* LogEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
-		7B94EC4C1DFD90AC007186D9 /* EventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventSource.swift; path = EventSource/EventSource.swift; sourceTree = "<group>"; };
 		7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializer.swift; sourceTree = "<group>"; };
 		7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthenticatedTokenService.swift; sourceTree = "<group>"; };
 		7BA0320E1D843FE300F20E23 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 		7BCAEFF01D902AE500BC817D /* AppRouterViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouterViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BCAEFF21D902AEB00BC817D /* AppRouterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouterViewController.swift; sourceTree = "<group>"; };
 		7BCAEFF41D902B4E00BC817D /* SetAsRootPageSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAsRootPageSegue.swift; sourceTree = "<group>"; };
-		7BCBF2A41E004204007D8623 /* SSEEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSEEvent.swift; path = EventSource/SSEEvent.swift; sourceTree = "<group>"; };
 		7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSourceCreator.swift; sourceTree = "<group>"; };
 		7BDBD4FA1E017EFE00909A87 /* SSEServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEServiceSpec.swift; sourceTree = "<group>"; };
 		7BEDE1FD1D8986C40054D13B /* Locksmith.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Locksmith.framework; path = Carthage/Build/iOS/Locksmith.framework; sourceTree = "<group>"; };
@@ -225,6 +222,7 @@
 		7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactory.swift; sourceTree = "<group>"; };
 		7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactorySpec.swift; sourceTree = "<group>"; };
 		7BEDE2241D8C29770054D13B /* FactoryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryError.swift; sourceTree = "<group>"; };
+		7BFBA6941E0754DB00B71891 /* EventSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventSource.framework; path = Carthage/Build/iOS/EventSource.framework; sourceTree = "<group>"; };
 		AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE343E3B1D7F4FB8008251CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		AE343E411D7F5143008251CA /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
@@ -245,6 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */,
 				7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,23 +310,6 @@
 				7B5F95341DFAF605005E0DD2 /* WebViewController.swift */,
 			);
 			path = NativeWeb;
-			sourceTree = "<group>";
-		};
-		7B94EC3F1DFD9036007186D9 /* Externals */ = {
-			isa = PBXGroup;
-			children = (
-				7B94EC401DFD9047007186D9 /* EventSource */,
-			);
-			path = Externals;
-			sourceTree = "<group>";
-		};
-		7B94EC401DFD9047007186D9 /* EventSource */ = {
-			isa = PBXGroup;
-			children = (
-				7BCBF2A41E004204007D8623 /* SSEEvent.swift */,
-				7B94EC4C1DFD90AC007186D9 /* EventSource.swift */,
-			);
-			path = EventSource;
 			sourceTree = "<group>";
 		};
 		7BA032001D843E3800F20E23 /* Target */ = {
@@ -540,6 +522,7 @@
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BFBA6941E0754DB00B71891 /* EventSource.framework */,
 				7BEDE1FD1D8986C40054D13B /* Locksmith.framework */,
 				AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */,
 				AE343E6D1D7F66D8008251CA /* Fleet.framework */,
@@ -552,7 +535,6 @@
 		AEA5D5021D7F2CEC00D76EBA = {
 			isa = PBXGroup;
 			children = (
-				7B94EC3F1DFD9036007186D9 /* Externals */,
 				AE343E681D7F628C008251CA /* Frameworks */,
 				AEA5D50D1D7F2CEC00D76EBA /* FrequentFlyer */,
 				AEA5D5221D7F2CEC00D76EBA /* FrequentFlyerTests */,
@@ -725,6 +707,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Locksmith.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/EventSource.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -792,7 +775,6 @@
 				7BA0322F1D843FF900F20E23 /* PipelineTableViewCell.swift in Sources */,
 				7BCAEFE81D901A4C00BC817D /* main.swift in Sources */,
 				7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */,
-				7BCBF2A51E004204007D8623 /* SSEEvent.swift in Sources */,
 				7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */,
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
 				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
@@ -817,7 +799,6 @@
 				7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */,
 				7BCBF2A71E00613E007D8623 /* EventSourceCreator.swift in Sources */,
 				7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */,
-				7B94EC4D1DFD90AC007186D9 /* EventSource.swift in Sources */,
 				7BEDE2071D8989A70054D13B /* KeychainPersistable.swift in Sources */,
 				AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */,
 				7B258D551DFD9B6E00B37E54 /* LogsViewController.swift in Sources */,

@@ -4,6 +4,7 @@ import Nimble
 import Fleet
 
 @testable import FrequentFlyer
+import EventSource
 
 class LogsViewControllerSpec: QuickSpec {
     override func spec() {

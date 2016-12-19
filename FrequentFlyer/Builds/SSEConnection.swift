@@ -1,3 +1,5 @@
+import EventSource
+
 class SSEConnection {
     private var eventSource: EventSource!
     private var sseEventParser: SSEEventParser!
