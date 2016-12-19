@@ -24,8 +24,13 @@ class BuildDetailViewControllerSpec: QuickSpec {
             var subject: BuildDetailViewController!
             var mockTriggerBuildService: MockTriggerBuildService!
 
+            var mockLogsViewController: LogsViewController!
+
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+                mockLogsViewController = try! storyboard.mockIdentifier(LogsViewController.storyboardIdentifier, usingMockFor: LogsViewController.self)
+
                 subject = storyboard.instantiateViewController(withIdentifier: BuildDetailViewController.storyboardIdentifier) as! BuildDetailViewController
 
                 let target = Target(name: "turtle target",
@@ -119,6 +124,36 @@ class BuildDetailViewControllerSpec: QuickSpec {
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Trigger Failed"))
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("turtle trigger error"))
                         }
+                    }
+                }
+
+                describe("Tapping the 'View Logs' button") {
+                    beforeEach {
+                        subject.viewLogsButton?.tap()
+                    }
+
+                    it("presents a LogsViewController") {
+                        expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockLogsViewController))
+
+                        expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.sseService).toEventuallyNot(beNil())
+                        expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.sseService?.eventSourceCreator).toEventuallyNot(beNil())
+
+                        expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.logsStylingParser).toEventuallyNot(beNil())
+
+                        let expectedTarget = Target(name: "turtle target",
+                                                    api: "turtle api",
+                                                    teamName: "turtle team name",
+                                                    token: Token(value: "turtle token value")
+                        )
+
+                        let expectedBuild = Build(id: 123,
+                                                  jobName: "turtle job",
+                                                  status: "turtle status",
+                                                  pipelineName: "turtle pipeline"
+                        )
+
+                        expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.build).toEventually(equal(expectedBuild))
+                        expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.target).toEventually(equal(expectedTarget))
                     }
                 }
             }

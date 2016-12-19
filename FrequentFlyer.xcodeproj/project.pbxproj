@@ -29,6 +29,19 @@
 		7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */; };
 		7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */; };
 		7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F95341DFAF605005E0DD2 /* WebViewController.swift */; };
+		7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */; };
+		7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */; };
+		7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */; };
+		7B737BC31E075BBB007FC4E8 /* SSEConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBD1E075BBB007FC4E8 /* SSEConnection.swift */; };
+		7B737BC41E075BBB007FC4E8 /* SSEEventParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBE1E075BBB007FC4E8 /* SSEEventParser.swift */; };
+		7B737BC51E075BBB007FC4E8 /* SSEService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBF1E075BBB007FC4E8 /* SSEService.swift */; };
+		7B737BCC1E075BC2007FC4E8 /* LogEventSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BC61E075BC2007FC4E8 /* LogEventSpec.swift */; };
+		7B737BCD1E075BC2007FC4E8 /* LogsStylingParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BC71E075BC2007FC4E8 /* LogsStylingParserSpec.swift */; };
+		7B737BCE1E075BC2007FC4E8 /* LogsViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BC81E075BC2007FC4E8 /* LogsViewControllerSpec.swift */; };
+		7B737BCF1E075BC2007FC4E8 /* SSEConnectionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BC91E075BC2007FC4E8 /* SSEConnectionSpec.swift */; };
+		7B737BD01E075BC2007FC4E8 /* SSEEventParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BCA1E075BC2007FC4E8 /* SSEEventParserSpec.swift */; };
+		7B737BD11E075BC2007FC4E8 /* SSEServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BCB1E075BC2007FC4E8 /* SSEServiceSpec.swift */; };
+		7B737BD31E075BE8007FC4E8 /* StylingDescriptorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BD21E075BE8007FC4E8 /* StylingDescriptorBuilder.swift */; };
 		7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */; };
 		7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */; };
 		7BA032111D843FE300F20E23 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320E1D843FE300F20E23 /* Token.swift */; };
@@ -81,6 +94,7 @@
 		7BCAEFF11D902AE500BC817D /* AppRouterViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF01D902AE500BC817D /* AppRouterViewControllerSpec.swift */; };
 		7BCAEFF31D902AEB00BC817D /* AppRouterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF21D902AEB00BC817D /* AppRouterViewController.swift */; };
 		7BCAEFF51D902B4E00BC817D /* SetAsRootPageSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF41D902B4E00BC817D /* SetAsRootPageSegue.swift */; };
+		7BCBF2A71E00613E007D8623 /* EventSourceCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */; };
 		7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEDE1FD1D8986C40054D13B /* Locksmith.framework */; };
 		7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */; };
 		7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2031D8989910054D13B /* KeychainWrapper.swift */; };
@@ -89,6 +103,7 @@
 		7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */; };
 		7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */; };
 		7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2241D8C29770054D13B /* FactoryError.swift */; };
+		7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFBA6941E0754DB00B71891 /* EventSource.framework */; };
 		AE343E3C1D7F4FB8008251CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */; };
 		AE343E3D1D7F4FB8008251CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3B1D7F4FB8008251CA /* Main.storyboard */; };
 		AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E411D7F5143008251CA /* AppDelegateSpec.swift */; };
@@ -133,6 +148,19 @@
 		7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = web_view_controller_test.html; sourceTree = "<group>"; };
 		7B5F95341DFAF605005E0DD2 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
+		7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsStylingParser.swift; sourceTree = "<group>"; };
+		7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
+		7B737BBD1E075BBB007FC4E8 /* SSEConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEConnection.swift; sourceTree = "<group>"; };
+		7B737BBE1E075BBB007FC4E8 /* SSEEventParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEEventParser.swift; sourceTree = "<group>"; };
+		7B737BBF1E075BBB007FC4E8 /* SSEService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEService.swift; sourceTree = "<group>"; };
+		7B737BC61E075BC2007FC4E8 /* LogEventSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEventSpec.swift; sourceTree = "<group>"; };
+		7B737BC71E075BC2007FC4E8 /* LogsStylingParserSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsStylingParserSpec.swift; sourceTree = "<group>"; };
+		7B737BC81E075BC2007FC4E8 /* LogsViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewControllerSpec.swift; sourceTree = "<group>"; };
+		7B737BC91E075BC2007FC4E8 /* SSEConnectionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEConnectionSpec.swift; sourceTree = "<group>"; };
+		7B737BCA1E075BC2007FC4E8 /* SSEEventParserSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEEventParserSpec.swift; sourceTree = "<group>"; };
+		7B737BCB1E075BC2007FC4E8 /* SSEServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEServiceSpec.swift; sourceTree = "<group>"; };
+		7B737BD21E075BE8007FC4E8 /* StylingDescriptorBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylingDescriptorBuilder.swift; sourceTree = "<group>"; };
 		7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializer.swift; sourceTree = "<group>"; };
 		7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthenticatedTokenService.swift; sourceTree = "<group>"; };
 		7BA0320E1D843FE300F20E23 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -185,6 +213,7 @@
 		7BCAEFF01D902AE500BC817D /* AppRouterViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouterViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BCAEFF21D902AEB00BC817D /* AppRouterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouterViewController.swift; sourceTree = "<group>"; };
 		7BCAEFF41D902B4E00BC817D /* SetAsRootPageSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAsRootPageSegue.swift; sourceTree = "<group>"; };
+		7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSourceCreator.swift; sourceTree = "<group>"; };
 		7BEDE1FD1D8986C40054D13B /* Locksmith.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Locksmith.framework; path = Carthage/Build/iOS/Locksmith.framework; sourceTree = "<group>"; };
 		7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsService.swift; sourceTree = "<group>"; };
 		7BEDE2031D8989910054D13B /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
@@ -193,6 +222,7 @@
 		7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactory.swift; sourceTree = "<group>"; };
 		7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactorySpec.swift; sourceTree = "<group>"; };
 		7BEDE2241D8C29770054D13B /* FactoryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryError.swift; sourceTree = "<group>"; };
+		7BFBA6941E0754DB00B71891 /* EventSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventSource.framework; path = Carthage/Build/iOS/EventSource.framework; sourceTree = "<group>"; };
 		AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE343E3B1D7F4FB8008251CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		AE343E411D7F5143008251CA /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
@@ -213,6 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */,
 				7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,6 +312,33 @@
 			path = NativeWeb;
 			sourceTree = "<group>";
 		};
+		7B737BB81E075B2F007FC4E8 /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */,
+				7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */,
+				7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */,
+				7B737BBD1E075BBB007FC4E8 /* SSEConnection.swift */,
+				7B737BBE1E075BBB007FC4E8 /* SSEEventParser.swift */,
+				7B737BBF1E075BBB007FC4E8 /* SSEService.swift */,
+				7B737BD21E075BE8007FC4E8 /* StylingDescriptorBuilder.swift */,
+			);
+			path = Logs;
+			sourceTree = "<group>";
+		};
+		7B737BB91E075B47007FC4E8 /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				7B737BC61E075BC2007FC4E8 /* LogEventSpec.swift */,
+				7B737BC71E075BC2007FC4E8 /* LogsStylingParserSpec.swift */,
+				7B737BC81E075BC2007FC4E8 /* LogsViewControllerSpec.swift */,
+				7B737BC91E075BC2007FC4E8 /* SSEConnectionSpec.swift */,
+				7B737BCA1E075BC2007FC4E8 /* SSEEventParserSpec.swift */,
+				7B737BCB1E075BC2007FC4E8 /* SSEServiceSpec.swift */,
+			);
+			path = Logs;
+			sourceTree = "<group>";
+		};
 		7BA032001D843E3800F20E23 /* Target */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +391,7 @@
 				7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */,
 				7BA032121D843FE800F20E23 /* HTTPResponse.swift */,
 				7BA032131D843FE800F20E23 /* HTTPClient.swift */,
+				7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */,
 			);
 			path = HTTP;
 			sourceTree = "<group>";
@@ -477,6 +536,7 @@
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BFBA6941E0754DB00B71891 /* EventSource.framework */,
 				7BEDE1FD1D8986C40054D13B /* Locksmith.framework */,
 				AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */,
 				AE343E6D1D7F66D8008251CA /* Fleet.framework */,
@@ -525,6 +585,7 @@
 				7BA032021D843E4700F20E23 /* Builds */,
 				7BA032011D843E4200F20E23 /* Pipeline */,
 				7BA032001D843E3800F20E23 /* Target */,
+				7B737BB81E075B2F007FC4E8 /* Logs */,
 			);
 			path = FrequentFlyer;
 			sourceTree = "<group>";
@@ -545,6 +606,7 @@
 				7BA032091D843F3000F20E23 /* Builds */,
 				7BA0320A1D843F3500F20E23 /* Pipeline */,
 				7BA0320B1D843F3A00F20E23 /* Target */,
+				7B737BB91E075B47007FC4E8 /* Logs */,
 			);
 			path = FrequentFlyerTests;
 			sourceTree = "<group>";
@@ -661,6 +723,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Locksmith.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/EventSource.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -718,15 +781,20 @@
 				7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */,
 				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
 				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
+				7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */,
 				7BA032271D843FF300F20E23 /* Build.swift in Sources */,
+				7B737BC41E075BBB007FC4E8 /* SSEEventParser.swift in Sources */,
 				7BA0323D1D843FFE00F20E23 /* Target.swift in Sources */,
+				7B737BC31E075BBB007FC4E8 /* SSEConnection.swift in Sources */,
 				7BA0327D1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift in Sources */,
 				7BA032111D843FE300F20E23 /* Token.swift in Sources */,
 				7BA0322F1D843FF900F20E23 /* PipelineTableViewCell.swift in Sources */,
 				7BCAEFE81D901A4C00BC817D /* main.swift in Sources */,
+				7B737BC51E075BBB007FC4E8 /* SSEService.swift in Sources */,
 				7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */,
 				7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */,
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
+				7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */,
 				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
 				7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */,
 				7BA0322E1D843FF900F20E23 /* TeamPipelinesService.swift in Sources */,
@@ -740,10 +808,13 @@
 				7BA48F501DD763E4008BDE19 /* Error+FrequentFlyer.swift in Sources */,
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
+				7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */,
 				7B0E70821D8DC08500686532 /* BasicUserAuthViewController.swift in Sources */,
 				7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */,
 				7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */,
 				7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */,
+				7B737BD31E075BE8007FC4E8 /* StylingDescriptorBuilder.swift in Sources */,
+				7BCBF2A71E00613E007D8623 /* EventSourceCreator.swift in Sources */,
 				7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */,
 				7BEDE2071D8989A70054D13B /* KeychainPersistable.swift in Sources */,
 				AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */,
@@ -763,11 +834,13 @@
 				7BA032481D84400900F20E23 /* HTTPResponseImplSpec.swift in Sources */,
 				7BA032531D84401400F20E23 /* BuildsServiceSpec.swift in Sources */,
 				7BA032451D84400400F20E23 /* UnauthenticatedTokenServiceSpec.swift in Sources */,
+				7B737BCD1E075BC2007FC4E8 /* LogsStylingParserSpec.swift in Sources */,
 				7BA0325A1D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift in Sources */,
 				7BA032431D84400400F20E23 /* TokenSpec.swift in Sources */,
 				7BA032631D84401E00F20E23 /* TargetSpec.swift in Sources */,
 				7BA0325C1D84401900F20E23 /* PipelineSpec.swift in Sources */,
 				7BA032791D84908000F20E23 /* AuthMethodsServiceSpec.swift in Sources */,
+				7B737BCC1E075BC2007FC4E8 /* LogEventSpec.swift in Sources */,
 				7BA032891D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift in Sources */,
 				7B0E70841D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift in Sources */,
 				7B0E708C1D8E033600686532 /* AuthMethodListViewControllerSpec.swift in Sources */,
@@ -776,6 +849,7 @@
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
 				7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */,
 				7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */,
+				7B737BCF1E075BC2007FC4E8 /* SSEConnectionSpec.swift in Sources */,
 				7BCAEFF11D902AE500BC817D /* AppRouterViewControllerSpec.swift in Sources */,
 				7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */,
 				7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */,
@@ -787,12 +861,15 @@
 				7BA032541D84401400F20E23 /* BuildSpec.swift in Sources */,
 				7BA032441D84400400F20E23 /* TokenDataDeserializerSpec.swift in Sources */,
 				7BA032521D84401400F20E23 /* BuildsViewControllerSpec.swift in Sources */,
+				7B737BD11E075BC2007FC4E8 /* SSEServiceSpec.swift in Sources */,
 				7B0E70801D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift in Sources */,
 				7BA032551D84401400F20E23 /* BuildsDataDeserializerSpec.swift in Sources */,
 				7BA032491D84400900F20E23 /* HTTPClientSpec.swift in Sources */,
 				7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */,
 				7B0E709D1D8F0BBC00686532 /* TokenValidationServiceSpec.swift in Sources */,
+				7B737BD01E075BC2007FC4E8 /* SSEEventParserSpec.swift in Sources */,
 				7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */,
+				7B737BCE1E075BC2007FC4E8 /* LogsViewControllerSpec.swift in Sources */,
 				7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */,
 				7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */,
 				7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */,
@@ -862,6 +939,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = Automatic;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Test;
@@ -957,6 +1035,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = Automatic;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1006,6 +1085,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = Automatic;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
