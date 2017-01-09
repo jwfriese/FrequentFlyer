@@ -164,12 +164,6 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
 
-                            it("sets a TeamPipelinesService on the view controller") {
-                                expect(mockTeamPipelinesViewController.teamPipelinesService).toEventuallyNot(beNil())
-                                expect(mockTeamPipelinesViewController.teamPipelinesService?.httpClient).toEventuallyNot(beNil())
-                                expect(mockTeamPipelinesViewController.teamPipelinesService?.pipelineDataDeserializer).toEventuallyNot(beNil())
-                            }
-
                             it("sets a KeychainWrapper on the view controller") {
                                 expect(mockTeamPipelinesViewController.keychainWrapper).toEventuallyNot(beNil())
                             }
@@ -204,12 +198,6 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                                                             teamName: "main", token: Token(value: "turtle token")
                                 )
                                 expect(mockKeychainWrapper.capturedTarget).to(equal(expectedTarget))
-                            }
-
-                            it("sets a TeamPipelinesService on the view controller") {
-                                expect(mockTeamPipelinesViewController.teamPipelinesService).toEventuallyNot(beNil())
-                                expect(mockTeamPipelinesViewController.teamPipelinesService?.httpClient).toEventuallyNot(beNil())
-                                expect(mockTeamPipelinesViewController.teamPipelinesService?.pipelineDataDeserializer).toEventuallyNot(beNil())
                             }
                         }
                     }

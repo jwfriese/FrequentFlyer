@@ -7,9 +7,9 @@ class BasicUserAuthViewController: UIViewController {
     @IBOutlet weak var stayLoggedInSwitch: UISwitch?
     @IBOutlet weak var submitButton: UIButton?
 
-    var basicAuthTokenService: BasicAuthTokenService?
+    var basicAuthTokenService = BasicAuthTokenService()
+    var keychainWrapper = KeychainWrapper()
     var concourseURLString: String?
-    var keychainWrapper: KeychainWrapper?
 
     class var storyboardIdentifier: String { get { return "BasicUserAuth" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
@@ -41,11 +41,9 @@ class BasicUserAuthViewController: UIViewController {
     }
 
     @IBAction func submitButtonTapped() {
-        guard let basicAuthTokenService = basicAuthTokenService else { return }
         guard let username = usernameTextField?.text else { return }
         guard let password = passwordTextField?.text else { return }
         guard let concourseURL = concourseURLString else { return }
-        guard let keychainWrapper = keychainWrapper else { return }
 
         basicAuthTokenService.getToken(forTeamWithName: "main", concourseURL: concourseURL, username: username, password: password) { token, error in
             if let error = error {
@@ -64,7 +62,7 @@ class BasicUserAuthViewController: UIViewController {
                                        teamName: "main",
                                        token: token)
                 if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.isOn {
-                    keychainWrapper.saveTarget(newTarget)
+                    self.keychainWrapper.saveTarget(newTarget)
                 }
 
                 DispatchQueue.main.async {

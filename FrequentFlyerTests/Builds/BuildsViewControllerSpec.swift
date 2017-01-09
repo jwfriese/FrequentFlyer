@@ -128,10 +128,6 @@ class BuildsViewControllerSpec: QuickSpec {
                             let expectedTarget = Target(name: "turtle target", api: "turtle api", teamName: "turtle team", token: Token(value: "turtle token value")
                             )
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.target).toEventually(equal(expectedTarget))
-
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.triggerBuildService).toEventuallyNot(beNil())
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.triggerBuildService?.httpClient).toEventuallyNot(beNil())
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.triggerBuildService?.buildDataDeserializer).toEventuallyNot(beNil())
                         }
                     }
                 }

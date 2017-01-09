@@ -4,9 +4,10 @@ class BuildsViewController: UIViewController {
     @IBOutlet weak var buildsTableView: UITableView?
     @IBOutlet weak var buildsTableHeaderView: BuildsTableViewHeaderView?
 
+    var buildsService = BuildsService()
+
     var pipeline: Pipeline?
     var target: Target?
-    var buildsService: BuildsService?
 
     var builds: [Build]?
 
@@ -18,7 +19,6 @@ class BuildsViewController: UIViewController {
 
         guard let pipeline = pipeline else { return }
         guard let target = target else { return }
-        guard let buildsService = buildsService else { return }
 
         title = "Builds"
         buildsTableView?.dataSource = self

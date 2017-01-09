@@ -46,22 +46,6 @@ class AppRouterViewControllerSpec: QuickSpec {
                     it("presents the ConcourseEntryViewController") {
                         expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockConcourseEntryViewController))
                     }
-
-                    it("sets a UserTextInputPageOperator on the view controller") {
-                        expect(mockConcourseEntryViewController.userTextInputPageOperator).toEventuallyNot(beNil())
-                    }
-
-                    it("sets an AuthMethodsService on the view controller") {
-                        expect(mockConcourseEntryViewController.authMethodsService).toEventuallyNot(beNil())
-                        expect(mockConcourseEntryViewController.authMethodsService?.httpClient).toEventuallyNot(beNil())
-                        expect(mockConcourseEntryViewController.authMethodsService?.authMethodsDataDeserializer).toEventuallyNot(beNil())
-                    }
-
-                    it("sets an UnauthenticatedTokenService on the view controller") {
-                        expect(mockConcourseEntryViewController.unauthenticatedTokenService).toEventuallyNot(beNil())
-                        expect(mockConcourseEntryViewController.unauthenticatedTokenService?.httpClient).toEventuallyNot(beNil())
-                        expect(mockConcourseEntryViewController.unauthenticatedTokenService?.tokenDataDeserializer).toEventuallyNot(beNil())
-                    }
                 }
 
                 describe("When the keychain contains a saved target") {
@@ -78,16 +62,6 @@ class AppRouterViewControllerSpec: QuickSpec {
 
                     it("sets the retrieved target on the view controller") {
                         expect(mockTeamPipelinesViewController.target).toEventually(equal(mockKeychainWrapper.toReturnTarget))
-                    }
-
-                    it("sets a TeamPipelinesService on the view controller") {
-                        expect(mockTeamPipelinesViewController.teamPipelinesService).toEventuallyNot(beNil())
-                        expect(mockTeamPipelinesViewController.teamPipelinesService?.httpClient).toEventuallyNot(beNil())
-                        expect(mockTeamPipelinesViewController.teamPipelinesService?.pipelineDataDeserializer).toEventuallyNot(beNil())
-                    }
-
-                    it("sets a KeychainWrapper on the view controller") {
-                        expect(mockTeamPipelinesViewController.keychainWrapper).toEventuallyNot(beNil())
                     }
                 }
             }

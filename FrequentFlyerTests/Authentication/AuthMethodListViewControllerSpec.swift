@@ -80,12 +80,6 @@ class AuthMethodListViewControllerSpec: QuickSpec {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockBasicUserAuthViewController))
                         }
 
-                        it("sets a BasicAuthTokenService on the view controller") {
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BasicUserAuthViewController)?.basicAuthTokenService).toEventuallyNot(beNil())
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BasicUserAuthViewController)?.basicAuthTokenService?.httpClient).toEventuallyNot(beNil())
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BasicUserAuthViewController)?.basicAuthTokenService?.tokenDataDeserializer).toEventuallyNot(beNil())
-                        }
-
                         it("sets the entered Concourse URL on the view controller") {
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? BasicUserAuthViewController)?.concourseURLString).toEventually(equal("turtle concourse"))
                         }
@@ -110,23 +104,6 @@ class AuthMethodListViewControllerSpec: QuickSpec {
 
                         it("sets the auth method's auth URL on the view controller") {
                             expect(mockGithubAuthViewController.githubAuthURLString).to(equal("github-auth.com"))
-                        }
-
-                        it("sets a KeychainWrapper on the view controller") {
-                            expect(mockGithubAuthViewController.keychainWrapper).toEventuallyNot(beNil())
-                        }
-
-                        it("sets an HTTPSessionUtils on the view controller") {
-                            expect(mockGithubAuthViewController.httpSessionUtils).toEventuallyNot(beNil())
-                        }
-
-                        it("sets a TokenValidationService on the view controller") {
-                            expect(mockGithubAuthViewController.tokenValidationService).toEventuallyNot(beNil())
-                            expect(mockGithubAuthViewController.tokenValidationService?.httpClient).toEventuallyNot(beNil())
-                        }
-
-                        it("sets a UserTextInputPageOperator on the view controller") {
-                            expect(mockGithubAuthViewController.userTextInputPageOperator).toEventuallyNot(beNil())
                         }
                     }
                 }

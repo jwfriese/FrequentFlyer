@@ -1,13 +1,10 @@
 import Foundation
 
 class AuthMethodsService {
-    var httpClient: HTTPClient?
-    var authMethodsDataDeserializer: AuthMethodDataDeserializer?
+    var httpClient = HTTPClient()
+    var authMethodsDataDeserializer = AuthMethodDataDeserializer()
 
     func getMethods(forTeamName teamName: String, concourseURL: String, completion: (([AuthMethod]?, FFError?) -> ())?) {
-        guard let httpClient = httpClient else { return }
-        guard let authMethodsDataDeserializer = authMethodsDataDeserializer else { return }
-
         let urlString = "\(concourseURL)/api/v1/teams/\(teamName)/auth/methods"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
@@ -20,7 +17,7 @@ class AuthMethodsService {
                 return
             }
 
-            let deserializationResult = authMethodsDataDeserializer.deserialize(data)
+            let deserializationResult = self.authMethodsDataDeserializer.deserialize(data)
             completion(deserializationResult.authMethods, deserializationResult.error)
         }
     }

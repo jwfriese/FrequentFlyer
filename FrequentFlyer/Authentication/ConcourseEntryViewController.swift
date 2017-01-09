@@ -5,9 +5,9 @@ class ConcourseEntryViewController: UIViewController {
     @IBOutlet weak var concourseURLEntryField: UITextField?
     @IBOutlet weak var submitButton: UIButton?
 
-    var authMethodsService: AuthMethodsService?
-    var unauthenticatedTokenService: UnauthenticatedTokenService?
-    var userTextInputPageOperator: UserTextInputPageOperator?
+    var authMethodsService = AuthMethodsService()
+    var unauthenticatedTokenService = UnauthenticatedTokenService()
+    var userTextInputPageOperator = UserTextInputPageOperator()
 
     class var storyboardIdentifier: String { get { return "ConcourseEntry" } }
     class var showAuthMethodListSegueId: String { get { return "ShowAuthMethodList" } }
@@ -24,7 +24,7 @@ class ConcourseEntryViewController: UIViewController {
         concourseURLEntryField?.delegate = self
         submitButton?.isEnabled = false
 
-        userTextInputPageOperator?.delegate = self
+        userTextInputPageOperator.delegate = self
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -55,13 +55,11 @@ class ConcourseEntryViewController: UIViewController {
     }
 
     @IBAction func submitButtonTapped() {
-        guard let authMethodsService = authMethodsService else { return }
-        guard let unauthenticatedTokenService = unauthenticatedTokenService else { return }
         guard let concourseURLString = concourseURLEntryField?.text else { return }
 
         authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString) { authMethods, error in
             if authMethods == nil || authMethods!.count == 0 {
-                unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main", concourseURL: concourseURLString) { token, error in
+                self.unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main", concourseURL: concourseURLString) { token, error in
                     guard let token = token else {
                         let alert = UIAlertController(title: "Authorization Failed",
                                                       message: error?.details,

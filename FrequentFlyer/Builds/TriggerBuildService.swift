@@ -1,13 +1,10 @@
 import Foundation
 
 class TriggerBuildService {
-    var httpClient: HTTPClient?
-    var buildDataDeserializer: BuildDataDeserializer?
+    var httpClient = HTTPClient()
+    var buildDataDeserializer = BuildDataDeserializer()
 
     func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String, completion: ((Build?, FFError?) -> ())?) {
-        guard let httpClient = httpClient else { return }
-        guard let buildDataDeserializer = buildDataDeserializer else { return }
-
         let urlString = "\(target.api)/api/v1/teams/\(target.teamName)/pipelines/\(pipelineName)/jobs/\(jobName)/builds"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
@@ -22,7 +19,7 @@ class TriggerBuildService {
                 return
             }
 
-            let deserializationResult = buildDataDeserializer.deserialize(data)
+            let deserializationResult = self.buildDataDeserializer.deserialize(data)
             completion(deserializationResult.build, deserializationResult.error)
         }
     }

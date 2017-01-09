@@ -96,22 +96,6 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     it("sets the app to the concourse entry page") {
                         expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockConcourseEntryViewController))
                     }
-
-                    it("sets a UserTextInputPageOperator on the view controller") {
-                        expect(mockConcourseEntryViewController.userTextInputPageOperator).toEventuallyNot(beNil())
-                    }
-
-                    it("sets an AuthMethodsService on the view controller") {
-                        expect(mockConcourseEntryViewController.authMethodsService).toEventuallyNot(beNil())
-                        expect(mockConcourseEntryViewController.authMethodsService?.httpClient).toEventuallyNot(beNil())
-                        expect(mockConcourseEntryViewController.authMethodsService?.authMethodsDataDeserializer).toEventuallyNot(beNil())
-                    }
-
-                    it("sets an UnauthenticatedTokenService on the view controller") {
-                        expect(mockConcourseEntryViewController.unauthenticatedTokenService).toEventuallyNot(beNil())
-                        expect(mockConcourseEntryViewController.unauthenticatedTokenService?.httpClient).toEventuallyNot(beNil())
-                        expect(mockConcourseEntryViewController.unauthenticatedTokenService?.tokenDataDeserializer).toEventuallyNot(beNil())
-                    }
                 }
 
                 describe("When the pipelines service call resolves with a list of pipelines") {
@@ -169,10 +153,6 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                                                         token: Token(value: "turtle token value")
                             )
                             expect(topmostViewControllerAsBuilds()?.target).toEventually(equal(expectedTarget))
-
-                            expect(topmostViewControllerAsBuilds()?.buildsService).toEventuallyNot(beNil())
-                            expect(topmostViewControllerAsBuilds()?.buildsService?.httpClient).toEventuallyNot(beNil())
-                            expect(topmostViewControllerAsBuilds()?.buildsService?.buildsDataDeserializer).toEventuallyNot(beNil())
                         }
                     }
                 }

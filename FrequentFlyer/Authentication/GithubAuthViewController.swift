@@ -7,12 +7,13 @@ class GithubAuthViewController: UIViewController {
     @IBOutlet weak var stayLoggedInSwitch: UISwitch?
     @IBOutlet weak var submitButton: UIButton?
 
+    var keychainWrapper = KeychainWrapper()
+    var httpSessionUtils = HTTPSessionUtils()
+    var tokenValidationService = TokenValidationService()
+    var userTextInputPageOperator = UserTextInputPageOperator()
+
     var concourseURLString: String?
     var githubAuthURLString: String?
-    var keychainWrapper: KeychainWrapper?
-    var httpSessionUtils: HTTPSessionUtils?
-    var tokenValidationService: TokenValidationService?
-    var userTextInputPageOperator: UserTextInputPageOperator?
 
     class var storyboardIdentifier: String { get { return "GithubAuth" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
@@ -25,7 +26,7 @@ class GithubAuthViewController: UIViewController {
 
         tokenTextField?.delegate = self
         submitButton?.isEnabled = false
-        userTextInputPageOperator?.delegate = self
+        userTextInputPageOperator.delegate = self
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -62,10 +63,7 @@ class GithubAuthViewController: UIViewController {
 
     @IBAction func submitButtonTapped() {
         guard let concourseURLString = concourseURLString else { return }
-        guard let tokenValidationService = tokenValidationService else { return }
         guard let tokenString = tokenTextField?.text else { return }
-        guard let keychainWrapper = keychainWrapper else { return }
-        guard let httpSessionUtils = httpSessionUtils else { return }
 
         httpSessionUtils.deleteCookies()
 
@@ -87,7 +85,7 @@ class GithubAuthViewController: UIViewController {
                                        teamName: "main",
                                        token: token)
                 if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.isOn {
-                    keychainWrapper.saveTarget(newTarget)
+                    self.keychainWrapper.saveTarget(newTarget)
                 }
 
                 DispatchQueue.main.async {

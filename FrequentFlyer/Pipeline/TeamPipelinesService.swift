@@ -1,12 +1,10 @@
 import Foundation
 
 class TeamPipelinesService {
-    var httpClient: HTTPClient?
-    var pipelineDataDeserializer: PipelineDataDeserializer?
+    var httpClient = HTTPClient()
+    var pipelineDataDeserializer = PipelineDataDeserializer()
 
     func getPipelines(forTarget target: Target, completion: (([Pipeline]?, FFError?) -> ())?) {
-        guard let httpClient = httpClient else { return }
-
         guard let url = URL(string: target.api + "/api/v1/teams/" + target.teamName + "/pipelines") else {
             return
         }
@@ -26,8 +24,8 @@ class TeamPipelinesService {
                 return
             }
 
-            let deserializationResult = self.pipelineDataDeserializer?.deserialize(data)
-            completion(deserializationResult?.pipelines, deserializationResult?.error)
+            let deserializationResult = self.pipelineDataDeserializer.deserialize(data)
+            completion(deserializationResult.pipelines, deserializationResult.error)
         }
     }
 }

@@ -4,9 +4,10 @@ class TeamPipelinesViewController: UIViewController {
     @IBOutlet weak var teamPipelinesTableView: UITableView?
     @IBOutlet weak var logoutBarButtonItem: UIBarButtonItem?
 
+    var teamPipelinesService = TeamPipelinesService()
+    var keychainWrapper = KeychainWrapper()
+
     var target: Target?
-    var teamPipelinesService: TeamPipelinesService?
-    var keychainWrapper: KeychainWrapper?
 
     var pipelines: [Pipeline]?
 
@@ -17,7 +18,6 @@ class TeamPipelinesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let target = target else { return }
-        guard let teamPipelinesService = teamPipelinesService else { return }
 
         title = "Pipelines"
         teamPipelinesService.getPipelines(forTarget: target) { pipelines, error in
@@ -67,7 +67,6 @@ class TeamPipelinesViewController: UIViewController {
     }
 
     @IBAction func logoutTapped() {
-        guard let keychainWrapper = keychainWrapper else { return }
         keychainWrapper.deleteTarget()
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)

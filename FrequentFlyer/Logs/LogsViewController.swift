@@ -3,18 +3,17 @@ import UIKit
 class LogsViewController: UIViewController {
     @IBOutlet weak var logOutputView: UITextView?
 
+    var sseService = SSEService()
+    var logsStylingParser = LogsStylingParser()
+
     var target: Target?
     var build: Build?
-
-    var sseService: SSEService?
-    var logsStylingParser: LogsStylingParser?
 
     class var storyboardIdentifier: String { get { return "LogsViewController" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let sseService = sseService else { return }
         guard let target = target else { return }
         guard let build = build else { return }
 
@@ -26,12 +25,11 @@ class LogsViewController: UIViewController {
         get {
             return { messages in
                 guard let logOutputView = self.logOutputView else { return }
-                guard let logsStylingParser = self.logsStylingParser else { return }
 
                 let existingText = logOutputView.text!
                 var textToAdd = ""
                 for message in messages {
-                    let parsedPayload = logsStylingParser.stripStylingCoding(originalString: message.payload)
+                    let parsedPayload = self.logsStylingParser.stripStylingCoding(originalString: message.payload)
                     textToAdd += parsedPayload
                     textToAdd += "\n"
                 }

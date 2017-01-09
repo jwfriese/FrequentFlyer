@@ -1,7 +1,7 @@
 import UIKit
 
 class AppRouterViewController: UIViewController {
-    var keychainWrapper: KeychainWrapper?
+    var keychainWrapper = KeychainWrapper()
 
     class var storyboardIdentifier: String { get { return "AppRouter" } }
     class var setConcourseEntryAsRootPageSegueId: String { get { return "SetConcourseEntryAsRootPage" } }
@@ -45,8 +45,6 @@ class AppRouterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        guard let keychainWrapper = keychainWrapper else { return }
 
         if let savedTarget = keychainWrapper.retrieveTarget() {
             performSegue(withIdentifier: AppRouterViewController.setTeamPipelinesAsRootPageSegueId, sender: savedTarget)

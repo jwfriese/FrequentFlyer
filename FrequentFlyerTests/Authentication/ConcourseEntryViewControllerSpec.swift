@@ -200,12 +200,6 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                                 )
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
-
-                            it("sets a TeamPipelinesService on the view controller") {
-                                expect(mockTeamPipelinesViewController.teamPipelinesService).toEventuallyNot(beNil())
-                                expect(mockTeamPipelinesViewController.teamPipelinesService?.httpClient).toEventuallyNot(beNil())
-                                expect(mockTeamPipelinesViewController.teamPipelinesService?.pipelineDataDeserializer).toEventuallyNot(beNil())
-                            }
                         }
 
                         describe("When the token auth service call resolves with some error") {

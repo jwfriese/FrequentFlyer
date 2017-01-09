@@ -1,14 +1,11 @@
 import Foundation
 
 class BasicAuthTokenService {
-    var httpClient: HTTPClient?
-    var tokenDataDeserializer: TokenDataDeserializer?
+    var httpClient = HTTPClient()
+    var tokenDataDeserializer = TokenDataDeserializer()
 
     func getToken(forTeamWithName teamName: String, concourseURL: String,
                                   username: String, password: String, completion: ((Token?, FFError?) -> ())?) {
-        guard let httpClient = httpClient else { return }
-        guard let tokenDataDeserializer = tokenDataDeserializer else { return }
-
         let urlString = concourseURL + "/api/v1/teams/\(teamName)/auth/token"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
@@ -27,7 +24,7 @@ class BasicAuthTokenService {
                 return
             }
 
-            let deserializationResult = tokenDataDeserializer.deserialize(data)
+            let deserializationResult = self.tokenDataDeserializer.deserialize(data)
             completion(deserializationResult.token, deserializationResult.error)
         }
     }

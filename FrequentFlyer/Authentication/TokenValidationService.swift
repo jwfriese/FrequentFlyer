@@ -1,11 +1,10 @@
 import Foundation
 
 class TokenValidationService {
-    var httpClient: HTTPClient?
+    var httpClient = HTTPClient()
 
     func validate(token: Token, forConcourse concourseURLString: String, completion: ((FFError?) -> ())?) {
         guard let completion = completion else { return }
-        guard let httpClient = httpClient else { return }
 
         let urlString = "\(concourseURLString)/api/v1/containers"
         let url = URL(string: urlString)!

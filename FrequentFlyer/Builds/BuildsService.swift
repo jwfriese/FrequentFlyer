@@ -1,12 +1,10 @@
 import Foundation
 
 class BuildsService {
-    var httpClient: HTTPClient?
-    var buildsDataDeserializer: BuildsDataDeserializer?
+    var httpClient = HTTPClient()
+    var buildsDataDeserializer = BuildsDataDeserializer()
 
     func getBuilds(forTarget target: Target, completion: (([Build]?, FFError?) -> ())?) {
-        guard let httpClient = httpClient else { return }
-
         let urlString = "\(target.api)/api/v1/builds"
         guard let url = URL(string: urlString) else { return }
 
@@ -22,8 +20,8 @@ class BuildsService {
                 return
             }
 
-            let result = self.buildsDataDeserializer?.deserialize(data)
-            completion(result?.builds, result?.error)
+            let result = self.buildsDataDeserializer.deserialize(data)
+            completion(result.builds, result.error)
         }
     }
 }

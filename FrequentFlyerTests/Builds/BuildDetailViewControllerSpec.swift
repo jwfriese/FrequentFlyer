@@ -135,9 +135,6 @@ class BuildDetailViewControllerSpec: QuickSpec {
                     it("presents a LogsViewController") {
                         expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockLogsViewController))
 
-                        expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.sseService).toEventuallyNot(beNil())
-                        expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.sseService?.eventSourceCreator).toEventuallyNot(beNil())
-
                         expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.logsStylingParser).toEventuallyNot(beNil())
 
                         let expectedTarget = Target(name: "turtle target",

@@ -7,9 +7,10 @@ class BuildDetailViewController: UIViewController {
     @IBOutlet weak var retriggerButton: UIButton?
     @IBOutlet weak var viewLogsButton: UIButton?
 
+    var triggerBuildService = TriggerBuildService()
+
     var build: Build?
     var target: Target?
-    var triggerBuildService: TriggerBuildService?
 
     class var storyboardIdentifier: String { get { return "BuildDetail" } }
     class var showLogsSegueId: String { get { return "ShowLogs" } }
@@ -42,7 +43,6 @@ class BuildDetailViewController: UIViewController {
     }
 
     @IBAction func onRetriggerButtonTapped() {
-        guard let triggerBuildService = triggerBuildService else { return }
         guard let target = target else { return }
         guard let jobName = jobValueLabel?.text else { return }
         guard let pipelineName = pipelineValueLabel?.text else { return }
