@@ -7,9 +7,9 @@ class AuthMethodsServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
-            var capturedCompletion: ((Data?, HTTPResponse?, FFError?) -> ())?
+            var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
 
-            override func doRequest(_ request: URLRequest, completion: ((Data?, HTTPResponse?, FFError?) -> ())?) {
+            override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
                 capturedRequest = request
                 capturedCompletion = completion
             }
@@ -77,7 +77,7 @@ class AuthMethodsServiceSpec: QuickSpec {
                         mockAuthMethodDataDeserializer.toReturnAuthMethods = deserializedAuthMethods
 
                         validAuthMethodResponseData = "valid auth method data".data(using: String.Encoding.utf8)
-                        completion(validAuthMethodResponseData as Data?, HTTPResponseImpl(statusCode: 200), nil)
+                        completion(HTTPResponseImpl(body: validAuthMethodResponseData, statusCode: 200), nil)
                     }
 
                     it("passes the data to the deserializer") {
@@ -105,7 +105,7 @@ class AuthMethodsServiceSpec: QuickSpec {
                         mockAuthMethodDataDeserializer.toReturnDeserializationError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
 
                         invalidAuthMethodData = "valid auth method data".data(using: String.Encoding.utf8)
-                        completion(invalidAuthMethodData as Data?, HTTPResponseImpl(statusCode: 200), nil)
+                        completion(HTTPResponseImpl(body: invalidAuthMethodData, statusCode: 200), nil)
                     }
 
                     it("passes the data to the deserializer") {
@@ -133,7 +133,7 @@ class AuthMethodsServiceSpec: QuickSpec {
                             return
                         }
 
-                        completion(nil, HTTPResponseImpl(statusCode: 200), BasicError(details: "some error string"))
+                        completion(HTTPResponseImpl(body: nil, statusCode: 200), BasicError(details: "some error string"))
                     }
 
                     it("resolves the service's completion handler with nil for the auth method") {

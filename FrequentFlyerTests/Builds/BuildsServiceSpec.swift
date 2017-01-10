@@ -7,9 +7,9 @@ class BuildsServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
-            var capturedCompletion: ((Data?, HTTPResponse?, FFError?) -> ())?
+            var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
 
-            override func doRequest(_ request: URLRequest, completion: ((Data?, HTTPResponse?, FFError?) -> ())?) {
+            override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
                 capturedRequest = request
                 capturedCompletion = completion
             }
@@ -80,7 +80,7 @@ class BuildsServiceSpec: QuickSpec {
                         mockBuildsDataDeserializer.toReturnBuilds = [buildOne, buildTwo]
 
                         let validBuildsData = "valid builds data".data(using: String.Encoding.utf8)
-                        completion(validBuildsData, HTTPResponseImpl(statusCode: 200), nil)
+                        completion(HTTPResponseImpl(body: validBuildsData, statusCode: 200), nil)
                     }
 
                     it("passes the data along to the deserializer") {
@@ -112,7 +112,7 @@ class BuildsServiceSpec: QuickSpec {
                         mockBuildsDataDeserializer.toReturnError = DeserializationError(details: "error details", type: .invalidInputFormat)
 
                         let invalidBuildsData = "invalid builds data".data(using: String.Encoding.utf8)
-                        completion(invalidBuildsData, HTTPResponseImpl(statusCode: 200), nil)
+                        completion(HTTPResponseImpl(body: invalidBuildsData, statusCode: 200), nil)
                     }
 
                     it("passes the data along to the deserializer") {
@@ -136,7 +136,7 @@ class BuildsServiceSpec: QuickSpec {
                             return
                         }
 
-                        completion(nil, HTTPResponseImpl(statusCode: 500), BasicError(details: "error details"))
+                        completion(HTTPResponseImpl(body: nil, statusCode: 500), BasicError(details: "error details"))
                     }
 
                     it("calls the completion handler nil list of builds") {

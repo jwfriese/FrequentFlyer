@@ -14,7 +14,6 @@ class HTTPClientSpec: QuickSpec {
 
             describe("Performing a request") {
                 context("When the request returns with a success response") {
-                    var capturedData: Data?
                     var capturedResponse: HTTPResponse?
                     var capturedError: FFError?
 
@@ -23,8 +22,7 @@ class HTTPClientSpec: QuickSpec {
                         capturedError = BasicError(details: "test error")
 
                         let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8181/successyeah")! as URL)
-                        subject.doRequest(request as URLRequest) { data, response, error in
-                            capturedData = data
+                        subject.doRequest(request as URLRequest) { response, error in
                             capturedResponse = response
                             capturedError = error
                         }
@@ -32,11 +30,8 @@ class HTTPClientSpec: QuickSpec {
 
                     it("calls the completion handler with the response data") {
                         let testServerData = "{\"success\" : \"yeah\" }".data(using: String.Encoding.utf8)
-                        expect(capturedData).toEventually(equal(testServerData))
-                    }
-
-                    it("calls the completion handler with the response") {
                         expect(capturedResponse).toEventuallyNot(beNil())
+                        expect(capturedResponse?.body).toEventually(equal(testServerData))
                         expect(capturedResponse?.statusCode).toEventually(equal(200))
                     }
 
@@ -46,57 +41,41 @@ class HTTPClientSpec: QuickSpec {
                 }
 
                 context("When the request returns with an error-type response") {
-                    var capturedData: Data?
                     var capturedResponse: HTTPResponse?
                     var capturedError: FFError?
 
                     beforeEach {
-                        // Set capturedData to some garbage value up front to ensure that the handler gets passed nil
-                        capturedData = Data()
-
                         let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8181/errorplease")! as URL)
-                        subject.doRequest(request as URLRequest) { data, response, error in
-                            capturedData = data
+                        subject.doRequest(request as URLRequest) { response, error in
                             capturedResponse = response
                             capturedError = error
                         }
                     }
 
-                    it("calls the completion handler with nil response data") {
-                        expect(capturedData).toEventually(beNil())
-                    }
-
                     it("calls the completion handler with the response") {
                         expect(capturedResponse).toEventuallyNot(beNil())
+                        expect(capturedResponse?.body).toEventually(equal("{\"error\" : \"here it is\"}".data(using: String.Encoding.utf8)))
                         expect(capturedResponse?.statusCode).toEventually(equal(500))
                     }
 
-                    it("calls the completion handler with an error that has the data as the details") {
-                        expect(capturedError).toEventuallyNot(beNil())
-                        expect(capturedError?.details).toEventually(equal("{\"error\" : \"here it is\"}"))
+                    it("calls the completion handler with a nil error") {
+                        expect(capturedError).toEventually(beNil())
                     }
                 }
 
                 context("When the request completely bombs") {
-                    var capturedData: Data?
                     var capturedResponse: HTTPResponse?
                     var capturedError: FFError?
 
                     beforeEach {
                         // Set capturedData and capturedResponse to some garbage value up front to ensure that the handler gets passed nil
-                        capturedData = Data()
-                        capturedResponse = HTTPResponseImpl(statusCode: 9001)
+                        capturedResponse = HTTPResponseImpl(body: Data(), statusCode: 9001)
 
                         let request = NSMutableURLRequest(url: NSURL(string: "http://")! as URL)
-                        subject.doRequest(request as URLRequest) { data, response, error in
-                            capturedData = data
+                        subject.doRequest(request as URLRequest) { response, error in
                             capturedResponse = response
                             capturedError = error
                         }
-                    }
-
-                    it("calls the completion handler with nil response data") {
-                        expect(capturedData).toEventually(beNil())
                     }
 
                     it("calls the completion handler with a nil response") {

@@ -9,19 +9,19 @@ class HTTPResponseImplSpec: QuickSpec {
             describe("isSuccess") {
                 context("When 200-type status code") {
                     it("returns true") {
-                        expect(HTTPResponseImpl(statusCode: 200).isSuccess).to(beTrue())
-                        expect(HTTPResponseImpl(statusCode: 201).isSuccess).to(beTrue())
-                        expect(HTTPResponseImpl(statusCode: 210).isSuccess).to(beTrue())
-                        expect(HTTPResponseImpl(statusCode: 299).isSuccess).to(beTrue())
+                        expect(HTTPResponseImpl(body: nil, statusCode: 200).isSuccess).to(beTrue())
+                        expect(HTTPResponseImpl(body: nil, statusCode: 201).isSuccess).to(beTrue())
+                        expect(HTTPResponseImpl(body: nil, statusCode: 210).isSuccess).to(beTrue())
+                        expect(HTTPResponseImpl(body: nil, statusCode: 299).isSuccess).to(beTrue())
                     }
                 }
 
                 context("When any other status code") {
                     it("returns false") {
-                        expect(HTTPResponseImpl(statusCode: 100).isSuccess).to(beFalse())
-                        expect(HTTPResponseImpl(statusCode: 300).isSuccess).to(beFalse())
-                        expect(HTTPResponseImpl(statusCode: 400).isSuccess).to(beFalse())
-                        expect(HTTPResponseImpl(statusCode: 500).isSuccess).to(beFalse())
+                        expect(HTTPResponseImpl(body: nil, statusCode: 100).isSuccess).to(beFalse())
+                        expect(HTTPResponseImpl(body: nil, statusCode: 300).isSuccess).to(beFalse())
+                        expect(HTTPResponseImpl(body: nil, statusCode: 400).isSuccess).to(beFalse())
+                        expect(HTTPResponseImpl(body: nil, statusCode: 500).isSuccess).to(beFalse())
                     }
                 }
             }

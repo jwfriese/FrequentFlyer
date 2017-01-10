@@ -13,9 +13,9 @@ class BuildsService {
         request.addValue("Bearer \(target.token.value)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
 
-        httpClient.doRequest(request as URLRequest) { data, response, error in
+        httpClient.doRequest(request as URLRequest) { response, error in
             guard let completion = completion else { return }
-            guard let data = data else {
+            guard let data = response?.body else {
                 completion(nil, error)
                 return
             }

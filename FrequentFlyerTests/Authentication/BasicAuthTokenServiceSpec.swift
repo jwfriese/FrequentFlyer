@@ -7,9 +7,9 @@ class BasicAuthTokenServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
-            var capturedCompletion: ((Data?, HTTPResponse?, FFError?) -> ())?
+            var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
 
-            override func doRequest(_ request: URLRequest, completion: ((Data?, HTTPResponse?, FFError?) -> ())?) {
+            override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
                 capturedRequest = request
                 capturedCompletion = completion
             }
@@ -97,7 +97,7 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                         mockTokenDataDeserializer.toReturnToken = deserializedToken
 
                         validTokenResponseData = "valid token data".data(using: String.Encoding.utf8)
-                        completion(validTokenResponseData, HTTPResponseImpl(statusCode: 200), nil)
+                        completion(HTTPResponseImpl(body: validTokenResponseData, statusCode: 200), nil)
                     }
 
                     it("passes the data to the deserializer") {
@@ -120,7 +120,7 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                             return
                         }
 
-                        completion(nil, HTTPResponseImpl(statusCode: 200), BasicError(details: "some error string"))
+                        completion(HTTPResponseImpl(body: nil, statusCode: 200), BasicError(details: "some error string"))
                     }
 
                     it("resolves the service's completion handler with nil for the token") {
@@ -149,7 +149,7 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                         mockTokenDataDeserializer.toReturnDeserializationError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
 
                         invalidTokenDataResponse = "valid token data".data(using: String.Encoding.utf8)
-                        completion(invalidTokenDataResponse, HTTPResponseImpl(statusCode: 200), nil)
+                        completion(HTTPResponseImpl(body: invalidTokenDataResponse, statusCode: 200), nil)
                     }
 
                     it("passes the data to the deserializer") {

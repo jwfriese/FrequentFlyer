@@ -17,9 +17,9 @@ class BasicAuthTokenService {
 
         request.addValue("Basic \(base64EncodedAuthenticationDetails)", forHTTPHeaderField: "Authorization")
 
-        httpClient.doRequest(request as URLRequest) { data, response, error in
+        httpClient.doRequest(request as URLRequest) { response, error in
             guard let completion = completion else { return }
-            guard let data = data else {
+            guard let data = response?.body else {
                 completion(nil, error)
                 return
             }

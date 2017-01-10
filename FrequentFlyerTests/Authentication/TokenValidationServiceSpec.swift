@@ -7,9 +7,9 @@ import Fleet
 class TokenValidationServiceSpec: QuickSpec {
     class MockHTTPClient: HTTPClient {
         var capturedRequest: URLRequest?
-        var capturedCompletion: ((Data?, HTTPResponse?, FFError?) -> ())?
+        var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
 
-        override func doRequest(_ request: URLRequest, completion: ((Data?, HTTPResponse?, FFError?) -> ())?) {
+        override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
             capturedRequest = request
             capturedCompletion = completion
         }
@@ -62,7 +62,7 @@ class TokenValidationServiceSpec: QuickSpec {
                         capturedError = BasicError(details: "error")
 
                         let doesNotMatterData = Data()
-                        completion(doesNotMatterData, HTTPResponseImpl(statusCode: 200), nil)
+                        completion(HTTPResponseImpl(body: doesNotMatterData, statusCode: 200), nil)
                     }
 
                     it("resolves the original input completion block with no error") {
@@ -77,7 +77,7 @@ class TokenValidationServiceSpec: QuickSpec {
                             return
                         }
 
-                        completion(nil, HTTPResponseImpl(statusCode: 401), BasicError(details: "turtle error"))
+                        completion(HTTPResponseImpl(body: nil, statusCode: 401), BasicError(details: "turtle error"))
                     }
 
                     it("resolves the original input completion block with the error from the network call") {
