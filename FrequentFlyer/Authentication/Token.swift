@@ -1,5 +1,15 @@
 class Token {
-    fileprivate(set) var value: String
+    let value: String
+
+    var authValue: String {
+        get {
+            if value.hasPrefix("Bearer ") {
+                return value
+            }
+
+            return "Bearer \(value)"
+        }
+    }
 
     init(value: String) {
         self.value = value

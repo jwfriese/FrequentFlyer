@@ -49,7 +49,7 @@ class TeamPipelinesServiceSpec: QuickSpec {
                     let target = Target(name: "turtle target name",
                         api: "https://api.com",
                         teamName: "turtle_team_name",
-                        token: Token(value: "turtle auth token")
+                        token: Token(value: "Bearer turtle auth token")
                     )
                     subject.getPipelines(forTarget: target) { pipelines, error in
                         resultPipelines = pipelines

@@ -32,7 +32,6 @@ class TokenValidationServiceSpec: QuickSpec {
 
                 beforeEach {
                     let token = Token(value: "valid turtle token")
-
                     subject.validate(token: token, forConcourse: "turtle_concourse.com") { error in
                         capturedError = error
                     }

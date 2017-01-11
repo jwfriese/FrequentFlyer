@@ -12,7 +12,7 @@ class TokenValidationService {
 
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(token.value)", forHTTPHeaderField: "Authorization")
+        request.setValue(token.authValue, forHTTPHeaderField: "Authorization")
 
         httpClient.doRequest(request as URLRequest) { response, error in
             if response?.statusCode == 401 {

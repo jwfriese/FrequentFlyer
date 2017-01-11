@@ -10,7 +10,7 @@ class TriggerBuildService {
         let request = NSMutableURLRequest(url: url!)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields?["Content-Type"] = "application/json"
-        request.allHTTPHeaderFields?["Authorization"] = "Bearer \(target.token.value)"
+        request.allHTTPHeaderFields?["Authorization"] = target.token.authValue
 
         httpClient.doRequest(request as URLRequest) { response, error in
             guard let completion = completion else { return }
@@ -23,5 +23,4 @@ class TriggerBuildService {
             completion(deserializationResult.build, deserializationResult.error)
         }
     }
-
 }

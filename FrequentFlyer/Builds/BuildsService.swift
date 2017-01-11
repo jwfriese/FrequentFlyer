@@ -8,12 +8,12 @@ class BuildsService {
         let urlString = "\(target.api)/api/v1/builds"
         guard let url = URL(string: urlString) else { return }
 
-        let request = NSMutableURLRequest(url: url)
+        var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("Bearer \(target.token.value)", forHTTPHeaderField: "Authorization")
+        request.addValue(target.token.authValue, forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
 
-        httpClient.doRequest(request as URLRequest) { response, error in
+        httpClient.doRequest(request) { response, error in
             guard let completion = completion else { return }
             guard let data = response?.body else {
                 completion(nil, error)
