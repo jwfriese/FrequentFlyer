@@ -65,3 +65,6 @@ fastlane/screenshots
 
 # Test executable
 test
+
+# Trim executable
+trim
