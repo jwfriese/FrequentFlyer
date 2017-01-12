@@ -65,6 +65,8 @@ class GithubAuthViewController: UIViewController {
         guard let concourseURLString = concourseURLString else { return }
         guard let tokenString = tokenTextField?.text else { return }
 
+        submitButton?.isEnabled = false
+
         httpSessionUtils.deleteCookies()
 
         tokenValidationService.validate(token: Token(value: tokenString), forConcourse: concourseURLString) { error in
@@ -76,6 +78,7 @@ class GithubAuthViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
                 DispatchQueue.main.async {
+                    self.submitButton?.isEnabled = true
                     self.present(alert, animated: true, completion: nil)
                 }
             } else {

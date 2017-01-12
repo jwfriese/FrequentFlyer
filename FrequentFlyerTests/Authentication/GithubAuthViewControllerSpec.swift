@@ -181,6 +181,10 @@ class GithubAuthViewControllerSpec: QuickSpec {
                         subject.submitButton?.tap()
                     }
 
+                    it("disables the 'Submit' button") {
+                        expect(subject.submitButton?.isEnabled).to(beFalse())
+                    }
+
                     it("uses the token verification service to check that the token is valid") {
                         expect(mockTokenValidationService.capturedToken).to(equal(Token(value: "token of the Github Turtle")))
                         expect(mockTokenValidationService.capturedConcourseURLString).to(equal("turtle_concourse.com"))
@@ -275,6 +279,10 @@ class GithubAuthViewControllerSpec: QuickSpec {
                             let alert = screen?.topmostViewController as? UIAlertController
                             expect(alert?.title).toEventually(equal("Authorization Failed"))
                             expect(alert?.message).toEventually(equal("validation error"))
+                        }
+
+                        it("re-enables the 'Submit' button") {
+                            expect(subject.submitButton?.isEnabled).toEventually(beTrue())
                         }
                     }
                 }
