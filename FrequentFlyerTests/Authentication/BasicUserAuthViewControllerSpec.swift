@@ -134,7 +134,12 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                         expect(mockBasicAuthTokenService.capturedPassword).to(equal("turtle password"))
                     }
 
+                    it("disables the 'Submit' button") {
+                        expect(subject.submitButton!.isEnabled).to(beFalse())
+                    }
+
                     describe("When the BasicAuthTokenService resolves with a token") {
+
                         describe("When the 'Stay Logged In' switch is off") {
                             beforeEach {
                                 subject.stayLoggedInSwitch?.isOn = false
@@ -168,6 +173,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                                 expect(mockTeamPipelinesViewController.keychainWrapper).toEventuallyNot(beNil())
                             }
                         }
+
 
                         describe("When the 'Stay Logged In' switch is on") {
                             beforeEach {
@@ -221,6 +227,10 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                             let alert = screen?.topmostViewController as? UIAlertController
                             expect(alert?.title).toEventually(equal("Authorization Failed"))
                             expect(alert?.message).toEventually(equal("turtle authentication error"))
+                        }
+
+                        it("re-enables the submit button") {
+                            expect(subject.submitButton?.isEnabled).toEventually(beTrue())
                         }
                     }
                 }

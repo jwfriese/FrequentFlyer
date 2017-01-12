@@ -45,6 +45,8 @@ class BasicUserAuthViewController: UIViewController {
         guard let password = passwordTextField?.text else { return }
         guard let concourseURL = concourseURLString else { return }
 
+        submitButton?.isEnabled = false
+
         basicAuthTokenService.getToken(forTeamWithName: "main", concourseURL: concourseURL, username: username, password: password) { token, error in
             if let error = error {
                 let alert = UIAlertController(title: "Authorization Failed",
@@ -54,6 +56,7 @@ class BasicUserAuthViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
                 DispatchQueue.main.async {
+                    self.submitButton?.isEnabled = true
                     self.present(alert, animated: true, completion: nil)
                 }
             } else if let token = token {
