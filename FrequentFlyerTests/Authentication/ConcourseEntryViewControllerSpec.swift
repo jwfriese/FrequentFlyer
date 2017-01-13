@@ -2,18 +2,19 @@ import XCTest
 import Quick
 import Nimble
 import Fleet
+import RxSwift
 @testable import FrequentFlyer
 
 class ConcourseEntryViewControllerSpec: QuickSpec {
     class MockAuthMethodsService: AuthMethodsService {
         var capturedTeamName: String?
         var capturedConcourseURL: String?
-        var capturedCompletion: (([AuthMethod]?, FFError?) -> ())?
+        var authMethodsSubject = PublishSubject<AuthMethod>()
 
-        override func getMethods(forTeamName teamName: String, concourseURL: String, completion: (([AuthMethod]?, FFError?) -> ())?) {
+        override func getMethods(forTeamName teamName: String, concourseURL: String) -> Observable<AuthMethod> {
             capturedTeamName = teamName
             capturedConcourseURL = concourseURL
-            capturedCompletion = completion
+            return authMethodsSubject
         }
     }
 
@@ -126,9 +127,20 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                 }
 
                 describe("Entering a Concourse URL and hitting 'Submit'") {
+                    var authMethodStreamResult: StreamResult<AuthMethod>!
+                    
                     beforeEach {
+                        authMethodStreamResult = StreamResult(mockAuthMethodsService.authMethodsSubject)
+
                         try! subject.concourseURLEntryField?.enter(text: "concourse URL")
+                        
                         subject.submitButton?.tap()
+                    }
+                    
+                    func returnAuthMethods(_ methods: [AuthMethod]) {
+                        let methodSubject = mockAuthMethodsService.authMethodsSubject
+                        for method in methods { methodSubject.onNext(method) }
+                        methodSubject.onCompleted()
                     }
 
                     it("makes a call to the auth methods service using the input team and Concourse URL") {
@@ -138,14 +150,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                     describe("When the auth methods service call resolves with some auth methods and no error") {
                         beforeEach {
-                            guard let completion = mockAuthMethodsService.capturedCompletion else {
-                                fail("Failed to pass completion handler to AuthMethodsService")
-                                return
-                            }
-
                             let basicAuthMethod = AuthMethod(type: .basic, url: "basic-auth.com")
                             let githubAuthMethod = AuthMethod(type: .github, url: "github-auth.com")
-                            completion([basicAuthMethod, githubAuthMethod], nil)
+                            returnAuthMethods([basicAuthMethod, githubAuthMethod])
                         }
 
                         it("presents an AuthMethodListViewController") {
@@ -153,7 +160,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         }
 
                         it("sets the fetched auth methods on the view controller") {
-                            expect(mockAuthMethodListViewController.authMethods).toEventually(equal([
+                            expect(authMethodStreamResult.elements).toEventually(equal([
                                 AuthMethod(type: .basic, url: "basic-auth.com"),
                                 AuthMethod(type: .github, url: "github-auth.com")
                                 ]))
@@ -166,12 +173,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                     describe("When the auth methods service call resolves with no auth methods and no error") {
                         beforeEach {
-                            guard let completion = mockAuthMethodsService.capturedCompletion else {
-                                fail("Failed to pass completion handler to AuthMethodsService")
-                                return
-                            }
-
-                            completion([], nil)
+                            returnAuthMethods([])
                         }
 
                         it("makes a call to the token auth service using the input team, Concourse URL, and no other credentials") {

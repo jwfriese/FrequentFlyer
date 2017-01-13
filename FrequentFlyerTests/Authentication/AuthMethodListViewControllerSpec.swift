@@ -2,6 +2,7 @@ import XCTest
 import Quick
 import Nimble
 import Fleet
+import RxSwift
 @testable import FrequentFlyer
 
 class AuthMethodListViewControllerSpec: QuickSpec {
@@ -21,10 +22,9 @@ class AuthMethodListViewControllerSpec: QuickSpec {
 
                 subject = storyboard.instantiateViewController(withIdentifier: AuthMethodListViewController.storyboardIdentifier) as? AuthMethodListViewController
 
-                subject.authMethods = [
-                    AuthMethod(type: .basic, url: "basic-auth.com"),
-                    AuthMethod(type: .github, url: "github-auth.com")
-                ]
+                subject.authMethodStream = Observable.from(
+                    [AuthMethod(type: .basic, url: "basic-auth.com"),
+                    AuthMethod(type: .github, url: "github-auth.com")])
                 subject.concourseURLString = "turtle concourse"
             }
 
@@ -38,21 +38,19 @@ class AuthMethodListViewControllerSpec: QuickSpec {
                     expect(subject.title).to(equal(""))
                 }
 
-                it("sets itself as the data source for its table view") {
-                    expect(subject.authMethodListTableView?.dataSource).to(beIdenticalTo(subject))
-                }
-
-                it("sets itself as the delegate for its table view") {
-                    expect(subject.authMethodListTableView?.delegate).to(beIdenticalTo(subject))
-                }
-
                 describe("Displaying auth methods") {
+                    var dataSource: UITableViewDataSource!
+                    
+                    beforeEach {
+                        dataSource = subject.authMethodListTableView.dataSource!
+                    }
+                    
                     it("adds a row to the table for each auth method") {
-                        expect(subject.tableView(subject.authMethodListTableView!, numberOfRowsInSection: 0)).to(equal(2))
+                        expect(subject.authMethodListTableView.dataSource?.tableView(subject.authMethodListTableView!, numberOfRowsInSection: 0)).to(equal(2))
                     }
 
                     it("creates a cell in each of the rows for each of the auth methods") {
-                        let cellOne = subject.tableView(subject.authMethodListTableView!, cellForRowAt: IndexPath(row: 0, section: 0))
+                        let cellOne = dataSource.tableView(subject.authMethodListTableView!, cellForRowAt: IndexPath(row: 0, section: 0))
                         expect(cellOne).toNot(beNil())
 
                         guard let cellOneLabel = cellOne.textLabel else {
@@ -61,7 +59,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
                         }
                         expect(cellOneLabel.text).to(equal("Basic"))
 
-                        let cellTwo = subject.tableView(subject.authMethodListTableView!, cellForRowAt: IndexPath(row: 1, section: 0))
+                        let cellTwo = dataSource.tableView(subject.authMethodListTableView!, cellForRowAt: IndexPath(row: 1, section: 0))
                         expect(cellTwo).toNot(beNil())
 
                         guard let cellTwoLabel = cellTwo.textLabel else {
@@ -73,7 +71,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
 
                     describe("Tapping a basic auth cell") {
                         beforeEach {
-                            subject.tableView(subject.authMethodListTableView!, didSelectRowAt: IndexPath(row: 0, section: 0))
+                            _ = subject.authMethodListTableView.selectRow(at: IndexPath(row: 0, section: 0))
                         }
 
                         it("presents a BasicUserAuthViewController") {
@@ -91,7 +89,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
 
                     describe("Tapping a Github auth cell") {
                         beforeEach {
-                            subject.tableView(subject.authMethodListTableView!, didSelectRowAt: IndexPath(row: 1, section: 0))
+                            _ = subject.authMethodListTableView.selectRow(at: IndexPath(row: 1, section: 0))
                         }
 
                         it("presents a GithubAuthViewController") {
