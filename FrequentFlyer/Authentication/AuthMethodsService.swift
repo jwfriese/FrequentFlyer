@@ -6,7 +6,7 @@ class AuthMethodsService {
     var authMethodsDataDeserializer = AuthMethodDataDeserializer()
     
     func getMethods(forTeamName teamName: String, concourseURL: String) -> Observable<AuthMethod> {
-        return Observable.create { observer in
+        let observable = Observable<AuthMethod>.create { observer in
             let urlString = "\(concourseURL)/api/v1/teams/\(teamName)/auth/methods"
             let url = URL(string: urlString)
             let request = NSMutableURLRequest(url: url!)
@@ -32,6 +32,8 @@ class AuthMethodsService {
             }
             
             return Disposables.create()
-        }
+            }.share().replayAll()
+        _ = observable.connect()
+        return observable
     }
 }

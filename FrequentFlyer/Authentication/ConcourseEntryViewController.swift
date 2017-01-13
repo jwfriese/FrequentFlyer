@@ -39,9 +39,9 @@ class ConcourseEntryViewController: UIViewController {
             }
             
             guard let concourseURLString = concourseURLEntryField?.text else { return }
-            guard let authMethods = sender as? ArrayWrapper<AuthMethod> else { return }
+            guard let authMethodStream = sender as? Observable<AuthMethod> else { return }
             
-            authMethodListViewController.authMethodStream = Observable.from(authMethods.array)
+            authMethodListViewController.authMethodStream = authMethodStream
             authMethodListViewController.concourseURLString = concourseURLString
         }
         else if segue.identifier == ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId {
@@ -67,8 +67,7 @@ class ConcourseEntryViewController: UIViewController {
             onNext: { authMethods in
                 guard authMethods.count > 0 else { self.handleAuthMethodsError(concourseURLString) ; return }
                 DispatchQueue.main.async {
-                    let wrappedAuthMethods = ArrayWrapper<AuthMethod>(array: authMethods)
-                    self.performSegue(withIdentifier: ConcourseEntryViewController.showAuthMethodListSegueId, sender: wrappedAuthMethods)
+                    self.performSegue(withIdentifier: ConcourseEntryViewController.showAuthMethodListSegueId, sender: self.authMethodStream)
                 }
             },
             onError: { _ in self.handleAuthMethodsError(concourseURLString) })
