@@ -6,41 +6,41 @@ class ConcourseEntryViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView?
     @IBOutlet weak var concourseURLEntryField: UITextField?
     @IBOutlet weak var submitButton: UIButton?
-    
+
     var authMethodsService = AuthMethodsService()
     var unauthenticatedTokenService = UnauthenticatedTokenService()
     var userTextInputPageOperator = UserTextInputPageOperator()
-    
+
     class var storyboardIdentifier: String { get { return "ConcourseEntry" } }
     class var showAuthMethodListSegueId: String { get { return "ShowAuthMethodList" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
-    
+
     var authMethodStream: Observable<AuthMethod>?
     var disposeBag = DisposeBag()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         title = ""
-        
+
         concourseURLEntryField?.autocorrectionType = .no
         concourseURLEntryField?.keyboardType = .URL
-        
+
         concourseURLEntryField?.delegate = self
         submitButton?.isEnabled = false
-        
+
         userTextInputPageOperator.delegate = self
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ConcourseEntryViewController.showAuthMethodListSegueId {
             guard let authMethodListViewController = segue.destination as? AuthMethodListViewController else {
                 return
             }
-            
+
             guard let concourseURLString = concourseURLEntryField?.text else { return }
             guard let authMethodStream = sender as? Observable<AuthMethod> else { return }
-            
+
             authMethodListViewController.authMethodStream = authMethodStream
             authMethodListViewController.concourseURLString = concourseURLString
         }
@@ -49,19 +49,19 @@ class ConcourseEntryViewController: UIViewController {
             guard let teamPipelinesViewController = segue.destination as? TeamPipelinesViewController else {
                 return
             }
-            
+
             teamPipelinesViewController.target = target
-            
+
             let teamPipelinesService = TeamPipelinesService()
             teamPipelinesService.httpClient = HTTPClient()
             teamPipelinesService.pipelineDataDeserializer = PipelineDataDeserializer()
             teamPipelinesViewController.teamPipelinesService = teamPipelinesService
         }
     }
-    
+
     @IBAction func submitButtonTapped() {
         guard let concourseURLString = concourseURLEntryField?.text else { return }
-        
+
         authMethodStream = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
         authMethodStream?.toArray().subscribe(
             onNext: { authMethods in
@@ -73,7 +73,7 @@ class ConcourseEntryViewController: UIViewController {
             onError: { _ in self.handleAuthMethodsError(concourseURLString) })
         .addDisposableTo(self.disposeBag)
     }
-    
+
     private func handleAuthMethodsError(_ concourseURLString: String) {
         unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main", concourseURL: concourseURLString) { token, error in
             guard let token = token else {
@@ -84,10 +84,10 @@ class ConcourseEntryViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.present(alert, animated: true, completion: nil)
                 }
-                
+
                 return
             }
-            
+
             let newTarget = Target(name: "target",
                                    api: concourseURLString,
                                    teamName: "main",
@@ -104,7 +104,7 @@ extension ConcourseEntryViewController: UITextFieldDelegate {
         submitButton?.isEnabled = concourseURLEntryField?.text != ""
         return true
     }
-    
+
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         submitButton?.isEnabled = false
         return true

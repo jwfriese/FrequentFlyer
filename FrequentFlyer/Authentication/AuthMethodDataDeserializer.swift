@@ -1,17 +1,20 @@
 import Foundation
+import RxSwift
 
 class AuthMethodDataDeserializer {
-    func deserialize(_ data: Data) -> (authMethods: [AuthMethod]?, error: DeserializationError?) {
+    func deserialize(_ data: Data) -> Observable<AuthMethod> {
         var authMethodsJSONObject: Any?
         do {
             authMethodsJSONObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
         } catch { }
 
+        let subject = ReplaySubject<AuthMethod>.createUnbounded()
+
         guard let authMethodsJSON = authMethodsJSONObject as? Array<NSDictionary> else {
-            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
+            subject.onError(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
+            return subject
         }
 
-        var authMethods = [AuthMethod]()
         for authMethodsDictionary in authMethodsJSON {
             guard let typeString = authMethodsDictionary["type"] as? String else { continue }
             guard let urlString = authMethodsDictionary["auth_url"] as? String else { continue }
@@ -23,9 +26,11 @@ class AuthMethodDataDeserializer {
                 type = .github
             }
 
-            authMethods.append(AuthMethod(type: type, url: urlString))
+            subject.onNext(AuthMethod(type: type, url: urlString))
         }
 
-        return (authMethods, nil)
+        subject.onCompleted()
+
+        return subject
     }
 }

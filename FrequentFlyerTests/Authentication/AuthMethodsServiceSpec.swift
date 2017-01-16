@@ -23,9 +23,18 @@ class AuthMethodsServiceSpec: QuickSpec {
             var toReturnAuthMethods: [AuthMethod]?
             var toReturnDeserializationError: DeserializationError?
 
-            override func deserialize(_ data: Data) -> (authMethods: [AuthMethod]?, error: DeserializationError?) {
+            override func deserialize(_ data: Data) -> Observable<AuthMethod> {
                 capturedData = data
-                return (toReturnAuthMethods, toReturnDeserializationError)
+                let subject = ReplaySubject<AuthMethod>.createUnbounded()
+                if let error = toReturnDeserializationError {
+                    subject.onError(error)
+                } else {
+                    if let authMethods = toReturnAuthMethods {
+                        authMethods.forEach { subject.onNext($0) }
+                    }
+                    subject.onCompleted()
+                }
+                return subject
             }
         }
 
@@ -50,7 +59,7 @@ class AuthMethodsServiceSpec: QuickSpec {
                 beforeEach {
                     let methodStream = subject.getMethods(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com")
                     methodStreamResult = StreamResult(methodStream)
-                    
+
                 }
 
                 it("asks the HTTPClient to get the team's auth methods") {
@@ -118,6 +127,10 @@ class AuthMethodsServiceSpec: QuickSpec {
                         }
 
                         completion(HTTPResponseImpl(body: nil, statusCode: 200), BasicError(details: "some error string"))
+                    }
+
+                    it("emits no methods") {
+                        expect(methodStreamResult.elements).to(haveCount(0))
                     }
 
                     it("emits the error that the client returned") {

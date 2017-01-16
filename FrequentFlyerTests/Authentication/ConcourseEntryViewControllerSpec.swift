@@ -128,15 +128,15 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                 describe("Entering a Concourse URL and hitting 'Submit'") {
                     var authMethodStreamResult: StreamResult<AuthMethod>!
-                    
+
                     beforeEach {
                         authMethodStreamResult = StreamResult(mockAuthMethodsService.authMethodsSubject)
 
                         try! subject.concourseURLEntryField?.enter(text: "concourse URL")
-                        
+
                         subject.submitButton?.tap()
                     }
-                    
+
                     func returnAuthMethods(_ methods: [AuthMethod]) {
                         let methodSubject = mockAuthMethodsService.authMethodsSubject
                         for method in methods { methodSubject.onNext(method) }

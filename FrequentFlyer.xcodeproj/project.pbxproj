@@ -18,7 +18,6 @@
 		7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */; };
 		7B0E709B1D8F0BA400686532 /* TokenValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */; };
 		7B0E709D1D8F0BBC00686532 /* TokenValidationServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */; };
-		7B2D72481E27E8E40046EDFC /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2D72471E27E8E40046EDFC /* RxSwift.framework */; };
 		7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */; };
 		7B2EAE3C1D85EE2400A91234 /* TriggerBuildServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */; };
 		7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */; };
@@ -115,6 +114,7 @@
 		AE96536E1D807F3C00EDF682 /* SwiftCoreExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */; };
 		AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */; };
 		AEA5D5161D7F2CEC00D76EBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */; };
+		AEAFAAE11E2D45C700ACD288 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2D72471E27E8E40046EDFC /* RxSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -249,7 +249,6 @@
 			files = (
 				7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */,
 				7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */,
-				7B2D72481E27E8E40046EDFC /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +260,7 @@
 				AE343E651D7F624B008251CA /* Nimble.framework in Frameworks */,
 				AE343E6E1D7F66D8008251CA /* Fleet.framework in Frameworks */,
 				AE96536E1D807F3C00EDF682 /* SwiftCoreExtensions.framework in Frameworks */,
+				AEAFAAE11E2D45C700ACD288 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,7 +739,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Locksmith.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/EventSource.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -758,6 +757,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Fleet.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftCoreExtensions.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (

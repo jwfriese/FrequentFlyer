@@ -40,11 +40,11 @@ class AuthMethodListViewControllerSpec: QuickSpec {
 
                 describe("Displaying auth methods") {
                     var dataSource: UITableViewDataSource!
-                    
+
                     beforeEach {
                         dataSource = subject.authMethodListTableView.dataSource!
                     }
-                    
+
                     it("adds a row to the table for each auth method") {
                         expect(subject.authMethodListTableView.dataSource?.tableView(subject.authMethodListTableView!, numberOfRowsInSection: 0)).to(equal(2))
                     }
