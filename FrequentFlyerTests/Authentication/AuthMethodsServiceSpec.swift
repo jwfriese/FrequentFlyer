@@ -57,8 +57,8 @@ class AuthMethodsServiceSpec: QuickSpec {
                 var methodStreamResult: StreamResult<AuthMethod>!
 
                 beforeEach {
-                    let methodStream = subject.getMethods(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com")
-                    methodStreamResult = StreamResult(methodStream)
+                    let method$ = subject.getMethods(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com")
+                    methodStreamResult = StreamResult(method$)
 
                 }
 

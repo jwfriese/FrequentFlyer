@@ -22,7 +22,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
 
                 subject = storyboard.instantiateViewController(withIdentifier: AuthMethodListViewController.storyboardIdentifier) as? AuthMethodListViewController
 
-                subject.authMethodStream = Observable.from(
+                subject.authMethod$ = Observable.from(
                     [AuthMethod(type: .basic, url: "basic-auth.com"),
                     AuthMethod(type: .github, url: "github-auth.com")])
                 subject.concourseURLString = "turtle concourse"

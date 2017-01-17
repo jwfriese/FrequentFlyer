@@ -4,7 +4,7 @@ import RxSwift
 class AuthMethodListViewController: UIViewController {
     @IBOutlet weak var authMethodListTableView: UITableView!
 
-    var authMethodStream: Observable<AuthMethod>!
+    var authMethod$: Observable<AuthMethod>!
     var concourseURLString: String?
 
     class var storyboardIdentifier: String { get { return "AuthMethodList" } }
@@ -16,10 +16,10 @@ class AuthMethodListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = ""
-
+        
         authMethodListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
 
-        authMethodStream.toArray()
+        authMethod$.toArray()
             .bindTo(authMethodListTableView.rx.items(cellIdentifier: "DefaultCell")) { (_, authMethod, cell) in
                 switch authMethod.type {
                 case .basic:

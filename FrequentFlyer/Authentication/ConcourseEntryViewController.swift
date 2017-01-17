@@ -15,7 +15,7 @@ class ConcourseEntryViewController: UIViewController {
     class var showAuthMethodListSegueId: String { get { return "ShowAuthMethodList" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
 
-    var authMethodStream: Observable<AuthMethod>?
+    var authMethod$: Observable<AuthMethod>?
     var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -39,9 +39,9 @@ class ConcourseEntryViewController: UIViewController {
             }
 
             guard let concourseURLString = concourseURLEntryField?.text else { return }
-            guard let authMethodStream = sender as? Observable<AuthMethod> else { return }
+            guard let authMethod$ = sender as? Observable<AuthMethod> else { return }
 
-            authMethodListViewController.authMethodStream = authMethodStream
+            authMethodListViewController.authMethod$ = authMethod$
             authMethodListViewController.concourseURLString = concourseURLString
         }
         else if segue.identifier == ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId {
@@ -62,12 +62,12 @@ class ConcourseEntryViewController: UIViewController {
     @IBAction func submitButtonTapped() {
         guard let concourseURLString = concourseURLEntryField?.text else { return }
 
-        authMethodStream = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
-        authMethodStream?.toArray().subscribe(
+        authMethod$ = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
+        authMethod$?.toArray().subscribe(
             onNext: { authMethods in
                 guard authMethods.count > 0 else { self.handleAuthMethodsError(concourseURLString) ; return }
                 DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: ConcourseEntryViewController.showAuthMethodListSegueId, sender: self.authMethodStream)
+                    self.performSegue(withIdentifier: ConcourseEntryViewController.showAuthMethodListSegueId, sender: self.authMethod$)
                 }
             },
             onError: { _ in self.handleAuthMethodsError(concourseURLString) })
