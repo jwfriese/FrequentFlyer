@@ -104,6 +104,7 @@
 		7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */; };
 		7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2241D8C29770054D13B /* FactoryError.swift */; };
 		7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFBA6941E0754DB00B71891 /* EventSource.framework */; };
+		AE0566FF1E2819FD00D43EDC /* StreamResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0566FE1E2819FD00D43EDC /* StreamResult.swift */; };
 		AE343E3C1D7F4FB8008251CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */; };
 		AE343E3D1D7F4FB8008251CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3B1D7F4FB8008251CA /* Main.storyboard */; };
 		AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE343E411D7F5143008251CA /* AppDelegateSpec.swift */; };
@@ -113,6 +114,8 @@
 		AE96536E1D807F3C00EDF682 /* SwiftCoreExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */; };
 		AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */; };
 		AEA5D5161D7F2CEC00D76EBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */; };
+		AEAFAAE71E2ECC3700ACD288 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2D72471E27E8E40046EDFC /* RxSwift.framework */; };
+		AEAFAAE81E2ECC5000ACD288 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAFAAE41E2ECB7600ACD288 /* RxCocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +140,7 @@
 		7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAuthViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidationService.swift; sourceTree = "<group>"; };
 		7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidationServiceSpec.swift; sourceTree = "<group>"; };
+		7B2D72471E27E8E40046EDFC /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildService.swift; sourceTree = "<group>"; };
 		7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerBuildServiceSpec.swift; sourceTree = "<group>"; };
 		7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDataDeserializer.swift; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 		7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactorySpec.swift; sourceTree = "<group>"; };
 		7BEDE2241D8C29770054D13B /* FactoryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryError.swift; sourceTree = "<group>"; };
 		7BFBA6941E0754DB00B71891 /* EventSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventSource.framework; path = Carthage/Build/iOS/EventSource.framework; sourceTree = "<group>"; };
+		AE0566FE1E2819FD00D43EDC /* StreamResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamResult.swift; sourceTree = "<group>"; };
 		AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE343E3B1D7F4FB8008251CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		AE343E411D7F5143008251CA /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
@@ -236,6 +241,8 @@
 		AEA5D51A1D7F2CEC00D76EBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEA5D51F1D7F2CEC00D76EBA /* FrequentFlyerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FrequentFlyerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA5D5251D7F2CEC00D76EBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEAFAAE21E2ECB6400ACD288 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
+		AEAFAAE41E2ECB7600ACD288 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,8 +250,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */,
 				7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */,
+				7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */,
+				AEAFAAE71E2ECC3700ACD288 /* RxSwift.framework in Frameworks */,
+				AEAFAAE81E2ECC5000ACD288 /* RxCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,9 +542,20 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		AE0566FD1E2819AC00D43EDC /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				AE0566FE1E2819FD00D43EDC /* StreamResult.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AEAFAAE41E2ECB7600ACD288 /* RxCocoa.framework */,
+				AEAFAAE21E2ECB6400ACD288 /* RxTest.framework */,
+				7B2D72471E27E8E40046EDFC /* RxSwift.framework */,
 				7BFBA6941E0754DB00B71891 /* EventSource.framework */,
 				7BEDE1FD1D8986C40054D13B /* Locksmith.framework */,
 				AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */,
@@ -593,6 +613,7 @@
 		AEA5D5221D7F2CEC00D76EBA /* FrequentFlyerTests */ = {
 			isa = PBXGroup;
 			children = (
+				AE0566FD1E2819AC00D43EDC /* Support */,
 				AEA5D5251D7F2CEC00D76EBA /* Info.plist */,
 				AE343E411D7F5143008251CA /* AppDelegateSpec.swift */,
 				7BCAEFE91D901AA000BC817D /* TestAppDelegate.swift */,
@@ -724,6 +745,8 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Locksmith.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/EventSource.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -835,6 +858,7 @@
 				7BA032531D84401400F20E23 /* BuildsServiceSpec.swift in Sources */,
 				7BA032451D84400400F20E23 /* UnauthenticatedTokenServiceSpec.swift in Sources */,
 				7B737BCD1E075BC2007FC4E8 /* LogsStylingParserSpec.swift in Sources */,
+				AE0566FF1E2819FD00D43EDC /* StreamResult.swift in Sources */,
 				7BA0325A1D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift in Sources */,
 				7BA032431D84400400F20E23 /* TokenSpec.swift in Sources */,
 				7BA032631D84401E00F20E23 /* TargetSpec.swift in Sources */,

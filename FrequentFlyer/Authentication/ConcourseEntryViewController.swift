@@ -1,4 +1,6 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ConcourseEntryViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView?
@@ -12,6 +14,9 @@ class ConcourseEntryViewController: UIViewController {
     class var storyboardIdentifier: String { get { return "ConcourseEntry" } }
     class var showAuthMethodListSegueId: String { get { return "ShowAuthMethodList" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
+
+    var authMethod$: Observable<AuthMethod>?
+    var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +39,9 @@ class ConcourseEntryViewController: UIViewController {
             }
 
             guard let concourseURLString = concourseURLEntryField?.text else { return }
-            guard let authMethodWrapper = sender as? ArrayWrapper<AuthMethod> else { return }
+            guard let authMethod$ = sender as? Observable<AuthMethod> else { return }
 
-            authMethodListViewController.authMethods = authMethodWrapper.array
+            authMethodListViewController.authMethod$ = authMethod$
             authMethodListViewController.concourseURLString = concourseURLString
         }
         else if segue.identifier == ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId {
@@ -57,34 +62,40 @@ class ConcourseEntryViewController: UIViewController {
     @IBAction func submitButtonTapped() {
         guard let concourseURLString = concourseURLEntryField?.text else { return }
 
-        authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString) { authMethods, error in
-            if authMethods == nil || authMethods!.count == 0 {
-                self.unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main", concourseURL: concourseURLString) { token, error in
-                    guard let token = token else {
-                        let alert = UIAlertController(title: "Authorization Failed",
-                                                      message: error?.details,
-                                                      preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        DispatchQueue.main.async {
-                            self.present(alert, animated: true, completion: nil)
-                        }
-
-                        return
-                    }
-
-                    let newTarget = Target(name: "target",
-                                           api: concourseURLString,
-                                           teamName: "main",
-                                           token: token)
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
-                    }
-                }
-            } else {
+        authMethod$ = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
+        authMethod$?.toArray().subscribe(
+            onNext: { authMethods in
+                guard authMethods.count > 0 else { self.handleAuthMethodsError(concourseURLString) ; return }
                 DispatchQueue.main.async {
-                    let wrappedAuthMethods = ArrayWrapper<AuthMethod>(array: authMethods!)
-                    self.performSegue(withIdentifier: ConcourseEntryViewController.showAuthMethodListSegueId, sender: wrappedAuthMethods)
+                    self.performSegue(withIdentifier: ConcourseEntryViewController.showAuthMethodListSegueId, sender: self.authMethod$)
                 }
+            },
+            onError: { _ in
+                self.handleAuthMethodsError(concourseURLString)
+        })
+        .addDisposableTo(self.disposeBag)
+    }
+
+    private func handleAuthMethodsError(_ concourseURLString: String) {
+        unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main", concourseURL: concourseURLString) { token, error in
+            guard let token = token else {
+                let alert = UIAlertController(title: "Authorization Failed",
+                                              message: error?.details,
+                                              preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
+
+                return
+            }
+
+            let newTarget = Target(name: "target",
+                                   api: concourseURLString,
+                                   teamName: "main",
+                                   token: token)
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
             }
         }
     }
