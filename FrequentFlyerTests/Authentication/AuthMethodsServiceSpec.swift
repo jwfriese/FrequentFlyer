@@ -103,6 +103,10 @@ class AuthMethodsServiceSpec: QuickSpec {
                         expect(methodStreamResult.elements).to(equal(deserializedAuthMethods))
                     }
 
+                    it("completes the stream") {
+                        expect(methodStreamResult.completed).to(beTrue())
+                    }
+
                 }
 
                 describe("When the request resolves with a success response and deserialization fails") {
