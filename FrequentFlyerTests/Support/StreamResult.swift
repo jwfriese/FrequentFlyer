@@ -5,7 +5,7 @@ class StreamResult<T> {
     var completed: Bool = false
     var error: Error?
 
-    private let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
 
     init(_ stream: Observable<T>) {
         stream

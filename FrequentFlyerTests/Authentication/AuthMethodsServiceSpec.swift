@@ -77,6 +77,7 @@ class AuthMethodsServiceSpec: QuickSpec {
                 }
 
                 it("does not ask the HTTP client a second time when a second subscribe occurs") {
+                    methodStreamResult.disposeBag = DisposeBag()
                     _ = method$.subscribe()
 
                     expect(mockHTTPClient.callCount).to(equal(1))
