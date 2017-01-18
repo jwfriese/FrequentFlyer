@@ -11,10 +11,12 @@ class AuthMethodsServiceSpec: QuickSpec {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
             var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
+            var callCount = 0
 
             override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
                 capturedRequest = request
                 capturedCompletion = completion
+                callCount += 1
             }
         }
 
@@ -54,10 +56,11 @@ class AuthMethodsServiceSpec: QuickSpec {
             }
 
             describe("Fetching auth methods for a target") {
+                var method$: Observable<AuthMethod>!
                 var methodStreamResult: StreamResult<AuthMethod>!
 
                 beforeEach {
-                    let method$ = subject.getMethods(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com")
+                    method$ = subject.getMethods(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com")
                     methodStreamResult = StreamResult(method$)
 
                 }
@@ -71,6 +74,12 @@ class AuthMethodsServiceSpec: QuickSpec {
                     expect(request.allHTTPHeaderFields?["Content-Type"]).to(equal("application/json"))
                     expect(request.httpMethod).to(equal("GET"))
                     expect(request.url?.absoluteString).to(equal("https://concourse.com/api/v1/teams/turtle_team_name/auth/methods"))
+                }
+
+                it("does not ask the HTTP client a second time when a second subscribe occurs") {
+                    _ = method$.subscribe()
+
+                    expect(mockHTTPClient.callCount).to(equal(1))
                 }
 
                 describe("When the request resolves with a success response and auth method data") {
@@ -93,6 +102,7 @@ class AuthMethodsServiceSpec: QuickSpec {
                     it("emits the auth methods on the returned stream") {
                         expect(methodStreamResult.elements).to(equal(deserializedAuthMethods))
                     }
+
                 }
 
                 describe("When the request resolves with a success response and deserialization fails") {

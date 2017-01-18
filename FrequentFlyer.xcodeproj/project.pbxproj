@@ -114,7 +114,8 @@
 		AE96536E1D807F3C00EDF682 /* SwiftCoreExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE96536D1D807F3C00EDF682 /* SwiftCoreExtensions.framework */; };
 		AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5D50E1D7F2CEC00D76EBA /* AppDelegate.swift */; };
 		AEA5D5161D7F2CEC00D76EBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEA5D5151D7F2CEC00D76EBA /* Assets.xcassets */; };
-		AEAFAAE11E2D45C700ACD288 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2D72471E27E8E40046EDFC /* RxSwift.framework */; };
+		AEAFAAE71E2ECC3700ACD288 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2D72471E27E8E40046EDFC /* RxSwift.framework */; };
+		AEAFAAE81E2ECC5000ACD288 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAFAAE41E2ECB7600ACD288 /* RxCocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +241,8 @@
 		AEA5D51A1D7F2CEC00D76EBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEA5D51F1D7F2CEC00D76EBA /* FrequentFlyerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FrequentFlyerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA5D5251D7F2CEC00D76EBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEAFAAE21E2ECB6400ACD288 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
+		AEAFAAE41E2ECB7600ACD288 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +252,8 @@
 			files = (
 				7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */,
 				7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */,
+				AEAFAAE71E2ECC3700ACD288 /* RxSwift.framework in Frameworks */,
+				AEAFAAE81E2ECC5000ACD288 /* RxCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +265,6 @@
 				AE343E651D7F624B008251CA /* Nimble.framework in Frameworks */,
 				AE343E6E1D7F66D8008251CA /* Fleet.framework in Frameworks */,
 				AE96536E1D807F3C00EDF682 /* SwiftCoreExtensions.framework in Frameworks */,
-				AEAFAAE11E2D45C700ACD288 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +553,8 @@
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AEAFAAE41E2ECB7600ACD288 /* RxCocoa.framework */,
+				AEAFAAE21E2ECB6400ACD288 /* RxTest.framework */,
 				7B2D72471E27E8E40046EDFC /* RxSwift.framework */,
 				7BFBA6941E0754DB00B71891 /* EventSource.framework */,
 				7BEDE1FD1D8986C40054D13B /* Locksmith.framework */,
@@ -739,6 +745,8 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Locksmith.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/EventSource.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -757,8 +765,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Fleet.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftCoreExtensions.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (

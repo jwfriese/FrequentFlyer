@@ -16,7 +16,7 @@ class AuthMethodListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = ""
-        
+
         authMethodListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
 
         authMethod$.toArray()

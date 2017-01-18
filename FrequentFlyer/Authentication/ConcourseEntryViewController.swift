@@ -70,7 +70,9 @@ class ConcourseEntryViewController: UIViewController {
                     self.performSegue(withIdentifier: ConcourseEntryViewController.showAuthMethodListSegueId, sender: self.authMethod$)
                 }
             },
-            onError: { _ in self.handleAuthMethodsError(concourseURLString) })
+            onError: { _ in
+                self.handleAuthMethodsError(concourseURLString)
+        })
         .addDisposableTo(self.disposeBag)
     }
 
