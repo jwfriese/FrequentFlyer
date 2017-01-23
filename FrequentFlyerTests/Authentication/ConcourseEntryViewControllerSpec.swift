@@ -126,13 +126,57 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                     }
                 }
 
-                describe("Entering a Concourse URL and hitting 'Submit'") {
+                describe("Entering a Concourse URL without 'http://' or 'https://' and hitting 'Submit'") {
+                    beforeEach {
+                        try! subject.concourseURLEntryField?.enter(text: "concourse.com")
+
+                        subject.submitButton?.tap()
+                    }
+
+                    it("presents an error alert") {
+                        let alert: () -> UIAlertController? = {
+                            return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                        }
+
+                        expect(alert()).toEventually(beAnInstanceOf(UIAlertController.self))
+                        expect(alert()?.title).toEventually(equal("Error"))
+                        expect(alert()?.message).toEventually(equal("Please enter a URL that begins with either 'http://' or 'https://'"))
+                    }
+
+                    describe("Tapping the 'OK' button on the alert") {
+                        it("dismisses the alert") {
+                            var didPresentAlert = false
+                            var didTapOK = false
+                            let assertOKButtonClearsAlert: () -> Bool = {
+                                if didTapOK {
+                                    return Fleet.getApplicationScreen()?.topmostViewController === subject
+                                }
+
+                                if didPresentAlert {
+                                    let alert = Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                                    alert?.tapAlertAction(withTitle: "OK")
+                                    didTapOK = true
+                                }
+
+                                if let alert = Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController {
+                                    didPresentAlert = true
+                                }
+
+                                return false
+                            }
+
+                            expect(assertOKButtonClearsAlert()).toEventually(beTrue())
+                        }
+                    }
+                }
+
+                describe("Entering a valid Concourse URL and hitting 'Submit'") {
                     var authMethodStreamResult: StreamResult<AuthMethod>!
 
                     beforeEach {
                         authMethodStreamResult = StreamResult(mockAuthMethodsService.authMethodsSubject)
 
-                        try! subject.concourseURLEntryField?.enter(text: "concourse URL")
+                        try! subject.concourseURLEntryField?.enter(text: "https://concourse.com")
 
                         subject.submitButton?.tap()
                     }
@@ -145,7 +189,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                     it("makes a call to the auth methods service using the input team and Concourse URL") {
                         expect(mockAuthMethodsService.capturedTeamName).to(equal("main"))
-                        expect(mockAuthMethodsService.capturedConcourseURL).to(equal("concourse URL"))
+                        expect(mockAuthMethodsService.capturedConcourseURL).to(equal("https://concourse.com"))
                     }
 
                     describe("When the auth methods service call resolves with some auth methods and no error") {
@@ -167,7 +211,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         }
 
                         it("sets the entered Concourse URL on the view controller") {
-                            expect(mockAuthMethodListViewController.concourseURLString).toEventually(equal("concourse URL"))
+                            expect(mockAuthMethodListViewController.concourseURLString).toEventually(equal("https://concourse.com"))
                         }
                     }
 
@@ -178,7 +222,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                         it("makes a call to the token auth service using the input team, Concourse URL, and no other credentials") {
                             expect(mockUnauthenticatedTokenService.capturedTeamName).to(equal("main"))
-                            expect(mockUnauthenticatedTokenService.capturedConcourseURL).to(equal("concourse URL"))
+                            expect(mockUnauthenticatedTokenService.capturedConcourseURL).to(equal("https://concourse.com"))
                         }
 
                         describe("When the token auth service call resolves with a valid token") {
@@ -197,7 +241,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                             }
 
                             it("creates a new target from the entered information and view controller") {
-                                let expectedTarget = Target(name: "target", api: "concourse URL",
+                                let expectedTarget = Target(name: "target", api: "https://concourse.com",
                                                             teamName: "main", token: Token(value: "turtle auth token")
                                 )
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
