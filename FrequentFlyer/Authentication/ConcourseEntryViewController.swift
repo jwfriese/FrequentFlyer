@@ -62,18 +62,24 @@ class ConcourseEntryViewController: UIViewController {
     @IBAction func submitButtonTapped() {
         guard let concourseURLString = concourseURLEntryField?.text else { return }
 
-        authMethod$ = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
-        authMethod$?.toArray().subscribe(
-            onNext: { authMethods in
-                guard authMethods.count > 0 else { self.handleAuthMethodsError(concourseURLString) ; return }
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: ConcourseEntryViewController.showAuthMethodListSegueId, sender: self.authMethod$)
-                }
+        if concourseURLString.hasPrefix("http://") || concourseURLString.hasPrefix("https://") {
+            authMethod$ = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
+            authMethod$?.toArray().subscribe(
+                onNext: { authMethods in
+                    guard authMethods.count > 0 else { self.handleAuthMethodsError(concourseURLString) ; return }
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: ConcourseEntryViewController.showAuthMethodListSegueId, sender: self.authMethod$)
+                    }
             },
-            onError: { _ in
-                self.handleAuthMethodsError(concourseURLString)
-        })
-        .addDisposableTo(self.disposeBag)
+                onError: { _ in
+                    self.handleAuthMethodsError(concourseURLString)
+            })
+                .addDisposableTo(self.disposeBag)
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Please enter a URL that begins with either 'http://' or 'https://'", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
     }
 
     private func handleAuthMethodsError(_ concourseURLString: String) {
