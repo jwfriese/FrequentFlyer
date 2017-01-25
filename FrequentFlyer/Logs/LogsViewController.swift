@@ -2,6 +2,7 @@ import UIKit
 
 class LogsViewController: UIViewController {
     @IBOutlet weak var logOutputView: UITextView?
+    @IBOutlet weak var jumpToBottomButton: UIButton?
 
     var sseService = SSEService()
     var logsStylingParser = LogsStylingParser()
@@ -19,6 +20,11 @@ class LogsViewController: UIViewController {
 
         let connection = sseService.openSSEConnection(target: target, build: build)
         connection.onLogsReceived = onMessagesReceived
+    }
+
+    @IBAction func onJumpToBottomTapped() {
+        guard let length = logOutputView?.text.characters.count else { return }
+        logOutputView?.scrollRangeToVisible(NSMakeRange(0, length))
     }
 
     fileprivate var onMessagesReceived: (([LogEvent]) -> ()) {
