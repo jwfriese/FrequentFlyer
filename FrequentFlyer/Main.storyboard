@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3d8-pO-wnR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3d8-pO-wnR">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -173,7 +173,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9sk-ci-M5H" id="EI1-eI-GTd">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ana-Ur-vXd">
@@ -708,23 +708,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1ue-SR-ah7">
-                                <rect key="frame" x="24" y="68" width="327" height="591"/>
-                                <color key="backgroundColor" red="0.14901960780000001" green="0.2156862745" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="PPN-k3-I78">
+                                <rect key="frame" x="24" y="44" width="327" height="599"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFO-pb-tlH">
+                                        <rect key="frame" x="0.0" y="0.0" width="327" height="0.0"/>
+                                        <state key="normal" title="Jump to Bottom"/>
+                                        <connections>
+                                            <action selector="onJumpToBottomTapped" destination="c0A-BD-EeK" eventType="touchUpInside" id="IPT-YG-UMK"/>
+                                        </connections>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1ue-SR-ah7">
+                                        <rect key="frame" x="0.0" y="24" width="327" height="575"/>
+                                        <color key="backgroundColor" red="0.14901960780000001" green="0.2156862745" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1ue-SR-ah7" firstAttribute="leading" secondItem="GfO-Tr-Pg8" secondAttribute="leadingMargin" constant="8" id="3m3-Tg-o3A"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1ue-SR-ah7" secondAttribute="trailing" constant="8" id="fGh-I0-g5d"/>
-                            <constraint firstItem="1ue-SR-ah7" firstAttribute="top" secondItem="d3Q-Tk-kP1" secondAttribute="bottom" constant="48" id="o4M-2c-ESv"/>
-                            <constraint firstItem="oby-lF-ms6" firstAttribute="top" secondItem="1ue-SR-ah7" secondAttribute="bottom" constant="8" id="vrR-nr-y9P"/>
+                            <constraint firstAttribute="trailing" secondItem="PPN-k3-I78" secondAttribute="trailing" constant="24" id="1os-qA-lvJ"/>
+                            <constraint firstItem="PPN-k3-I78" firstAttribute="leading" secondItem="GfO-Tr-Pg8" secondAttribute="leading" constant="24" id="Val-Oo-hne"/>
+                            <constraint firstItem="PPN-k3-I78" firstAttribute="top" secondItem="d3Q-Tk-kP1" secondAttribute="bottom" constant="24" id="g30-sE-z9L"/>
+                            <constraint firstItem="oby-lF-ms6" firstAttribute="top" secondItem="PPN-k3-I78" secondAttribute="bottom" constant="24" id="wld-cj-4lz"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="jumpToBottomButton" destination="IFO-pb-tlH" id="g4M-ar-wha"/>
                         <outlet property="logOutputView" destination="1ue-SR-ah7" id="cl5-qk-EXu"/>
                     </connections>
                 </viewController>
@@ -734,7 +747,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vJK-D0-aXI"/>
         <segue reference="mf8-JP-wQv"/>
+        <segue reference="vJK-D0-aXI"/>
     </inferredMetricsTieBreakers>
 </document>
