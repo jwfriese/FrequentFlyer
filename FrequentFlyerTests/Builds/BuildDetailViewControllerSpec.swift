@@ -56,7 +56,7 @@ class BuildDetailViewControllerSpec: QuickSpec {
             describe("After the view has loaded") {
                 beforeEach {
                     let navigationController = UINavigationController(rootViewController: subject)
-                    Fleet.setApplicationWindowRootViewController(navigationController)
+                    Fleet.setAsAppWindowRoot(navigationController)
                 }
 
                 it("sets its title") {
@@ -77,7 +77,7 @@ class BuildDetailViewControllerSpec: QuickSpec {
 
                 describe("Tapping the 'Retrigger' button") {
                     beforeEach {
-                        subject.retriggerButton?.tap()
+                        try! subject.retriggerButton?.tap()
                     }
 
                     it("asks the TriggerBuildService to trigger a new build") {
@@ -129,7 +129,7 @@ class BuildDetailViewControllerSpec: QuickSpec {
 
                 describe("Tapping the 'View Logs' button") {
                     beforeEach {
-                        subject.viewLogsButton?.tap()
+                        try! subject.viewLogsButton?.tap()
                     }
 
                     it("presents a LogsViewController") {

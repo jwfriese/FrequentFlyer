@@ -24,7 +24,7 @@ class WebViewControllerSpec: QuickSpec {
                     subject.webPageURL = testURL
 
                     let navigationController = UINavigationController(rootViewController: subject)
-                    Fleet.setApplicationWindowRootViewController(navigationController)
+                    Fleet.setAsAppWindowRoot(navigationController)
                 }
 
                 it("loads its web view with its URL") {

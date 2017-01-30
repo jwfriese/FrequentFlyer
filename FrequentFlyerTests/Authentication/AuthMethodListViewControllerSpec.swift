@@ -31,7 +31,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
             describe("After the view loads") {
                 beforeEach {
                     let navigationController = UINavigationController(rootViewController: subject)
-                    Fleet.setApplicationWindowRootViewController(navigationController)
+                    Fleet.setAsAppWindowRoot(navigationController)
                 }
 
                 it("sets a blank title") {
@@ -71,7 +71,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
 
                     describe("Tapping a basic auth cell") {
                         beforeEach {
-                            _ = subject.authMethodListTableView.selectRow(at: IndexPath(row: 0, section: 0))
+                            try! subject.authMethodListTableView.selectRow(at: IndexPath(row: 0, section: 0))
                         }
 
                         it("presents a BasicUserAuthViewController") {
@@ -89,7 +89,7 @@ class AuthMethodListViewControllerSpec: QuickSpec {
 
                     describe("Tapping a Github auth cell") {
                         beforeEach {
-                            _ = subject.authMethodListTableView.selectRow(at: IndexPath(row: 1, section: 0))
+                            try! subject.authMethodListTableView.selectRow(at: IndexPath(row: 1, section: 0))
                         }
 
                         it("presents a GithubAuthViewController") {

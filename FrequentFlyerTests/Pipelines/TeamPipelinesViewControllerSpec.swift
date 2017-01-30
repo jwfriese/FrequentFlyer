@@ -55,7 +55,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
             describe("After the view has loaded") {
                 beforeEach {
                     let navigationController = UINavigationController(rootViewController: subject)
-                    Fleet.setApplicationWindowRootViewController(navigationController)
+                    Fleet.setAsAppWindowRoot(navigationController)
                 }
 
                 it("sets the title") {
@@ -86,7 +86,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                 describe("Tapping the 'Logout' navigation item") {
                     beforeEach {
-                        subject.logoutBarButtonItem?.tap()
+                        try! subject.logoutBarButtonItem?.tap()
                     }
 
                     it("asks its KeychainWrapper to delete its target") {
@@ -108,6 +108,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                         let pipelineOne = Pipeline(name: "turtle pipeline one")
                         let pipelineTwo = Pipeline(name: "turtle pipeline two")
                         completion([pipelineOne, pipelineTwo], nil)
+                        RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 
                     it("adds a row to the table for each of the pipelines returned") {
@@ -115,23 +116,11 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     }
 
                     it("creates a cell in each of the rows for each of the pipelines returned") {
-                        let cellOne = subject.tableView(subject.teamPipelinesTableView!, cellForRowAt: IndexPath(row: 0, section: 0)) as? PipelineTableViewCell
-                        expect(cellOne).toNot(beNil())
+                        let cellOne = try! subject.teamPipelinesTableView!.fetchCell(at: IndexPath(row: 0, section: 0), asType: PipelineTableViewCell.self)
+                        expect(cellOne.nameLabel?.text).to(equal("turtle pipeline one"))
 
-                        guard let cellOneNameLabel = cellOne?.nameLabel else {
-                            fail("Failed to pull the PipelineTableViewCell from the table")
-                            return
-                        }
-                        expect(cellOneNameLabel.text).to(equal("turtle pipeline one"))
-
-                        let cellTwo = subject.tableView(subject.teamPipelinesTableView!, cellForRowAt: IndexPath(row: 1, section: 0)) as?PipelineTableViewCell
-                        expect(cellTwo).toNot(beNil())
-
-                        guard let cellTwoNameLabel = cellTwo?.nameLabel else {
-                            fail("Failed to pull the PipelineTableViewCell from the table")
-                            return
-                        }
-                        expect(cellTwoNameLabel.text).to(equal("turtle pipeline two"))
+                        let cellTwo = try! subject.teamPipelinesTableView!.fetchCell(at: IndexPath(row: 1, section: 0), asType: PipelineTableViewCell.self)
+                        expect(cellTwo.nameLabel?.text).to(equal("turtle pipeline two"))
                     }
 
                     describe("Tapping one of the cells") {

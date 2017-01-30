@@ -56,7 +56,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
             describe("After the view has loaded") {
                 beforeEach {
                     let navigationController = UINavigationController(rootViewController: subject)
-                    Fleet.setApplicationWindowRootViewController(navigationController)
+                    Fleet.setAsAppWindowRoot(navigationController)
                 }
 
                 it("sets a blank title") {
@@ -70,7 +70,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
 
                     describe("When only the 'Username' field has text") {
                         beforeEach {
-                            try! subject.usernameTextField?.enter(text: "turtle target")
+                            try? subject.usernameTextField?.enter(text: "turtle target")
                         }
 
                         it("leaves the button disabled") {
@@ -80,7 +80,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
 
                     describe("When only the 'Password' field has text") {
                         beforeEach {
-                            try! subject.passwordTextField?.enter(text: "Concourse turtle")
+                            try? subject.passwordTextField?.enter(text: "Concourse turtle")
                         }
 
                         it("leaves the button disabled") {
@@ -90,8 +90,8 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
 
                     describe("When both the 'Username' field and the 'Password' field have text") {
                         beforeEach {
-                            try! subject.usernameTextField?.enter(text: "turtle target")
-                            try! subject.passwordTextField?.enter(text: "Concourse turtle")
+                            try? subject.usernameTextField?.enter(text: "turtle target")
+                            try? subject.passwordTextField?.enter(text: "Concourse turtle")
                         }
 
                         it("enables the button") {
@@ -100,7 +100,9 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
 
                         describe("When the 'Username' field is cleared") {
                             beforeEach {
-                                subject.usernameTextField?.clearText()
+                                try? subject.usernameTextField?.startEditing()
+                                try! subject.usernameTextField?.clearText()
+                                try? subject.usernameTextField?.stopEditing()
                             }
 
                             it("disables the button") {
@@ -110,7 +112,9 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
 
                         describe("When the 'Password' field is cleared") {
                             beforeEach {
-                                subject.passwordTextField?.clearText()
+                                try? subject.passwordTextField?.startEditing()
+                                try! subject.passwordTextField?.clearText()
+                                try? subject.passwordTextField?.stopEditing()
                             }
 
                             it("disables the button") {
@@ -122,9 +126,9 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
 
                 describe("Entering auth credentials and submitting") {
                     beforeEach {
-                        try! subject.usernameTextField?.enter(text: "turtle username")
-                        try! subject.passwordTextField?.enter(text: "turtle password")
-                        subject.submitButton?.tap()
+                        try? subject.usernameTextField?.enter(text: "turtle username")
+                        try? subject.passwordTextField?.enter(text: "turtle password")
+                        try! subject.submitButton?.tap()
                     }
 
                     it("calls out to the BasicAuthTokenService with the entered username and password") {

@@ -76,7 +76,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
             describe("After the view has loaded") {
                 beforeEach {
                     let navigationController = UINavigationController(rootViewController: subject)
-                    Fleet.setApplicationWindowRootViewController(navigationController)
+                    Fleet.setAsAppWindowRoot(navigationController)
                 }
 
                 it("sets a blank title") {
@@ -128,7 +128,9 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                         describe("When the 'Token' field is cleared") {
                             beforeEach {
-                                subject.tokenTextField?.clearText()
+                                try! subject.tokenTextField?.startEditing()
+                                try! subject.tokenTextField?.clearText()
+                                try! subject.tokenTextField?.stopEditing()
                             }
 
                             it("disables the button") {
@@ -139,9 +141,9 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                     describe("When pasting text into the 'Token' field") {
                         beforeEach {
-                            try! subject.tokenTextField?.focus()
-                            subject.tokenTextField?.paste(text: "some text")
-                            subject.tokenTextField?.unfocus()
+                            try! subject.tokenTextField?.startEditing()
+                            try! subject.tokenTextField?.paste(text: "some text")
+                            try! subject.tokenTextField?.stopEditing()
                         }
 
                         it("enables the button") {
@@ -152,7 +154,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                 describe("Tapping on the 'Get Token' button") {
                     beforeEach {
-                        subject.openGithubAuthPageButton?.tap()
+                        try! subject.openGithubAuthPageButton?.tap()
                     }
 
                     it("presents a WebViewController") {
@@ -178,7 +180,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
                 describe("Entering a token and hitting the 'Submit' button") {
                     beforeEach {
                         try! subject.tokenTextField?.enter(text: "token of the Github Turtle")
-                        subject.submitButton?.tap()
+                        try! subject.submitButton?.tap()
                     }
 
                     it("disables the 'Submit' button") {

@@ -40,7 +40,7 @@ class AppRouterViewControllerSpec: QuickSpec {
                         mockKeychainWrapper.toReturnTarget = nil
 
                         let navigationController = UINavigationController(rootViewController: subject)
-                        Fleet.setApplicationWindowRootViewController(navigationController)
+                        Fleet.setAsAppWindowRoot(navigationController)
                     }
 
                     it("presents the ConcourseEntryViewController") {
@@ -53,7 +53,7 @@ class AppRouterViewControllerSpec: QuickSpec {
                         mockKeychainWrapper.toReturnTarget = try! Factory.createTarget()
 
                         let navigationController = UINavigationController(rootViewController: subject)
-                        Fleet.setApplicationWindowRootViewController(navigationController)
+                        Fleet.setAsAppWindowRoot(navigationController)
                     }
 
                     it("replaces itself with the TeamPipelinesViewController") {

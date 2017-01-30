@@ -1,5 +1,5 @@
 git "https://github.com/jwfriese/EventSource" "1fb5ec76adc4d839974e4f4512bc6262d6f6ca4f"
-git "https://github.com/jwfriese/Fleet" "972b855e9e375ee041897b7bf2cad15823feeb9b"
+git "https://github.com/jwfriese/Fleet" "3.0.0"
 git "https://github.com/matthewpalmer/Locksmith" "b80a90c1044b0445f8339040f027d9c89868116a"
 git "https://github.com/Quick/Nimble" "3720e6b0f6de6d6435f79f8a174fb4bb92df5dc4"
 git "https://github.com/Quick/Quick" "b441ba9d4abdc87fc153c55de947834b737bbe04"

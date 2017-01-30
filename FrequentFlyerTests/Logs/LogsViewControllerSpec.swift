@@ -68,7 +68,7 @@ class LogsViewControllerSpec: QuickSpec {
 
             describe("After the view has loaded") {
                 beforeEach {
-                    Fleet.setApplicationWindowRootViewController(subject)
+                    Fleet.setAsAppWindowRoot(subject)
                 }
 
                 it("asks the logs service to begin collecting logs") {

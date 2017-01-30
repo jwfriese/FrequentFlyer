@@ -42,7 +42,7 @@ class BuildsViewControllerSpec: QuickSpec {
             describe("After the view has loaded") {
                 beforeEach {
                     let navigationController = UINavigationController(rootViewController: subject)
-                    Fleet.setApplicationWindowRootViewController(navigationController)
+                    Fleet.setAsAppWindowRoot(navigationController)
                 }
 
                 it("sets its title") {
@@ -87,6 +87,7 @@ class BuildsViewControllerSpec: QuickSpec {
                         let buildTwo = Build(id: 2, jobName: "crab job", status: "crab last status", pipelineName: "crab pipeline")
                         let buildThree = Build(id: 1, jobName: "other turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
                         completion([buildOne, buildTwo, buildThree], nil)
+                        RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 
                     it("inserts a row for each build with correct pipeline name returned by the service") {

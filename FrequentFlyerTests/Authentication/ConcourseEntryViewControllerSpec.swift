@@ -64,7 +64,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                 beforeEach {
                     navigationController = UINavigationController(rootViewController: subject)
-                    Fleet.setApplicationWindowRootViewController(navigationController)
+                    Fleet.setAsAppWindowRoot(navigationController)
                 }
 
                 it("sets a blank title") {
@@ -116,7 +116,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                         describe("When the 'Concourse URL' field is cleared") {
                             beforeEach {
-                                subject.concourseURLEntryField?.clearText()
+                                try! subject.concourseURLEntryField?.startEditing()
+                                try! subject.concourseURLEntryField?.clearText()
+                                try! subject.concourseURLEntryField?.stopEditing()
                             }
 
                             it("disables the button") {
@@ -130,7 +132,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                     beforeEach {
                         try! subject.concourseURLEntryField?.enter(text: "concourse.com")
 
-                        subject.submitButton?.tap()
+                        try! subject.submitButton?.tap()
                     }
 
                     it("presents an error alert") {
@@ -154,7 +156,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                                 if didPresentAlert {
                                     let alert = Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
-                                    alert?.tapAlertAction(withTitle: "OK")
+                                    try! alert?.tapAlertAction(withTitle: "OK")
                                     didTapOK = true
                                 }
 
@@ -178,7 +180,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                         try! subject.concourseURLEntryField?.enter(text: "https://concourse.com")
 
-                        subject.submitButton?.tap()
+                        try! subject.submitButton?.tap()
                     }
 
                     func returnAuthMethods(_ methods: [AuthMethod]) {
