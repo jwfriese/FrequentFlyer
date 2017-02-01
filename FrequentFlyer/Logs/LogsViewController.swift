@@ -24,7 +24,7 @@ class LogsViewController: UIViewController {
 
     @IBAction func onJumpToBottomTapped() {
         guard let length = logOutputView?.text.characters.count else { return }
-        logOutputView?.scrollRangeToVisible(NSMakeRange(0, length))
+        logOutputView?.scrollRangeToVisible(NSMakeRange(length, length))
     }
 
     fileprivate var onMessagesReceived: (([LogEvent]) -> ()) {
