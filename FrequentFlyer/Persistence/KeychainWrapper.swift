@@ -31,8 +31,8 @@ class KeychainWrapper {
         do {
             try Locksmith.deleteDataForUserAccount(userAccount: KeychainWrapper.accountName,
                                                    inService: Target.serviceName)
-        } catch {
-            print("Error saving logged-in target data to the keychain")
+        } catch let error {
+            print("Error deleting logged-in target data from the keychain: \(error)")
         }
     }
 }

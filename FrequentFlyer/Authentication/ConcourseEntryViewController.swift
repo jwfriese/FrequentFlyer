@@ -22,6 +22,8 @@ class ConcourseEntryViewController: UIViewController {
         super.viewDidLoad()
 
         title = ""
+        view?.backgroundColor = Style.Colors.backgroundColor
+        scrollView?.backgroundColor = Style.Colors.backgroundColor
 
         concourseURLEntryField?.autocorrectionType = .no
         concourseURLEntryField?.keyboardType = .URL

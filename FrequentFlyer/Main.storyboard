@@ -14,7 +14,7 @@
         <scene sceneID="4Xs-9o-y0c">
             <objects>
                 <navigationController id="3d8-pO-wnR" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="22l-gc-b0E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="22l-gc-b0E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -64,19 +64,25 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0f2-3M-bKj">
                                 <rect key="frame" x="16" y="20" width="343" height="647"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Concourse URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7t-Yv-BnZ">
-                                        <rect key="frame" x="12" y="96" width="120" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Concourse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9A-Nh-W8L" userLabel="Title Label" customClass="TitleLabel" customModule="FrequentFlyer" customModuleProvider="target">
+                                        <rect key="frame" x="129.5" y="108" width="83.5" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Concourse URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7t-Yv-BnZ">
+                                        <rect key="frame" x="12" y="195" width="121.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e8J-lg-sri">
-                                        <rect key="frame" x="156" y="92" width="163" height="30"/>
+                                        <rect key="frame" x="157.5" y="190.5" width="161.5" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9d-gU-Ttz">
-                                        <rect key="frame" x="136.5" y="158" width="70" height="39"/>
+                                        <rect key="frame" x="136.5" y="256.5" width="70" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <state key="normal" title="Submit"/>
                                         <connections>
@@ -84,14 +90,17 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="e8J-lg-sri" firstAttribute="centerY" secondItem="M7t-Yv-BnZ" secondAttribute="centerY" id="1p4-ea-aPM"/>
+                                    <constraint firstItem="p9A-Nh-W8L" firstAttribute="centerX" secondItem="0f2-3M-bKj" secondAttribute="centerX" id="BbW-dl-K0S"/>
                                     <constraint firstItem="M7t-Yv-BnZ" firstAttribute="leading" secondItem="0f2-3M-bKj" secondAttribute="leading" constant="12" id="D3S-3r-e4n"/>
                                     <constraint firstAttribute="trailing" secondItem="e8J-lg-sri" secondAttribute="trailing" constant="12" id="EZ6-9a-93O"/>
                                     <constraint firstAttribute="bottom" secondItem="z9d-gU-Ttz" secondAttribute="bottom" constant="72" id="SSg-Ih-QmL"/>
+                                    <constraint firstItem="p9A-Nh-W8L" firstAttribute="top" secondItem="0f2-3M-bKj" secondAttribute="top" constant="108" id="ZcV-tC-rPg"/>
                                     <constraint firstItem="e8J-lg-sri" firstAttribute="leading" secondItem="M7t-Yv-BnZ" secondAttribute="trailing" constant="24" id="bIb-bh-dd4"/>
                                     <constraint firstItem="z9d-gU-Ttz" firstAttribute="top" secondItem="e8J-lg-sri" secondAttribute="bottom" constant="36" id="eZf-qq-2kG"/>
-                                    <constraint firstItem="M7t-Yv-BnZ" firstAttribute="top" secondItem="0f2-3M-bKj" secondAttribute="top" constant="96" id="wEz-v8-8Er"/>
+                                    <constraint firstItem="M7t-Yv-BnZ" firstAttribute="top" secondItem="p9A-Nh-W8L" secondAttribute="bottom" constant="66" id="j0i-fF-7m8"/>
                                     <constraint firstItem="z9d-gU-Ttz" firstAttribute="centerX" secondItem="0f2-3M-bKj" secondAttribute="centerX" id="xtF-Xb-W3Y"/>
                                 </constraints>
                             </scrollView>

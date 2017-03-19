@@ -29,6 +29,27 @@
 		7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */; };
 		7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */; };
 		7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F95341DFAF605005E0DD2 /* WebViewController.swift */; };
+		7B673E781E7EF54D00CAC921 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673E771E7EF54D00CAC921 /* Style.swift */; };
+		7B673EB11E7EFC5500CAC921 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */; };
+		7B673EB21E7EFC5500CAC921 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA01E7EFC5500CAC921 /* Lato-BlackItalic.ttf */; };
+		7B673EB31E7EFC5500CAC921 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA11E7EFC5500CAC921 /* Lato-Bold.ttf */; };
+		7B673EB41E7EFC5500CAC921 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA21E7EFC5500CAC921 /* Lato-BoldItalic.ttf */; };
+		7B673EB51E7EFC5500CAC921 /* Lato-Hairline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA31E7EFC5500CAC921 /* Lato-Hairline.ttf */; };
+		7B673EB61E7EFC5500CAC921 /* Lato-HairlineItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA41E7EFC5500CAC921 /* Lato-HairlineItalic.ttf */; };
+		7B673EB71E7EFC5500CAC921 /* Lato-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA51E7EFC5500CAC921 /* Lato-Heavy.ttf */; };
+		7B673EB81E7EFC5500CAC921 /* Lato-HeavyItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA61E7EFC5500CAC921 /* Lato-HeavyItalic.ttf */; };
+		7B673EB91E7EFC5500CAC921 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA71E7EFC5500CAC921 /* Lato-Italic.ttf */; };
+		7B673EBA1E7EFC5500CAC921 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA81E7EFC5500CAC921 /* Lato-Light.ttf */; };
+		7B673EBB1E7EFC5500CAC921 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA91E7EFC5500CAC921 /* Lato-LightItalic.ttf */; };
+		7B673EBC1E7EFC5500CAC921 /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EAA1E7EFC5500CAC921 /* Lato-Medium.ttf */; };
+		7B673EBD1E7EFC5500CAC921 /* Lato-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EAB1E7EFC5500CAC921 /* Lato-MediumItalic.ttf */; };
+		7B673EBE1E7EFC5500CAC921 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EAC1E7EFC5500CAC921 /* Lato-Regular.ttf */; };
+		7B673EBF1E7EFC5500CAC921 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EAD1E7EFC5500CAC921 /* Lato-Semibold.ttf */; };
+		7B673EC01E7EFC5600CAC921 /* Lato-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EAE1E7EFC5500CAC921 /* Lato-SemiboldItalic.ttf */; };
+		7B673EC11E7EFC5600CAC921 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EAF1E7EFC5500CAC921 /* Lato-Thin.ttf */; };
+		7B673EC21E7EFC5600CAC921 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EB01E7EFC5500CAC921 /* Lato-ThinItalic.ttf */; };
+		7B673EC51E7F000900CAC921 /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673EC41E7F000900CAC921 /* TitleLabel.swift */; };
+		7B673EC71E7F009300CAC921 /* Styleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673EC61E7F009300CAC921 /* Styleable.swift */; };
 		7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */; };
 		7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */; };
 		7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */; };
@@ -153,6 +174,27 @@
 		7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = web_view_controller_test.html; sourceTree = "<group>"; };
 		7B5F95341DFAF605005E0DD2 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		7B673E771E7EF54D00CAC921 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		7B673EA01E7EFC5500CAC921 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
+		7B673EA11E7EFC5500CAC921 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		7B673EA21E7EFC5500CAC921 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
+		7B673EA31E7EFC5500CAC921 /* Lato-Hairline.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Hairline.ttf"; sourceTree = "<group>"; };
+		7B673EA41E7EFC5500CAC921 /* Lato-HairlineItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-HairlineItalic.ttf"; sourceTree = "<group>"; };
+		7B673EA51E7EFC5500CAC921 /* Lato-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Heavy.ttf"; sourceTree = "<group>"; };
+		7B673EA61E7EFC5500CAC921 /* Lato-HeavyItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-HeavyItalic.ttf"; sourceTree = "<group>"; };
+		7B673EA71E7EFC5500CAC921 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
+		7B673EA81E7EFC5500CAC921 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
+		7B673EA91E7EFC5500CAC921 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
+		7B673EAA1E7EFC5500CAC921 /* Lato-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Medium.ttf"; sourceTree = "<group>"; };
+		7B673EAB1E7EFC5500CAC921 /* Lato-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-MediumItalic.ttf"; sourceTree = "<group>"; };
+		7B673EAC1E7EFC5500CAC921 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		7B673EAD1E7EFC5500CAC921 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
+		7B673EAE1E7EFC5500CAC921 /* Lato-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		7B673EAF1E7EFC5500CAC921 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
+		7B673EB01E7EFC5500CAC921 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
+		7B673EC41E7F000900CAC921 /* TitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
+		7B673EC61E7F009300CAC921 /* Styleable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styleable.swift; sourceTree = "<group>"; };
 		7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
 		7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsStylingParser.swift; sourceTree = "<group>"; };
 		7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
@@ -321,6 +363,58 @@
 				7B5F95341DFAF605005E0DD2 /* WebViewController.swift */,
 			);
 			path = NativeWeb;
+			sourceTree = "<group>";
+		};
+		7B673E761E7EF51F00CAC921 /* Styling */ = {
+			isa = PBXGroup;
+			children = (
+				7B673E771E7EF54D00CAC921 /* Style.swift */,
+				7B673EC61E7F009300CAC921 /* Styleable.swift */,
+				7B673EC31E7EFFE200CAC921 /* Labels */,
+				7B673E791E7EF9DE00CAC921 /* Resources */,
+			);
+			path = Styling;
+			sourceTree = "<group>";
+		};
+		7B673E791E7EF9DE00CAC921 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7B673E7A1E7EF9F000CAC921 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7B673E7A1E7EF9F000CAC921 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */,
+				7B673EA01E7EFC5500CAC921 /* Lato-BlackItalic.ttf */,
+				7B673EA11E7EFC5500CAC921 /* Lato-Bold.ttf */,
+				7B673EA21E7EFC5500CAC921 /* Lato-BoldItalic.ttf */,
+				7B673EA31E7EFC5500CAC921 /* Lato-Hairline.ttf */,
+				7B673EA41E7EFC5500CAC921 /* Lato-HairlineItalic.ttf */,
+				7B673EA51E7EFC5500CAC921 /* Lato-Heavy.ttf */,
+				7B673EA61E7EFC5500CAC921 /* Lato-HeavyItalic.ttf */,
+				7B673EA71E7EFC5500CAC921 /* Lato-Italic.ttf */,
+				7B673EA81E7EFC5500CAC921 /* Lato-Light.ttf */,
+				7B673EA91E7EFC5500CAC921 /* Lato-LightItalic.ttf */,
+				7B673EAA1E7EFC5500CAC921 /* Lato-Medium.ttf */,
+				7B673EAB1E7EFC5500CAC921 /* Lato-MediumItalic.ttf */,
+				7B673EAC1E7EFC5500CAC921 /* Lato-Regular.ttf */,
+				7B673EAD1E7EFC5500CAC921 /* Lato-Semibold.ttf */,
+				7B673EAE1E7EFC5500CAC921 /* Lato-SemiboldItalic.ttf */,
+				7B673EAF1E7EFC5500CAC921 /* Lato-Thin.ttf */,
+				7B673EB01E7EFC5500CAC921 /* Lato-ThinItalic.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		7B673EC31E7EFFE200CAC921 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				7B673EC41E7F000900CAC921 /* TitleLabel.swift */,
+			);
+			path = Labels;
 			sourceTree = "<group>";
 		};
 		7B737BB81E075B2F007FC4E8 /* Logs */ = {
@@ -616,6 +710,7 @@
 				7BA032011D843E4200F20E23 /* Pipeline */,
 				7BA032001D843E3800F20E23 /* Target */,
 				7B737BB81E075B2F007FC4E8 /* Logs */,
+				7B673E761E7EF51F00CAC921 /* Styling */,
 			);
 			path = FrequentFlyer;
 			sourceTree = "<group>";
@@ -731,9 +826,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B673EB71E7EFC5500CAC921 /* Lato-Heavy.ttf in Resources */,
+				7B673EC21E7EFC5600CAC921 /* Lato-ThinItalic.ttf in Resources */,
+				7B673EBA1E7EFC5500CAC921 /* Lato-Light.ttf in Resources */,
+				7B673EB11E7EFC5500CAC921 /* Lato-Black.ttf in Resources */,
+				7B673EB31E7EFC5500CAC921 /* Lato-Bold.ttf in Resources */,
 				AE343E3D1D7F4FB8008251CA /* Main.storyboard in Resources */,
+				7B673EBD1E7EFC5500CAC921 /* Lato-MediumItalic.ttf in Resources */,
+				7B673EC01E7EFC5600CAC921 /* Lato-SemiboldItalic.ttf in Resources */,
+				7B673EB21E7EFC5500CAC921 /* Lato-BlackItalic.ttf in Resources */,
+				7B673EB81E7EFC5500CAC921 /* Lato-HeavyItalic.ttf in Resources */,
 				AEA5D5161D7F2CEC00D76EBA /* Assets.xcassets in Resources */,
+				7B673EB61E7EFC5500CAC921 /* Lato-HairlineItalic.ttf in Resources */,
+				7B673EB41E7EFC5500CAC921 /* Lato-BoldItalic.ttf in Resources */,
+				7B673EBF1E7EFC5500CAC921 /* Lato-Semibold.ttf in Resources */,
+				7B673EBC1E7EFC5500CAC921 /* Lato-Medium.ttf in Resources */,
+				7B673EB51E7EFC5500CAC921 /* Lato-Hairline.ttf in Resources */,
+				7B673EB91E7EFC5500CAC921 /* Lato-Italic.ttf in Resources */,
 				AE343E3C1D7F4FB8008251CA /* LaunchScreen.storyboard in Resources */,
+				7B673EC11E7EFC5600CAC921 /* Lato-Thin.ttf in Resources */,
+				7B673EBB1E7EFC5500CAC921 /* Lato-LightItalic.ttf in Resources */,
+				7B673EBE1E7EFC5500CAC921 /* Lato-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,6 +934,7 @@
 				7B737BC41E075BBB007FC4E8 /* SSEEventParser.swift in Sources */,
 				7BA0323D1D843FFE00F20E23 /* Target.swift in Sources */,
 				7B737BC31E075BBB007FC4E8 /* SSEConnection.swift in Sources */,
+				7B673E781E7EF54D00CAC921 /* Style.swift in Sources */,
 				7BA0327D1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift in Sources */,
 				7BA032111D843FE300F20E23 /* Token.swift in Sources */,
 				7BA0322F1D843FF900F20E23 /* PipelineTableViewCell.swift in Sources */,
@@ -853,12 +967,14 @@
 				7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */,
 				7BEDE2071D8989A70054D13B /* KeychainPersistable.swift in Sources */,
 				AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */,
+				7B673EC51E7F000900CAC921 /* TitleLabel.swift in Sources */,
 				7BA0322D1D843FF900F20E23 /* TeamPipelinesViewController.swift in Sources */,
 				7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */,
 				7BA0326B1D8441E200F20E23 /* AuthMethod.swift in Sources */,
 				7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */,
 				7B0E709B1D8F0BA400686532 /* TokenValidationService.swift in Sources */,
 				7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */,
+				7B673EC71E7F009300CAC921 /* Styleable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

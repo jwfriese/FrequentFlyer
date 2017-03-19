@@ -1,8 +1,14 @@
 import Foundation
 
 class HTTPClient {
+    let session: URLSession
+
+    init() {
+        let sessionConfig = URLSessionConfiguration.ephemeral
+        session = URLSession(configuration: sessionConfig)
+    }
+
     func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
-        let session = URLSession.shared
         let dataTask = session.dataTask(with: request, completionHandler: { data, response, error in
             guard let completion = completion else { return }
             guard let response = response else {
