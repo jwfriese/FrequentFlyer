@@ -4,7 +4,7 @@ import RxCocoa
 
 class ConcourseEntryViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView?
-    @IBOutlet weak var concourseURLEntryField: UITextField?
+    @IBOutlet weak var concourseURLEntryField: TitledTextField?
     @IBOutlet weak var submitButton: UIButton?
 
     var authMethodsService = AuthMethodsService()
@@ -25,10 +25,12 @@ class ConcourseEntryViewController: UIViewController {
         view?.backgroundColor = Style.Colors.backgroundColor
         scrollView?.backgroundColor = Style.Colors.backgroundColor
 
-        concourseURLEntryField?.autocorrectionType = .no
-        concourseURLEntryField?.keyboardType = .URL
+        concourseURLEntryField?.titleLabel?.text = "URL"
 
-        concourseURLEntryField?.delegate = self
+        concourseURLEntryField?.textField?.autocorrectionType = .no
+        concourseURLEntryField?.textField?.keyboardType = .URL
+
+        concourseURLEntryField?.textField?.delegate = self
         submitButton?.isEnabled = false
 
         userTextInputPageOperator.delegate = self
@@ -40,7 +42,7 @@ class ConcourseEntryViewController: UIViewController {
                 return
             }
 
-            guard let concourseURLString = concourseURLEntryField?.text else { return }
+            guard let concourseURLString = concourseURLEntryField?.textField?.text else { return }
             guard let authMethod$ = sender as? Observable<AuthMethod> else { return }
 
             authMethodListViewController.authMethod$ = authMethod$
@@ -62,7 +64,7 @@ class ConcourseEntryViewController: UIViewController {
     }
 
     @IBAction func submitButtonTapped() {
-        guard let concourseURLString = concourseURLEntryField?.text else { return }
+        guard let concourseURLString = concourseURLEntryField?.textField?.text else { return }
 
         if concourseURLString.hasPrefix("http://") || concourseURLString.hasPrefix("https://") {
             authMethod$ = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
@@ -111,7 +113,7 @@ class ConcourseEntryViewController: UIViewController {
 
 extension ConcourseEntryViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        submitButton?.isEnabled = concourseURLEntryField?.text != ""
+        submitButton?.isEnabled = concourseURLEntryField?.textField?.text != ""
         return true
     }
 
@@ -122,7 +124,7 @@ extension ConcourseEntryViewController: UITextFieldDelegate {
 }
 
 extension ConcourseEntryViewController: UserTextInputPageDelegate {
-    var textFields: [UITextField] { get { return [concourseURLEntryField!] } }
+    var textFields: [UITextField] { get { return [concourseURLEntryField!.textField!] } }
     var pageView: UIView { get { return view } }
     var pageScrollView: UIScrollView { get { return scrollView! } }
 }

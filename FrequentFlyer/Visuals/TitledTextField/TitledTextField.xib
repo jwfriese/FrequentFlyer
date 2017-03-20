@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aX3-Fv-r2s" customClass="TitledTextFieldTitleLabel" customModule="FrequentFlyer" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="18" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dux-g0-5EW" customClass="TitledTextFieldTextField" customModule="FrequentFlyer" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="641" width="375" height="26"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="dux-g0-5EW" secondAttribute="bottom" id="B3S-LG-oqO"/>
+                <constraint firstItem="aX3-Fv-r2s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="LVh-bH-E36"/>
+                <constraint firstItem="aX3-Fv-r2s" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="MIX-Uy-vQk"/>
+                <constraint firstItem="dux-g0-5EW" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Sbb-j0-kCB"/>
+                <constraint firstItem="dux-g0-5EW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tTT-YQ-Bfd"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

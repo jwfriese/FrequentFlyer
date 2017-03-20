@@ -7,6 +7,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -64,59 +65,63 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0f2-3M-bKj">
                                 <rect key="frame" x="16" y="20" width="343" height="647"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Concourse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9A-Nh-W8L" userLabel="Title Label" customClass="TitleLabel" customModule="FrequentFlyer" customModuleProvider="target">
-                                        <rect key="frame" x="129.5" y="108" width="83.5" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Concourse URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7t-Yv-BnZ">
-                                        <rect key="frame" x="12" y="195" width="121.5" height="20"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e8J-lg-sri">
-                                        <rect key="frame" x="157.5" y="190.5" width="161.5" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9d-gU-Ttz">
-                                        <rect key="frame" x="136.5" y="256.5" width="70" height="39"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <state key="normal" title="Submit"/>
-                                        <connections>
-                                            <action selector="submitButtonTapped" destination="rvu-Hz-VhO" eventType="touchUpInside" id="7fl-pC-1gk"/>
-                                        </connections>
-                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ynq-Cm-zvl" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="342" height="646"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Concourse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9A-Nh-W8L" userLabel="Title Label" customClass="PageTitleLabel" customModule="FrequentFlyer" customModuleProvider="target">
+                                                <rect key="frame" x="129.5" y="108" width="83.5" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9d-gU-Ttz">
+                                                <rect key="frame" x="136" y="260.5" width="70" height="39"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <state key="normal" title="Submit"/>
+                                                <connections>
+                                                    <action selector="submitButtonTapped" destination="rvu-Hz-VhO" eventType="touchUpInside" id="7fl-pC-1gk"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zIO-hG-GAI" customClass="TitledTextField" customModule="FrequentFlyer" customModuleProvider="target">
+                                                <rect key="frame" x="32" y="195" width="278" height="53.5"/>
+                                                <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="p9A-Nh-W8L" firstAttribute="centerX" secondItem="Ynq-Cm-zvl" secondAttribute="centerX" id="1jc-ut-DbJ"/>
+                                            <constraint firstItem="p9A-Nh-W8L" firstAttribute="top" secondItem="Ynq-Cm-zvl" secondAttribute="top" constant="108" id="J3t-rA-Me3"/>
+                                            <constraint firstAttribute="trailing" secondItem="zIO-hG-GAI" secondAttribute="trailing" constant="32" id="Ll6-bj-dRp"/>
+                                            <constraint firstItem="z9d-gU-Ttz" firstAttribute="centerX" secondItem="Ynq-Cm-zvl" secondAttribute="centerX" id="SuG-OY-QWU"/>
+                                            <constraint firstItem="zIO-hG-GAI" firstAttribute="top" secondItem="p9A-Nh-W8L" secondAttribute="bottom" constant="66" id="VJB-97-qhn"/>
+                                            <constraint firstItem="z9d-gU-Ttz" firstAttribute="top" secondItem="zIO-hG-GAI" secondAttribute="bottom" constant="12" id="nVY-9L-vGU"/>
+                                            <constraint firstItem="zIO-hG-GAI" firstAttribute="leading" secondItem="Ynq-Cm-zvl" secondAttribute="leading" constant="32" id="uLD-8I-C7J"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="e8J-lg-sri" firstAttribute="centerY" secondItem="M7t-Yv-BnZ" secondAttribute="centerY" id="1p4-ea-aPM"/>
-                                    <constraint firstItem="p9A-Nh-W8L" firstAttribute="centerX" secondItem="0f2-3M-bKj" secondAttribute="centerX" id="BbW-dl-K0S"/>
-                                    <constraint firstItem="M7t-Yv-BnZ" firstAttribute="leading" secondItem="0f2-3M-bKj" secondAttribute="leading" constant="12" id="D3S-3r-e4n"/>
-                                    <constraint firstAttribute="trailing" secondItem="e8J-lg-sri" secondAttribute="trailing" constant="12" id="EZ6-9a-93O"/>
-                                    <constraint firstAttribute="bottom" secondItem="z9d-gU-Ttz" secondAttribute="bottom" constant="72" id="SSg-Ih-QmL"/>
-                                    <constraint firstItem="p9A-Nh-W8L" firstAttribute="top" secondItem="0f2-3M-bKj" secondAttribute="top" constant="108" id="ZcV-tC-rPg"/>
-                                    <constraint firstItem="e8J-lg-sri" firstAttribute="leading" secondItem="M7t-Yv-BnZ" secondAttribute="trailing" constant="24" id="bIb-bh-dd4"/>
-                                    <constraint firstItem="z9d-gU-Ttz" firstAttribute="top" secondItem="e8J-lg-sri" secondAttribute="bottom" constant="36" id="eZf-qq-2kG"/>
-                                    <constraint firstItem="M7t-Yv-BnZ" firstAttribute="top" secondItem="p9A-Nh-W8L" secondAttribute="bottom" constant="66" id="j0i-fF-7m8"/>
-                                    <constraint firstItem="z9d-gU-Ttz" firstAttribute="centerX" secondItem="0f2-3M-bKj" secondAttribute="centerX" id="xtF-Xb-W3Y"/>
+                                    <constraint firstItem="Ynq-Cm-zvl" firstAttribute="centerX" secondItem="0f2-3M-bKj" secondAttribute="centerX" id="8lv-tg-QpY"/>
+                                    <constraint firstItem="Ynq-Cm-zvl" firstAttribute="centerY" secondItem="0f2-3M-bKj" secondAttribute="centerY" id="BZV-y1-0B1"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ynq-Cm-zvl" secondAttribute="bottom" id="C0l-TL-DjM"/>
+                                    <constraint firstItem="Ynq-Cm-zvl" firstAttribute="leading" secondItem="0f2-3M-bKj" secondAttribute="leading" id="EyX-Cs-HJ3"/>
+                                    <constraint firstItem="Ynq-Cm-zvl" firstAttribute="top" secondItem="0f2-3M-bKj" secondAttribute="top" id="HdR-nh-BZy"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ynq-Cm-zvl" secondAttribute="trailing" id="Q7K-Dy-wml"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="yrK-YY-gA8" firstAttribute="top" secondItem="0f2-3M-bKj" secondAttribute="bottom" id="4EN-33-e66"/>
+                            <constraint firstItem="zIO-hG-GAI" firstAttribute="height" secondItem="Hcl-I4-5Fm" secondAttribute="height" multiplier="0.08" id="Cl4-9Y-nZP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0f2-3M-bKj" secondAttribute="trailing" id="GHy-Tu-lR0"/>
                             <constraint firstItem="0f2-3M-bKj" firstAttribute="top" secondItem="fKY-ek-Ha6" secondAttribute="bottom" id="KnU-kC-RAy"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="e8J-lg-sri" secondAttribute="trailing" constant="24" id="SJN-cP-RTN"/>
                             <constraint firstItem="0f2-3M-bKj" firstAttribute="leading" secondItem="Hcl-I4-5Fm" secondAttribute="leadingMargin" id="bOz-0b-p2z"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qvA-yb-CGG"/>
                     <connections>
-                        <outlet property="concourseURLEntryField" destination="e8J-lg-sri" id="PIC-uY-VIV"/>
+                        <outlet property="concourseURLEntryField" destination="zIO-hG-GAI" id="A7Z-BQ-V1d"/>
                         <outlet property="scrollView" destination="0f2-3M-bKj" id="LIT-C9-FvR"/>
                         <outlet property="submitButton" destination="z9d-gU-Ttz" id="3Gb-DW-7Ze"/>
                         <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="vJK-D0-aXI"/>
@@ -125,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBl-dN-Z3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-356" y="587"/>
+            <point key="canvasLocation" x="-356" y="586.95652173913049"/>
         </scene>
         <!--Auth Method List View Controller-->
         <scene sceneID="yWX-Jg-dw4">

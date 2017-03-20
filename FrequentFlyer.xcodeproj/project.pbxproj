@@ -48,8 +48,11 @@
 		7B673EC01E7EFC5600CAC921 /* Lato-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EAE1E7EFC5500CAC921 /* Lato-SemiboldItalic.ttf */; };
 		7B673EC11E7EFC5600CAC921 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EAF1E7EFC5500CAC921 /* Lato-Thin.ttf */; };
 		7B673EC21E7EFC5600CAC921 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EB01E7EFC5500CAC921 /* Lato-ThinItalic.ttf */; };
-		7B673EC51E7F000900CAC921 /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673EC41E7F000900CAC921 /* TitleLabel.swift */; };
-		7B673EC71E7F009300CAC921 /* Styleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673EC61E7F009300CAC921 /* Styleable.swift */; };
+		7B673EC51E7F000900CAC921 /* PageTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673EC41E7F000900CAC921 /* PageTitleLabel.swift */; };
+		7B673ECD1E7F06E200CAC921 /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673ECC1E7F06E200CAC921 /* TitledTextField.swift */; };
+		7B673ECF1E7F070E00CAC921 /* TitledTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B673ECE1E7F070E00CAC921 /* TitledTextField.xib */; };
+		7B673ED11E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673ED01E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift */; };
+		7B673ED41E7F0FA900CAC921 /* TitledTextFieldTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */; };
 		7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */; };
 		7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */; };
 		7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */; };
@@ -193,8 +196,11 @@
 		7B673EAE1E7EFC5500CAC921 /* Lato-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		7B673EAF1E7EFC5500CAC921 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
 		7B673EB01E7EFC5500CAC921 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
-		7B673EC41E7F000900CAC921 /* TitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
-		7B673EC61E7F009300CAC921 /* Styleable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styleable.swift; sourceTree = "<group>"; };
+		7B673EC41E7F000900CAC921 /* PageTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTitleLabel.swift; sourceTree = "<group>"; };
+		7B673ECC1E7F06E200CAC921 /* TitledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
+		7B673ECE1E7F070E00CAC921 /* TitledTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitledTextField.xib; sourceTree = "<group>"; };
+		7B673ED01E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldTitleLabel.swift; sourceTree = "<group>"; };
+		7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldTextField.swift; sourceTree = "<group>"; };
 		7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
 		7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsStylingParser.swift; sourceTree = "<group>"; };
 		7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
@@ -369,8 +375,8 @@
 			isa = PBXGroup;
 			children = (
 				7B673E771E7EF54D00CAC921 /* Style.swift */,
-				7B673EC61E7F009300CAC921 /* Styleable.swift */,
 				7B673EC31E7EFFE200CAC921 /* Labels */,
+				7B673ED21E7F0F8D00CAC921 /* TextFields */,
 				7B673E791E7EF9DE00CAC921 /* Resources */,
 			);
 			path = Styling;
@@ -412,9 +418,35 @@
 		7B673EC31E7EFFE200CAC921 /* Labels */ = {
 			isa = PBXGroup;
 			children = (
-				7B673EC41E7F000900CAC921 /* TitleLabel.swift */,
+				7B673EC41E7F000900CAC921 /* PageTitleLabel.swift */,
+				7B673ED01E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift */,
 			);
 			path = Labels;
+			sourceTree = "<group>";
+		};
+		7B673EC81E7F064F00CAC921 /* Visuals */ = {
+			isa = PBXGroup;
+			children = (
+				7B673ECB1E7F06AF00CAC921 /* TitledTextField */,
+			);
+			path = Visuals;
+			sourceTree = "<group>";
+		};
+		7B673ECB1E7F06AF00CAC921 /* TitledTextField */ = {
+			isa = PBXGroup;
+			children = (
+				7B673ECC1E7F06E200CAC921 /* TitledTextField.swift */,
+				7B673ECE1E7F070E00CAC921 /* TitledTextField.xib */,
+			);
+			path = TitledTextField;
+			sourceTree = "<group>";
+		};
+		7B673ED21E7F0F8D00CAC921 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */,
+			);
+			path = TextFields;
 			sourceTree = "<group>";
 		};
 		7B737BB81E075B2F007FC4E8 /* Logs */ = {
@@ -711,6 +743,7 @@
 				7BA032001D843E3800F20E23 /* Target */,
 				7B737BB81E075B2F007FC4E8 /* Logs */,
 				7B673E761E7EF51F00CAC921 /* Styling */,
+				7B673EC81E7F064F00CAC921 /* Visuals */,
 			);
 			path = FrequentFlyer;
 			sourceTree = "<group>";
@@ -833,6 +866,7 @@
 				7B673EB31E7EFC5500CAC921 /* Lato-Bold.ttf in Resources */,
 				AE343E3D1D7F4FB8008251CA /* Main.storyboard in Resources */,
 				7B673EBD1E7EFC5500CAC921 /* Lato-MediumItalic.ttf in Resources */,
+				7B673ECF1E7F070E00CAC921 /* TitledTextField.xib in Resources */,
 				7B673EC01E7EFC5600CAC921 /* Lato-SemiboldItalic.ttf in Resources */,
 				7B673EB21E7EFC5500CAC921 /* Lato-BlackItalic.ttf in Resources */,
 				7B673EB81E7EFC5500CAC921 /* Lato-HeavyItalic.ttf in Resources */,
@@ -928,6 +962,7 @@
 				7BA032231D843FF300F20E23 /* BuildsViewController.swift in Sources */,
 				7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */,
 				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
+				7B673ECD1E7F06E200CAC921 /* TitledTextField.swift in Sources */,
 				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
 				7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */,
 				7BA032271D843FF300F20E23 /* Build.swift in Sources */,
@@ -955,6 +990,7 @@
 				7BCAEFF51D902B4E00BC817D /* SetAsRootPageSegue.swift in Sources */,
 				7B5F952B1DFAF573005E0DD2 /* HTTPSessionUtils.swift in Sources */,
 				7BA48F501DD763E4008BDE19 /* Error+FrequentFlyer.swift in Sources */,
+				7B673ED11E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift in Sources */,
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
 				7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */,
@@ -967,14 +1003,14 @@
 				7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */,
 				7BEDE2071D8989A70054D13B /* KeychainPersistable.swift in Sources */,
 				AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */,
-				7B673EC51E7F000900CAC921 /* TitleLabel.swift in Sources */,
+				7B673EC51E7F000900CAC921 /* PageTitleLabel.swift in Sources */,
 				7BA0322D1D843FF900F20E23 /* TeamPipelinesViewController.swift in Sources */,
 				7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */,
 				7BA0326B1D8441E200F20E23 /* AuthMethod.swift in Sources */,
 				7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */,
 				7B0E709B1D8F0BA400686532 /* TokenValidationService.swift in Sources */,
 				7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */,
-				7B673EC71E7F009300CAC921 /* Styleable.swift in Sources */,
+				7B673ED41E7F0FA900CAC921 /* TitledTextFieldTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
