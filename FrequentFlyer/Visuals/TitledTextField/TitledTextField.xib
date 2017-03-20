@@ -20,7 +20,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="18" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dux-g0-5EW" customClass="TitledTextFieldTextField" customModule="FrequentFlyer" customModuleProvider="target">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="dux-g0-5EW" customClass="TitledTextFieldTextField" customModule="FrequentFlyer" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="641" width="375" height="26"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
