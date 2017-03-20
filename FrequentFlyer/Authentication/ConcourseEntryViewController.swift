@@ -5,7 +5,7 @@ import RxCocoa
 class ConcourseEntryViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView?
     @IBOutlet weak var concourseURLEntryField: TitledTextField?
-    @IBOutlet weak var submitButton: UIButton?
+    @IBOutlet weak var submitButton: RoundedButton?
 
     var authMethodsService = AuthMethodsService()
     var unauthenticatedTokenService = UnauthenticatedTokenService()
@@ -24,6 +24,12 @@ class ConcourseEntryViewController: UIViewController {
         title = ""
         view?.backgroundColor = Style.Colors.backgroundColor
         scrollView?.backgroundColor = Style.Colors.backgroundColor
+
+        submitButton?.initialize(withTitleText: "Submit",
+                                 titleFont: Style.Fonts.button,
+                                 controlStateTitleColors: [UIControlState.normal : UIColor.white],
+                                 controlStateButtonColors: [UIControlState.normal : Style.Colors.buttonNormal]
+        )
 
         concourseURLEntryField?.titleLabel?.text = "URL"
 

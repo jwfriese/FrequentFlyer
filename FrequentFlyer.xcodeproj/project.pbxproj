@@ -53,6 +53,8 @@
 		7B673ECF1E7F070E00CAC921 /* TitledTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B673ECE1E7F070E00CAC921 /* TitledTextField.xib */; };
 		7B673ED11E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673ED01E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift */; };
 		7B673ED41E7F0FA900CAC921 /* TitledTextFieldTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */; };
+		7B6F74B81E7F8F0600C7C005 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74B71E7F8F0600C7C005 /* RoundedButton.swift */; };
+		7B6F74BB1E7F8F9A00C7C005 /* GenerateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74BA1E7F8F9A00C7C005 /* GenerateImage.swift */; };
 		7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */; };
 		7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */; };
 		7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */; };
@@ -201,6 +203,8 @@
 		7B673ECE1E7F070E00CAC921 /* TitledTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitledTextField.xib; sourceTree = "<group>"; };
 		7B673ED01E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldTitleLabel.swift; sourceTree = "<group>"; };
 		7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldTextField.swift; sourceTree = "<group>"; };
+		7B6F74B71E7F8F0600C7C005 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		7B6F74BA1E7F8F9A00C7C005 /* GenerateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateImage.swift; sourceTree = "<group>"; };
 		7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
 		7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsStylingParser.swift; sourceTree = "<group>"; };
 		7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
@@ -427,6 +431,8 @@
 		7B673EC81E7F064F00CAC921 /* Visuals */ = {
 			isa = PBXGroup;
 			children = (
+				7B6F74B91E7F8F6D00C7C005 /* ButtonUtilities */,
+				7B6F74B61E7F8DC900C7C005 /* RoundedButton */,
 				7B673ECB1E7F06AF00CAC921 /* TitledTextField */,
 			);
 			path = Visuals;
@@ -447,6 +453,22 @@
 				7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */,
 			);
 			path = TextFields;
+			sourceTree = "<group>";
+		};
+		7B6F74B61E7F8DC900C7C005 /* RoundedButton */ = {
+			isa = PBXGroup;
+			children = (
+				7B6F74B71E7F8F0600C7C005 /* RoundedButton.swift */,
+			);
+			path = RoundedButton;
+			sourceTree = "<group>";
+		};
+		7B6F74B91E7F8F6D00C7C005 /* ButtonUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				7B6F74BA1E7F8F9A00C7C005 /* GenerateImage.swift */,
+			);
+			path = ButtonUtilities;
 			sourceTree = "<group>";
 		};
 		7B737BB81E075B2F007FC4E8 /* Logs */ = {
@@ -965,6 +987,7 @@
 				7B673ECD1E7F06E200CAC921 /* TitledTextField.swift in Sources */,
 				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
 				7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */,
+				7B6F74BB1E7F8F9A00C7C005 /* GenerateImage.swift in Sources */,
 				7BA032271D843FF300F20E23 /* Build.swift in Sources */,
 				7B737BC41E075BBB007FC4E8 /* SSEEventParser.swift in Sources */,
 				7BA0323D1D843FFE00F20E23 /* Target.swift in Sources */,
@@ -997,6 +1020,7 @@
 				7B0E70821D8DC08500686532 /* BasicUserAuthViewController.swift in Sources */,
 				7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */,
 				7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */,
+				7B6F74B81E7F8F0600C7C005 /* RoundedButton.swift in Sources */,
 				7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */,
 				7B737BD31E075BE8007FC4E8 /* StylingDescriptorBuilder.swift in Sources */,
 				7BCBF2A71E00613E007D8623 /* EventSourceCreator.swift in Sources */,

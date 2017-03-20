@@ -74,27 +74,27 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9d-gU-Ttz">
-                                                <rect key="frame" x="136" y="260.5" width="70" height="39"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zIO-hG-GAI" customClass="TitledTextField" customModule="FrequentFlyer" customModuleProvider="target">
+                                                <rect key="frame" x="32" y="195" width="278" height="53.5"/>
+                                                <color key="backgroundColor" red="0.75410698045452917" green="0.97822612524032593" blue="0.71421890446043823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9d-gU-Ttz" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
+                                                <rect key="frame" x="32" y="268.5" width="278" height="46.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <state key="normal" title="Submit"/>
                                                 <connections>
                                                     <action selector="submitButtonTapped" destination="rvu-Hz-VhO" eventType="touchUpInside" id="7fl-pC-1gk"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zIO-hG-GAI" customClass="TitledTextField" customModule="FrequentFlyer" customModuleProvider="target">
-                                                <rect key="frame" x="32" y="195" width="278" height="53.5"/>
-                                                <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
-                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="p9A-Nh-W8L" firstAttribute="centerX" secondItem="Ynq-Cm-zvl" secondAttribute="centerX" id="1jc-ut-DbJ"/>
                                             <constraint firstItem="p9A-Nh-W8L" firstAttribute="top" secondItem="Ynq-Cm-zvl" secondAttribute="top" constant="108" id="J3t-rA-Me3"/>
                                             <constraint firstAttribute="trailing" secondItem="zIO-hG-GAI" secondAttribute="trailing" constant="32" id="Ll6-bj-dRp"/>
                                             <constraint firstItem="z9d-gU-Ttz" firstAttribute="centerX" secondItem="Ynq-Cm-zvl" secondAttribute="centerX" id="SuG-OY-QWU"/>
                                             <constraint firstItem="zIO-hG-GAI" firstAttribute="top" secondItem="p9A-Nh-W8L" secondAttribute="bottom" constant="66" id="VJB-97-qhn"/>
-                                            <constraint firstItem="z9d-gU-Ttz" firstAttribute="top" secondItem="zIO-hG-GAI" secondAttribute="bottom" constant="12" id="nVY-9L-vGU"/>
+                                            <constraint firstItem="z9d-gU-Ttz" firstAttribute="width" secondItem="zIO-hG-GAI" secondAttribute="width" id="aOa-PT-WUF"/>
+                                            <constraint firstItem="z9d-gU-Ttz" firstAttribute="top" secondItem="zIO-hG-GAI" secondAttribute="bottom" constant="20" id="nVY-9L-vGU"/>
                                             <constraint firstItem="zIO-hG-GAI" firstAttribute="leading" secondItem="Ynq-Cm-zvl" secondAttribute="leading" constant="32" id="uLD-8I-C7J"/>
                                         </constraints>
                                     </view>
@@ -117,6 +117,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="0f2-3M-bKj" secondAttribute="trailing" id="GHy-Tu-lR0"/>
                             <constraint firstItem="0f2-3M-bKj" firstAttribute="top" secondItem="fKY-ek-Ha6" secondAttribute="bottom" id="KnU-kC-RAy"/>
                             <constraint firstItem="0f2-3M-bKj" firstAttribute="leading" secondItem="Hcl-I4-5Fm" secondAttribute="leadingMargin" id="bOz-0b-p2z"/>
+                            <constraint firstItem="z9d-gU-Ttz" firstAttribute="height" secondItem="Hcl-I4-5Fm" secondAttribute="height" multiplier="0.07" id="nNL-hJ-XVj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qvA-yb-CGG"/>
