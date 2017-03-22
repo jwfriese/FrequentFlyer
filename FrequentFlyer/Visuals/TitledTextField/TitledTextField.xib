@@ -14,25 +14,36 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aX3-Fv-r2s" customClass="TitledTextFieldTitleLabel" customModule="FrequentFlyer" customModuleProvider="target">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aX3-Fv-r2s" userLabel="Title Label" customClass="TitledTextFieldTitleLabel" customModule="FrequentFlyer" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="dux-g0-5EW" customClass="TitledTextFieldTextField" customModule="FrequentFlyer" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="641" width="375" height="26"/>
+                    <rect key="frame" x="0.0" y="631" width="375" height="26"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AhV-vW-tqi" userLabel="Underline" customClass="Underline" customModule="FrequentFlyer" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="666" width="375" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="KAS-ki-rt6"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="dux-g0-5EW" secondAttribute="bottom" id="B3S-LG-oqO"/>
+                <constraint firstItem="AhV-vW-tqi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="6AT-HE-hLt"/>
+                <constraint firstItem="AhV-vW-tqi" firstAttribute="top" secondItem="dux-g0-5EW" secondAttribute="bottom" constant="9" id="IJ2-b7-HoU"/>
                 <constraint firstItem="aX3-Fv-r2s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="LVh-bH-E36"/>
                 <constraint firstItem="aX3-Fv-r2s" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="MIX-Uy-vQk"/>
+                <constraint firstItem="AhV-vW-tqi" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Rlv-Ax-GWJ"/>
                 <constraint firstItem="dux-g0-5EW" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Sbb-j0-kCB"/>
+                <constraint firstAttribute="bottom" secondItem="AhV-vW-tqi" secondAttribute="bottom" id="Zz5-4d-hJp"/>
+                <constraint firstAttribute="trailing" secondItem="AhV-vW-tqi" secondAttribute="trailing" id="dOG-wf-KMw"/>
                 <constraint firstItem="dux-g0-5EW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tTT-YQ-Bfd"/>
             </constraints>
         </view>

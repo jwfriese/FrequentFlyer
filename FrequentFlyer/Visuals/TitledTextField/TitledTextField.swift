@@ -18,12 +18,12 @@ class TitledTextField: UIView {
         autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
         backgroundColor = UIColor.clear
         contentView.backgroundColor = UIColor.clear
+        underline?.backgroundColor = Style.Colors.titledTextFieldUnderlineColor
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
-        textField?.drawBorder()
     }
 
     private weak var cachedTitleLabel: UILabel?
@@ -51,6 +51,20 @@ class TitledTextField: UIView {
 
             cachedTextField = textField
             return cachedTextField
+        }
+    }
+
+    private weak var cachedUnderline: Underline?
+    private weak var underline: Underline? {
+        get {
+            if cachedUnderline != nil { return cachedUnderline }
+
+            let underline = contentView.subviews.filter { subview in
+                return subview.isKind(of: Underline.self)
+                }.first as? Underline
+
+            cachedUnderline = underline
+            return cachedUnderline
         }
     }
 }

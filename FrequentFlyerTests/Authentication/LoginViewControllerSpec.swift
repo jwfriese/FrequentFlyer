@@ -2,9 +2,11 @@ import XCTest
 import Quick
 import Nimble
 import Fleet
+import RxSwift
+
 @testable import FrequentFlyer
 
-class BasicUserAuthViewControllerSpec: QuickSpec {
+class LoginViewControllerSpec: QuickSpec {
     class MockBasicAuthTokenService: BasicAuthTokenService {
         var capturedTeamName: String?
         var capturedConcourseURL: String?
@@ -30,8 +32,8 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
     }
 
     override func spec() {
-        describe("BasicUserAuthViewController") {
-            var subject: BasicUserAuthViewController!
+        fdescribe("LoginViewController") {
+            var subject: LoginViewController!
             var mockBasicAuthTokenService: MockBasicAuthTokenService!
             var mockKeychainWrapper: MockKeychainWrapper!
 
@@ -42,7 +44,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
 
                 mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
-                subject = storyboard.instantiateViewController(withIdentifier: BasicUserAuthViewController.storyboardIdentifier) as! BasicUserAuthViewController
+                subject = storyboard.instantiateViewController(withIdentifier: LoginViewController.storyboardIdentifier) as! LoginViewController
 
                 mockBasicAuthTokenService = MockBasicAuthTokenService()
                 subject.basicAuthTokenService = mockBasicAuthTokenService
@@ -53,82 +55,79 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                 subject.concourseURLString = "concourse URL"
             }
 
-            describe("After the view has loaded") {
-                beforeEach {
-                    let navigationController = UINavigationController(rootViewController: subject)
-                    Fleet.setAsAppWindowRoot(navigationController)
-                }
+            describe("After the view loads") {
+                var navigationController: UINavigationController!
 
-                it("sets a blank title") {
-                    expect(subject.title).to(equal(""))
-                }
-
-                describe("Availability of the 'Submit' button") {
-                    it("is disabled just after the view is loaded") {
-                        expect(subject.submitButton!.isEnabled).to(beFalse())
-                    }
-
-                    describe("When only the 'Username' field has text") {
+                describe("Form setup") {
+                    context("When only basic auth is available") {
                         beforeEach {
-                            try? subject.usernameTextField?.enter(text: "turtle target")
+                            subject.authMethod$ = Observable.from(
+                                [AuthMethod(type: .basic, url: "basic-auth.com")]
+                            )
+                            navigationController = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
-                        it("leaves the button disabled") {
-                            expect(subject.submitButton!.isEnabled).to(beFalse())
-                        }
-                    }
-
-                    describe("When only the 'Password' field has text") {
-                        beforeEach {
-                            try? subject.passwordTextField?.enter(text: "Concourse turtle")
+                        it("displays the username and password entry fields") {
+                            expect(subject.usernameField?.isHidden).to(beFalse())
+                            expect(subject.passwordField?.isHidden).to(beFalse())
+                            expect(subject.basicAuthLoginButton?.isHidden).to(beFalse())
                         }
 
-                        it("leaves the button disabled") {
-                            expect(subject.submitButton!.isEnabled).to(beFalse())
+                        it("hides the Github auth section") {
+                            expect(subject.githubAuthDisplayLabel?.isHidden).to(beTrue())
+                            expect(subject.githubAuthButton?.isHidden).to(beTrue())
                         }
                     }
 
-                    describe("When both the 'Username' field and the 'Password' field have text") {
+                    context("When only Github auth is available") {
                         beforeEach {
-                            try? subject.usernameTextField?.enter(text: "turtle target")
-                            try? subject.passwordTextField?.enter(text: "Concourse turtle")
+                            subject.authMethod$ = Observable.from(
+                                [AuthMethod(type: .github, url: "github-auth.com")]
+                            )
+                            navigationController = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
-                        it("enables the button") {
-                            expect(subject.submitButton!.isEnabled).to(beTrue())
+                        it("hides the username and password entry fields") {
+                            expect(subject.usernameField?.isHidden).to(beTrue())
+                            expect(subject.passwordField?.isHidden).to(beTrue())
+                            expect(subject.basicAuthLoginButton?.isHidden).to(beTrue())
                         }
 
-                        describe("When the 'Username' field is cleared") {
-                            beforeEach {
-                                try? subject.usernameTextField?.startEditing()
-                                try! subject.usernameTextField?.clearText()
-                                try? subject.usernameTextField?.stopEditing()
-                            }
+                        it("displays the Github auth section") {
+                            expect(subject.githubAuthDisplayLabel?.isHidden).to(beFalse())
+                            expect(subject.githubAuthButton?.isHidden).to(beFalse())
+                        }
+                    }
 
-                            it("disables the button") {
-                                expect(subject.submitButton!.isEnabled).to(beFalse())
-                            }
+                    context("When both basic auth and Github auth are available") {
+                        beforeEach {
+                            subject.authMethod$ = Observable.from(
+                                [AuthMethod(type: .basic, url: "basic-auth.com"),
+                                 AuthMethod(type: .github, url: "github-auth.com")]
+                            )
+                            navigationController = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
-                        describe("When the 'Password' field is cleared") {
-                            beforeEach {
-                                try? subject.passwordTextField?.startEditing()
-                                try! subject.passwordTextField?.clearText()
-                                try? subject.passwordTextField?.stopEditing()
-                            }
+                        it("displays the username and password entry fields") {
+                            expect(subject.usernameField?.isHidden).to(beFalse())
+                            expect(subject.passwordField?.isHidden).to(beFalse())
+                            expect(subject.basicAuthLoginButton?.isHidden).to(beFalse())
+                        }
 
-                            it("disables the button") {
-                                expect(subject.submitButton!.isEnabled).to(beFalse())
-                            }
+                        it("displays the Github auth section") {
+                            expect(subject.githubAuthDisplayLabel?.isHidden).to(beFalse())
+                            expect(subject.githubAuthButton?.isHidden).to(beFalse())
                         }
                     }
                 }
 
-                describe("Entering auth credentials and submitting") {
+                describe("Submitting using basic auth") {
                     beforeEach {
-                        try? subject.usernameTextField?.enter(text: "turtle username")
-                        try? subject.passwordTextField?.enter(text: "turtle password")
-                        try! subject.submitButton?.tap()
+                        navigationController = Fleet.setInAppWindowRootNavigation(subject)
+
+                        try? subject.usernameField?.textField?.enter(text: "turtle username")
+                        try? subject.passwordField?.textField?.enter(text: "turtle password")
+                        try! subject.basicAuthLoginButton?.tap()
                     }
 
                     it("calls out to the BasicAuthTokenService with the entered username and password") {
@@ -139,7 +138,7 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                     }
 
                     it("disables the 'Submit' button") {
-                        expect(subject.submitButton!.isEnabled).to(beFalse())
+                        expect(subject.basicAuthLoginButton!.isEnabled).to(beFalse())
                     }
 
                     describe("When the BasicAuthTokenService resolves with a token") {
@@ -176,7 +175,6 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                                 expect(mockTeamPipelinesViewController.keychainWrapper).toEventuallyNot(beNil())
                             }
                         }
-
 
                         describe("When the 'Stay Logged In' switch is on") {
                             beforeEach {
@@ -232,8 +230,8 @@ class BasicUserAuthViewControllerSpec: QuickSpec {
                             expect(alert?.message).toEventually(equal("turtle authentication error"))
                         }
 
-                        it("re-enables the submit button") {
-                            expect(subject.submitButton?.isEnabled).toEventually(beTrue())
+                        it("re-enables the log in button") {
+                            expect(subject.basicAuthLoginButton?.isEnabled).toEventually(beTrue())
                         }
                     }
                 }

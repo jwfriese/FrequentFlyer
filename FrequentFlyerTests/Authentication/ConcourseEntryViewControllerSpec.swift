@@ -31,20 +31,22 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
     }
 
     override func spec() {
-        describe("ConcourseEntryViewController") {
+        fdescribe("ConcourseEntryViewController") {
             var subject: ConcourseEntryViewController!
             var mockAuthMethodsService: MockAuthMethodsService!
             var mockUnauthenticatedTokenService: MockUnauthenticatedTokenService!
             var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
             var mockAuthMethodListViewController: AuthMethodListViewController!
+
+
+            var mockLoginViewController: LoginViewController!
             var mockTeamPipelinesViewController: TeamPipelinesViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockAuthMethodListViewController = try! storyboard.mockIdentifier(AuthMethodListViewController.storyboardIdentifier, usingMockFor: AuthMethodListViewController.self)
-
+                mockLoginViewController = try! storyboard.mockIdentifier(LoginViewController.storyboardIdentifier, usingMockFor: LoginViewController.self)
                 mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: ConcourseEntryViewController.storyboardIdentifier) as! ConcourseEntryViewController
@@ -202,8 +204,8 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                             returnAuthMethods([basicAuthMethod, githubAuthMethod])
                         }
 
-                        it("presents an AuthMethodListViewController") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockAuthMethodListViewController))
+                        it("presents a LoginViewController") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockLoginViewController))
                         }
 
                         it("sets the fetched auth methods on the view controller") {
@@ -214,7 +216,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         }
 
                         it("sets the entered Concourse URL on the view controller") {
-                            expect(mockAuthMethodListViewController.concourseURLString).toEventually(equal("https://concourse.com"))
+                            expect(mockLoginViewController.concourseURLString).toEventually(equal("https://concourse.com"))
                         }
                     }
 

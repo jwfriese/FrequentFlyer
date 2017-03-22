@@ -12,7 +12,7 @@ class ConcourseEntryViewController: UIViewController {
     var userTextInputPageOperator = UserTextInputPageOperator()
 
     class var storyboardIdentifier: String { get { return "ConcourseEntry" } }
-    class var showAuthMethodListSegueId: String { get { return "ShowAuthMethodList" } }
+    class var showLoginSegueId: String { get { return "ShowLogin" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
 
     var authMethod$: Observable<AuthMethod>?
@@ -25,10 +25,10 @@ class ConcourseEntryViewController: UIViewController {
         view?.backgroundColor = Style.Colors.backgroundColor
         scrollView?.backgroundColor = Style.Colors.backgroundColor
 
-        submitButton?.initialize(withTitleText: "Submit",
-                                 titleFont: Style.Fonts.button,
-                                 controlStateTitleColors: [UIControlState.normal : UIColor.white],
-                                 controlStateButtonColors: [UIControlState.normal : Style.Colors.buttonNormal]
+        submitButton?.setUp(withTitleText: "Submit",
+                            titleFont: Style.Fonts.button,
+                            controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
+                            controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
         )
 
         concourseURLEntryField?.titleLabel?.text = "URL"
@@ -43,18 +43,17 @@ class ConcourseEntryViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ConcourseEntryViewController.showAuthMethodListSegueId {
-            guard let authMethodListViewController = segue.destination as? AuthMethodListViewController else {
+        if segue.identifier == ConcourseEntryViewController.showLoginSegueId {
+            guard let loginViewController = segue.destination as? LoginViewController else {
                 return
             }
 
             guard let concourseURLString = concourseURLEntryField?.textField?.text else { return }
-            guard let authMethod$ = sender as? Observable<AuthMethod> else { return }
+//            guard let authMethod$ = sender as? Observable<AuthMethod> else { return }
 
-            authMethodListViewController.authMethod$ = authMethod$
-            authMethodListViewController.concourseURLString = concourseURLString
-        }
-        else if segue.identifier == ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId {
+//            loginViewController.authMethod$ = authMethod$
+            loginViewController.concourseURLString = concourseURLString
+        } else if segue.identifier == ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
             guard let teamPipelinesViewController = segue.destination as? TeamPipelinesViewController else {
                 return
@@ -78,7 +77,7 @@ class ConcourseEntryViewController: UIViewController {
                 onNext: { authMethods in
                     guard authMethods.count > 0 else { self.handleAuthMethodsError(concourseURLString) ; return }
                     DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: ConcourseEntryViewController.showAuthMethodListSegueId, sender: self.authMethod$)
+                        self.performSegue(withIdentifier: ConcourseEntryViewController.showLoginSegueId, sender: self.authMethod$)
                     }
             },
                 onError: { _ in

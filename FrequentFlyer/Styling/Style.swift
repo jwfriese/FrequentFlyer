@@ -4,6 +4,7 @@ class Style {
     class Colors {
         static var backgroundColor = UIColor(colorLiteralRed: 245/255, green: 246/255, blue: 247/255, alpha: 1)
         static var pageTitleLabelColor = UIColor(colorLiteralRed: 52/255, green: 73/255, blue: 94/255, alpha: 1)
+        static var titledTextFieldUnderlineColor = Style.Colors.pageTitleLabelColor
         static var titledTextFieldTitleLabelColor = UIColor(colorLiteralRed: 92/255, green: 109/255, blue: 127/255, alpha: 1)
         static var titledTextFieldContentColor = UIColor(colorLiteralRed: 92/255, green: 109/255, blue: 127/255, alpha: 1)
         static var buttonNormal = UIColor(colorLiteralRed: 77/255, green: 169/255, blue: 225/255, alpha: 1)

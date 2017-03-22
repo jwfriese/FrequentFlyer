@@ -29,6 +29,7 @@
 		7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */; };
 		7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */; };
 		7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F95341DFAF605005E0DD2 /* WebViewController.swift */; };
+		7B60DAF31E82156C00F5FA44 /* Underline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B60DAF21E82156C00F5FA44 /* Underline.swift */; };
 		7B673E781E7EF54D00CAC921 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673E771E7EF54D00CAC921 /* Style.swift */; };
 		7B673EB11E7EFC5500CAC921 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */; };
 		7B673EB21E7EFC5500CAC921 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA01E7EFC5500CAC921 /* Lato-BlackItalic.ttf */; };
@@ -55,6 +56,8 @@
 		7B673ED41E7F0FA900CAC921 /* TitledTextFieldTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */; };
 		7B6F74B81E7F8F0600C7C005 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74B71E7F8F0600C7C005 /* RoundedButton.swift */; };
 		7B6F74BB1E7F8F9A00C7C005 /* GenerateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74BA1E7F8F9A00C7C005 /* GenerateImage.swift */; };
+		7B6F74BD1E802D5F00C7C005 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74BC1E802D5F00C7C005 /* LoginViewController.swift */; };
+		7B6F74BF1E802DC600C7C005 /* LoginViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74BE1E802DC600C7C005 /* LoginViewControllerSpec.swift */; };
 		7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */; };
 		7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */; };
 		7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */; };
@@ -179,6 +182,7 @@
 		7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = web_view_controller_test.html; sourceTree = "<group>"; };
 		7B5F95341DFAF605005E0DD2 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		7B60DAF21E82156C00F5FA44 /* Underline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Underline.swift; sourceTree = "<group>"; };
 		7B673E771E7EF54D00CAC921 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		7B673EA01E7EFC5500CAC921 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -205,6 +209,8 @@
 		7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldTextField.swift; sourceTree = "<group>"; };
 		7B6F74B71E7F8F0600C7C005 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		7B6F74BA1E7F8F9A00C7C005 /* GenerateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateImage.swift; sourceTree = "<group>"; };
+		7B6F74BC1E802D5F00C7C005 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		7B6F74BE1E802DC600C7C005 /* LoginViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
 		7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsStylingParser.swift; sourceTree = "<group>"; };
 		7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
@@ -443,6 +449,7 @@
 			children = (
 				7B673ECC1E7F06E200CAC921 /* TitledTextField.swift */,
 				7B673ECE1E7F070E00CAC921 /* TitledTextField.xib */,
+				7B60DAF21E82156C00F5FA44 /* Underline.swift */,
 			);
 			path = TitledTextField;
 			sourceTree = "<group>";
@@ -573,6 +580,7 @@
 				7BA0326A1D8441E200F20E23 /* AuthMethod.swift */,
 				7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */,
 				7BA0327A1D84BC9300F20E23 /* AuthType.swift */,
+				7B6F74BC1E802D5F00C7C005 /* LoginViewController.swift */,
 				7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */,
 				7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */,
 				7B0E70811D8DC08500686532 /* BasicUserAuthViewController.swift */,
@@ -591,6 +599,7 @@
 				7BA032421D84400400F20E23 /* UnauthenticatedTokenServiceSpec.swift */,
 				7BA0326C1D84465800F20E23 /* AuthMethodSpec.swift */,
 				7BA032761D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift */,
+				7B6F74BE1E802DC600C7C005 /* LoginViewControllerSpec.swift */,
 				7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */,
 				7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */,
 				7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */,
@@ -999,9 +1008,11 @@
 				7BCAEFE81D901A4C00BC817D /* main.swift in Sources */,
 				7B737BC51E075BBB007FC4E8 /* SSEService.swift in Sources */,
 				7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */,
+				7B6F74BD1E802D5F00C7C005 /* LoginViewController.swift in Sources */,
 				7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */,
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
 				7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */,
+				7B60DAF31E82156C00F5FA44 /* Underline.swift in Sources */,
 				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
 				7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */,
 				7BA0322E1D843FF900F20E23 /* TeamPipelinesService.swift in Sources */,
@@ -1062,6 +1073,7 @@
 				7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */,
 				7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */,
 				7B737BCF1E075BC2007FC4E8 /* SSEConnectionSpec.swift in Sources */,
+				7B6F74BF1E802DC600C7C005 /* LoginViewControllerSpec.swift in Sources */,
 				7BCAEFF11D902AE500BC817D /* AppRouterViewControllerSpec.swift in Sources */,
 				7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */,
 				7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */,
