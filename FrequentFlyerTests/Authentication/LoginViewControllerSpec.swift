@@ -32,7 +32,7 @@ class LoginViewControllerSpec: QuickSpec {
     }
 
     override func spec() {
-        fdescribe("LoginViewController") {
+        describe("LoginViewController") {
             var subject: LoginViewController!
             var mockBasicAuthTokenService: MockBasicAuthTokenService!
             var mockKeychainWrapper: MockKeychainWrapper!
