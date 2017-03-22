@@ -30,6 +30,7 @@
 		7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */; };
 		7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F95341DFAF605005E0DD2 /* WebViewController.swift */; };
 		7B60DAF31E82156C00F5FA44 /* Underline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B60DAF21E82156C00F5FA44 /* Underline.swift */; };
+		7B60DAF51E82C33D00F5FA44 /* PageComponentTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B60DAF41E82C33D00F5FA44 /* PageComponentTitleLabel.swift */; };
 		7B673E781E7EF54D00CAC921 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673E771E7EF54D00CAC921 /* Style.swift */; };
 		7B673EB11E7EFC5500CAC921 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */; };
 		7B673EB21E7EFC5500CAC921 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673EA01E7EFC5500CAC921 /* Lato-BlackItalic.ttf */; };
@@ -133,6 +134,7 @@
 		7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */; };
 		7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */; };
 		7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2241D8C29770054D13B /* FactoryError.swift */; };
+		7BF620931E82D18800C0E47F /* AllControlStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF620921E82D18800C0E47F /* AllControlStates.swift */; };
 		7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFBA6941E0754DB00B71891 /* EventSource.framework */; };
 		AE0566FF1E2819FD00D43EDC /* StreamResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0566FE1E2819FD00D43EDC /* StreamResult.swift */; };
 		AE343E3C1D7F4FB8008251CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */; };
@@ -183,6 +185,7 @@
 		7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = web_view_controller_test.html; sourceTree = "<group>"; };
 		7B5F95341DFAF605005E0DD2 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		7B60DAF21E82156C00F5FA44 /* Underline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Underline.swift; sourceTree = "<group>"; };
+		7B60DAF41E82C33D00F5FA44 /* PageComponentTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageComponentTitleLabel.swift; sourceTree = "<group>"; };
 		7B673E771E7EF54D00CAC921 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		7B673EA01E7EFC5500CAC921 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -286,6 +289,7 @@
 		7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactory.swift; sourceTree = "<group>"; };
 		7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactorySpec.swift; sourceTree = "<group>"; };
 		7BEDE2241D8C29770054D13B /* FactoryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryError.swift; sourceTree = "<group>"; };
+		7BF620921E82D18800C0E47F /* AllControlStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllControlStates.swift; sourceTree = "<group>"; };
 		7BFBA6941E0754DB00B71891 /* EventSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventSource.framework; path = Carthage/Build/iOS/EventSource.framework; sourceTree = "<group>"; };
 		AE0566FE1E2819FD00D43EDC /* StreamResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamResult.swift; sourceTree = "<group>"; };
 		AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -428,6 +432,7 @@
 		7B673EC31E7EFFE200CAC921 /* Labels */ = {
 			isa = PBXGroup;
 			children = (
+				7B60DAF41E82C33D00F5FA44 /* PageComponentTitleLabel.swift */,
 				7B673EC41E7F000900CAC921 /* PageTitleLabel.swift */,
 				7B673ED01E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift */,
 			);
@@ -474,6 +479,7 @@
 			isa = PBXGroup;
 			children = (
 				7B6F74BA1E7F8F9A00C7C005 /* GenerateImage.swift */,
+				7BF620921E82D18800C0E47F /* AllControlStates.swift */,
 			);
 			path = ButtonUtilities;
 			sourceTree = "<group>";
@@ -994,6 +1000,7 @@
 				7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */,
 				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
 				7B673ECD1E7F06E200CAC921 /* TitledTextField.swift in Sources */,
+				7B60DAF51E82C33D00F5FA44 /* PageComponentTitleLabel.swift in Sources */,
 				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
 				7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */,
 				7B6F74BB1E7F8F9A00C7C005 /* GenerateImage.swift in Sources */,
@@ -1014,6 +1021,7 @@
 				7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */,
 				7B60DAF31E82156C00F5FA44 /* Underline.swift in Sources */,
 				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
+				7BF620931E82D18800C0E47F /* AllControlStates.swift in Sources */,
 				7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */,
 				7BA0322E1D843FF900F20E23 /* TeamPipelinesService.swift in Sources */,
 				7BA032241D843FF300F20E23 /* BuildsTableViewHeaderView.swift in Sources */,

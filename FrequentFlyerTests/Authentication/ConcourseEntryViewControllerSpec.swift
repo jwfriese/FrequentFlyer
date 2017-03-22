@@ -31,7 +31,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
     }
 
     override func spec() {
-        fdescribe("ConcourseEntryViewController") {
+        describe("ConcourseEntryViewController") {
             var subject: ConcourseEntryViewController!
             var mockAuthMethodsService: MockAuthMethodsService!
             var mockUnauthenticatedTokenService: MockUnauthenticatedTokenService!
@@ -209,7 +209,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         }
 
                         it("sets the fetched auth methods on the view controller") {
-                            expect(authMethodStreamResult.elements).toEventually(equal([
+                            expect(mockLoginViewController.authMethods).toEventually(equal([
                                 AuthMethod(type: .basic, url: "basic-auth.com"),
                                 AuthMethod(type: .github, url: "github-auth.com")
                                 ]))

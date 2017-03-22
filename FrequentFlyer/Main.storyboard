@@ -81,7 +81,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9d-gU-Ttz" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="269" width="278" height="46"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                <state key="normal" title="Submit"/>
+                                                <state key="normal" title="Button"/>
                                                 <connections>
                                                     <action selector="submitButtonTapped" destination="rvu-Hz-VhO" eventType="touchUpInside" id="7fl-pC-1gk"/>
                                                 </connections>
@@ -153,24 +153,24 @@
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="647"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPF-Db-Awv" userLabel="Title Label" customClass="PageTitleLabel" customModule="FrequentFlyer" customModuleProvider="target">
-                                                <rect key="frame" x="150.5" y="64" width="42" height="20.5"/>
+                                                <rect key="frame" x="151" y="64" width="42" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="lPY-73-DtF">
-                                                <rect key="frame" x="0.0" y="151" width="343" height="203.5"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="lPY-73-DtF" userLabel="Basic Auth Components">
+                                                <rect key="frame" x="0.0" y="150.5" width="343" height="203"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kcD-kb-tuD" userLabel="Username Field" customClass="TitledTextField" customModule="FrequentFlyer" customModuleProvider="target">
-                                                        <rect key="frame" x="32" y="0.0" width="279" height="53.5"/>
+                                                        <rect key="frame" x="32" y="0.0" width="279" height="53"/>
                                                         <color key="backgroundColor" red="0.75410698050000002" green="0.97822612519999996" blue="0.71421890450000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKR-TU-d5j" userLabel="Password Field" customClass="TitledTextField" customModule="FrequentFlyer" customModuleProvider="target">
-                                                        <rect key="frame" x="32" y="78.5" width="279" height="53.5"/>
+                                                        <rect key="frame" x="32" y="78" width="279" height="54"/>
                                                         <color key="backgroundColor" red="0.3294117647" green="0.52802191840000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUa-4C-mgD" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
-                                                        <rect key="frame" x="32" y="157" width="279" height="46.5"/>
+                                                        <rect key="frame" x="32" y="157" width="279" height="46"/>
                                                         <state key="normal" title="Button"/>
                                                         <connections>
                                                             <action selector="submitButtonTapped" destination="lU6-MP-khL" eventType="touchUpInside" id="iEc-4E-jOG"/>
@@ -186,12 +186,38 @@
                                                     <constraint firstItem="kcD-kb-tuD" firstAttribute="leading" secondItem="lPY-73-DtF" secondAttribute="leading" constant="32" id="q4s-d9-TjE"/>
                                                 </constraints>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="wr2-QI-QJU" userLabel="GitHub Auth Components">
+                                                <rect key="frame" x="0.0" y="395.5" width="343" height="92"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in with your GitHub account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wI-sU-1O8" customClass="PageComponentTitleLabel" customModule="FrequentFlyer" customModuleProvider="target">
+                                                        <rect key="frame" x="32" y="0.0" width="279" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eV-co-R3z" userLabel="Go to GitHub Button" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
+                                                        <rect key="frame" x="32" y="45.5" width="279" height="46.5"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="gitHubAuthButtonTapped" destination="lU6-MP-khL" eventType="touchUpInside" id="v5b-pz-tjV"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="0eV-co-R3z" firstAttribute="leading" secondItem="wr2-QI-QJU" secondAttribute="leading" constant="32" id="9PW-KU-H7u"/>
+                                                    <constraint firstItem="3wI-sU-1O8" firstAttribute="leading" secondItem="wr2-QI-QJU" secondAttribute="leading" constant="32" id="BR5-qR-rqC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="0eV-co-R3z" secondAttribute="trailing" constant="32" id="iKe-BU-idx"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="wr2-QI-QJU" firstAttribute="width" secondItem="aW3-bY-tKr" secondAttribute="width" id="1Lx-7d-0iu"/>
+                                            <constraint firstItem="wr2-QI-QJU" firstAttribute="centerX" secondItem="aW3-bY-tKr" secondAttribute="centerX" id="3f8-68-fyU"/>
                                             <constraint firstItem="lPY-73-DtF" firstAttribute="centerX" secondItem="aW3-bY-tKr" secondAttribute="centerX" id="DaS-Ie-XVb"/>
                                             <constraint firstItem="lPY-73-DtF" firstAttribute="width" secondItem="aW3-bY-tKr" secondAttribute="width" id="Iqs-c6-xsC"/>
                                             <constraint firstItem="lPY-73-DtF" firstAttribute="top" secondItem="yPF-Db-Awv" secondAttribute="bottom" constant="66" id="ReT-PJ-X7b"/>
+                                            <constraint firstItem="wr2-QI-QJU" firstAttribute="top" secondItem="lPY-73-DtF" secondAttribute="bottom" constant="42" id="flC-dG-FLV"/>
                                             <constraint firstItem="yPF-Db-Awv" firstAttribute="centerX" secondItem="aW3-bY-tKr" secondAttribute="centerX" id="jX7-Im-1rP"/>
                                             <constraint firstItem="yPF-Db-Awv" firstAttribute="top" secondItem="aW3-bY-tKr" secondAttribute="top" constant="64" id="wNY-OE-SNx"/>
                                         </constraints>
@@ -212,6 +238,7 @@
                             <constraint firstItem="3sd-hF-rkQ" firstAttribute="top" secondItem="REu-th-bZd" secondAttribute="bottom" id="CII-Vk-kVo"/>
                             <constraint firstItem="GKR-TU-d5j" firstAttribute="height" secondItem="G1c-Ul-GQa" secondAttribute="height" multiplier="0.08" id="FGr-T1-uIb"/>
                             <constraint firstItem="gUa-4C-mgD" firstAttribute="height" secondItem="G1c-Ul-GQa" secondAttribute="height" multiplier="0.07" id="JYK-WC-VPb"/>
+                            <constraint firstItem="0eV-co-R3z" firstAttribute="height" secondItem="G1c-Ul-GQa" secondAttribute="height" multiplier="0.07" id="SFw-zK-3kS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3sd-hF-rkQ" secondAttribute="trailing" id="UVP-TX-HQW"/>
                             <constraint firstItem="Sq0-xY-mD2" firstAttribute="top" secondItem="3sd-hF-rkQ" secondAttribute="bottom" id="VEU-WG-b6l"/>
                             <constraint firstItem="kcD-kb-tuD" firstAttribute="height" secondItem="G1c-Ul-GQa" secondAttribute="height" multiplier="0.08" id="hh5-aX-Mzg"/>
@@ -220,9 +247,11 @@
                     </view>
                     <connections>
                         <outlet property="basicAuthLoginButton" destination="gUa-4C-mgD" id="fkA-Ds-Ghh"/>
+                        <outlet property="githubAuthButton" destination="0eV-co-R3z" id="hlI-K2-kSO"/>
                         <outlet property="passwordField" destination="GKR-TU-d5j" id="lSu-bd-Klr"/>
                         <outlet property="usernameField" destination="kcD-kb-tuD" id="5Ic-DC-msW"/>
                         <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="Gdb-7Z-m57"/>
+                        <segue destination="1H1-8y-8ag" kind="show" identifier="ShowGitHubAuth" id="hwI-th-h9r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNO-C8-NNo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -823,7 +852,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Gdb-7Z-m57"/>
+        <segue reference="vJK-D0-aXI"/>
         <segue reference="mf8-JP-wQv"/>
     </inferredMetricsTieBreakers>
 </document>

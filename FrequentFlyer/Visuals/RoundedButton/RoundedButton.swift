@@ -7,13 +7,13 @@ extension UIControlState: Hashable {
 }
 
 class RoundedButton: UIButton {
-    private var titleText: String!
-
     func setUp(withTitleText titleText: String,
                titleFont: UIFont,
                controlStateTitleColors titleColors: [UIControlState : UIColor],
                controlStateButtonColors buttonColors: [UIControlState : UIColor]) {
-        self.titleText = titleText
+        for (state) in UIButton.allControlStates {
+            setTitle(titleText, for: state)
+        }
         titleLabel?.textAlignment = .center
         titleLabel?.font = titleFont
         for (state, color) in titleColors {
@@ -26,13 +26,5 @@ class RoundedButton: UIButton {
 
         layer.cornerRadius = 2.0
         layer.masksToBounds = true
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        if titleLabel?.text != titleText {
-            titleLabel?.text = titleText
-        }
     }
 }

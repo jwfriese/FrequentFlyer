@@ -38,11 +38,14 @@ class LoginViewControllerSpec: QuickSpec {
             var mockKeychainWrapper: MockKeychainWrapper!
 
             var mockTeamPipelinesViewController: TeamPipelinesViewController!
+            var mockGithubAuthViewController: GithubAuthViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
+
+                mockGithubAuthViewController = try! storyboard.mockIdentifier(GithubAuthViewController.storyboardIdentifier, usingMockFor: GithubAuthViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: LoginViewController.storyboardIdentifier) as! LoginViewController
 
@@ -56,15 +59,11 @@ class LoginViewControllerSpec: QuickSpec {
             }
 
             describe("After the view loads") {
-                var navigationController: UINavigationController!
-
                 describe("Form setup") {
                     context("When only basic auth is available") {
                         beforeEach {
-                            subject.authMethod$ = Observable.from(
-                                [AuthMethod(type: .basic, url: "basic-auth.com")]
-                            )
-                            navigationController = Fleet.setInAppWindowRootNavigation(subject)
+                            subject.authMethods = [AuthMethod(type: .basic, url: "basic-auth.com")]
+                            let _ = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
                         it("displays the username and password entry fields") {
@@ -81,10 +80,8 @@ class LoginViewControllerSpec: QuickSpec {
 
                     context("When only Github auth is available") {
                         beforeEach {
-                            subject.authMethod$ = Observable.from(
-                                [AuthMethod(type: .github, url: "github-auth.com")]
-                            )
-                            navigationController = Fleet.setInAppWindowRootNavigation(subject)
+                            subject.authMethods = [AuthMethod(type: .github, url: "github-auth.com")]
+                            let _ = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
                         it("hides the username and password entry fields") {
@@ -101,11 +98,12 @@ class LoginViewControllerSpec: QuickSpec {
 
                     context("When both basic auth and Github auth are available") {
                         beforeEach {
-                            subject.authMethod$ = Observable.from(
-                                [AuthMethod(type: .basic, url: "basic-auth.com"),
-                                 AuthMethod(type: .github, url: "github-auth.com")]
-                            )
-                            navigationController = Fleet.setInAppWindowRootNavigation(subject)
+                            subject.authMethods = [
+                                AuthMethod(type: .basic, url: "basic-auth.com"),
+                                AuthMethod(type: .github, url: "github-auth.com")
+                            ]
+
+                            let _ = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
                         it("displays the username and password entry fields") {
@@ -123,7 +121,8 @@ class LoginViewControllerSpec: QuickSpec {
 
                 describe("Submitting using basic auth") {
                     beforeEach {
-                        navigationController = Fleet.setInAppWindowRootNavigation(subject)
+                        subject.authMethods = [AuthMethod(type: .basic, url: "basic-auth.com")]
+                        let _ = Fleet.setInAppWindowRootNavigation(subject)
 
                         try? subject.usernameField?.textField?.enter(text: "turtle username")
                         try? subject.passwordField?.textField?.enter(text: "turtle password")
@@ -232,6 +231,31 @@ class LoginViewControllerSpec: QuickSpec {
 
                         it("re-enables the log in button") {
                             expect(subject.basicAuthLoginButton?.isEnabled).toEventually(beTrue())
+                        }
+                    }
+                }
+
+                describe("Using GitHub auth") {
+                    beforeEach {
+                        subject.authMethods = [AuthMethod(type: .github, url: "github-auth.com")]
+                        let _ = Fleet.setInAppWindowRootNavigation(subject)
+                    }
+
+                    describe("Tapping the 'Log in with GitHub' button") {
+                        beforeEach {
+                            try! subject.githubAuthButton?.tap()
+                        }
+
+                        it("presents a GithubAuthViewController") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockGithubAuthViewController))
+                        }
+
+                        it("sets the entered Concourse URL on the view controller") {
+                            expect(mockGithubAuthViewController.concourseURLString).toEventually(equal("concourse URL"))
+                        }
+
+                        it("sets the auth method's auth URL on the view controller") {
+                            expect(mockGithubAuthViewController.githubAuthURLString).to(equal("github-auth.com"))
                         }
                     }
                 }

@@ -7,19 +7,20 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var basicAuthLoginButton: RoundedButton?
     @IBOutlet weak var stayLoggedInSwitch: UISwitch?
     @IBOutlet weak var githubAuthDisplayLabel: UILabel?
-    @IBOutlet weak var githubAuthButton: UIButton?
+    @IBOutlet weak var githubAuthButton: RoundedButton?
 
     var basicAuthTokenService = BasicAuthTokenService()
     var keychainWrapper = KeychainWrapper()
 
     var concourseURLString: String?
-    var authMethod$: Observable<AuthMethod>!
+    var authMethods: [AuthMethod]?
 
     class var storyboardIdentifier: String { get { return "Login" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
+    class var showGithubAuthSegueId: String { get { return "ShowGitHubAuth" } }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == BasicUserAuthViewController.setTeamPipelinesAsRootPageSegueId {
+        if segue.identifier == LoginViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
             guard let teamPipelinesViewController = segue.destination as? TeamPipelinesViewController else {
                 return
@@ -33,6 +34,25 @@ class LoginViewController: UIViewController {
             teamPipelinesViewController.teamPipelinesService = teamPipelinesService
 
             teamPipelinesViewController.keychainWrapper = KeychainWrapper()
+        } else if segue.identifier == LoginViewController.showGithubAuthSegueId {
+            guard let githubAuthViewController = segue.destination as? GithubAuthViewController else {
+                return
+            }
+
+            guard let githubAuthURLString = sender as? String else { return }
+            githubAuthViewController.githubAuthURLString = githubAuthURLString
+
+            guard let concourseURLString = concourseURLString else { return }
+            githubAuthViewController.concourseURLString = concourseURLString
+
+            githubAuthViewController.keychainWrapper = KeychainWrapper()
+            githubAuthViewController.httpSessionUtils = HTTPSessionUtils()
+
+            let tokenValidationService = TokenValidationService()
+            tokenValidationService.httpClient = HTTPClient()
+            githubAuthViewController.tokenValidationService = tokenValidationService
+
+            githubAuthViewController.userTextInputPageOperator = UserTextInputPageOperator()
         }
     }
 
@@ -70,6 +90,14 @@ class LoginViewController: UIViewController {
             }
         }
     }
+
+    @IBAction func gitHubAuthButtonTapped() {
+        if let gitHubAuthDefinition = authMethods?.first(where: { method in
+            return method.type == .github
+        }) {
+            performSegue(withIdentifier: LoginViewController.showGithubAuthSegueId, sender: gitHubAuthDefinition.url)
+        }
+    }
 }
 
 // MARK: - Lifecycle
@@ -81,6 +109,12 @@ extension LoginViewController {
                                     titleFont: Style.Fonts.button,
                                     controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
                                     controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
+        )
+
+        githubAuthButton?.setUp(withTitleText: "Log in with GitHub",
+                                titleFont: Style.Fonts.button,
+                                controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
+                                controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
         )
 
         usernameField?.titleLabel?.text = "Username"

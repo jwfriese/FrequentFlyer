@@ -49,9 +49,9 @@ class ConcourseEntryViewController: UIViewController {
             }
 
             guard let concourseURLString = concourseURLEntryField?.textField?.text else { return }
-//            guard let authMethod$ = sender as? Observable<AuthMethod> else { return }
+            guard let authMethods = sender as? [AuthMethod] else { return }
 
-//            loginViewController.authMethod$ = authMethod$
+            loginViewController.authMethods = authMethods
             loginViewController.concourseURLString = concourseURLString
         } else if segue.identifier == ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
@@ -77,7 +77,7 @@ class ConcourseEntryViewController: UIViewController {
                 onNext: { authMethods in
                     guard authMethods.count > 0 else { self.handleAuthMethodsError(concourseURLString) ; return }
                     DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: ConcourseEntryViewController.showLoginSegueId, sender: self.authMethod$)
+                        self.performSegue(withIdentifier: ConcourseEntryViewController.showLoginSegueId, sender: authMethods)
                     }
             },
                 onError: { _ in
