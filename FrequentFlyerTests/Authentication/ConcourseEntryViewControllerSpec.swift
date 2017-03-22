@@ -37,9 +37,6 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
             var mockUnauthenticatedTokenService: MockUnauthenticatedTokenService!
             var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
-            var mockAuthMethodListViewController: AuthMethodListViewController!
-
-
             var mockLoginViewController: LoginViewController!
             var mockTeamPipelinesViewController: TeamPipelinesViewController!
 
