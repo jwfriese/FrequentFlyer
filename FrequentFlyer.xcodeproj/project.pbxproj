@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */; };
 		7B0E70801D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */; };
-		7B0E70821D8DC08500686532 /* BasicUserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70811D8DC08500686532 /* BasicUserAuthViewController.swift */; };
-		7B0E70841D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70831D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift */; };
 		7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */; };
 		7B0E70941D8E248800686532 /* GithubAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70931D8E248800686532 /* GithubAuthViewController.swift */; };
 		7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */; };
@@ -161,8 +159,6 @@
 /* Begin PBXFileReference section */
 		7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcourseEntryViewController.swift; sourceTree = "<group>"; };
 		7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcourseEntryViewControllerSpec.swift; sourceTree = "<group>"; };
-		7B0E70811D8DC08500686532 /* BasicUserAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicUserAuthViewController.swift; sourceTree = "<group>"; };
-		7B0E70831D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicUserAuthViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayWrapper.swift; sourceTree = "<group>"; };
 		7B0E70931D8E248800686532 /* GithubAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAuthViewController.swift; sourceTree = "<group>"; };
 		7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAuthViewControllerSpec.swift; sourceTree = "<group>"; };
@@ -585,7 +581,6 @@
 				7B6F74BC1E802D5F00C7C005 /* LoginViewController.swift */,
 				7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */,
 				7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */,
-				7B0E70811D8DC08500686532 /* BasicUserAuthViewController.swift */,
 				7B0E70931D8E248800686532 /* GithubAuthViewController.swift */,
 				7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */,
 			);
@@ -604,7 +599,6 @@
 				7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */,
 				7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */,
 				7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */,
-				7B0E70831D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift */,
 				7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */,
 				7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */,
 			);
@@ -1029,7 +1023,6 @@
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
 				7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */,
-				7B0E70821D8DC08500686532 /* BasicUserAuthViewController.swift in Sources */,
 				7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */,
 				7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */,
 				7B6F74B81E7F8F0600C7C005 /* RoundedButton.swift in Sources */,
@@ -1066,7 +1059,6 @@
 				7BA032791D84908000F20E23 /* AuthMethodsServiceSpec.swift in Sources */,
 				7B737BCC1E075BC2007FC4E8 /* LogEventSpec.swift in Sources */,
 				7BA032891D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift in Sources */,
-				7B0E70841D8DC0A600686532 /* BasicUserAuthViewControllerSpec.swift in Sources */,
 				7B2EAE401D85F5CE00A91234 /* BuildDataDeserializerSpec.swift in Sources */,
 				7BA0325B1D84401900F20E23 /* TeamPipelinesServiceSpec.swift in Sources */,
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
