@@ -105,20 +105,35 @@ extension LoginViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        basicAuthLoginButton?.setUp(withTitleText: "Log in",
+        guard let authMethods = authMethods else { return }
+
+        let doesProvideBasicAuth = authMethods.contains(where: { method in return method.type == .basic })
+        if doesProvideBasicAuth {
+            basicAuthLoginButton?.setUp(withTitleText: "Log in",
+                                        titleFont: Style.Fonts.button,
+                                        controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
+                                        controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
+            )
+
+            usernameField?.titleLabel?.text = "Username"
+            passwordField?.titleLabel?.text = "Password"
+            passwordField?.textField?.isSecureTextEntry = true
+        } else {
+            usernameField?.isHidden = true
+            passwordField?.isHidden = true
+            basicAuthLoginButton?.isHidden = true
+        }
+
+        let doesProvideGitHubAuth = authMethods.contains(where: { method in return method.type == .github })
+        if doesProvideGitHubAuth {
+            githubAuthButton?.setUp(withTitleText: "Log in with GitHub",
                                     titleFont: Style.Fonts.button,
                                     controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
                                     controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
-        )
-
-        githubAuthButton?.setUp(withTitleText: "Log in with GitHub",
-                                titleFont: Style.Fonts.button,
-                                controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
-                                controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
-        )
-
-        usernameField?.titleLabel?.text = "Username"
-        passwordField?.titleLabel?.text = "Password"
-        passwordField?.textField?.isSecureTextEntry = true
+            )
+        } else {
+            githubAuthButton?.isHidden = true
+            githubAuthDisplayLabel?.isHidden = true
+        }
     }
 }
