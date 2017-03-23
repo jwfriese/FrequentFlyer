@@ -69,6 +69,7 @@ class LoginViewControllerSpec: QuickSpec {
                         it("displays the username and password entry fields") {
                             expect(subject.usernameField?.isHidden).to(beFalse())
                             expect(subject.passwordField?.isHidden).to(beFalse())
+                            expect(subject.stayLoggedInToggle?.isHidden).to(beFalse())
                             expect(subject.basicAuthLoginButton?.isHidden).to(beFalse())
                         }
 
@@ -87,6 +88,7 @@ class LoginViewControllerSpec: QuickSpec {
                         it("hides the username and password entry fields") {
                             expect(subject.usernameField?.isHidden).to(beTrue())
                             expect(subject.passwordField?.isHidden).to(beTrue())
+                            expect(subject.stayLoggedInToggle?.isHidden).to(beTrue())
                             expect(subject.basicAuthLoginButton?.isHidden).to(beTrue())
                         }
 
@@ -109,6 +111,7 @@ class LoginViewControllerSpec: QuickSpec {
                         it("displays the username and password entry fields") {
                             expect(subject.usernameField?.isHidden).to(beFalse())
                             expect(subject.passwordField?.isHidden).to(beFalse())
+                            expect(subject.stayLoggedInToggle?.isHidden).to(beFalse())
                             expect(subject.basicAuthLoginButton?.isHidden).to(beFalse())
                         }
 
@@ -141,9 +144,9 @@ class LoginViewControllerSpec: QuickSpec {
                     }
 
                     describe("When the BasicAuthTokenService resolves with a token") {
-                        describe("When the 'Stay Logged In' switch is off") {
+                        describe("When the 'Stay logged in?' toggle is off") {
                             beforeEach {
-                                subject.stayLoggedInSwitch?.isOn = false
+                                subject.stayLoggedInToggle?.checkBox?.on = false
 
                                 guard let completion = mockBasicAuthTokenService.capturedCompletion else {
                                     fail("Failed to call BasicAuthTokenService with a completion handler")
@@ -175,9 +178,9 @@ class LoginViewControllerSpec: QuickSpec {
                             }
                         }
 
-                        describe("When the 'Stay Logged In' switch is on") {
+                        describe("When the 'Stay logged in?' toggle is on") {
                             beforeEach {
-                                subject.stayLoggedInSwitch?.isOn = true
+                                subject.stayLoggedInToggle?.checkBox?.on = true
 
                                 guard let completion = mockBasicAuthTokenService.capturedCompletion else {
                                     fail("Failed to call BasicAuthTokenService with a completion handler")

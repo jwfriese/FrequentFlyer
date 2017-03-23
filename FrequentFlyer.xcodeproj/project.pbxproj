@@ -131,6 +131,10 @@
 		7BEDE20F1D8AC0AE0054D13B /* TargetFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */; };
 		7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2241D8C29770054D13B /* FactoryError.swift */; };
 		7BF620931E82D18800C0E47F /* AllControlStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF620921E82D18800C0E47F /* AllControlStates.swift */; };
+		7BF620951E841D8F00C0E47F /* BEMCheckBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF620941E841D8F00C0E47F /* BEMCheckBox.framework */; };
+		7BF620981E841FC600C0E47F /* TitledCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF620971E841FC600C0E47F /* TitledCheckBox.swift */; };
+		7BF6209A1E841FE600C0E47F /* TitledCheckBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BF620991E841FE600C0E47F /* TitledCheckBox.xib */; };
+		7BF6209C1E8421CB00C0E47F /* TitledCheckBoxTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF6209B1E8421CB00C0E47F /* TitledCheckBoxTitleLabel.swift */; };
 		7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFBA6941E0754DB00B71891 /* EventSource.framework */; };
 		AE0566FF1E2819FD00D43EDC /* StreamResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0566FE1E2819FD00D43EDC /* StreamResult.swift */; };
 		AE343E3C1D7F4FB8008251CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */; };
@@ -282,6 +286,10 @@
 		7BEDE20E1D8AC0AE0054D13B /* TargetFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactorySpec.swift; sourceTree = "<group>"; };
 		7BEDE2241D8C29770054D13B /* FactoryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryError.swift; sourceTree = "<group>"; };
 		7BF620921E82D18800C0E47F /* AllControlStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllControlStates.swift; sourceTree = "<group>"; };
+		7BF620941E841D8F00C0E47F /* BEMCheckBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BEMCheckBox.framework; path = Carthage/Build/iOS/BEMCheckBox.framework; sourceTree = "<group>"; };
+		7BF620971E841FC600C0E47F /* TitledCheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledCheckBox.swift; sourceTree = "<group>"; };
+		7BF620991E841FE600C0E47F /* TitledCheckBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitledCheckBox.xib; sourceTree = "<group>"; };
+		7BF6209B1E8421CB00C0E47F /* TitledCheckBoxTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledCheckBoxTitleLabel.swift; sourceTree = "<group>"; };
 		7BFBA6941E0754DB00B71891 /* EventSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventSource.framework; path = Carthage/Build/iOS/EventSource.framework; sourceTree = "<group>"; };
 		AE0566FE1E2819FD00D43EDC /* StreamResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamResult.swift; sourceTree = "<group>"; };
 		AE343E3A1D7F4FB8008251CA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -310,6 +318,7 @@
 				7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */,
 				AEAFAAE71E2ECC3700ACD288 /* RxSwift.framework in Frameworks */,
 				AEAFAAE81E2ECC5000ACD288 /* RxCocoa.framework in Frameworks */,
+				7BF620951E841D8F00C0E47F /* BEMCheckBox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +445,7 @@
 			children = (
 				7B6F74B91E7F8F6D00C7C005 /* ButtonUtilities */,
 				7B6F74B61E7F8DC900C7C005 /* RoundedButton */,
+				7BF620961E841F8F00C0E47F /* TitledCheckBox */,
 				7B673ECB1E7F06AF00CAC921 /* TitledTextField */,
 			);
 			path = Visuals;
@@ -703,6 +713,16 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		7BF620961E841F8F00C0E47F /* TitledCheckBox */ = {
+			isa = PBXGroup;
+			children = (
+				7BF620971E841FC600C0E47F /* TitledCheckBox.swift */,
+				7BF620991E841FE600C0E47F /* TitledCheckBox.xib */,
+				7BF6209B1E8421CB00C0E47F /* TitledCheckBoxTitleLabel.swift */,
+			);
+			path = TitledCheckBox;
+			sourceTree = "<group>";
+		};
 		AE0566FD1E2819AC00D43EDC /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -714,6 +734,7 @@
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BF620941E841D8F00C0E47F /* BEMCheckBox.framework */,
 				AEAFAAE41E2ECB7600ACD288 /* RxCocoa.framework */,
 				AEAFAAE21E2ECB6400ACD288 /* RxTest.framework */,
 				7B2D72471E27E8E40046EDFC /* RxSwift.framework */,
@@ -899,6 +920,7 @@
 				7B673EB61E7EFC5500CAC921 /* Lato-HairlineItalic.ttf in Resources */,
 				7B673EB41E7EFC5500CAC921 /* Lato-BoldItalic.ttf in Resources */,
 				7B673EBF1E7EFC5500CAC921 /* Lato-Semibold.ttf in Resources */,
+				7BF6209A1E841FE600C0E47F /* TitledCheckBox.xib in Resources */,
 				7B673EBC1E7EFC5500CAC921 /* Lato-Medium.ttf in Resources */,
 				7B673EB51E7EFC5500CAC921 /* Lato-Hairline.ttf in Resources */,
 				7B673EB91E7EFC5500CAC921 /* Lato-Italic.ttf in Resources */,
@@ -931,6 +953,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/EventSource.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BEMCheckBox.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -986,6 +1009,7 @@
 				7BA032231D843FF300F20E23 /* BuildsViewController.swift in Sources */,
 				7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */,
 				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
+				7BF6209C1E8421CB00C0E47F /* TitledCheckBoxTitleLabel.swift in Sources */,
 				7B673ECD1E7F06E200CAC921 /* TitledTextField.swift in Sources */,
 				7B60DAF51E82C33D00F5FA44 /* PageComponentTitleLabel.swift in Sources */,
 				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
@@ -1004,6 +1028,7 @@
 				7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */,
 				7B6F74BD1E802D5F00C7C005 /* LoginViewController.swift in Sources */,
 				7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */,
+				7BF620981E841FC600C0E47F /* TitledCheckBox.swift in Sources */,
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
 				7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */,
 				7B60DAF31E82156C00F5FA44 /* Underline.swift in Sources */,

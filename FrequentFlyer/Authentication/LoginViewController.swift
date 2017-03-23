@@ -4,8 +4,8 @@ import RxSwift
 class LoginViewController: UIViewController {
     @IBOutlet weak var usernameField: TitledTextField?
     @IBOutlet weak var passwordField: TitledTextField?
+    @IBOutlet weak var stayLoggedInToggle: TitledCheckBox?
     @IBOutlet weak var basicAuthLoginButton: RoundedButton?
-    @IBOutlet weak var stayLoggedInSwitch: UISwitch?
     @IBOutlet weak var githubAuthDisplayLabel: UILabel?
     @IBOutlet weak var githubAuthButton: RoundedButton?
 
@@ -80,7 +80,7 @@ class LoginViewController: UIViewController {
                                        api: concourseURL,
                                        teamName: "main",
                                        token: token)
-                if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.isOn {
+                if self.stayLoggedInToggle != nil && self.stayLoggedInToggle!.checkBox!.on {
                     self.keychainWrapper.saveTarget(newTarget)
                 }
 
@@ -117,10 +117,12 @@ extension LoginViewController {
 
             usernameField?.titleLabel?.text = "Username"
             passwordField?.titleLabel?.text = "Password"
+            stayLoggedInToggle?.titleLabel?.text = "Stay logged in?"
             passwordField?.textField?.isSecureTextEntry = true
         } else {
             usernameField?.isHidden = true
             passwordField?.isHidden = true
+            stayLoggedInToggle?.isHidden = true
             basicAuthLoginButton?.isHidden = true
         }
 
