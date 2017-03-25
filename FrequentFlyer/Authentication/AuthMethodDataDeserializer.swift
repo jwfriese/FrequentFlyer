@@ -22,7 +22,7 @@ class AuthMethodDataDeserializer {
             if typeString == "basic" {
                 type = .basic
             } else if typeString == "oauth" {
-                type = .github
+                type = .gitHub
             }
 
             authMethods.append(AuthMethod(type: type, url: urlString))

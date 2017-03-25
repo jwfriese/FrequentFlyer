@@ -6,8 +6,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordField: TitledTextField?
     @IBOutlet weak var stayLoggedInToggle: TitledCheckBox?
     @IBOutlet weak var basicAuthLoginButton: RoundedButton?
-    @IBOutlet weak var githubAuthDisplayLabel: UILabel?
-    @IBOutlet weak var githubAuthButton: RoundedButton?
+    @IBOutlet weak var gitHubAuthDisplayLabel: UILabel?
+    @IBOutlet weak var gitHubAuthButton: RoundedButton?
 
     var basicAuthTokenService = BasicAuthTokenService()
     var keychainWrapper = KeychainWrapper()
@@ -17,7 +17,7 @@ class LoginViewController: UIViewController {
 
     class var storyboardIdentifier: String { get { return "Login" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
-    class var showGithubAuthSegueId: String { get { return "ShowGitHubAuth" } }
+    class var showGitHubAuthSegueId: String { get { return "ShowGitHubAuth" } }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == LoginViewController.setTeamPipelinesAsRootPageSegueId {
@@ -34,25 +34,25 @@ class LoginViewController: UIViewController {
             teamPipelinesViewController.teamPipelinesService = teamPipelinesService
 
             teamPipelinesViewController.keychainWrapper = KeychainWrapper()
-        } else if segue.identifier == LoginViewController.showGithubAuthSegueId {
-            guard let githubAuthViewController = segue.destination as? GithubAuthViewController else {
+        } else if segue.identifier == LoginViewController.showGitHubAuthSegueId {
+            guard let gitHubAuthViewController = segue.destination as? GitHubAuthViewController else {
                 return
             }
 
-            guard let githubAuthURLString = sender as? String else { return }
-            githubAuthViewController.githubAuthURLString = githubAuthURLString
+            guard let gitHubAuthURLString = sender as? String else { return }
+            gitHubAuthViewController.gitHubAuthURLString = gitHubAuthURLString
 
             guard let concourseURLString = concourseURLString else { return }
-            githubAuthViewController.concourseURLString = concourseURLString
+            gitHubAuthViewController.concourseURLString = concourseURLString
 
-            githubAuthViewController.keychainWrapper = KeychainWrapper()
-            githubAuthViewController.httpSessionUtils = HTTPSessionUtils()
+            gitHubAuthViewController.keychainWrapper = KeychainWrapper()
+            gitHubAuthViewController.httpSessionUtils = HTTPSessionUtils()
 
             let tokenValidationService = TokenValidationService()
             tokenValidationService.httpClient = HTTPClient()
-            githubAuthViewController.tokenValidationService = tokenValidationService
+            gitHubAuthViewController.tokenValidationService = tokenValidationService
 
-            githubAuthViewController.userTextInputPageOperator = UserTextInputPageOperator()
+            gitHubAuthViewController.userTextInputPageOperator = UserTextInputPageOperator()
         }
     }
 
@@ -93,9 +93,9 @@ class LoginViewController: UIViewController {
 
     @IBAction func gitHubAuthButtonTapped() {
         if let gitHubAuthDefinition = authMethods?.first(where: { method in
-            return method.type == .github
+            return method.type == .gitHub
         }) {
-            performSegue(withIdentifier: LoginViewController.showGithubAuthSegueId, sender: gitHubAuthDefinition.url)
+            performSegue(withIdentifier: LoginViewController.showGitHubAuthSegueId, sender: gitHubAuthDefinition.url)
         }
     }
 }
@@ -126,16 +126,16 @@ extension LoginViewController {
             basicAuthLoginButton?.isHidden = true
         }
 
-        let doesProvideGitHubAuth = authMethods.contains(where: { method in return method.type == .github })
+        let doesProvideGitHubAuth = authMethods.contains(where: { method in return method.type == .gitHub })
         if doesProvideGitHubAuth {
-            githubAuthButton?.setUp(withTitleText: "Log in with GitHub",
+            gitHubAuthButton?.setUp(withTitleText: "Log in with GitHub",
                                     titleFont: Style.Fonts.button,
                                     controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
                                     controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
             )
         } else {
-            githubAuthButton?.isHidden = true
-            githubAuthDisplayLabel?.isHidden = true
+            gitHubAuthButton?.isHidden = true
+            gitHubAuthDisplayLabel?.isHidden = true
         }
     }
 }

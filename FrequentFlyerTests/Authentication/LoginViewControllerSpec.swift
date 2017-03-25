@@ -38,14 +38,14 @@ class LoginViewControllerSpec: QuickSpec {
             var mockKeychainWrapper: MockKeychainWrapper!
 
             var mockTeamPipelinesViewController: TeamPipelinesViewController!
-            var mockGithubAuthViewController: GithubAuthViewController!
+            var mockGitHubAuthViewController: GitHubAuthViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
-                mockGithubAuthViewController = try! storyboard.mockIdentifier(GithubAuthViewController.storyboardIdentifier, usingMockFor: GithubAuthViewController.self)
+                mockGitHubAuthViewController = try! storyboard.mockIdentifier(GitHubAuthViewController.storyboardIdentifier, usingMockFor: GitHubAuthViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: LoginViewController.storyboardIdentifier) as! LoginViewController
 
@@ -73,15 +73,15 @@ class LoginViewControllerSpec: QuickSpec {
                             expect(subject.basicAuthLoginButton?.isHidden).to(beFalse())
                         }
 
-                        it("hides the Github auth section") {
-                            expect(subject.githubAuthDisplayLabel?.isHidden).to(beTrue())
-                            expect(subject.githubAuthButton?.isHidden).to(beTrue())
+                        it("hides the GitHub auth section") {
+                            expect(subject.gitHubAuthDisplayLabel?.isHidden).to(beTrue())
+                            expect(subject.gitHubAuthButton?.isHidden).to(beTrue())
                         }
                     }
 
-                    context("When only Github auth is available") {
+                    context("When only GitHub auth is available") {
                         beforeEach {
-                            subject.authMethods = [AuthMethod(type: .github, url: "github-auth.com")]
+                            subject.authMethods = [AuthMethod(type: .gitHub, url: "gitHub-auth.com")]
                             let _ = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
@@ -92,17 +92,17 @@ class LoginViewControllerSpec: QuickSpec {
                             expect(subject.basicAuthLoginButton?.isHidden).to(beTrue())
                         }
 
-                        it("displays the Github auth section") {
-                            expect(subject.githubAuthDisplayLabel?.isHidden).to(beFalse())
-                            expect(subject.githubAuthButton?.isHidden).to(beFalse())
+                        it("displays the GitHub auth section") {
+                            expect(subject.gitHubAuthDisplayLabel?.isHidden).to(beFalse())
+                            expect(subject.gitHubAuthButton?.isHidden).to(beFalse())
                         }
                     }
 
-                    context("When both basic auth and Github auth are available") {
+                    context("When both basic auth and GitHub auth are available") {
                         beforeEach {
                             subject.authMethods = [
                                 AuthMethod(type: .basic, url: "basic-auth.com"),
-                                AuthMethod(type: .github, url: "github-auth.com")
+                                AuthMethod(type: .gitHub, url: "gitHub-auth.com")
                             ]
 
                             let _ = Fleet.setInAppWindowRootNavigation(subject)
@@ -115,9 +115,9 @@ class LoginViewControllerSpec: QuickSpec {
                             expect(subject.basicAuthLoginButton?.isHidden).to(beFalse())
                         }
 
-                        it("displays the Github auth section") {
-                            expect(subject.githubAuthDisplayLabel?.isHidden).to(beFalse())
-                            expect(subject.githubAuthButton?.isHidden).to(beFalse())
+                        it("displays the GitHub auth section") {
+                            expect(subject.gitHubAuthDisplayLabel?.isHidden).to(beFalse())
+                            expect(subject.gitHubAuthButton?.isHidden).to(beFalse())
                         }
                     }
                 }
@@ -240,25 +240,25 @@ class LoginViewControllerSpec: QuickSpec {
 
                 describe("Using GitHub auth") {
                     beforeEach {
-                        subject.authMethods = [AuthMethod(type: .github, url: "github-auth.com")]
+                        subject.authMethods = [AuthMethod(type: .gitHub, url: "gitHub-auth.com")]
                         let _ = Fleet.setInAppWindowRootNavigation(subject)
                     }
 
                     describe("Tapping the 'Log in with GitHub' button") {
                         beforeEach {
-                            try! subject.githubAuthButton?.tap()
+                            try! subject.gitHubAuthButton?.tap()
                         }
 
-                        it("presents a GithubAuthViewController") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockGithubAuthViewController))
+                        it("presents a GitHubAuthViewController") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockGitHubAuthViewController))
                         }
 
                         it("sets the entered Concourse URL on the view controller") {
-                            expect(mockGithubAuthViewController.concourseURLString).toEventually(equal("concourse URL"))
+                            expect(mockGitHubAuthViewController.concourseURLString).toEventually(equal("concourse URL"))
                         }
 
                         it("sets the auth method's auth URL on the view controller") {
-                            expect(mockGithubAuthViewController.githubAuthURLString).to(equal("github-auth.com"))
+                            expect(mockGitHubAuthViewController.gitHubAuthURLString).to(equal("gitHub-auth.com"))
                         }
                     }
                 }

@@ -45,7 +45,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                     }
 
                     expect(authMethods[0]).to(equal(AuthMethod(type: .basic, url: "basic_turtle.com")))
-                    expect(authMethods[1]).to(equal(AuthMethod(type: .github, url: "oauth_turtle.com")))
+                    expect(authMethods[1]).to(equal(AuthMethod(type: .gitHub, url: "oauth_turtle.com")))
                 }
 
                 it("returns no error") {
@@ -124,7 +124,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                     }
 
                     it("emits an auth method for each valid JSON auth method entry") {
-                        expect(authMethods).to(equal([AuthMethod(type: .github, url: "basic_crab.com")]))
+                        expect(authMethods).to(equal([AuthMethod(type: .gitHub, url: "basic_crab.com")]))
                     }
 
                     it("emits completed") {

@@ -197,8 +197,8 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                     describe("When the auth methods service call resolves with some auth methods and no error") {
                         beforeEach {
                             let basicAuthMethod = AuthMethod(type: .basic, url: "basic-auth.com")
-                            let githubAuthMethod = AuthMethod(type: .github, url: "github-auth.com")
-                            returnAuthMethods([basicAuthMethod, githubAuthMethod])
+                            let gitHubAuthMethod = AuthMethod(type: .gitHub, url: "gitHub-auth.com")
+                            returnAuthMethods([basicAuthMethod, gitHubAuthMethod])
                         }
 
                         it("presents a LoginViewController") {
@@ -208,7 +208,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         it("sets the fetched auth methods on the view controller") {
                             expect(mockLoginViewController.authMethods).toEventually(equal([
                                 AuthMethod(type: .basic, url: "basic-auth.com"),
-                                AuthMethod(type: .github, url: "github-auth.com")
+                                AuthMethod(type: .gitHub, url: "gitHub-auth.com")
                                 ]))
                         }
 

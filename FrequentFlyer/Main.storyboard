@@ -254,8 +254,8 @@
                     </view>
                     <connections>
                         <outlet property="basicAuthLoginButton" destination="gUa-4C-mgD" id="fkA-Ds-Ghh"/>
-                        <outlet property="githubAuthButton" destination="0eV-co-R3z" id="hlI-K2-kSO"/>
-                        <outlet property="githubAuthDisplayLabel" destination="3wI-sU-1O8" id="gd3-f8-Qpa"/>
+                        <outlet property="gitHubAuthButton" destination="0eV-co-R3z" id="hlI-K2-kSO"/>
+                        <outlet property="gitHubAuthDisplayLabel" destination="3wI-sU-1O8" id="gd3-f8-Qpa"/>
                         <outlet property="passwordField" destination="GKR-TU-d5j" id="lSu-bd-Klr"/>
                         <outlet property="stayLoggedInToggle" destination="jVa-Ws-Afp" id="1Ye-GD-X2W"/>
                         <outlet property="usernameField" destination="kcD-kb-tuD" id="5Ic-DC-msW"/>
@@ -455,10 +455,10 @@
             </objects>
             <point key="canvasLocation" x="1084" y="1496"/>
         </scene>
-        <!--Github Auth View Controller-->
+        <!--Git Hub Auth View Controller-->
         <scene sceneID="eJq-k8-dfq">
             <objects>
-                <viewController storyboardIdentifier="GithubAuth" id="1H1-8y-8ag" customClass="GithubAuthViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GitHubAuth" id="1H1-8y-8ag" customClass="GitHubAuthViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rpV-IG-T4i"/>
                         <viewControllerLayoutGuide type="bottom" id="1SO-o2-Dlf"/>
@@ -492,7 +492,7 @@
                                                         <rect key="frame" x="32" y="57" width="278" height="46"/>
                                                         <color key="backgroundColor" red="0.75410698050000002" green="0.97822612519999996" blue="0.71421890450000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
-                                                            <action selector="openGithubAuthPageButtonTapped" destination="1H1-8y-8ag" eventType="touchUpInside" id="wNo-1a-GYW"/>
+                                                            <action selector="openGitHubAuthPageButtonTapped" destination="1H1-8y-8ag" eventType="touchUpInside" id="Hzq-Ap-gg2"/>
                                                         </connections>
                                                     </view>
                                                 </subviews>
@@ -569,12 +569,12 @@
                     </view>
                     <connections>
                         <outlet property="loginButton" destination="H4R-TW-kzG" id="giJ-WH-QJ9"/>
-                        <outlet property="openGithubAuthPageButton" destination="01f-xg-zc9" id="wrB-bW-pag"/>
+                        <outlet property="openGitHubAuthPageButton" destination="01f-xg-zc9" id="toK-2k-v48"/>
                         <outlet property="scrollView" destination="BDo-G9-LMk" id="1Yk-rR-KoT"/>
                         <outlet property="stayLoggedInToggle" destination="vns-vF-eys" id="um9-j1-8R4"/>
                         <outlet property="tokenTextField" destination="0q4-la-scy" id="0eU-c7-eDO"/>
                         <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="8fK-Iz-ap1"/>
-                        <segue destination="Gfc-uL-yND" kind="show" identifier="ShowGithubAuthenticationWebPage" id="WSb-Mn-ucz"/>
+                        <segue destination="Gfc-uL-yND" kind="show" identifier="ShowGitHubAuthenticationWebPage" id="WSb-Mn-ucz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4J2-fl-yth" userLabel="First Responder" sceneMemberID="firstResponder"/>

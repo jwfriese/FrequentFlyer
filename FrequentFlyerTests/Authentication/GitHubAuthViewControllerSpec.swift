@@ -4,7 +4,7 @@ import Nimble
 import Fleet
 @testable import FrequentFlyer
 
-class GithubAuthViewControllerSpec: QuickSpec {
+class GitHubAuthViewControllerSpec: QuickSpec {
     class MockKeychainWrapper: KeychainWrapper {
         var capturedTarget: Target?
 
@@ -38,8 +38,8 @@ class GithubAuthViewControllerSpec: QuickSpec {
     }
 
     override func spec() {
-        describe("GithubAuthViewController") {
-            var subject: GithubAuthViewController!
+        describe("GitHubAuthViewController") {
+            var subject: GitHubAuthViewController!
             var mockKeychainWrapper: MockKeychainWrapper!
             var mockHTTPSessionUtils: MockHTTPSessionUtils!
             var mockTokenValidationService: MockTokenValidationService!
@@ -55,10 +55,10 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                 mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
-                subject = storyboard.instantiateViewController(withIdentifier: GithubAuthViewController.storyboardIdentifier) as! GithubAuthViewController
+                subject = storyboard.instantiateViewController(withIdentifier: GitHubAuthViewController.storyboardIdentifier) as! GitHubAuthViewController
 
                 subject.concourseURLString = "turtle_concourse.com"
-                subject.githubAuthURLString = "turtle_github.com"
+                subject.gitHubAuthURLString = "turtle_gitHub.com"
 
                 mockKeychainWrapper = MockKeychainWrapper()
                 subject.keychainWrapper = mockKeychainWrapper
@@ -108,7 +108,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                 describe("Availability of the 'Get Token' button") {
                     it("is always enabled") {
-                        expect(subject.openGithubAuthPageButton?.isEnabled).to(beTrue())
+                        expect(subject.openGitHubAuthPageButton?.isEnabled).to(beTrue())
                     }
                 }
 
@@ -119,7 +119,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                     describe("When the 'Token' field has text") {
                         beforeEach {
-                            try! subject.tokenTextField?.textField?.enter(text: "token of the Github Turtle")
+                            try! subject.tokenTextField?.textField?.enter(text: "token of the GitHub Turtle")
                         }
 
                         it("enables the button") {
@@ -155,7 +155,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                 describe("Tapping on the 'Get Token' button") {
                     beforeEach {
-                        try! subject.openGithubAuthPageButton?.tap()
+                        try! subject.openGitHubAuthPageButton?.tap()
                     }
 
                     it("presents a WebViewController") {
@@ -170,7 +170,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
                                 }
 
                                 let url = webViewController.webPageURL
-                                return url?.absoluteString == "turtle_github.com"
+                                return url?.absoluteString == "turtle_gitHub.com"
                             }
 
                             expect(predicate()).toEventually(beTrue())
@@ -180,7 +180,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                 describe("Entering a token and hitting the 'Submit' button") {
                     beforeEach {
-                        try! subject.tokenTextField?.textField?.enter(text: "token of the Github Turtle")
+                        try! subject.tokenTextField?.textField?.enter(text: "token of the GitHub Turtle")
                         try! subject.loginButton?.tap()
                     }
 
@@ -189,7 +189,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
                     }
 
                     it("uses the token verification service to check that the token is valid") {
-                        expect(mockTokenValidationService.capturedToken).to(equal(Token(value: "token of the Github Turtle")))
+                        expect(mockTokenValidationService.capturedToken).to(equal(Token(value: "token of the GitHub Turtle")))
                         expect(mockTokenValidationService.capturedConcourseURLString).to(equal("turtle_concourse.com"))
                     }
 
@@ -220,7 +220,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                             it("creates a new target from the entered information and view controller") {
                                 let expectedTarget = Target(name: "target", api: "turtle_concourse.com",
-                                                            teamName: "main", token: Token(value: "token of the Github Turtle")
+                                                            teamName: "main", token: Token(value: "token of the GitHub Turtle")
                                 )
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
@@ -244,14 +244,14 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                             it("creates a new target from the entered information and sets it on the view controller") {
                                 let expectedTarget = Target(name: "target", api: "turtle_concourse.com",
-                                                            teamName: "main", token: Token(value: "token of the Github Turtle")
+                                                            teamName: "main", token: Token(value: "token of the GitHub Turtle")
                                 )
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
 
                             it("asks the KeychainWrapper to save the new target") {
                                 let expectedTarget = Target(name: "target", api: "turtle_concourse.com",
-                                                            teamName: "main", token: Token(value: "token of the Github Turtle")
+                                                            teamName: "main", token: Token(value: "token of the GitHub Turtle")
                                 )
 
                                 expect(mockKeychainWrapper.capturedTarget).to(equal(expectedTarget))

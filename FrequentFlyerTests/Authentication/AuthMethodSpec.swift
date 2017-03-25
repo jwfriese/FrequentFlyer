@@ -17,7 +17,7 @@ class AuthMethodSpec: QuickSpec {
             context("When the auth methods are different") {
                 it("returns true") {
                     let methodOne = AuthMethod(type: .basic, url: ".com")
-                    let methodTwo = AuthMethod(type: .github, url: ".com")
+                    let methodTwo = AuthMethod(type: .gitHub, url: ".com")
                     expect(methodOne).toNot(equal(methodTwo))
                 }
             }

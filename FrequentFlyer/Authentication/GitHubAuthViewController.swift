@@ -1,8 +1,8 @@
 import UIKit
 
-class GithubAuthViewController: UIViewController {
+class GitHubAuthViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView?
-    @IBOutlet weak var openGithubAuthPageButton: RoundedButton?
+    @IBOutlet weak var openGitHubAuthPageButton: RoundedButton?
     @IBOutlet weak var tokenTextField: UnderlineTextField?
     @IBOutlet weak var stayLoggedInToggle: TitledCheckBox?
     @IBOutlet weak var loginButton: RoundedButton?
@@ -13,18 +13,18 @@ class GithubAuthViewController: UIViewController {
     var userTextInputPageOperator = UserTextInputPageOperator()
 
     var concourseURLString: String?
-    var githubAuthURLString: String?
+    var gitHubAuthURLString: String?
 
-    class var storyboardIdentifier: String { get { return "GithubAuth" } }
+    class var storyboardIdentifier: String { get { return "GitHubAuth" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
-    class var showGithubAuthenticationWebPageSegueId: String { get { return "ShowGithubAuthenticationWebPage" } }
+    class var showGitHubAuthenticationWebPageSegueId: String { get { return "ShowGitHubAuthenticationWebPage" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = ""
 
-        openGithubAuthPageButton?.setUp(withTitleText: "Get Token",
+        openGitHubAuthPageButton?.setUp(withTitleText: "Get Token",
                                         titleFont: Style.Fonts.button,
                                         controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
                                         controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
@@ -44,7 +44,7 @@ class GithubAuthViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GithubAuthViewController.setTeamPipelinesAsRootPageSegueId {
+        if segue.identifier == GitHubAuthViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
             guard let teamPipelinesViewController = segue.destination as? TeamPipelinesViewController else {
                 return
@@ -58,20 +58,20 @@ class GithubAuthViewController: UIViewController {
             teamPipelinesViewController.teamPipelinesService = teamPipelinesService
 
             teamPipelinesViewController.keychainWrapper = KeychainWrapper()
-        } else if segue.identifier == GithubAuthViewController.showGithubAuthenticationWebPageSegueId {
-            guard let githubAuthURLString = githubAuthURLString else { return }
+        } else if segue.identifier == GitHubAuthViewController.showGitHubAuthenticationWebPageSegueId {
+            guard let gitHubAuthURLString = gitHubAuthURLString else { return }
 
             guard let webViewController = segue.destination as? WebViewController else {
                 return
             }
 
-            webViewController.webPageURL = URL(string: githubAuthURLString)
+            webViewController.webPageURL = URL(string: gitHubAuthURLString)
         }
     }
 
-    @IBAction func openGithubAuthPageButtonTapped() {
+    @IBAction func openGitHubAuthPageButtonTapped() {
         DispatchQueue.main.async {
-            self.performSegue(withIdentifier: GithubAuthViewController.showGithubAuthenticationWebPageSegueId, sender: nil)
+            self.performSegue(withIdentifier: GitHubAuthViewController.showGitHubAuthenticationWebPageSegueId, sender: nil)
         }
     }
 
@@ -106,14 +106,14 @@ class GithubAuthViewController: UIViewController {
                 }
 
                 DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: GithubAuthViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
+                    self.performSegue(withIdentifier: GitHubAuthViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
                 }
             }
         }
     }
 }
 
-extension GithubAuthViewController: UITextFieldDelegate {
+extension GitHubAuthViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let willHaveText = string != ""
         loginButton?.isEnabled = willHaveText
@@ -126,7 +126,7 @@ extension GithubAuthViewController: UITextFieldDelegate {
     }
 }
 
-extension GithubAuthViewController: UserTextInputPageDelegate {
+extension GitHubAuthViewController: UserTextInputPageDelegate {
     var textFields: [UITextField] { get { return [tokenTextField!.textField!] } }
     var pageView: UIView { get { return view } }
     var pageScrollView: UIScrollView { get { return scrollView! } }

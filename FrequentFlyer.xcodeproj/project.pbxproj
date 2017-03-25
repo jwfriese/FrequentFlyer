@@ -10,8 +10,6 @@
 		7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */; };
 		7B0E70801D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */; };
 		7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */; };
-		7B0E70941D8E248800686532 /* GithubAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70931D8E248800686532 /* GithubAuthViewController.swift */; };
-		7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */; };
 		7B0E709B1D8F0BA400686532 /* TokenValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */; };
 		7B0E709D1D8F0BBC00686532 /* TokenValidationServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */; };
 		7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */; };
@@ -21,6 +19,8 @@
 		7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */; };
 		7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */; };
 		7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */; };
+		7B59010C1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59010B1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift */; };
+		7B59010E1E86425600BB4538 /* GitHubAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59010D1E86425600BB4538 /* GitHubAuthViewController.swift */; };
 		7B5F952B1DFAF573005E0DD2 /* HTTPSessionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */; };
 		7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */; };
 		7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */; };
@@ -168,8 +168,6 @@
 		7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcourseEntryViewController.swift; sourceTree = "<group>"; };
 		7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcourseEntryViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayWrapper.swift; sourceTree = "<group>"; };
-		7B0E70931D8E248800686532 /* GithubAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAuthViewController.swift; sourceTree = "<group>"; };
-		7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAuthViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidationService.swift; sourceTree = "<group>"; };
 		7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidationServiceSpec.swift; sourceTree = "<group>"; };
 		7B2D72471E27E8E40046EDFC /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
@@ -180,6 +178,8 @@
 		7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageOperator.swift; sourceTree = "<group>"; };
 		7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageOperatorSpec.swift; sourceTree = "<group>"; };
 		7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageDelegate.swift; sourceTree = "<group>"; };
+		7B59010B1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubAuthViewControllerSpec.swift; sourceTree = "<group>"; };
+		7B59010D1E86425600BB4538 /* GitHubAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubAuthViewController.swift; sourceTree = "<group>"; };
 		7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPSessionUtils.swift; sourceTree = "<group>"; };
 		7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = web_view_controller_test.html; sourceTree = "<group>"; };
@@ -608,10 +608,10 @@
 				7BA0326A1D8441E200F20E23 /* AuthMethod.swift */,
 				7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */,
 				7BA0327A1D84BC9300F20E23 /* AuthType.swift */,
+				7B59010D1E86425600BB4538 /* GitHubAuthViewController.swift */,
 				7B6F74BC1E802D5F00C7C005 /* LoginViewController.swift */,
 				7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */,
 				7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */,
-				7B0E70931D8E248800686532 /* GithubAuthViewController.swift */,
 				7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */,
 			);
 			path = Authentication;
@@ -620,6 +620,7 @@
 		7BA032061D843F2200F20E23 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				7B59010B1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift */,
 				7BA032401D84400400F20E23 /* TokenSpec.swift */,
 				7BA032411D84400400F20E23 /* TokenDataDeserializerSpec.swift */,
 				7BA032421D84400400F20E23 /* UnauthenticatedTokenServiceSpec.swift */,
@@ -629,7 +630,6 @@
 				7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */,
 				7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */,
 				7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */,
-				7B0E70951D8EF9A600686532 /* GithubAuthViewControllerSpec.swift */,
 				7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */,
 			);
 			path = Authentication;
@@ -1037,6 +1037,7 @@
 				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
 				7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */,
 				7B6F74BB1E7F8F9A00C7C005 /* GenerateImage.swift in Sources */,
+				7B59010E1E86425600BB4538 /* GitHubAuthViewController.swift in Sources */,
 				7BA032271D843FF300F20E23 /* Build.swift in Sources */,
 				7B737BC41E075BBB007FC4E8 /* SSEEventParser.swift in Sources */,
 				7BA0323D1D843FFE00F20E23 /* Target.swift in Sources */,
@@ -1060,7 +1061,6 @@
 				7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */,
 				7BA0322E1D843FF900F20E23 /* TeamPipelinesService.swift in Sources */,
 				7BA032241D843FF300F20E23 /* BuildsTableViewHeaderView.swift in Sources */,
-				7B0E70941D8E248800686532 /* GithubAuthViewController.swift in Sources */,
 				7BA032251D843FF300F20E23 /* BuildsService.swift in Sources */,
 				7BA032691D8441AC00F20E23 /* AuthMethodsService.swift in Sources */,
 				7B2EAE3A1D85ED0A00A91234 /* TriggerBuildService.swift in Sources */,
@@ -1116,7 +1116,6 @@
 				7B737BCF1E075BC2007FC4E8 /* SSEConnectionSpec.swift in Sources */,
 				7B6F74BF1E802DC600C7C005 /* LoginViewControllerSpec.swift in Sources */,
 				7BCAEFF11D902AE500BC817D /* AppRouterViewControllerSpec.swift in Sources */,
-				7B0E70961D8EF9A600686532 /* GithubAuthViewControllerSpec.swift in Sources */,
 				7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */,
 				7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */,
 				7BCAEFEA1D901AA000BC817D /* TestAppDelegate.swift in Sources */,
@@ -1134,6 +1133,7 @@
 				7B0E709D1D8F0BBC00686532 /* TokenValidationServiceSpec.swift in Sources */,
 				7B737BD01E075BC2007FC4E8 /* SSEEventParserSpec.swift in Sources */,
 				7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */,
+				7B59010C1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift in Sources */,
 				7B737BCE1E075BC2007FC4E8 /* LogsViewControllerSpec.swift in Sources */,
 				7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */,
 				7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */,
