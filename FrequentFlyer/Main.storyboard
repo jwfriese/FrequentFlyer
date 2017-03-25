@@ -192,8 +192,8 @@
                                                     <constraint firstItem="kcD-kb-tuD" firstAttribute="leading" secondItem="lPY-73-DtF" secondAttribute="leading" constant="32" id="q4s-d9-TjE"/>
                                                 </constraints>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="wr2-QI-QJU" userLabel="GitHub Auth Components">
-                                                <rect key="frame" x="0.0" y="396" width="343" height="92"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="wr2-QI-QJU" userLabel="GitHub Auth Components">
+                                                <rect key="frame" x="0.0" y="473.5" width="343" height="91.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in with your GitHub account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wI-sU-1O8" customClass="PageComponentTitleLabel" customModule="FrequentFlyer" customModuleProvider="target">
                                                         <rect key="frame" x="32" y="0.0" width="279" height="20.5"/>
@@ -504,14 +504,18 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="hGz-Br-San" userLabel="Enter Token Section">
-                                                <rect key="frame" x="0.0" y="255.5" width="342" height="97"/>
+                                                <rect key="frame" x="0.0" y="256" width="342" height="174.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0q4-la-scy" userLabel="Enter Token Field" customClass="UnderlineTextField" customModule="FrequentFlyer" customModuleProvider="target">
                                                         <rect key="frame" x="32" y="0.0" width="278" height="26.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vns-vF-eys" userLabel="Stay Logged In" customClass="TitledCheckBox" customModule="FrequentFlyer" customModuleProvider="target">
+                                                        <rect key="frame" x="32" y="50.5" width="278" height="53.5"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4R-TW-kzG" userLabel="Log In Button" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
-                                                        <rect key="frame" x="32" y="50.5" width="278" height="46.5"/>
+                                                        <rect key="frame" x="32" y="128" width="278" height="46.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <connections>
                                                             <action selector="logInButtonTapped" destination="1H1-8y-8ag" eventType="touchUpInside" id="Gs8-n6-pjH"/>
@@ -519,8 +523,10 @@
                                                     </view>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="vns-vF-eys" firstAttribute="leading" secondItem="hGz-Br-San" secondAttribute="leading" constant="32" id="K44-BU-jgu"/>
                                                     <constraint firstAttribute="trailing" secondItem="H4R-TW-kzG" secondAttribute="trailing" constant="32" id="PaY-D0-dp0"/>
                                                     <constraint firstItem="H4R-TW-kzG" firstAttribute="leading" secondItem="hGz-Br-San" secondAttribute="leading" constant="32" id="Vpk-Vn-C1u"/>
+                                                    <constraint firstAttribute="trailing" secondItem="vns-vF-eys" secondAttribute="trailing" constant="32" id="adN-Tc-v0E"/>
                                                     <constraint firstItem="0q4-la-scy" firstAttribute="leading" secondItem="hGz-Br-San" secondAttribute="leading" constant="32" id="fI4-Cf-GoM"/>
                                                     <constraint firstAttribute="trailing" secondItem="0q4-la-scy" secondAttribute="trailing" constant="32" id="mK4-xz-n2V"/>
                                                 </constraints>
@@ -553,6 +559,7 @@
                         <constraints>
                             <constraint firstItem="BDo-G9-LMk" firstAttribute="leading" secondItem="vw3-Px-wBY" secondAttribute="leadingMargin" id="4Aa-3y-oNe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BDo-G9-LMk" secondAttribute="trailing" id="KvY-P9-jWv"/>
+                            <constraint firstItem="vns-vF-eys" firstAttribute="height" secondItem="vw3-Px-wBY" secondAttribute="height" multiplier="0.08" id="SO2-2A-P8g"/>
                             <constraint firstItem="01f-xg-zc9" firstAttribute="height" secondItem="vw3-Px-wBY" secondAttribute="height" multiplier="0.07" id="XJi-Lg-EZK"/>
                             <constraint firstItem="0q4-la-scy" firstAttribute="height" secondItem="vw3-Px-wBY" secondAttribute="height" multiplier="0.04" id="Yp3-iQ-168"/>
                             <constraint firstItem="H4R-TW-kzG" firstAttribute="height" secondItem="vw3-Px-wBY" secondAttribute="height" multiplier="0.07" id="Zvg-GV-2XM"/>
@@ -564,6 +571,7 @@
                         <outlet property="loginButton" destination="H4R-TW-kzG" id="giJ-WH-QJ9"/>
                         <outlet property="openGithubAuthPageButton" destination="01f-xg-zc9" id="wrB-bW-pag"/>
                         <outlet property="scrollView" destination="BDo-G9-LMk" id="1Yk-rR-KoT"/>
+                        <outlet property="stayLoggedInToggle" destination="vns-vF-eys" id="um9-j1-8R4"/>
                         <outlet property="tokenTextField" destination="0q4-la-scy" id="0eU-c7-eDO"/>
                         <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="8fK-Iz-ap1"/>
                         <segue destination="Gfc-uL-yND" kind="show" identifier="ShowGithubAuthenticationWebPage" id="WSb-Mn-ucz"/>

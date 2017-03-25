@@ -200,7 +200,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
                     describe("When the validation call returns with no error") {
                         describe("When 'Stay Logged In' switch is off") {
                             beforeEach {
-                                subject.stayLoggedInSwitch?.isOn = false
+                                subject.stayLoggedInToggle?.checkBox?.on = false
 
                                 guard let completion = mockTokenValidationService.capturedCompletion else {
                                     fail("Failed to call TokenValidationService with a completion handler")
@@ -228,7 +228,7 @@ class GithubAuthViewControllerSpec: QuickSpec {
 
                         describe("When 'Stay Logged In' switch is on") {
                             beforeEach {
-                                subject.stayLoggedInSwitch?.isOn = true
+                                subject.stayLoggedInToggle?.checkBox?.on = true
 
                                 guard let completion = mockTokenValidationService.capturedCompletion else {
                                     fail("Failed to call TokenValidationService with a completion handler")

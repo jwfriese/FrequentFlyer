@@ -4,7 +4,7 @@ class GithubAuthViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView?
     @IBOutlet weak var openGithubAuthPageButton: RoundedButton?
     @IBOutlet weak var tokenTextField: UnderlineTextField?
-    @IBOutlet weak var stayLoggedInSwitch: UISwitch?
+    @IBOutlet weak var stayLoggedInToggle: TitledCheckBox?
     @IBOutlet weak var loginButton: RoundedButton?
 
     var keychainWrapper = KeychainWrapper()
@@ -38,6 +38,7 @@ class GithubAuthViewController: UIViewController {
 
         tokenTextField?.textField?.delegate = self
         tokenTextField?.textField?.placeholder = "Paste token here"
+        stayLoggedInToggle?.titleLabel?.text = "Stay logged in?"
         loginButton?.isEnabled = false
         userTextInputPageOperator.delegate = self
     }
@@ -100,7 +101,7 @@ class GithubAuthViewController: UIViewController {
                                        api: concourseURLString,
                                        teamName: "main",
                                        token: token)
-                if self.stayLoggedInSwitch != nil && self.stayLoggedInSwitch!.isOn {
+                if self.stayLoggedInToggle != nil && self.stayLoggedInToggle!.checkBox!.on {
                     self.keychainWrapper.saveTarget(newTarget)
                 }
 
