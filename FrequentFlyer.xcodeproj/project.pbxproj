@@ -49,7 +49,6 @@
 		7B673ECD1E7F06E200CAC921 /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673ECC1E7F06E200CAC921 /* TitledTextField.swift */; };
 		7B673ECF1E7F070E00CAC921 /* TitledTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B673ECE1E7F070E00CAC921 /* TitledTextField.xib */; };
 		7B673ED11E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673ED01E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift */; };
-		7B673ED41E7F0FA900CAC921 /* TitledTextFieldTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */; };
 		7B6F74B81E7F8F0600C7C005 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74B71E7F8F0600C7C005 /* RoundedButton.swift */; };
 		7B6F74BB1E7F8F9A00C7C005 /* GenerateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74BA1E7F8F9A00C7C005 /* GenerateImage.swift */; };
 		7B6F74BD1E802D5F00C7C005 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74BC1E802D5F00C7C005 /* LoginViewController.swift */; };
@@ -208,7 +207,6 @@
 		7B673ECC1E7F06E200CAC921 /* TitledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
 		7B673ECE1E7F070E00CAC921 /* TitledTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitledTextField.xib; sourceTree = "<group>"; };
 		7B673ED01E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldTitleLabel.swift; sourceTree = "<group>"; };
-		7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldTextField.swift; sourceTree = "<group>"; };
 		7B6F74B71E7F8F0600C7C005 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		7B6F74BA1E7F8F9A00C7C005 /* GenerateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateImage.swift; sourceTree = "<group>"; };
 		7B6F74BC1E802D5F00C7C005 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -399,7 +397,6 @@
 			children = (
 				7B673E771E7EF54D00CAC921 /* Style.swift */,
 				7B673EC31E7EFFE200CAC921 /* Labels */,
-				7B673ED21E7F0F8D00CAC921 /* TextFields */,
 				7B673E791E7EF9DE00CAC921 /* Resources */,
 			);
 			path = Styling;
@@ -468,14 +465,6 @@
 				7B673ECE1E7F070E00CAC921 /* TitledTextField.xib */,
 			);
 			path = TitledTextField;
-			sourceTree = "<group>";
-		};
-		7B673ED21E7F0F8D00CAC921 /* TextFields */ = {
-			isa = PBXGroup;
-			children = (
-				7B673ED31E7F0FA900CAC921 /* TitledTextFieldTextField.swift */,
-			);
-			path = TextFields;
 			sourceTree = "<group>";
 		};
 		7B6F74B61E7F8DC900C7C005 /* RoundedButton */ = {
@@ -1088,7 +1077,6 @@
 				7B0E709B1D8F0BA400686532 /* TokenValidationService.swift in Sources */,
 				7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */,
 				7B8B4D581E8639160084505B /* Underline.swift in Sources */,
-				7B673ED41E7F0FA900CAC921 /* TitledTextFieldTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

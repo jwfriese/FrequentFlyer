@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,31 +21,19 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="dux-g0-5EW" customClass="TitledTextFieldTextField" customModule="FrequentFlyer" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="631" width="375" height="26"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AhV-vW-tqi" userLabel="Underline" customClass="Underline" customModule="FrequentFlyer" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="666" width="375" height="1"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-8a-eZ8" customClass="UnderlineTextField" customModule="FrequentFlyer" customModuleProvider="target">
+                    <rect key="frame" x="-0.5" y="333.5" width="375" height="333.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="0.5" id="KAS-ki-rt6"/>
-                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="AhV-vW-tqi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="6AT-HE-hLt"/>
-                <constraint firstItem="AhV-vW-tqi" firstAttribute="top" secondItem="dux-g0-5EW" secondAttribute="bottom" constant="9" id="IJ2-b7-HoU"/>
+                <constraint firstItem="dOU-8a-eZ8" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.5" id="63p-1S-KGb"/>
+                <constraint firstAttribute="bottom" secondItem="dOU-8a-eZ8" secondAttribute="bottom" id="DcT-O9-CoA"/>
                 <constraint firstItem="aX3-Fv-r2s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="LVh-bH-E36"/>
                 <constraint firstItem="aX3-Fv-r2s" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="MIX-Uy-vQk"/>
-                <constraint firstItem="AhV-vW-tqi" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Rlv-Ax-GWJ"/>
-                <constraint firstItem="dux-g0-5EW" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Sbb-j0-kCB"/>
-                <constraint firstAttribute="bottom" secondItem="AhV-vW-tqi" secondAttribute="bottom" id="Zz5-4d-hJp"/>
-                <constraint firstAttribute="trailing" secondItem="AhV-vW-tqi" secondAttribute="trailing" id="dOG-wf-KMw"/>
-                <constraint firstItem="dux-g0-5EW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tTT-YQ-Bfd"/>
+                <constraint firstItem="dOU-8a-eZ8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="cIa-pe-LAC"/>
+                <constraint firstItem="dOU-8a-eZ8" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="zZf-T8-jHs"/>
             </constraints>
         </view>
     </objects>
