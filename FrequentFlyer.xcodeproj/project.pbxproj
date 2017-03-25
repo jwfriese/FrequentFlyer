@@ -25,7 +25,6 @@
 		7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */; };
 		7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */; };
 		7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F95341DFAF605005E0DD2 /* WebViewController.swift */; };
-		7B60DAF31E82156C00F5FA44 /* Underline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B60DAF21E82156C00F5FA44 /* Underline.swift */; };
 		7B60DAF51E82C33D00F5FA44 /* PageComponentTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B60DAF41E82C33D00F5FA44 /* PageComponentTitleLabel.swift */; };
 		7B673E781E7EF54D00CAC921 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673E771E7EF54D00CAC921 /* Style.swift */; };
 		7B673EB11E7EFC5500CAC921 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */; };
@@ -69,6 +68,11 @@
 		7B737BD11E075BC2007FC4E8 /* SSEServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BCB1E075BC2007FC4E8 /* SSEServiceSpec.swift */; };
 		7B737BD31E075BE8007FC4E8 /* StylingDescriptorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BD21E075BE8007FC4E8 /* StylingDescriptorBuilder.swift */; };
 		7B74F2961E32660200BB4338 /* super_long_text.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7B74F2951E32660200BB4338 /* super_long_text.txt */; };
+		7B8B4D4D1E8636100084505B /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8B4D4C1E8636100084505B /* InfoLabel.swift */; };
+		7B8B4D551E8638F30084505B /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8B4D531E8638F30084505B /* UnderlineTextField.swift */; };
+		7B8B4D561E8638F30084505B /* UnderlineTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B8B4D541E8638F30084505B /* UnderlineTextField.xib */; };
+		7B8B4D581E8639160084505B /* Underline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8B4D571E8639160084505B /* Underline.swift */; };
+		7B8B4D5A1E86398A0084505B /* UnderlineTextFieldTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8B4D591E86398A0084505B /* UnderlineTextFieldTextField.swift */; };
 		7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */; };
 		7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */; };
 		7BA032111D843FE300F20E23 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0320E1D843FE300F20E23 /* Token.swift */; };
@@ -180,7 +184,6 @@
 		7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = web_view_controller_test.html; sourceTree = "<group>"; };
 		7B5F95341DFAF605005E0DD2 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		7B60DAF21E82156C00F5FA44 /* Underline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Underline.swift; sourceTree = "<group>"; };
 		7B60DAF41E82C33D00F5FA44 /* PageComponentTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageComponentTitleLabel.swift; sourceTree = "<group>"; };
 		7B673E771E7EF54D00CAC921 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
@@ -224,6 +227,11 @@
 		7B737BCB1E075BC2007FC4E8 /* SSEServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEServiceSpec.swift; sourceTree = "<group>"; };
 		7B737BD21E075BE8007FC4E8 /* StylingDescriptorBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylingDescriptorBuilder.swift; sourceTree = "<group>"; };
 		7B74F2951E32660200BB4338 /* super_long_text.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = super_long_text.txt; sourceTree = "<group>"; };
+		7B8B4D4C1E8636100084505B /* InfoLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
+		7B8B4D531E8638F30084505B /* UnderlineTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
+		7B8B4D541E8638F30084505B /* UnderlineTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnderlineTextField.xib; sourceTree = "<group>"; };
+		7B8B4D571E8639160084505B /* Underline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Underline.swift; sourceTree = "<group>"; };
+		7B8B4D591E86398A0084505B /* UnderlineTextFieldTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlineTextFieldTextField.swift; sourceTree = "<group>"; };
 		7BA0320C1D843FE300F20E23 /* TokenDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDataDeserializer.swift; sourceTree = "<group>"; };
 		7BA0320D1D843FE300F20E23 /* UnauthenticatedTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthenticatedTokenService.swift; sourceTree = "<group>"; };
 		7BA0320E1D843FE300F20E23 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -433,6 +441,7 @@
 		7B673EC31E7EFFE200CAC921 /* Labels */ = {
 			isa = PBXGroup;
 			children = (
+				7B8B4D4C1E8636100084505B /* InfoLabel.swift */,
 				7B60DAF41E82C33D00F5FA44 /* PageComponentTitleLabel.swift */,
 				7B673EC41E7F000900CAC921 /* PageTitleLabel.swift */,
 				7B673ED01E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift */,
@@ -447,6 +456,7 @@
 				7B6F74B61E7F8DC900C7C005 /* RoundedButton */,
 				7BF620961E841F8F00C0E47F /* TitledCheckBox */,
 				7B673ECB1E7F06AF00CAC921 /* TitledTextField */,
+				7B8B4D521E8638610084505B /* UnderlineTextField */,
 			);
 			path = Visuals;
 			sourceTree = "<group>";
@@ -456,7 +466,6 @@
 			children = (
 				7B673ECC1E7F06E200CAC921 /* TitledTextField.swift */,
 				7B673ECE1E7F070E00CAC921 /* TitledTextField.xib */,
-				7B60DAF21E82156C00F5FA44 /* Underline.swift */,
 			);
 			path = TitledTextField;
 			sourceTree = "<group>";
@@ -519,6 +528,17 @@
 				7B74F2951E32660200BB4338 /* super_long_text.txt */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		7B8B4D521E8638610084505B /* UnderlineTextField */ = {
+			isa = PBXGroup;
+			children = (
+				7B8B4D571E8639160084505B /* Underline.swift */,
+				7B8B4D531E8638F30084505B /* UnderlineTextField.swift */,
+				7B8B4D541E8638F30084505B /* UnderlineTextField.xib */,
+				7B8B4D591E86398A0084505B /* UnderlineTextFieldTextField.swift */,
+			);
+			path = UnderlineTextField;
 			sourceTree = "<group>";
 		};
 		7BA032001D843E3800F20E23 /* Target */ = {
@@ -919,6 +939,7 @@
 				AEA5D5161D7F2CEC00D76EBA /* Assets.xcassets in Resources */,
 				7B673EB61E7EFC5500CAC921 /* Lato-HairlineItalic.ttf in Resources */,
 				7B673EB41E7EFC5500CAC921 /* Lato-BoldItalic.ttf in Resources */,
+				7B8B4D561E8638F30084505B /* UnderlineTextField.xib in Resources */,
 				7B673EBF1E7EFC5500CAC921 /* Lato-Semibold.ttf in Resources */,
 				7BF6209A1E841FE600C0E47F /* TitledCheckBox.xib in Resources */,
 				7B673EBC1E7EFC5500CAC921 /* Lato-Medium.ttf in Resources */,
@@ -1007,6 +1028,7 @@
 				7BCAEFF31D902AEB00BC817D /* AppRouterViewController.swift in Sources */,
 				7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */,
 				7BA032231D843FF300F20E23 /* BuildsViewController.swift in Sources */,
+				7B8B4D4D1E8636100084505B /* InfoLabel.swift in Sources */,
 				7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */,
 				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
 				7BF6209C1E8421CB00C0E47F /* TitledCheckBoxTitleLabel.swift in Sources */,
@@ -1025,13 +1047,14 @@
 				7BA0322F1D843FF900F20E23 /* PipelineTableViewCell.swift in Sources */,
 				7BCAEFE81D901A4C00BC817D /* main.swift in Sources */,
 				7B737BC51E075BBB007FC4E8 /* SSEService.swift in Sources */,
+				7B8B4D5A1E86398A0084505B /* UnderlineTextFieldTextField.swift in Sources */,
 				7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */,
+				7B8B4D551E8638F30084505B /* UnderlineTextField.swift in Sources */,
 				7B6F74BD1E802D5F00C7C005 /* LoginViewController.swift in Sources */,
 				7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */,
 				7BF620981E841FC600C0E47F /* TitledCheckBox.swift in Sources */,
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
 				7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */,
-				7B60DAF31E82156C00F5FA44 /* Underline.swift in Sources */,
 				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
 				7BF620931E82D18800C0E47F /* AllControlStates.swift in Sources */,
 				7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */,
@@ -1064,6 +1087,7 @@
 				7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */,
 				7B0E709B1D8F0BA400686532 /* TokenValidationService.swift in Sources */,
 				7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */,
+				7B8B4D581E8639160084505B /* Underline.swift in Sources */,
 				7B673ED41E7F0FA900CAC921 /* TitledTextFieldTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

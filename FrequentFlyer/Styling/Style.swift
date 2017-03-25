@@ -8,6 +8,7 @@ class Style {
         static var titledTextFieldTitleLabelColor = UIColor(colorLiteralRed: 92/255, green: 109/255, blue: 127/255, alpha: 1)
         static var titledTextFieldContentColor = UIColor(colorLiteralRed: 92/255, green: 109/255, blue: 127/255, alpha: 1)
         static var buttonNormal = UIColor(colorLiteralRed: 77/255, green: 169/255, blue: 225/255, alpha: 1)
+        static var infoLabel = Style.Colors.titledTextFieldContentColor
     }
 
     class Fonts {
@@ -45,5 +46,6 @@ class Style {
         }
 
         static var button: UIFont = Style.Fonts.titledTextFieldTitle
+        static var infoLabel: UIFont = Style.Fonts.titledTextFieldTitle
     }
 }
