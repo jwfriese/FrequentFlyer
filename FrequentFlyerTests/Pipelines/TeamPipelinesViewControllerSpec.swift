@@ -84,17 +84,105 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     expect(subject.numberOfSections(in: subject.teamPipelinesTableView!)).to(equal(1))
                 }
 
-                describe("Tapping the 'Logout' navigation item") {
+                describe("Tapping the gear in the navigation item") {
                     beforeEach {
-                        try! subject.logoutBarButtonItem?.tap()
+                        try! subject.gearBarButtonItem?.tap()
                     }
 
-                    it("asks its KeychainWrapper to delete its target") {
-                        expect(mockKeychainWrapper.didCallDelete).to(beTrue())
+                    it("displays an action sheet with the 'Log Out' option") {
+                        let actionSheet: () -> UIAlertController? = { _ in
+                            return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                        }
+
+                        expect(actionSheet()).toEventuallyNot(beNil())
                     }
 
-                    it("sets the app to the concourse entry page") {
-                        expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockConcourseEntryViewController))
+                    describe("Tapping the 'Log Out' button in the action sheet") {
+                        it("sets the app to the concourse entry page") {
+                            let actionSheet: () -> UIAlertController? = { _ in
+                                return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                            }
+
+                            var actionSheetDidAppear = false
+                            var didAttemptLogOutTap = false
+                            let assertDidLogOut: () -> Bool = { _ in
+                                if !actionSheetDidAppear {
+                                    if actionSheet() != nil {
+                                        actionSheetDidAppear = true
+                                    }
+
+                                    return false
+                                }
+
+                                if !didAttemptLogOutTap {
+                                    try! actionSheet()!.tapAlertAction(withTitle: "Log Out")
+                                    didAttemptLogOutTap = true
+                                    return false
+                                }
+
+                                return Fleet.getApplicationScreen()?.topmostViewController === mockConcourseEntryViewController
+                            }
+
+                            expect(assertDidLogOut()).toEventually(beTrue())
+                        }
+
+                        it("asks its KeychainWrapper to delete its target") {
+                            let actionSheet: () -> UIAlertController? = { _ in
+                                return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                            }
+
+                            var actionSheetDidAppear = false
+                            var didAttemptLogOutTap = false
+                            let assertDidDeleteFromKeychain: () -> Bool = { _ in
+                                if !actionSheetDidAppear {
+                                    if actionSheet() != nil {
+                                        actionSheetDidAppear = true
+                                    }
+
+                                    return false
+                                }
+
+                                if !didAttemptLogOutTap {
+                                    try! actionSheet()!.tapAlertAction(withTitle: "Log Out")
+                                    didAttemptLogOutTap = true
+                                    return false
+                                }
+
+                                return mockKeychainWrapper.didCallDelete
+                            }
+
+                            expect(assertDidDeleteFromKeychain()).toEventually(beTrue())
+                        }
+                    }
+
+                    describe("Tapping the 'Cancel' button in the action sheet") {
+                        it("dismisses the action sheet") {
+                            let actionSheet: () -> UIAlertController? = { _ in
+                                return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                            }
+
+                            var actionSheetDidAppear = false
+                            var didAttemptLogOutTap = false
+                            let assertDidDismissActionSheet: () -> Bool = { _ in
+                                if !actionSheetDidAppear {
+                                    if actionSheet() != nil {
+                                        actionSheetDidAppear = true
+                                    }
+
+                                    return false
+                                }
+
+                                if !didAttemptLogOutTap {
+                                    try! actionSheet()!.tapAlertAction(withTitle: "Cancel")
+                                    didAttemptLogOutTap = true
+                                    return false
+                                }
+
+                                return Fleet.getApplicationScreen()?.topmostViewController === subject
+                            }
+
+                            expect(assertDidDismissActionSheet()).toEventually(beTrue())
+                        }
                     }
                 }
 

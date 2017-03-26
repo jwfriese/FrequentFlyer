@@ -2,7 +2,7 @@ import UIKit
 
 class TeamPipelinesViewController: UIViewController {
     @IBOutlet weak var teamPipelinesTableView: UITableView?
-    @IBOutlet weak var logoutBarButtonItem: UIBarButtonItem?
+    @IBOutlet weak var gearBarButtonItem: UIBarButtonItem?
 
     var teamPipelinesService = TeamPipelinesService()
     var keychainWrapper = KeychainWrapper()
@@ -73,10 +73,29 @@ class TeamPipelinesViewController: UIViewController {
         }
     }
 
-    @IBAction func logoutTapped() {
-        keychainWrapper.deleteTarget()
+    @IBAction func gearTapped() {
+        let logOutActionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        logOutActionSheet.addAction(
+            UIAlertAction(
+                title: "Log Out",
+                style: .destructive,
+                handler: { _ in
+                    self.keychainWrapper.deleteTarget()
+                    self.performSegue(withIdentifier: TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
+                }
+            )
+        )
+
+        logOutActionSheet.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .default,
+                handler: nil
+            )
+        )
+
         DispatchQueue.main.async {
-            self.performSegue(withIdentifier: TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
+            self.present(logOutActionSheet, animated: true, completion: nil)
         }
     }
 }

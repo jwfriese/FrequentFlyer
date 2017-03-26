@@ -321,12 +321,12 @@
                         <barButtonItem key="rightBarButtonItem" image="Gear" id="CDV-jc-y0b">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="logoutTapped" destination="aNH-9e-yKD" id="2bx-Cc-YXY"/>
+                                <action selector="gearTapped" destination="aNH-9e-yKD" id="cRq-gM-La6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="logoutBarButtonItem" destination="CDV-jc-y0b" id="TlG-zK-i81"/>
+                        <outlet property="gearBarButtonItem" destination="CDV-jc-y0b" id="v4W-9p-c7h"/>
                         <outlet property="teamPipelinesTableView" destination="PWe-7J-igF" id="FA8-CU-nCp"/>
                         <segue destination="jtb-Tk-Uhg" kind="show" identifier="ShowBuilds" id="kmM-zp-azD"/>
                         <segue destination="rvu-Hz-VhO" kind="custom" identifier="SetConcourseEntryAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="mf8-JP-wQv"/>
