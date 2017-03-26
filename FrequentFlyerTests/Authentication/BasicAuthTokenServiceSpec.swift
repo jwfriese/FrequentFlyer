@@ -1,6 +1,7 @@
 import XCTest
 import Quick
 import Nimble
+import RxSwift
 @testable import FrequentFlyer
 
 class BasicAuthTokenServiceSpec: QuickSpec {
@@ -8,10 +9,19 @@ class BasicAuthTokenServiceSpec: QuickSpec {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
             var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
+            var callCount = 0
 
             override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
                 capturedRequest = request
                 capturedCompletion = completion
+            }
+
+            var responseSubject = PublishSubject<HTTPResponse>()
+
+            override func perform(request: URLRequest) -> Observable<HTTPResponse> {
+                capturedRequest = request
+                callCount += 1
+                return responseSubject
             }
         }
 
@@ -20,9 +30,23 @@ class BasicAuthTokenServiceSpec: QuickSpec {
             var toReturnToken: Token?
             var toReturnDeserializationError: DeserializationError?
 
-            override func deserialize(_ tokenData: Data) -> (token: Token?, error: DeserializationError?) {
+            override func deserializeold(_ tokenData: Data) -> (token: Token?, error: DeserializationError?) {
                 capturedTokenData = tokenData
                 return (toReturnToken, toReturnDeserializationError)
+            }
+
+            override func deserialize(_ data: Data) -> ReplaySubject<Token> {
+                capturedTokenData = data
+                let subject = ReplaySubject<Token>.createUnbounded()
+                if let error = toReturnDeserializationError {
+                    subject.onError(error)
+                } else {
+                    if let token = toReturnToken {
+                        subject.onNext(token)
+                    }
+                    subject.onCompleted()
+                }
+                return subject
             }
         }
 
@@ -45,7 +69,7 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                 beforeEach {
                     let crazyUsername = "561fc0a5-e06a-4bab-ab90-9a9beb55d8bc"
                     let crazyPassword = "4d79db14-2e04-4408-8388-bdc3d0fba25a"
-                    subject.getToken(forTeamWithName: "turtle_team_name", concourseURL: "https://concourse.com", username: crazyUsername, password: crazyPassword, completion: nil)
+                    let _ = subject.getToken(forTeamWithName: "turtle_team_name", concourseURL: "https://concourse.com", username: crazyUsername, password: crazyPassword)
                 }
 
                 it("generates a base64 string from the username:password glob without any newlines") {
@@ -59,14 +83,12 @@ class BasicAuthTokenServiceSpec: QuickSpec {
             }
 
             describe("Fetching a token with basic authentication") {
-                var capturedToken: Token?
-                var capturedError: FFError?
+                var token$: Observable<Token>!
+                var tokenStreamResult: StreamResult<Token>!
 
                 beforeEach {
-                    subject.getToken(forTeamWithName: "turtle_team_name", concourseURL: "https://concourse.com", username: "u", password: "p") { token, error in
-                        capturedToken = token
-                        capturedError = error
-                    }
+                    token$ = subject.getToken(forTeamWithName: "turtle_team_name", concourseURL: "https://concourse.com", username: "u", password: "p")
+                    tokenStreamResult = StreamResult(token$)
                 }
 
                 it("makes a call to the HTTP client") {
@@ -83,57 +105,35 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                     expect(request.allHTTPHeaderFields?["Authorization"]).to(equal("Basic dTpw"))
                 }
 
+                it("does not ask the HTTP client a second time when a second subscribe occurs") {
+                    tokenStreamResult.disposeBag = DisposeBag()
+                    _ = token$.subscribe()
+
+                    expect(mockHTTPClient.callCount).to(equal(1))
+                }
+
                 describe("When the token auth call resolves with success response and valid data") {
                     var validTokenResponseData: Data!
                     var deserializedToken: Token!
 
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
                         deserializedToken = Token(value: "turtle auth token")
                         mockTokenDataDeserializer.toReturnToken = deserializedToken
 
                         validTokenResponseData = "valid token data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: validTokenResponseData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: validTokenResponseData, statusCode: 200))
                     }
 
                     it("passes the data to the deserializer") {
                         expect(mockTokenDataDeserializer.capturedTokenData).to(equal(validTokenResponseData))
                     }
 
-                    it("resolves the service's completion handler using the token the deserializer returns") {
-                        expect(capturedToken).to(equal(deserializedToken))
+                    it("emits the deserialized token") {
+                        expect(tokenStreamResult.elements).to(equal([deserializedToken]))
                     }
 
-                    it("resolves the service's completion handler with a nil error") {
-                        expect(capturedError).to(beNil())
-                    }
-                }
-
-                describe("When the token auth call resolves with an error") {
-                    beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
-                        completion(HTTPResponseImpl(body: nil, statusCode: 200), BasicError(details: "some error string"))
-                    }
-
-                    it("resolves the service's completion handler with nil for the token") {
-                        expect(capturedToken).to(beNil())
-                    }
-
-                    it("resolves the service's completion handler with the error that the client returned") {
-                        guard let capturedError = capturedError else {
-                            fail("Failed to call completion handler with an error")
-                            return
-                        }
-
-                        expect(capturedError as? BasicError).to(equal(BasicError(details: "some error string")))
+                    it("does not error") {
+                        expect(tokenStreamResult.error).to(beNil())
                     }
                 }
 
@@ -141,32 +141,36 @@ class BasicAuthTokenServiceSpec: QuickSpec {
                     var invalidTokenDataResponse: Data!
 
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
                         mockTokenDataDeserializer.toReturnDeserializationError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
 
                         invalidTokenDataResponse = "valid token data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: invalidTokenDataResponse, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidTokenDataResponse, statusCode: 200))
                     }
 
                     it("passes the data to the deserializer") {
                         expect(mockTokenDataDeserializer.capturedTokenData).to(equal(invalidTokenDataResponse))
                     }
 
-                    it("resolves the service's completion handler with a nil token") {
-                        expect(capturedToken).to(beNil())
+                    it("does not emit a token") {
+                        expect(tokenStreamResult.elements).to(beEmpty())
                     }
 
-                    it("resolves the service's completion handler with the error the deserializer returns") {
-                        guard let capturedError = capturedError else {
-                            fail("Failed to call completion handler with an error")
-                            return
-                        }
+                    it("emits the error the deserializer returns") {
+                        expect(tokenStreamResult.error as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
+                    }
+                }
 
-                        expect(capturedError as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
+                describe("When the token auth call resolves with an error") {
+                    beforeEach {
+                        mockHTTPClient.responseSubject.onError(BasicError(details: "some error string"))
+                    }
+
+                    it("emits no token") {
+                        expect(tokenStreamResult.elements).to(haveCount(0))
+                    }
+
+                    it("emits the error that the client returned") {
+                        expect(tokenStreamResult.error as? BasicError).to(equal(BasicError(details: "some error string")))
                     }
                 }
             }

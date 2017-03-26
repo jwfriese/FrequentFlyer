@@ -15,6 +15,9 @@ class LoginViewController: UIViewController {
     var concourseURLString: String?
     var authMethods: [AuthMethod]?
 
+    var token$: Observable<Token>?
+    var disposeBag = DisposeBag()
+
     class var storyboardIdentifier: String { get { return "Login" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
     class var showGitHubAuthSegueId: String { get { return "ShowGitHubAuth" } }
@@ -63,19 +66,14 @@ class LoginViewController: UIViewController {
 
         basicAuthLoginButton?.isEnabled = false
 
-        basicAuthTokenService.getToken(forTeamWithName: "main", concourseURL: concourseURL, username: username, password: password) { token, error in
-            if let error = error {
-                let alert = UIAlertController(title: "Authorization Failed",
-                                              message: error.details,
-                                              preferredStyle: .alert
-                )
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        token$ = basicAuthTokenService.getToken(forTeamWithName: "main",
+                                                concourseURL: concourseURL,
+                                                username: username,
+                                                password: password
+        )
 
-                DispatchQueue.main.async {
-                    self.basicAuthLoginButton?.isEnabled = true
-                    self.present(alert, animated: true, completion: nil)
-                }
-            } else if let token = token {
+        token$!.subscribe(
+            onNext: { token in
                 let newTarget = Target(name: "target",
                                        api: concourseURL,
                                        teamName: "main",
@@ -87,8 +85,23 @@ class LoginViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.performSegue(withIdentifier: LoginViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
                 }
-            }
-        }
+        },
+            onError: { error in
+                let alert = UIAlertController(title: "Authorization Failed",
+                                              message: error.localizedDescription,
+                                              preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+                DispatchQueue.main.async {
+                    self.basicAuthLoginButton?.isEnabled = true
+                    self.present(alert, animated: true, completion: nil)
+                }
+        },
+            onCompleted: nil,
+            onDisposed: nil
+        )
+            .addDisposableTo(disposeBag)
     }
 
     @IBAction func gitHubAuthButtonTapped() {

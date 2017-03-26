@@ -20,7 +20,7 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
             var toReturnToken: Token?
             var toReturnDeserializationError: DeserializationError?
 
-            override func deserialize(_ tokenData: Data) -> (token: Token?, error: DeserializationError?) {
+            override func deserializeold(_ tokenData: Data) -> (token: Token?, error: DeserializationError?) {
                 capturedTokenData = tokenData as Data
                 return (toReturnToken, toReturnDeserializationError)
             }

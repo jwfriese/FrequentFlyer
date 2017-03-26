@@ -1,6 +1,7 @@
 import XCTest
 import Quick
 import Nimble
+import RxSwift
 @testable import FrequentFlyer
 
 class TokenDataDeserializerSpec: QuickSpec {
@@ -13,7 +14,8 @@ class TokenDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing valid token data") {
-                var result: (token: Token?, error: DeserializationError?)
+                var deserialization$: ReplaySubject<Token>!
+                var result: StreamResult<Token>!
 
                 context("For data originating as a dictionary") {
                     beforeEach {
@@ -23,11 +25,13 @@ class TokenDataDeserializerSpec: QuickSpec {
                         ]
 
                         let validTokenData = try! JSONSerialization.data(withJSONObject: validTokenDataDictionary, options: .prettyPrinted)
-                        result = subject.deserialize(validTokenData)
+
+                        deserialization$ = subject.deserialize(validTokenData)
+                        result = StreamResult(deserialization$)
                     }
 
                     it("returns a token initialized with the value") {
-                        expect(result.token).to(equal(Token(value: "token value")))
+                        expect(result.elements.first).to(equal(Token(value: "token value")))
                     }
 
                     it("returns nil for the error") {
@@ -40,11 +44,12 @@ class TokenDataDeserializerSpec: QuickSpec {
                         let tokenDataString = "{\"type\":\"token type\",\"value\":\"token value\"}"
                         let tokenData = tokenDataString.data(using: String.Encoding.utf8)
 
-                        result = subject.deserialize(tokenData!)
+                        deserialization$ = subject.deserialize(tokenData!)
+                        result = StreamResult(deserialization$)
                     }
 
                     it("returns a token initialized with the value") {
-                        expect(result.token).to(equal(Token(value: "token value")))
+                        expect(result.elements.first).to(equal(Token(value: "token value")))
                     }
 
                     it("returns nil for the error") {
@@ -54,7 +59,8 @@ class TokenDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing invalid token data") {
-                var result: (token: Token?, error: DeserializationError?)
+                var deserialization$: ReplaySubject<Token>!
+                var result: StreamResult<Token>!
 
                 context("Missing 'value' key") {
                     beforeEach {
@@ -63,15 +69,17 @@ class TokenDataDeserializerSpec: QuickSpec {
                         ]
 
                         let invalidTokenData = try! JSONSerialization.data(withJSONObject: invalidTokenDataDictionary, options: .prettyPrinted)
-                        result = subject.deserialize(invalidTokenData)
+
+                        deserialization$ = subject.deserialize(invalidTokenData)
+                        result = StreamResult(deserialization$)
                     }
 
                     it("returns nil for the token") {
-                        expect(result.token).to(beNil())
+                        expect(result.elements.first).to(beNil())
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'value' key", type: .missingRequiredData)))
+                        expect(result.error as? DeserializationError).to(equal(DeserializationError(details: "Missing required 'value' key", type: .missingRequiredData)))
                     }
                 }
 
@@ -83,15 +91,17 @@ class TokenDataDeserializerSpec: QuickSpec {
                         ] as [String : Any]
 
                         let invalidTokenData = try! JSONSerialization.data(withJSONObject: invalidTokenDataDictionary, options: .prettyPrinted)
-                        result = subject.deserialize(invalidTokenData)
+
+                        deserialization$ = subject.deserialize(invalidTokenData)
+                        result = StreamResult(deserialization$)
                     }
 
                     it("returns nil for the token") {
-                        expect(result.token).to(beNil())
+                        expect(result.elements.first).to(beNil())
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'value' key to be a string", type: .typeMismatch)))
+                        expect(result.error as? DeserializationError).to(equal(DeserializationError(details: "Expected value for 'value' key to be a string", type: .typeMismatch)))
                     }
                 }
 
@@ -100,15 +110,17 @@ class TokenDataDeserializerSpec: QuickSpec {
                         let tokenDataString = "some string"
 
                         let invalidTokenData = tokenDataString.data(using: String.Encoding.utf8)
-                        result = subject.deserialize(invalidTokenData!)
+
+                        deserialization$ = subject.deserialize(invalidTokenData!)
+                        result = StreamResult(deserialization$)
                     }
 
                     it("returns nil for the token") {
-                        expect(result.token).to(beNil())
+                        expect(result.elements.first).to(beNil())
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat)))
+                        expect(result.error as? DeserializationError).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat)))
                     }
                 }
             }

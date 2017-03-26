@@ -12,14 +12,14 @@ class LoginViewControllerSpec: QuickSpec {
         var capturedConcourseURL: String?
         var capturedUsername: String?
         var capturedPassword: String?
-        var capturedCompletion: ((Token?, FFError?) -> ())?
+        var tokenSubject = PublishSubject<Token>()
 
-        override func getToken(forTeamWithName teamName: String, concourseURL: String, username: String, password: String, completion: ((Token?, FFError?) -> ())?) {
+        override func getToken(forTeamWithName teamName: String, concourseURL: String, username: String, password: String) -> Observable<Token> {
             capturedTeamName = teamName
             capturedConcourseURL = concourseURL
             capturedUsername = username
             capturedPassword = password
-            capturedCompletion = completion
+            return tokenSubject
         }
     }
 
@@ -148,13 +148,9 @@ class LoginViewControllerSpec: QuickSpec {
                             beforeEach {
                                 subject.stayLoggedInToggle?.checkBox?.on = false
 
-                                guard let completion = mockBasicAuthTokenService.capturedCompletion else {
-                                    fail("Failed to call BasicAuthTokenService with a completion handler")
-                                    return
-                                }
-
                                 let token = Token(value: "turtle token")
-                                completion(token, nil)
+                                mockBasicAuthTokenService.tokenSubject.onNext(token)
+                                mockBasicAuthTokenService.tokenSubject.onCompleted()
                             }
 
                             it("does not save anything to the keychain") {
@@ -182,13 +178,9 @@ class LoginViewControllerSpec: QuickSpec {
                             beforeEach {
                                 subject.stayLoggedInToggle?.checkBox?.on = true
 
-                                guard let completion = mockBasicAuthTokenService.capturedCompletion else {
-                                    fail("Failed to call BasicAuthTokenService with a completion handler")
-                                    return
-                                }
-
                                 let token = Token(value: "turtle token")
-                                completion(token, nil)
+                                mockBasicAuthTokenService.tokenSubject.onNext(token)
+                                mockBasicAuthTokenService.tokenSubject.onCompleted()
                             }
 
                             it("replaces itself with the TeamPipelinesViewController") {
@@ -213,12 +205,8 @@ class LoginViewControllerSpec: QuickSpec {
 
                     describe("When the BasicAuthTokenService resolves with an error") {
                         beforeEach {
-                            guard let completion = mockBasicAuthTokenService.capturedCompletion else {
-                                fail("Failed to call BasicAuthTokenService with a completion handler")
-                                return
-                            }
-
-                            completion(nil, BasicError(details: "turtle authentication error"))
+                            let error = BasicError(details: "turtle authentication error")
+                            mockBasicAuthTokenService.tokenSubject.onError(error)
                         }
 
                         it("displays an alert containing the error that came from the HTTP call") {

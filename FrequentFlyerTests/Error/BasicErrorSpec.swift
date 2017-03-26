@@ -10,7 +10,7 @@ class BasicErrorSpec: QuickSpec {
                 let error = BasicError(details: "error details")
                 let errorString = String(describing: error)
 
-                expect(errorString).to(equal("Error { details: \"error details\" }"))
+                expect(errorString).to(equal("error details"))
             }
 
             describe("Equality operator") {
@@ -29,6 +29,22 @@ class BasicErrorSpec: QuickSpec {
 
                     it("returns false") {
                         expect(errorOne).toNot(equal(errorTwo))
+                    }
+                }
+            }
+
+            describe("Description properties") {
+                describe("description") {
+                    it("prints") {
+                        let error = BasicError(details: "an error with stuff")
+                        expect(error.description).to(equal("an error with stuff"))
+                    }
+                }
+
+                describe("localizedDescription") {
+                    it("prints") {
+                        let error = BasicError(details: "an error with stuff")
+                        expect(error.localizedDescription).to(equal("an error with stuff"))
                     }
                 }
             }

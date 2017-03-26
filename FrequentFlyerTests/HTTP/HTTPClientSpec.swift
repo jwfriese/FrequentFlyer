@@ -1,6 +1,7 @@
 import XCTest
 import Quick
 import Nimble
+import RxSwift
 @testable import FrequentFlyer
 
 class HTTPClientSpec: QuickSpec {
@@ -13,78 +14,63 @@ class HTTPClientSpec: QuickSpec {
             }
 
             describe("Performing a request") {
+                var http$: Observable<HTTPResponse>!
+                var result: StreamResult<HTTPResponse>!
+
                 context("When the request returns with a success response") {
-                    var capturedResponse: HTTPResponse?
-                    var capturedError: FFError?
-
                     beforeEach {
-                        // Set capturedError to some garbage value up front to ensure that the handler gets passed nil
-                        capturedError = BasicError(details: "test error")
+                        let request = URLRequest(url: NSURL(string: "http://localhost:8181/successyeah")! as URL)
 
-                        let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8181/successyeah")! as URL)
-                        subject.doRequest(request as URLRequest) { response, error in
-                            capturedResponse = response
-                            capturedError = error
-                        }
+                        http$ = subject.perform(request: request)
+                        result = StreamResult(http$)
                     }
 
                     it("calls the completion handler with the response data") {
                         let testServerData = "{\"success\" : \"yeah\" }".data(using: String.Encoding.utf8)
-                        expect(capturedResponse).toEventuallyNot(beNil())
-                        expect(capturedResponse?.body).toEventually(equal(testServerData))
-                        expect(capturedResponse?.statusCode).toEventually(equal(200))
+                        expect(result.elements.first).toEventuallyNot(beNil())
+                        expect(result.elements.first?.body).toEventually(equal(testServerData))
+                        expect(result.elements.first?.statusCode).toEventually(equal(200))
                     }
 
                     it("calls the completion handler with a nil error") {
-                        expect(capturedError).toEventually(beNil())
+                        expect(result.error).toEventually(beNil())
                     }
                 }
 
                 context("When the request returns with an error-type response") {
-                    var capturedResponse: HTTPResponse?
-                    var capturedError: FFError?
-
                     beforeEach {
-                        let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8181/errorplease")! as URL)
-                        subject.doRequest(request as URLRequest) { response, error in
-                            capturedResponse = response
-                            capturedError = error
-                        }
+                        let request = URLRequest(url: NSURL(string: "http://localhost:8181/errorplease")! as URL)
+
+                        http$ = subject.perform(request: request)
+                        result = StreamResult(http$)
                     }
 
                     it("calls the completion handler with the response") {
-                        expect(capturedResponse).toEventuallyNot(beNil())
-                        expect(capturedResponse?.body).toEventually(equal("{\"error\" : \"here it is\"}".data(using: String.Encoding.utf8)))
-                        expect(capturedResponse?.statusCode).toEventually(equal(500))
+                        expect(result.elements.first).toEventuallyNot(beNil())
+                        expect(result.elements.first?.body).toEventually(equal("{\"error\" : \"here it is\"}".data(using: String.Encoding.utf8)))
+                        expect(result.elements.first?.statusCode).toEventually(equal(500))
                     }
 
                     it("calls the completion handler with a nil error") {
-                        expect(capturedError).toEventually(beNil())
+                        expect(result.error).toEventually(beNil())
                     }
                 }
 
                 context("When the request completely bombs") {
-                    var capturedResponse: HTTPResponse?
-                    var capturedError: FFError?
-
                     beforeEach {
-                        // Set capturedData and capturedResponse to some garbage value up front to ensure that the handler gets passed nil
-                        capturedResponse = HTTPResponseImpl(body: Data(), statusCode: 9001)
+                        let request = URLRequest(url: NSURL(string: "http://")! as URL)
 
-                        let request = NSMutableURLRequest(url: NSURL(string: "http://")! as URL)
-                        subject.doRequest(request as URLRequest) { response, error in
-                            capturedResponse = response
-                            capturedError = error
-                        }
+                        http$ = subject.perform(request: request)
+                        result = StreamResult(http$)
                     }
 
                     it("calls the completion handler with a nil response") {
-                        expect(capturedResponse).toEventually(beNil())
+                        expect(result.elements.first).toEventually(beNil())
                     }
 
                     it("calls the completion handler with an error that has NSError.localizedDescription as the details") {
-                        expect(capturedError).toEventuallyNot(beNil())
-                        expect(capturedError?.details).toEventually(equal("Could not connect to the server."))
+                        expect(result.error).toEventuallyNot(beNil())
+                        expect(result.error?.localizedDescription).toEventually(equal("Could not connect to the server."))
                     }
                 }
             }

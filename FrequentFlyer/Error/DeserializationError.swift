@@ -23,6 +23,12 @@ struct DeserializationError: FFError {
         self.details = details
         self.type = type
     }
+
+    var errorDescription: String? {
+        get {
+            return description
+        }
+    }
 }
 
 extension DeserializationError: Equatable { }

@@ -1,14 +1,15 @@
 import Foundation
+import RxSwift
 
 class BasicAuthTokenService {
     var httpClient = HTTPClient()
     var tokenDataDeserializer = TokenDataDeserializer()
 
     func getToken(forTeamWithName teamName: String, concourseURL: String,
-                                  username: String, password: String, completion: ((Token?, FFError?) -> ())?) {
+                  username: String, password: String) -> Observable<Token> {
         let urlString = concourseURL + "/api/v1/teams/\(teamName)/auth/token"
         let url = URL(string: urlString)
-        let request = NSMutableURLRequest(url: url!)
+        var request = URLRequest(url: url!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
 
@@ -17,15 +18,8 @@ class BasicAuthTokenService {
 
         request.addValue("Basic \(base64EncodedAuthenticationDetails)", forHTTPHeaderField: "Authorization")
 
-        httpClient.doRequest(request as URLRequest) { response, error in
-            guard let completion = completion else { return }
-            guard let data = response?.body else {
-                completion(nil, error)
-                return
-            }
-
-            let deserializationResult = self.tokenDataDeserializer.deserialize(data)
-            completion(deserializationResult.token, deserializationResult.error)
-        }
+        return httpClient.perform(request: request)
+            .map { $0.body! }
+            .flatMap { self.tokenDataDeserializer.deserialize($0) }
     }
 }

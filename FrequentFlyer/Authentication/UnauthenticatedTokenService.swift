@@ -18,7 +18,7 @@ class UnauthenticatedTokenService {
                 return
             }
 
-            let deserializationResult = self.tokenDataDeserializer.deserialize(data)
+            let deserializationResult = self.tokenDataDeserializer.deserializeold(data)
             completion(deserializationResult.token, deserializationResult.error)
         }
     }

@@ -4,6 +4,12 @@ struct BasicError: FFError {
     init(details: String) {
         self.details = details
     }
+
+    var errorDescription: String? {
+        get {
+            return description
+        }
+    }
 }
 
 extension BasicError: Equatable { }
@@ -15,7 +21,7 @@ func ==(lhs: BasicError, rhs: BasicError) -> Bool {
 extension BasicError: CustomStringConvertible {
     var description: String {
         get {
-            return "Error { details: \"\(details)\" }"
+            return details
         }
     }
 }
