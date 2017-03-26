@@ -21,6 +21,11 @@ class ConcourseEntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.barTintColor = UIColor.clear
+        navigationController?.navigationBar.isTranslucent = true
+
         title = ""
         view?.backgroundColor = Style.Colors.backgroundColor
         scrollView?.backgroundColor = Style.Colors.backgroundColor

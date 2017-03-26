@@ -125,6 +125,7 @@
 		7BCAEFF31D902AEB00BC817D /* AppRouterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF21D902AEB00BC817D /* AppRouterViewController.swift */; };
 		7BCAEFF51D902B4E00BC817D /* SetAsRootPageSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF41D902B4E00BC817D /* SetAsRootPageSegue.swift */; };
 		7BCBF2A71E00613E007D8623 /* EventSourceCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */; };
+		7BEB3D501E86EAD7005880FF /* DarkInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEB3D4F1E86EAD7005880FF /* DarkInfoLabel.swift */; };
 		7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEDE1FD1D8986C40054D13B /* Locksmith.framework */; };
 		7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */; };
 		7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2031D8989910054D13B /* KeychainWrapper.swift */; };
@@ -283,6 +284,7 @@
 		7BCAEFF21D902AEB00BC817D /* AppRouterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouterViewController.swift; sourceTree = "<group>"; };
 		7BCAEFF41D902B4E00BC817D /* SetAsRootPageSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAsRootPageSegue.swift; sourceTree = "<group>"; };
 		7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSourceCreator.swift; sourceTree = "<group>"; };
+		7BEB3D4F1E86EAD7005880FF /* DarkInfoLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkInfoLabel.swift; sourceTree = "<group>"; };
 		7BEDE1FD1D8986C40054D13B /* Locksmith.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Locksmith.framework; path = Carthage/Build/iOS/Locksmith.framework; sourceTree = "<group>"; };
 		7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsService.swift; sourceTree = "<group>"; };
 		7BEDE2031D8989910054D13B /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 			isa = PBXGroup;
 			children = (
 				7B673E7A1E7EF9F000CAC921 /* Fonts */,
+				7BEB3D511E86FA63005880FF /* Images */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 		7B673EC31E7EFFE200CAC921 /* Labels */ = {
 			isa = PBXGroup;
 			children = (
+				7BEB3D4F1E86EAD7005880FF /* DarkInfoLabel.swift */,
 				7B8B4D4C1E8636100084505B /* InfoLabel.swift */,
 				7B60DAF41E82C33D00F5FA44 /* PageComponentTitleLabel.swift */,
 				7B673EC41E7F000900CAC921 /* PageTitleLabel.swift */,
@@ -691,6 +695,13 @@
 				7BCAEFF01D902AE500BC817D /* AppRouterViewControllerSpec.swift */,
 			);
 			path = AppRouting;
+			sourceTree = "<group>";
+		};
+		7BEB3D511E86FA63005880FF /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		7BEDE2001D8989400054D13B /* Persistence */ = {
@@ -1023,6 +1034,7 @@
 				7BF6209C1E8421CB00C0E47F /* TitledCheckBoxTitleLabel.swift in Sources */,
 				7B673ECD1E7F06E200CAC921 /* TitledTextField.swift in Sources */,
 				7B60DAF51E82C33D00F5FA44 /* PageComponentTitleLabel.swift in Sources */,
+				7BEB3D501E86EAD7005880FF /* DarkInfoLabel.swift in Sources */,
 				7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */,
 				7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */,
 				7B6F74BB1E7F8F9A00C7C005 /* GenerateImage.swift in Sources */,

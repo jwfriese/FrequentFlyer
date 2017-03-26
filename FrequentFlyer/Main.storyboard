@@ -290,7 +290,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ana-Ur-vXd">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ana-Ur-vXd" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
                                                     <rect key="frame" x="24" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -303,7 +303,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="nameLabel" destination="ana-Ur-vXd" id="pfL-1b-7pj"/>
+                                            <outlet property="nameLabel" destination="ana-Ur-vXd" id="aeK-Pd-Mr8"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -318,7 +318,8 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="WdF-cD-ur3">
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="CDV-jc-y0b">
+                        <barButtonItem key="rightBarButtonItem" image="Gear" id="CDV-jc-y0b">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="logoutTapped" destination="aNH-9e-yKD" id="2bx-Cc-YXY"/>
                             </connections>
@@ -752,6 +753,9 @@
             <point key="canvasLocation" x="2612" y="1496"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Gear" width="20" height="20"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mf8-JP-wQv"/>
         <segue reference="8fK-Iz-ap1"/>

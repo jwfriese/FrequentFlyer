@@ -5,6 +5,6 @@ class InfoLabel: UILabel {
         super.init(coder: aDecoder)
 
         font = Style.Fonts.infoLabel
-        textColor = Style.Colors.infoLabel
+        textColor = Style.Colors.lightInfoLabel
     }
 }
