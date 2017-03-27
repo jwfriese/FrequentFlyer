@@ -20,11 +20,8 @@ class AuthMethodsService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
 
-        let http$ = httpClient.perform(request: request)
-        return http$
-            .asObservable()
-            .flatMap { response in
-                self.authMethodsDataDeserializer.deserialize(response.body!)
-        }
+        return httpClient.perform(request: request)
+            .map { $0.body! }
+            .flatMap { self.authMethodsDataDeserializer.deserialize($0) }
     }
 }
