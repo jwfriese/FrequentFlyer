@@ -97,27 +97,31 @@ class ConcourseEntryViewController: UIViewController {
     }
 
     private func handleAuthMethodsError(_ concourseURLString: String) {
-        unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main", concourseURL: concourseURLString) { token, error in
-            guard let token = token else {
-                let alert = UIAlertController(title: "Authorization Failed",
-                                              message: error?.localizedDescription,
-                                              preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                DispatchQueue.main.async {
-                    self.present(alert, animated: true, completion: nil)
-                }
+        unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main", concourseURL: concourseURLString)
+            .subscribe(
+                onNext: { token in
+                    let newTarget = Target(name: "target",
+                                           api: concourseURLString,
+                                           teamName: "main",
+                                           token: token)
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
+                    }
 
-                return
-            }
-
-            let newTarget = Target(name: "target",
-                                   api: concourseURLString,
-                                   teamName: "main",
-                                   token: token)
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
-            }
-        }
+            },
+                onError: { error in
+                    let alert = UIAlertController(title: "Authorization Failed",
+                                                  message: error.localizedDescription,
+                                                  preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    DispatchQueue.main.async {
+                        self.present(alert, animated: true, completion: nil)
+                    }
+            },
+                onCompleted: nil,
+                onDisposed: nil
+            )
+            .addDisposableTo(disposeBag)
     }
 }
 

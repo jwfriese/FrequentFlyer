@@ -2,6 +2,7 @@ import XCTest
 import Quick
 import Nimble
 import RxSwift
+
 @testable import FrequentFlyer
 
 class UnauthenticatedTokenServiceSpec: QuickSpec {
@@ -24,9 +25,18 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
             var toReturnToken: Token?
             var toReturnDeserializationError: DeserializationError?
 
-            override func deserializeold(_ tokenData: Data) -> (token: Token?, error: DeserializationError?) {
-                capturedTokenData = tokenData as Data
-                return (toReturnToken, toReturnDeserializationError)
+            override func deserialize(_ data: Data) -> ReplaySubject<Token> {
+                capturedTokenData = data
+                let subject = ReplaySubject<Token>.createUnbounded()
+                if let error = toReturnDeserializationError {
+                    subject.onError(error)
+                } else {
+                    if let token = toReturnToken {
+                        subject.onNext(token)
+                    }
+                    subject.onCompleted()
+                }
+                return subject
             }
         }
 
@@ -46,14 +56,12 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
             }
 
             describe("Fetching a token with no authentication") {
-                var capturedToken: Token?
-                var capturedError: Error?
+                var token$: Observable<Token>!
+                var token$Result: StreamResult<Token>!
 
                 beforeEach {
-                    subject.getUnauthenticatedToken(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com") { token, error in
-                        capturedToken = token
-                        capturedError = error
-                    }
+                    token$ = subject.getUnauthenticatedToken(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com")
+                    token$Result = StreamResult(token$)
                 }
 
                 it("makes a call to the HTTP client") {
@@ -84,11 +92,11 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
                     }
 
                     it("resolves the service's completion handler using the token the deserializer returns") {
-                        expect(capturedToken).to(equal(deserializedToken))
+                        expect(token$Result.elements.first).to(equal(deserializedToken))
                     }
 
                     it("resolves the service's completion handler with a nil error") {
-                        expect(capturedError).to(beNil())
+                        expect(token$Result.error).to(beNil())
                     }
                 }
 
@@ -98,16 +106,11 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
                     }
 
                     it("resolves the service's completion handler with nil for the token") {
-                        expect(capturedToken).to(beNil())
+                        expect(token$Result.elements.first).to(beNil())
                     }
 
                     it("resolves the service's completion handler with the error that the client returned") {
-                        guard let capturedError = capturedError else {
-                            fail("Failed to call completion handler with an error")
-                            return
-                        }
-
-                        expect(capturedError as? BasicError).to(equal(BasicError(details: "some error string")))
+                        expect(token$Result.error as? BasicError).to(equal(BasicError(details: "some error string")))
                     }
                 }
 
@@ -126,16 +129,11 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
                     }
 
                     it("resolves the service's completion handler with a nil token") {
-                        expect(capturedToken).to(beNil())
+                        expect(token$Result.elements.first).to(beNil())
                     }
 
                     it("resolves the service's completion handler with the error the deserializer returns") {
-                        guard let capturedError = capturedError else {
-                            fail("Failed to call completion handler with an error")
-                            return
-                        }
-
-                        expect(capturedError as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
+                        expect(token$Result.error as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
                     }
                 }
             }

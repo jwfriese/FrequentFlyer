@@ -24,11 +24,6 @@ class BasicAuthTokenServiceSpec: QuickSpec {
             var toReturnToken: Token?
             var toReturnDeserializationError: DeserializationError?
 
-            override func deserializeold(_ tokenData: Data) -> (token: Token?, error: DeserializationError?) {
-                capturedTokenData = tokenData
-                return (toReturnToken, toReturnDeserializationError)
-            }
-
             override func deserialize(_ data: Data) -> ReplaySubject<Token> {
                 capturedTokenData = data
                 let subject = ReplaySubject<Token>.createUnbounded()

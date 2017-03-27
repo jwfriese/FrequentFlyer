@@ -21,12 +21,12 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
     class MockUnauthenticatedTokenService: UnauthenticatedTokenService {
         var capturedTeamName: String?
         var capturedConcourseURL: String?
-        var capturedCompletionHandler: ((Token?, Error?) -> ())?
+        var tokenSubject = PublishSubject<Token>()
 
-        override func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String, completion: ((Token?, Error?) -> ())?) {
+        override func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String) -> Observable<Token> {
             capturedTeamName = teamName
             capturedConcourseURL = concourseURL
-            capturedCompletionHandler = completion
+            return tokenSubject
         }
     }
 
@@ -229,13 +229,8 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                         describe("When the token auth service call resolves with a valid token") {
                             beforeEach {
-                                guard let completion = mockUnauthenticatedTokenService.capturedCompletionHandler else {
-                                    fail("Failed to call token auth service with a completion handler")
-                                    return
-                                }
-
                                 let token = Token(value: "turtle auth token")
-                                completion(token, nil)
+                                mockUnauthenticatedTokenService.tokenSubject.onNext(token)
                             }
 
                             it("replaces itself with the TeamPipelinesViewController") {
@@ -252,13 +247,8 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                         describe("When the token auth service call resolves with some error") {
                             beforeEach {
-                                guard let completion = mockUnauthenticatedTokenService.capturedCompletionHandler else {
-                                    fail("Failed to call token auth service with a completion handler")
-                                    return
-                                }
-
                                 let error = BasicError(details: "error details")
-                                completion(nil, error)
+                                mockUnauthenticatedTokenService.tokenSubject.onError(error)
                             }
 
                             it("presents an alert that contains the error message from the token auth service") {
