@@ -8,13 +8,7 @@ class BasicAuthTokenServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
-            var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
             var callCount = 0
-
-            override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
-                capturedRequest = request
-                capturedCompletion = completion
-            }
 
             var responseSubject = PublishSubject<HTTPResponse>()
 

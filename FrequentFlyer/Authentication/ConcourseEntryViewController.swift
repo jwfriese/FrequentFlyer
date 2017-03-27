@@ -100,7 +100,7 @@ class ConcourseEntryViewController: UIViewController {
         unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main", concourseURL: concourseURLString) { token, error in
             guard let token = token else {
                 let alert = UIAlertController(title: "Authorization Failed",
-                                              message: error?.details,
+                                              message: error?.localizedDescription,
                                               preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 DispatchQueue.main.async {

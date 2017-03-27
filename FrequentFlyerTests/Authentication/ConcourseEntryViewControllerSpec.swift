@@ -21,9 +21,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
     class MockUnauthenticatedTokenService: UnauthenticatedTokenService {
         var capturedTeamName: String?
         var capturedConcourseURL: String?
-        var capturedCompletionHandler: ((Token?, FFError?) -> ())?
+        var capturedCompletionHandler: ((Token?, Error?) -> ())?
 
-        override func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String, completion: ((Token?, FFError?) -> ())?) {
+        override func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String, completion: ((Token?, Error?) -> ())?) {
             capturedTeamName = teamName
             capturedConcourseURL = concourseURL
             capturedCompletionHandler = completion

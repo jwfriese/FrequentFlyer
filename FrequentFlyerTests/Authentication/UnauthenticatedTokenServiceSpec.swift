@@ -1,17 +1,21 @@
 import XCTest
 import Quick
 import Nimble
+import RxSwift
 @testable import FrequentFlyer
 
 class UnauthenticatedTokenServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
-            var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
+            var callCount = 0
 
-            override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
+            var responseSubject = PublishSubject<HTTPResponse>()
+
+            override func perform(request: URLRequest) -> Observable<HTTPResponse> {
                 capturedRequest = request
-                capturedCompletion = completion
+                callCount += 1
+                return responseSubject
             }
         }
 
@@ -43,7 +47,7 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
 
             describe("Fetching a token with no authentication") {
                 var capturedToken: Token?
-                var capturedError: FFError?
+                var capturedError: Error?
 
                 beforeEach {
                     subject.getUnauthenticatedToken(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com") { token, error in
@@ -68,16 +72,11 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
                     var deserializedToken: Token!
 
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
                         deserializedToken = Token(value: "turtle auth token")
                         mockTokenDataDeserializer.toReturnToken = deserializedToken
 
                         validTokenResponseData = "valid token data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: validTokenResponseData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: validTokenResponseData, statusCode: 200))
                     }
 
                     it("passes the data to the deserializer") {
@@ -95,12 +94,7 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
 
                 describe("When the token auth call resolves with an error") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
-                        completion(HTTPResponseImpl(body: nil, statusCode: 200), BasicError(details: "some error string"))
+                        mockHTTPClient.responseSubject.onError(BasicError(details: "some error string"))
                     }
 
                     it("resolves the service's completion handler with nil for the token") {
@@ -121,15 +115,10 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
                     var invalidTokenDataResponse: Data!
 
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
                         mockTokenDataDeserializer.toReturnDeserializationError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
 
                         invalidTokenDataResponse = "valid token data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: invalidTokenDataResponse, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidTokenDataResponse, statusCode: 200))
                     }
 
                     it("passes the data to the deserializer") {
