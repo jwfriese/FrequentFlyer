@@ -1,17 +1,22 @@
 import XCTest
 import Quick
 import Nimble
+import RxSwift
+
 @testable import FrequentFlyer
 
 class TeamPipelinesServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
-            var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
+            var callCount = 0
 
-            override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
+            var responseSubject = PublishSubject<HTTPResponse>()
+
+            override func perform(request: URLRequest) -> Observable<HTTPResponse> {
                 capturedRequest = request
-                capturedCompletion = completion
+                callCount += 1
+                return responseSubject
             }
         }
 
@@ -71,17 +76,12 @@ class TeamPipelinesServiceSpec: QuickSpec {
 
                 describe("When the request resolves with a success response and valid pipeline data") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
                         mockPipelineDataDeserializer.toReturnPipelines = [
                             Pipeline(name: "turtle super pipeline")
                         ]
 
                         let validPipelineData = "valid pipeline data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: validPipelineData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: validPipelineData, statusCode: 200))
                     }
 
                     it("passes the data along to the deserializer") {
@@ -105,15 +105,10 @@ class TeamPipelinesServiceSpec: QuickSpec {
 
                 describe("When the request resolves with a success response and deserialization fails") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
                         mockPipelineDataDeserializer.toReturnError = DeserializationError(details: "error details", type: .invalidInputFormat)
 
                         let invalidData = "invalid data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: invalidData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidData, statusCode: 200))
                     }
 
                     it("calls the completion handler with nil for the pipeline data") {
@@ -127,13 +122,7 @@ class TeamPipelinesServiceSpec: QuickSpec {
 
                 describe("When the request resolves with an error") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
-                        completion(HTTPResponseImpl(body: nil, statusCode: 500), BasicError(details: "error details")
-                        )
+                        mockHTTPClient.responseSubject.onError(BasicError(details: "error details"))
                     }
 
                     it("calls the completion handler with nil for the pipeline data") {

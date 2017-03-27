@@ -7,9 +7,9 @@ import Fleet
 class TeamPipelinesViewControllerSpec: QuickSpec {
     class MockTeamPipelinesService: TeamPipelinesService {
         var capturedTarget: Target?
-        var capturedCompletion: (([Pipeline]?, FFError?) -> ())?
+        var capturedCompletion: (([Pipeline]?, Error?) -> ())?
 
-        override func getPipelines(forTarget target: Target, completion: (([Pipeline]?, FFError?) -> ())?) {
+        override func getPipelines(forTarget target: Target, completion: (([Pipeline]?, Error?) -> ())?) {
             capturedTarget = target
             capturedCompletion = completion
         }
