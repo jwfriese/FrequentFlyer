@@ -10,13 +10,14 @@ class AuthMethodsServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
-            var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
             var callCount = 0
 
-            override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
+            var responseSubject = PublishSubject<HTTPResponse>()
+
+            override func perform(request: URLRequest) -> Observable<HTTPResponse> {
                 capturedRequest = request
-                capturedCompletion = completion
                 callCount += 1
+                return responseSubject
             }
         }
 
@@ -62,7 +63,6 @@ class AuthMethodsServiceSpec: QuickSpec {
                 beforeEach {
                     method$ = subject.getMethods(forTeamName: "turtle_team_name", concourseURL: "https://concourse.com")
                     methodStreamResult = StreamResult(method$)
-
                 }
 
                 it("asks the HTTPClient to get the team's auth methods") {
@@ -92,13 +92,13 @@ class AuthMethodsServiceSpec: QuickSpec {
                         mockAuthMethodDataDeserializer.toReturnAuthMethods = deserializedAuthMethods
 
                         validAuthMethodResponseData = "valid auth method data".data(using: String.Encoding.utf8)
-                        mockHTTPClient.capturedCompletion!(HTTPResponseImpl(body: validAuthMethodResponseData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: validAuthMethodResponseData, statusCode: 200))
+
                     }
 
                     it("passes the data to the deserializer") {
                         expect(mockAuthMethodDataDeserializer.capturedData).to(equal(validAuthMethodResponseData))
                     }
-
 
                     it("emits the auth methods on the returned stream") {
                         expect(methodStreamResult.elements).to(equal(deserializedAuthMethods))
@@ -114,15 +114,10 @@ class AuthMethodsServiceSpec: QuickSpec {
                     var invalidAuthMethodData: Data!
 
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
                         mockAuthMethodDataDeserializer.toReturnDeserializationError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
 
                         invalidAuthMethodData = "valid auth method data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: invalidAuthMethodData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidAuthMethodData, statusCode: 200))
                     }
 
                     it("passes the data to the deserializer") {
@@ -136,12 +131,7 @@ class AuthMethodsServiceSpec: QuickSpec {
 
                 describe("When the request resolves with an error response") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
-                        completion(HTTPResponseImpl(body: nil, statusCode: 200), BasicError(details: "some error string"))
+                        mockHTTPClient.responseSubject.onError(BasicError(details: "some error string"))
                     }
 
                     it("emits no methods") {

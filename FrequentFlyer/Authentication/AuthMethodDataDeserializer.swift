@@ -29,6 +29,5 @@ class AuthMethodDataDeserializer {
         }
 
         return Observable.from(authMethods)
-
     }
 }

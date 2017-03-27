@@ -14,24 +14,17 @@ class AuthMethodsService {
     var authMethodsDataDeserializer = AuthMethodDataDeserializer()
 
     func getMethods(forTeamName teamName: String, concourseURL: String) -> Observable<AuthMethod> {
-        return Observable.create { observer in
-            let urlString = "\(concourseURL)/api/v1/teams/\(teamName)/auth/methods"
-            let url = URL(string: urlString)
-            let request = NSMutableURLRequest(url: url!)
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "GET"
-            self.httpClient.doRequest(request as URLRequest) { response, error in
-                if let error = error {
-                    observer.onError(error)
-                    return
-                }
+        let urlString = "\(concourseURL)/api/v1/teams/\(teamName)/auth/methods"
+        let url = URL(string: urlString)
+        var request = URLRequest(url: url!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "GET"
 
-                observer.onNext(response!.body!)
-                observer.onCompleted()
-            }
-            return Disposables.create()
-            }
-            .flatMap { self.authMethodsDataDeserializer.deserialize($0) }
-            .replayAllAndConnect()
+        let http$ = httpClient.perform(request: request)
+        return http$
+            .asObservable()
+            .flatMap { response in
+                self.authMethodsDataDeserializer.deserialize(response.body!)
+        }
     }
 }
