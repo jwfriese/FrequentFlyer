@@ -10,9 +10,9 @@ class BuildDetailViewControllerSpec: QuickSpec {
             var capturedTarget: Target?
             var capturedJobName: String?
             var capturedPipelineName: String?
-            var capturedCompletion: ((Build?, FFError?) -> ())?
+            var capturedCompletion: ((Build?, Error?) -> ())?
 
-            override func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String, completion: ((Build?, FFError?) -> ())?) {
+            override func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String, completion: ((Build?, Error?) -> ())?) {
                 capturedTarget = target
                 capturedJobName = jobName
                 capturedPipelineName = pipelineName

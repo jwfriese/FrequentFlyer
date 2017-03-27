@@ -1,17 +1,22 @@
 import XCTest
 import Quick
 import Nimble
+import RxSwift
+
 @testable import FrequentFlyer
 
 class TriggerBuildServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
-            var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
+            var callCount = 0
 
-            override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
+            var responseSubject = PublishSubject<HTTPResponse>()
+
+            override func perform(request: URLRequest) -> Observable<HTTPResponse> {
                 capturedRequest = request
-                capturedCompletion = completion
+                callCount += 1
+                return responseSubject
             }
         }
 
@@ -43,7 +48,7 @@ class TriggerBuildServiceSpec: QuickSpec {
 
             describe("Triggering a new build for a job") {
                 var capturedBuild: Build?
-                var capturedError: FFError?
+                var capturedError: Error?
 
                 beforeEach {
                     let target = Target(name: "turtle target",
@@ -73,18 +78,13 @@ class TriggerBuildServiceSpec: QuickSpec {
                 describe("When the request resolves with a success response and data for a build that is triggered") {
 
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the HTTPClient")
-                            return
-                        }
-
                         mockBuildDataDeserializer.toReturnBuild = Build(id: 124,
                             jobName: "turtle job",
                             status: "turtle status",
                             pipelineName: "turtle pipeline")
 
                         let buildData = "build data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: buildData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: buildData, statusCode: 200))
                     }
 
                     it("passes the data to the deserializer") {
@@ -106,12 +106,7 @@ class TriggerBuildServiceSpec: QuickSpec {
 
                 describe("When the request resolves with an error") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
-                        completion(HTTPResponseImpl(body: nil, statusCode: 200), BasicError(details: "some error string"))
+                        mockHTTPClient.responseSubject.onError(BasicError(details: "some error string"))
                     }
 
                     it("resolves the service's completion handler with nil for the build") {
@@ -132,15 +127,10 @@ class TriggerBuildServiceSpec: QuickSpec {
                     var invalidBuildData: Data!
 
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to HTTPClient")
-                            return
-                        }
-
                         mockBuildDataDeserializer.toReturnError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
 
                         invalidBuildData = "invalid build data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: invalidBuildData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidBuildData, statusCode: 200))
                     }
 
                     it("passes the data to the deserializer") {

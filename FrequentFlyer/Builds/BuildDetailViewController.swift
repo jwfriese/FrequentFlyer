@@ -55,7 +55,7 @@ class BuildDetailViewController: UIViewController {
                 alertMessage = "Build #\(build.id) triggered for \(build.jobName)"
             } else {
                 alertTitle = "Build Trigger Failed"
-                alertMessage = error?.details
+                alertMessage = error?.localizedDescription
             }
 
             let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
