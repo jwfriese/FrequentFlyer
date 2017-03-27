@@ -113,18 +113,17 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                             expect(subject.submitButton!.isEnabled).to(beTrue())
                         }
 
-                        // TODO: Bring this test back after Fleet adds the ability to clear a text field without the clear button...
-//                        describe("When the 'Concourse URL' field is cleared") {
-//                            beforeEach {
-//                                try! subject.concourseURLEntryField?.textField?.startEditing()
-//                                try! subject.concourseURLEntryField?.textField?.clearText()
-//                                try! subject.concourseURLEntryField?.textField?.stopEditing()
-//                            }
-//
-//                            it("disables the button") {
-//                                expect(subject.submitButton!.isEnabled).to(beFalse())
-//                            }
-//                        }
+                        describe("When the 'Concourse URL' field is cleared") {
+                            beforeEach {
+                                try! subject.concourseURLEntryField?.textField?.startEditing()
+                                try! subject.concourseURLEntryField?.textField?.backspaceAll()
+                                try! subject.concourseURLEntryField?.textField?.stopEditing()
+                            }
+
+                            it("disables the button") {
+                                expect(subject.submitButton!.isEnabled).to(beFalse())
+                            }
+                        }
                     }
                 }
 

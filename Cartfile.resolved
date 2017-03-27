@@ -1,6 +1,6 @@
 git "https://github.com/Boris-Em/BEMCheckBox" "1.4.0"
 git "https://github.com/jwfriese/EventSource" "1fb5ec76adc4d839974e4f4512bc6262d6f6ca4f"
-git "https://github.com/jwfriese/Fleet" "955e27965b21aba19558f2e3592b7c49079d0317"
+git "https://github.com/jwfriese/Fleet" "b9c36e118727a920013174ab3fdd38fb0a54adb7"
 git "https://github.com/matthewpalmer/Locksmith" "b80a90c1044b0445f8339040f027d9c89868116a"
 git "https://github.com/Quick/Nimble" "3720e6b0f6de6d6435f79f8a174fb4bb92df5dc4"
 git "https://github.com/Quick/Quick" "b441ba9d4abdc87fc153c55de947834b737bbe04"

@@ -127,7 +127,10 @@ class ConcourseEntryViewController: UIViewController {
 
 extension ConcourseEntryViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        submitButton?.isEnabled = concourseURLEntryField?.textField?.text != ""
+        let isDeleting = string == ""
+        let isCurrentStringLongerThanOne = textField.text != nil && textField.text!.characters.count > 1
+        let willHaveText = !isDeleting || isCurrentStringLongerThanOne
+        submitButton?.isEnabled = willHaveText
         return true
     }
 

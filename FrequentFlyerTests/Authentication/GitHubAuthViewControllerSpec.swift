@@ -126,18 +126,17 @@ class GitHubAuthViewControllerSpec: QuickSpec {
                             expect(subject.loginButton!.isEnabled).to(beTrue())
                         }
 
-                        // TODO: Bring this test back after Fleet adds the ability to clear a text field without the clear button...
-//                        describe("When the 'Token' field is cleared") {
-//                            beforeEach {
-//                                try! subject.tokenTextField?.textField?.startEditing()
-//                                try! subject.tokenTextField?.textField?.clearText()
-//                                try! subject.tokenTextField?.textField?.stopEditing()
-//                            }
-//
-//                            it("disables the button") {
-//                                expect(subject.loginButton!.isEnabled).to(beFalse())
-//                            }
-//                        }
+                        describe("When the 'Token' field is cleared") {
+                            beforeEach {
+                                try! subject.tokenTextField?.textField?.startEditing()
+                                try! subject.tokenTextField?.textField?.backspaceAll()
+                                try! subject.tokenTextField?.textField?.stopEditing()
+                            }
+
+                            it("disables the button") {
+                                expect(subject.loginButton!.isEnabled).to(beFalse())
+                            }
+                        }
                     }
 
                     describe("When pasting text into the 'Token' field") {
