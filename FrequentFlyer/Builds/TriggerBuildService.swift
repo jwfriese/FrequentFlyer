@@ -15,17 +15,6 @@ class TriggerBuildService {
         request.allHTTPHeaderFields?["Content-Type"] = "application/json"
         request.allHTTPHeaderFields?["Authorization"] = target.token.authValue
 
-        httpClient.doRequest(request as URLRequest) { response, error in
-            guard let completion = completion else { return }
-            guard let data = response?.body else {
-                completion(nil, error)
-                return
-            }
-
-            let deserializationResult = self.buildDataDeserializer.deserialize(data)
-            completion(deserializationResult.build, deserializationResult.error)
-        }
-
         httpClient.perform(request: request)
             .subscribe(
                 onNext: { response in

@@ -13,36 +13,25 @@ class UnauthenticatedTokenService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
 
-        httpClient.doRequest(request) { response, error in
-            guard let completion = completion else { return }
-            guard let data = response?.body else {
-                completion(nil, error)
-                return
-            }
+        httpClient.perform(request: request)
+            .subscribe(
+                onNext: { response in
+                    guard let completion = completion else { return }
+                    guard let data = response.body else {
+                        completion(nil, nil)
+                        return
+                    }
 
-            let deserializationResult = self.tokenDataDeserializer.deserializeold(data)
-            completion(deserializationResult.token, deserializationResult.error)
-        }
-
-        let $ = httpClient.perform(request: request)
-        $.subscribe(
-            onNext: { response in
-                guard let completion = completion else { return }
-                guard let data = response.body else {
-                    completion(nil, nil)
-                    return
-                }
-
-                let deserializationResult = self.tokenDataDeserializer.deserializeold(data)
-                completion(deserializationResult.token, deserializationResult.error)
-        },
-            onError: { error in
-                guard let completion = completion else { return }
-                completion(nil, error)
-        },
-            onCompleted: nil,
-            onDisposed: nil
-        )
+                    let deserializationResult = self.tokenDataDeserializer.deserializeold(data)
+                    completion(deserializationResult.token, deserializationResult.error)
+            },
+                onError: { error in
+                    guard let completion = completion else { return }
+                    completion(nil, error)
+            },
+                onCompleted: nil,
+                onDisposed: nil
+            )
             .addDisposableTo(disposeBag)
     }
 }
