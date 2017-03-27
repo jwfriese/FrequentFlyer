@@ -26,7 +26,7 @@ class GitHubAuthViewControllerSpec: QuickSpec {
         var capturedConcourseURLString: String?
         var capturedCompletion: ((FFError?) -> ())?
 
-        override func validate(token: Token, forConcourse concourseURLString: String, completion: ((FFError?) -> ())?) {
+        override func validate(token: Token, forConcourse concourseURLString: String, completion: ((Error?) -> ())?) {
             capturedToken = token
             capturedConcourseURLString = concourseURLString
             capturedCompletion = completion

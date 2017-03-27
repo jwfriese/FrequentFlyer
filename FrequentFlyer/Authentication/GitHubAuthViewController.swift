@@ -86,7 +86,7 @@ class GitHubAuthViewController: UIViewController {
         tokenValidationService.validate(token: Token(value: tokenString), forConcourse: concourseURLString) { error in
             if let error = error {
                 let alert = UIAlertController(title: "Authorization Failed",
-                                              message: error.details,
+                                              message: error.localizedDescription,
                                               preferredStyle: .alert
                 )
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

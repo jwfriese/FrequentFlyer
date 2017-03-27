@@ -2,16 +2,20 @@ import XCTest
 import Quick
 import Nimble
 import Fleet
+import RxSwift
 @testable import FrequentFlyer
 
 class TokenValidationServiceSpec: QuickSpec {
     class MockHTTPClient: HTTPClient {
         var capturedRequest: URLRequest?
-        var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
+        var callCount = 0
 
-        override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
+        var responseSubject = PublishSubject<HTTPResponse>()
+
+        override func perform(request: URLRequest) -> Observable<HTTPResponse> {
             capturedRequest = request
-            capturedCompletion = completion
+            callCount += 1
+            return responseSubject
         }
     }
 
@@ -28,7 +32,7 @@ class TokenValidationServiceSpec: QuickSpec {
             }
 
             describe("Validating a token") {
-                var capturedError: FFError?
+                var capturedError: Error?
 
                 beforeEach {
                     let token = Token(value: "valid turtle token")
@@ -51,17 +55,8 @@ class TokenValidationServiceSpec: QuickSpec {
 
                 describe("When the token is valid") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the HTTPClient")
-                            return
-                        }
-
-                        // Set error to something not nil to ensure that the prod code actually calls
-                        // the completion handler with nil.
-                        capturedError = BasicError(details: "error")
-
                         let doesNotMatterData = Data()
-                        completion(HTTPResponseImpl(body: doesNotMatterData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: doesNotMatterData, statusCode: 200))
                     }
 
                     it("resolves the original input completion block with no error") {
@@ -71,12 +66,7 @@ class TokenValidationServiceSpec: QuickSpec {
 
                 describe("When the token is not valid") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the HTTPClient")
-                            return
-                        }
-
-                        completion(HTTPResponseImpl(body: nil, statusCode: 401), BasicError(details: "turtle error"))
+                        mockHTTPClient.responseSubject.onError(BasicError(details: "turtle error"))
                     }
 
                     it("resolves the original input completion block with the error from the network call") {

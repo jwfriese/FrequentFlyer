@@ -1,25 +1,29 @@
 import Foundation
+import RxSwift
 
 class TokenValidationService {
     var httpClient = HTTPClient()
 
-    func validate(token: Token, forConcourse concourseURLString: String, completion: ((FFError?) -> ())?) {
+    let disposeBag = DisposeBag()
+
+    func validate(token: Token, forConcourse concourseURLString: String, completion: ((Error?) -> ())?) {
         guard let completion = completion else { return }
 
         let urlString = "\(concourseURLString)/api/v1/containers"
         let url = URL(string: urlString)!
-        let request = NSMutableURLRequest(url: url)
+        var request = URLRequest(url: url)
 
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(token.authValue, forHTTPHeaderField: "Authorization")
 
-        httpClient.doRequest(request as URLRequest) { response, error in
-            if response?.statusCode == 401 {
-                completion(error)
-            } else {
-                completion(nil)
-            }
-        }
+        httpClient.perform(request: request)
+            .subscribe(
+                onNext: {  _ in completion(nil) },
+                onError: { error in completion(error) },
+                onCompleted: nil,
+                onDisposed: nil
+        )
+        .addDisposableTo(disposeBag)
     }
 }
