@@ -1,10 +1,13 @@
 import Foundation
+import RxSwift
 
 class BuildsService {
     var httpClient = HTTPClient()
     var buildsDataDeserializer = BuildsDataDeserializer()
 
-    func getBuilds(forTarget target: Target, completion: (([Build]?, FFError?) -> ())?) {
+    let disposeBag = DisposeBag()
+
+    func getBuilds(forTarget target: Target, completion: (([Build]?, Error?) -> ())?) {
         let urlString = "\(target.api)/api/v1/builds"
         guard let url = URL(string: urlString) else { return }
 
@@ -13,15 +16,25 @@ class BuildsService {
         request.addValue(target.token.authValue, forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
 
-        httpClient.doRequest(request) { response, error in
-            guard let completion = completion else { return }
-            guard let data = response?.body else {
-                completion(nil, error)
-                return
-            }
+        httpClient.perform(request: request)
+            .subscribe(
+                onNext: { response in
+                    guard let completion = completion else { return }
+                    guard let data = response.body else {
+                        completion(nil, nil)
+                        return
+                    }
 
-            let result = self.buildsDataDeserializer.deserialize(data)
-            completion(result.builds, result.error)
-        }
+                    let result = self.buildsDataDeserializer.deserialize(data)
+                    completion(result.builds, result.error)
+            },
+                onError: { error in
+                    guard let completion = completion else { return }
+                    completion(nil, error)
+            },
+                onCompleted: nil,
+                onDisposed: nil
+        )
+            .addDisposableTo(disposeBag)
     }
 }

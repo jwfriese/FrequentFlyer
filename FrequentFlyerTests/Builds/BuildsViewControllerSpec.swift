@@ -10,7 +10,7 @@ class BuildsViewControllerSpec: QuickSpec {
             var capturedTarget: Target?
             var capturedCompletion: (([Build]?, FFError?) -> ())?
 
-            override func getBuilds(forTarget target: Target, completion: (([Build]?, FFError?) -> ())?) {
+            override func getBuilds(forTarget target: Target, completion: (([Build]?, Error?) -> ())?) {
                 capturedTarget = target
                 capturedCompletion = completion
             }

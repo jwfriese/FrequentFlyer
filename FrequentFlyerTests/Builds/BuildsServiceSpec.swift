@@ -1,17 +1,22 @@
 import XCTest
 import Quick
 import Nimble
+import RxSwift
+
 @testable import FrequentFlyer
 
 class BuildsServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
-            var capturedCompletion: ((HTTPResponse?, FFError?) -> ())?
+            var callCount = 0
 
-            override func doRequest(_ request: URLRequest, completion: ((HTTPResponse?, FFError?) -> ())?) {
+            var responseSubject = PublishSubject<HTTPResponse>()
+
+            override func perform(request: URLRequest) -> Observable<HTTPResponse> {
                 capturedRequest = request
-                capturedCompletion = completion
+                callCount += 1
+                return responseSubject
             }
         }
 
@@ -70,17 +75,12 @@ class BuildsServiceSpec: QuickSpec {
 
                 describe("When the HTTP request resolves with a success response and valid builds data") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to the HTTPClient")
-                            return
-                        }
-
                         let buildOne = Build(id: 2, jobName: "job 2", status: "status 2", pipelineName: "pipeline")
                         let buildTwo = Build(id: 1, jobName: "job 1", status: "status 1", pipelineName: "pipeline")
                         mockBuildsDataDeserializer.toReturnBuilds = [buildOne, buildTwo]
 
                         let validBuildsData = "valid builds data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: validBuildsData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: validBuildsData, statusCode: 200))
                     }
 
                     it("passes the data along to the deserializer") {
@@ -104,15 +104,10 @@ class BuildsServiceSpec: QuickSpec {
 
                 describe("When the HTTP request resolves with a success response and deserialization errors") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to the HTTPClient")
-                            return
-                        }
-
                         mockBuildsDataDeserializer.toReturnError = DeserializationError(details: "error details", type: .invalidInputFormat)
 
                         let invalidBuildsData = "invalid builds data".data(using: String.Encoding.utf8)
-                        completion(HTTPResponseImpl(body: invalidBuildsData, statusCode: 200), nil)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidBuildsData, statusCode: 200))
                     }
 
                     it("passes the data along to the deserializer") {
@@ -131,12 +126,7 @@ class BuildsServiceSpec: QuickSpec {
 
                 describe("When the HTTP request resolves with an error response") {
                     beforeEach {
-                        guard let completion = mockHTTPClient.capturedCompletion else {
-                            fail("Failed to pass completion handler to the HTTPClient")
-                            return
-                        }
-
-                        completion(HTTPResponseImpl(body: nil, statusCode: 500), BasicError(details: "error details"))
+                        mockHTTPClient.responseSubject.onError(BasicError(details: "error details"))
                     }
 
                     it("calls the completion handler nil list of builds") {
