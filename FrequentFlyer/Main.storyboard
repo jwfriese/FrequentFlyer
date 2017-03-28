@@ -505,18 +505,18 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="hGz-Br-San" userLabel="Enter Token Section">
-                                                <rect key="frame" x="0.0" y="256" width="342" height="174.5"/>
+                                                <rect key="frame" x="0.0" y="255.5" width="342" height="174"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0q4-la-scy" userLabel="Enter Token Field" customClass="UnderlineTextField" customModule="FrequentFlyer" customModuleProvider="target">
-                                                        <rect key="frame" x="32" y="0.0" width="278" height="26.5"/>
+                                                        <rect key="frame" x="32" y="0.0" width="278" height="26"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vns-vF-eys" userLabel="Stay Logged In" customClass="TitledCheckBox" customModule="FrequentFlyer" customModuleProvider="target">
-                                                        <rect key="frame" x="32" y="50.5" width="278" height="53.5"/>
+                                                        <rect key="frame" x="32" y="50" width="278" height="54"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4R-TW-kzG" userLabel="Log In Button" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
-                                                        <rect key="frame" x="32" y="128" width="278" height="46.5"/>
+                                                        <rect key="frame" x="32" y="128" width="278" height="46"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <connections>
                                                             <action selector="logInButtonTapped" destination="1H1-8y-8ag" eventType="touchUpInside" id="Gs8-n6-pjH"/>
@@ -657,7 +657,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hM6-4e-w4E">
-                                <rect key="frame" x="136.5" y="437" width="102" height="39"/>
+                                <rect key="frame" x="137" y="437" width="102" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="View Logs"/>
                                 <connections>
