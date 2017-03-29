@@ -30,6 +30,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
             var mockKeychainWrapper: MockKeychainWrapper!
 
             var mockBuildsViewController: BuildsViewController!
+            var mockJobsViewController: JobsViewController!
             var mockConcourseEntryViewController: ConcourseEntryViewController!
 
             beforeEach {
@@ -37,6 +38,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                 subject = storyboard.instantiateViewController(withIdentifier: TeamPipelinesViewController.storyboardIdentifier) as! TeamPipelinesViewController
 
                 mockBuildsViewController = try! storyboard.mockIdentifier(BuildsViewController.storyboardIdentifier, usingMockFor: BuildsViewController.self)
+                mockJobsViewController = try! storyboard.mockIdentifier(JobsViewController.storyboardIdentifier, usingMockFor: JobsViewController.self)
                 mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self)
 
                 subject.target = Target(name: "turtle target",
@@ -216,20 +218,20 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                             subject.tableView(subject.teamPipelinesTableView!, didSelectRowAt: IndexPath(row: 0, section: 0))
                         }
 
-                        it("sets up and presents the pipeline's builds page") {
-                            func topmostViewControllerAsBuilds() -> BuildsViewController? {
-                                return Fleet.getApplicationScreen()?.topmostViewController as? BuildsViewController
+                        it("sets up and presents the pipeline's jobs page") {
+                            func jobsViewController() -> JobsViewController? {
+                                return Fleet.getApplicationScreen()?.topmostViewController as? JobsViewController
                             }
 
-                            expect(topmostViewControllerAsBuilds()).toEventually(beIdenticalTo(mockBuildsViewController))
-                            expect(topmostViewControllerAsBuilds()?.pipeline).toEventually(equal(Pipeline(name: "turtle pipeline one")))
+                            expect(jobsViewController()).toEventually(beIdenticalTo(mockJobsViewController))
+                            expect(jobsViewController()?.pipeline).toEventually(equal(Pipeline(name: "turtle pipeline one")))
 
                             let expectedTarget = Target(name: "turtle target",
                                                         api: "turtle api",
                                                         teamName: "turtle team",
                                                         token: Token(value: "turtle token value")
                             )
-                            expect(topmostViewControllerAsBuilds()?.target).toEventually(equal(expectedTarget))
+                            expect(jobsViewController()?.target).toEventually(equal(expectedTarget))
                         }
                     }
                 }

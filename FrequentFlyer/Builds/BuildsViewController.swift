@@ -20,7 +20,7 @@ class BuildsViewController: UIViewController {
         guard let pipeline = pipeline else { return }
         guard let target = target else { return }
 
-        title = "Builds"
+        title = pipeline.name
         buildsTableView?.dataSource = self
         buildsTableView?.delegate = self
 

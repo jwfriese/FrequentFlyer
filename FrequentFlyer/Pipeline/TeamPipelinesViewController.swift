@@ -12,7 +12,7 @@ class TeamPipelinesViewController: UIViewController {
     var pipelines: [Pipeline]?
 
     class var storyboardIdentifier: String { get { return "TeamPipelines" } }
-    class var showBuildsSegueId: String { get { return "ShowBuilds" } }
+    class var showJobsSegueId: String { get { return "ShowJobs" } }
     class var setConcourseEntryAsRootPageSegueId: String { get { return "SetConcourseEntryAsRootPage" } }
 
     override func viewDidLoad() {
@@ -25,6 +25,8 @@ class TeamPipelinesViewController: UIViewController {
             NSForegroundColorAttributeName : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
             NSFontAttributeName : Style.Fonts.regular(withSize: 18)
         ]
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 
         title = "Pipelines"
         teamPipelinesService.getPipelines(forTarget: target) { pipelines, error in
@@ -39,19 +41,14 @@ class TeamPipelinesViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == TeamPipelinesViewController.showBuildsSegueId {
-            guard let buildsViewController = segue.destination as? BuildsViewController else { return  }
+        if segue.identifier == TeamPipelinesViewController.showJobsSegueId {
+            guard let jobsViewController = segue.destination as? JobsViewController else { return  }
             guard let indexPath = sender as? IndexPath else { return }
             guard let pipeline = pipelines?[indexPath.row] else { return }
             guard let target = target else { return }
 
-            buildsViewController.pipeline = pipeline
-            buildsViewController.target = target
-
-            let buildsService = BuildsService()
-            buildsService.httpClient = HTTPClient()
-            buildsService.buildsDataDeserializer = BuildsDataDeserializer()
-            buildsViewController.buildsService = buildsService
+            jobsViewController.pipeline = pipeline
+            jobsViewController.target = target
         } else if segue.identifier == TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId {
             guard let concourseEntryViewController = segue.destination as? ConcourseEntryViewController else {
                 return
@@ -119,6 +116,6 @@ extension TeamPipelinesViewController: UITableViewDataSource {
 
 extension TeamPipelinesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: TeamPipelinesViewController.showBuildsSegueId, sender: indexPath)
+        performSegue(withIdentifier: TeamPipelinesViewController.showJobsSegueId, sender: indexPath)
     }
 }

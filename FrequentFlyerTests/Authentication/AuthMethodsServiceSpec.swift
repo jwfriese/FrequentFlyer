@@ -93,7 +93,6 @@ class AuthMethodsServiceSpec: QuickSpec {
 
                         validAuthMethodResponseData = "valid auth method data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: validAuthMethodResponseData, statusCode: 200))
-
                     }
 
                     it("passes the data to the deserializer") {

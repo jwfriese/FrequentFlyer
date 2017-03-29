@@ -1,14 +1,6 @@
 import Foundation
 import RxSwift
 
-extension ObservableType {
-    func replayAllAndConnect() -> Observable<Self.E> {
-        let replayObservable = self.replayAll()
-        _ = replayObservable.connect()
-        return replayObservable
-    }
-}
-
 class AuthMethodsService {
     var httpClient = HTTPClient()
     var authMethodsDataDeserializer = AuthMethodDataDeserializer()
