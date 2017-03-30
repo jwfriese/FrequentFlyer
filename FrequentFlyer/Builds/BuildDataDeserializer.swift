@@ -19,12 +19,28 @@ class BuildDataDeserializer {
             return typeMismatchErrorCaseForKey("id", expectedType: "an integer")
         }
 
+        guard let nameObject = buildJSON.value(forKey: "name") else {
+            return missingDataErrorCaseForKey("name")
+        }
+
+        guard let name = nameObject as? String else {
+            return typeMismatchErrorCaseForKey("name", expectedType: "a string")
+        }
+
         guard let jobNameObject = buildJSON.value(forKey: "job_name") else {
             return missingDataErrorCaseForKey("job_name")
         }
 
         guard let jobName = jobNameObject as? String else {
             return typeMismatchErrorCaseForKey("job_name", expectedType: "a string")
+        }
+
+        guard let teamNameObject = buildJSON.value(forKey: "team_name") else {
+            return missingDataErrorCaseForKey("team_name")
+        }
+
+        guard let teamName = teamNameObject as? String else {
+            return typeMismatchErrorCaseForKey("team_name", expectedType: "a string")
         }
 
         guard let statusObject = buildJSON.value(forKey: "status") else {
@@ -44,9 +60,12 @@ class BuildDataDeserializer {
         }
 
         let build = Build(id: id,
+                          name: name,
+                          teamName: teamName,
                           jobName: jobName,
                           status: status,
-                          pipelineName: pipelineName)
+                          pipelineName: pipelineName
+        )
 
         return (build, nil)
     }

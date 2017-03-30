@@ -22,6 +22,10 @@
 		7B58A1A01E8B428C00FCBA13 /* JobsServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A19F1E8B428C00FCBA13 /* JobsServiceSpec.swift */; };
 		7B58A1A21E8B42F400FCBA13 /* JobsDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1A11E8B42F400FCBA13 /* JobsDataDeserializer.swift */; };
 		7B58A1A41E8B43F400FCBA13 /* JobsDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1A31E8B43F400FCBA13 /* JobsDataDeserializerSpec.swift */; };
+		7B58A1A61E8C03F000FCBA13 /* JobDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1A51E8C03F000FCBA13 /* JobDetailViewController.swift */; };
+		7B58A1A81E8C092C00FCBA13 /* JobDetailViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1A71E8C092C00FCBA13 /* JobDetailViewControllerSpec.swift */; };
+		7B58A1AB1E8C4A6800FCBA13 /* ControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1AA1E8C4A6700FCBA13 /* ControlPanel.swift */; };
+		7B58A1AD1E8C4A7200FCBA13 /* ControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B58A1AC1E8C4A7200FCBA13 /* ControlPanel.xib */; };
 		7B59010C1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59010B1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift */; };
 		7B59010E1E86425600BB4538 /* GitHubAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59010D1E86425600BB4538 /* GitHubAuthViewController.swift */; };
 		7B5F952B1DFAF573005E0DD2 /* HTTPSessionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */; };
@@ -189,6 +193,10 @@
 		7B58A19F1E8B428C00FCBA13 /* JobsServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsServiceSpec.swift; sourceTree = "<group>"; };
 		7B58A1A11E8B42F400FCBA13 /* JobsDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsDataDeserializer.swift; sourceTree = "<group>"; };
 		7B58A1A31E8B43F400FCBA13 /* JobsDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsDataDeserializerSpec.swift; sourceTree = "<group>"; };
+		7B58A1A51E8C03F000FCBA13 /* JobDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailViewController.swift; sourceTree = "<group>"; };
+		7B58A1A71E8C092C00FCBA13 /* JobDetailViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailViewControllerSpec.swift; sourceTree = "<group>"; };
+		7B58A1AA1E8C4A6700FCBA13 /* ControlPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlPanel.swift; sourceTree = "<group>"; };
+		7B58A1AC1E8C4A7200FCBA13 /* ControlPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlPanel.xib; sourceTree = "<group>"; };
 		7B59010B1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubAuthViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B59010D1E86425600BB4538 /* GitHubAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubAuthViewController.swift; sourceTree = "<group>"; };
 		7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPSessionUtils.swift; sourceTree = "<group>"; };
@@ -385,6 +393,15 @@
 			path = Input;
 			sourceTree = "<group>";
 		};
+		7B58A1A91E8C4A4400FCBA13 /* JobDetailPage */ = {
+			isa = PBXGroup;
+			children = (
+				7B58A1AA1E8C4A6700FCBA13 /* ControlPanel.swift */,
+				7B58A1AC1E8C4A7200FCBA13 /* ControlPanel.xib */,
+			);
+			path = JobDetailPage;
+			sourceTree = "<group>";
+		};
 		7B5F952D1DFAF5BE005E0DD2 /* NativeWeb */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,6 +487,7 @@
 			isa = PBXGroup;
 			children = (
 				7B6F74B91E7F8F6D00C7C005 /* ButtonUtilities */,
+				7B58A1A91E8C4A4400FCBA13 /* JobDetailPage */,
 				7B6F74B61E7F8DC900C7C005 /* RoundedButton */,
 				7BF620961E841F8F00C0E47F /* TitledCheckBox */,
 				7B673ECB1E7F06AF00CAC921 /* TitledTextField */,
@@ -717,6 +735,7 @@
 			isa = PBXGroup;
 			children = (
 				7BE6636C1E8A1D9C006573C3 /* Job.swift */,
+				7B58A1A51E8C03F000FCBA13 /* JobDetailViewController.swift */,
 				7B58A1A11E8B42F400FCBA13 /* JobsDataDeserializer.swift */,
 				7BE6636A1E8A1D39006573C3 /* JobsService.swift */,
 				7BE663651E8A1A62006573C3 /* JobsTableViewCell.swift */,
@@ -728,6 +747,7 @@
 		7BE663671E8A1B6E006573C3 /* Jobs */ = {
 			isa = PBXGroup;
 			children = (
+				7B58A1A71E8C092C00FCBA13 /* JobDetailViewControllerSpec.swift */,
 				7B58A1A31E8B43F400FCBA13 /* JobsDataDeserializerSpec.swift */,
 				7B58A19F1E8B428C00FCBA13 /* JobsServiceSpec.swift */,
 				7BE663681E8A1B86006573C3 /* JobsViewControllerSpec.swift */,
@@ -978,6 +998,7 @@
 				7B673EB81E7EFC5500CAC921 /* Lato-HeavyItalic.ttf in Resources */,
 				AEA5D5161D7F2CEC00D76EBA /* Assets.xcassets in Resources */,
 				7B673EB61E7EFC5500CAC921 /* Lato-HairlineItalic.ttf in Resources */,
+				7B58A1AD1E8C4A7200FCBA13 /* ControlPanel.xib in Resources */,
 				7B673EB41E7EFC5500CAC921 /* Lato-BoldItalic.ttf in Resources */,
 				7B8B4D561E8638F30084505B /* UnderlineTextField.xib in Resources */,
 				7B673EBF1E7EFC5500CAC921 /* Lato-Semibold.ttf in Resources */,
@@ -1100,6 +1121,7 @@
 				7BF620981E841FC600C0E47F /* TitledCheckBox.swift in Sources */,
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
 				7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */,
+				7B58A1AB1E8C4A6800FCBA13 /* ControlPanel.swift in Sources */,
 				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
 				7BF620931E82D18800C0E47F /* AllControlStates.swift in Sources */,
 				7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */,
@@ -1118,6 +1140,7 @@
 				7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */,
 				7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */,
 				7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */,
+				7B58A1A61E8C03F000FCBA13 /* JobDetailViewController.swift in Sources */,
 				7B6F74B81E7F8F0600C7C005 /* RoundedButton.swift in Sources */,
 				7BA0320F1D843FE300F20E23 /* TokenDataDeserializer.swift in Sources */,
 				7B737BD31E075BE8007FC4E8 /* StylingDescriptorBuilder.swift in Sources */,
@@ -1165,6 +1188,7 @@
 				7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */,
 				7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */,
 				7BCAEFEA1D901AA000BC817D /* TestAppDelegate.swift in Sources */,
+				7B58A1A81E8C092C00FCBA13 /* JobDetailViewControllerSpec.swift in Sources */,
 				7BA0326D1D84465800F20E23 /* AuthMethodSpec.swift in Sources */,
 				7BA032771D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift in Sources */,
 				AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */,

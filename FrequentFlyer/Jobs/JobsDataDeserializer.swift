@@ -16,7 +16,7 @@ class JobsDataDeserializer {
 
         for jobsDictionary in jobsJSON {
             guard let name = jobsDictionary["name"] as? String else { continue }
-            jobs.append(Job(name: name))
+            jobs.append(Job(name: name, builds: []))
         }
 
         return Observable.from(optional: jobs)

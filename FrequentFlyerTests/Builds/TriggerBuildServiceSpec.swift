@@ -52,9 +52,9 @@ class TriggerBuildServiceSpec: QuickSpec {
 
                 beforeEach {
                     let target = Target(name: "turtle target",
-                        api: "https://turtles.com",
-                        teamName: "turtle_team",
-                        token: Token(value: "turtle token value")
+                                        api: "https://turtles.com",
+                                        teamName: "turtle_team",
+                                        token: Token(value: "turtle token value")
                     )
 
                     subject.triggerBuild(forTarget: target, forJob: "crab_job", inPipeline: "crab_pipeline") { build, error in
@@ -78,10 +78,14 @@ class TriggerBuildServiceSpec: QuickSpec {
                 describe("When the request resolves with a success response and data for a build that is triggered") {
 
                     beforeEach {
-                        mockBuildDataDeserializer.toReturnBuild = Build(id: 124,
+                        mockBuildDataDeserializer.toReturnBuild = Build(
+                            id: 124,
+                            name: "name",
+                            teamName: "team name",
                             jobName: "turtle job",
                             status: "turtle status",
-                            pipelineName: "turtle pipeline")
+                            pipelineName: "turtle pipeline"
+                        )
 
                         let buildData = "build data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: buildData, statusCode: 200))
@@ -92,10 +96,14 @@ class TriggerBuildServiceSpec: QuickSpec {
                     }
 
                     it("resolves the service's completion handler using the build the deserializer returns") {
-                        let expectedBuild = Build(id: 124,
-                                                  jobName: "turtle job",
-                                                  status: "turtle status",
-                                                  pipelineName: "turtle pipeline")
+                        let expectedBuild = Build(
+                            id: 124,
+                            name: "name",
+                            teamName: "team name",
+                            jobName: "turtle job",
+                            status: "turtle status",
+                            pipelineName: "turtle pipeline"
+                        )
                         expect(capturedBuild).to(equal(expectedBuild))
                     }
 

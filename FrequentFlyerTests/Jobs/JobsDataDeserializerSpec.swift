@@ -42,8 +42,8 @@ class JobsDataDeserializerSpec: QuickSpec {
                         return
                     }
 
-                    expect(jobs[0]).to(equal(Job(name: "turtle job")))
-                    expect(jobs[1]).to(equal(Job(name: "crab job")))
+                    expect(jobs[0]).to(equal(Job(name: "turtle job", builds: [])))
+                    expect(jobs[1]).to(equal(Job(name: "crab job", builds: [])))
                 }
 
                 it("returns no error") {
@@ -68,7 +68,7 @@ class JobsDataDeserializerSpec: QuickSpec {
                     }
 
                     it("emits a job only for each valid JSON job entry") {
-                        expect(jobs).to(equal([Job(name: "turtle job")]))
+                        expect(jobs).to(equal([Job(name: "turtle job", builds: [])]))
                     }
 
                     it("emits completed") {
@@ -92,7 +92,7 @@ class JobsDataDeserializerSpec: QuickSpec {
                     }
 
                     it("emits a job only for each valid JSON job entry") {
-                        expect(jobs).to(equal([Job(name: "turtle job")]))
+                        expect(jobs).to(equal([Job(name: "turtle job", builds: [])]))
                     }
 
                     it("emits completed") {

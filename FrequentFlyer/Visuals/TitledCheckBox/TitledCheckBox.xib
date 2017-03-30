@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lfh-7I-pza" userLabel="CheckBox" customClass="BEMCheckBox">
-                    <rect key="frame" x="58" y="167" width="187.5" height="333.5"/>
+                    <rect key="frame" x="58" y="166.5" width="187.5" height="333.5"/>
                     <color key="backgroundColor" red="0.23137254900000001" green="0.015686274510000001" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pV9-RX-8Ks" userLabel="Title Label" customClass="TitledCheckBoxTitleLabel" customModule="FrequentFlyer" customModuleProvider="target">

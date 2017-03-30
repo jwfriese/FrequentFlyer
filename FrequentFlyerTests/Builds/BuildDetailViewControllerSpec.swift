@@ -34,14 +34,17 @@ class BuildDetailViewControllerSpec: QuickSpec {
                 subject = storyboard.instantiateViewController(withIdentifier: BuildDetailViewController.storyboardIdentifier) as! BuildDetailViewController
 
                 let target = Target(name: "turtle target",
-                    api: "turtle api",
-                    teamName: "turtle team name",
-                    token: Token(value: "turtle token value")
+                                    api: "turtle api",
+                                    teamName: "turtle team name",
+                                    token: Token(value: "turtle token value")
                 )
 
                 subject.target = target
 
-                let build = Build(id: 123,
+                let build = Build(
+                    id: 123,
+                    name: "name",
+                    teamName: "team name",
                     jobName: "turtle job",
                     status: "turtle status",
                     pipelineName: "turtle pipeline"
@@ -94,10 +97,14 @@ class BuildDetailViewControllerSpec: QuickSpec {
                                 return
                             }
 
-                            let build = Build(id: 124,
+                            let build = Build(
+                                id: 124,
+                                name: "name",
+                                teamName: "team name",
                                 jobName: "turtle job",
                                 status: "turtle pending",
-                                pipelineName: "turtle pipeline")
+                                pipelineName: "turtle pipeline"
+                            )
 
                             completion(build, nil)
                         }
@@ -137,16 +144,20 @@ class BuildDetailViewControllerSpec: QuickSpec {
 
                         expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.logsStylingParser).toEventuallyNot(beNil())
 
-                        let expectedTarget = Target(name: "turtle target",
-                                                    api: "turtle api",
-                                                    teamName: "turtle team name",
-                                                    token: Token(value: "turtle token value")
+                        let expectedTarget = Target(
+                            name: "turtle target",
+                            api: "turtle api",
+                            teamName: "turtle team name",
+                            token: Token(value: "turtle token value")
                         )
 
-                        let expectedBuild = Build(id: 123,
-                                                  jobName: "turtle job",
-                                                  status: "turtle status",
-                                                  pipelineName: "turtle pipeline"
+                        let expectedBuild = Build(
+                            id: 123,
+                            name: "name",
+                            teamName: "team name",
+                            jobName: "turtle job",
+                            status: "turtle status",
+                            pipelineName: "turtle pipeline"
                         )
 
                         expect((Fleet.getApplicationScreen()?.topmostViewController as? LogsViewController)?.build).toEventually(equal(expectedBuild))

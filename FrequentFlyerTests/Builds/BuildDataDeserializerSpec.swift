@@ -5,7 +5,7 @@ import Nimble
 
 class BuildDataDeserializerSpec: QuickSpec {
     override func spec() {
-        describe("BuildDataDeserializer") {
+        fdescribe("BuildDataDeserializer") {
             var subject: BuildDataDeserializer!
 
             beforeEach {
@@ -18,6 +18,8 @@ class BuildDataDeserializerSpec: QuickSpec {
                 beforeEach {
                     let validDataJSONArray = [
                         "id" : 2,
+                        "name" : "turtle build name",
+                        "team_name" : "turtle team name",
                         "status" : "status 2",
                         "job_name" : "turtle job name",
                         "pipeline_name" : "turtle pipeline name"
@@ -29,7 +31,16 @@ class BuildDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns a build for each JSON build entry") {
-                    expect(result.build).to(equal(Build(id: 2, jobName: "turtle job name", status: "status 2", pipelineName: "turtle pipeline name")))
+                    let expectedBuild = Build(
+                        id: 2,
+                        name: "turtle build name",
+                        teamName: "turtle team name",
+                        jobName: "turtle job name",
+                        status: "status 2",
+                        pipelineName: "turtle pipeline name"
+                    )
+
+                    expect(result.build).to(equal(expectedBuild))
                 }
 
                 it("returns no error") {
@@ -40,10 +51,104 @@ class BuildDataDeserializerSpec: QuickSpec {
             describe("Deserializing build data where the data is invalid") {
                 var result: (build: Build?, error: DeserializationError?)
 
+                context("Missing required 'name' field") {
+                    beforeEach {
+                        let invalidDataJSON = [
+                            "id" : 2,
+                            "team_name" : "team name",
+                            "job_name" : "turtle job name",
+                            "pipeline_name" : "turtle pipeline name"
+                            ] as [String : Any]
+
+                        let invalidData = try! JSONSerialization.data(withJSONObject: invalidDataJSON, options: .prettyPrinted)
+                        result = subject.deserialize(invalidData)
+                    }
+
+                    it("returns nil for the build") {
+                        expect(result.build).to(beNil())
+                    }
+
+                    it("returns an error") {
+                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'name' field", type: .missingRequiredData)))
+                    }
+                }
+
+                context("'name' field is not a string") {
+                    beforeEach {
+                        let invalidJSONDictionary = [
+                            "id" : 2,
+                            "name" : 10,
+                            "team_name" : "team name",
+                            "status" : 100,
+                            "job_name" : "turtle job name",
+                            "pipeline_name" : "turtle pipeline name"
+                            ] as [String : Any]
+
+                        let invalidJSONData = try! JSONSerialization.data(withJSONObject: invalidJSONDictionary, options: .prettyPrinted)
+                        result = subject.deserialize(invalidJSONData)
+                    }
+
+                    it("returns nil for the build") {
+                        expect(result.build).to(beNil())
+                    }
+
+                    it("returns an error") {
+                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'name' field to be a string", type: .typeMismatch)))
+                    }
+                }
+
+                context("Missing required 'team_name' field") {
+                    beforeEach {
+                        let invalidDataJSON = [
+                            "id" : 2,
+                            "name" : "build name",
+                            "job_name" : "turtle job name",
+                            "pipeline_name" : "turtle pipeline name"
+                            ] as [String : Any]
+
+                        let invalidData = try! JSONSerialization.data(withJSONObject: invalidDataJSON, options: .prettyPrinted)
+                        result = subject.deserialize(invalidData)
+                    }
+
+                    it("returns nil for the build") {
+                        expect(result.build).to(beNil())
+                    }
+
+                    it("returns an error") {
+                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'team_name' field", type: .missingRequiredData)))
+                    }
+                }
+
+                context("'team_name' field is not a string") {
+                    beforeEach {
+                        let invalidJSONDictionary = [
+                            "id" : 2,
+                            "name" : "build name",
+                            "team_name" : 1,
+                            "status" : 100,
+                            "job_name" : "turtle job name",
+                            "pipeline_name" : "turtle pipeline name"
+                            ] as [String : Any]
+
+                        let invalidJSONData = try! JSONSerialization.data(withJSONObject: invalidJSONDictionary, options: .prettyPrinted)
+                        result = subject.deserialize(invalidJSONData)
+                    }
+
+                    it("returns nil for the build") {
+                        expect(result.build).to(beNil())
+                    }
+
+                    it("returns an error") {
+                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'team_name' field to be a string", type: .typeMismatch)))
+                    }
+                }
+
                 context("Missing required 'status' field") {
                     beforeEach {
                         let invalidDataJSON = [
                             "id" : 2,
+                            "name" : "build name",
+                            "team_name" : "team name",
                             "job_name" : "turtle job name",
                             "pipeline_name" : "turtle pipeline name"
                         ] as [String : Any]
@@ -65,6 +170,8 @@ class BuildDataDeserializerSpec: QuickSpec {
                     beforeEach {
                         let invalidJSONDictionary = [
                             "id" : 2,
+                            "name" : "build name",
+                            "team_name" : "team name",
                             "status" : 100,
                             "job_name" : "turtle job name",
                             "pipeline_name" : "turtle pipeline name"
@@ -87,6 +194,8 @@ class BuildDataDeserializerSpec: QuickSpec {
                     beforeEach {
                         let invalidJSONDictionary = [
                             "id" : 1,
+                            "name" : "build name",
+                            "team_name" : "team name",
                             "status" : "status 1",
                             "pipeline_name" : "turtle pipeline name"
                         ] as [String : Any]
@@ -108,6 +217,8 @@ class BuildDataDeserializerSpec: QuickSpec {
                     beforeEach {
                         let invalidJSONDictionary = [
                             "id" : 1,
+                            "name" : "build name",
+                            "team_name" : "team name",
                             "status" : "status 1",
                             "job_name" : 1000,
                             "pipeline_name" : "turtle pipeline name"
@@ -129,6 +240,8 @@ class BuildDataDeserializerSpec: QuickSpec {
                 context("Missing required 'id' field") {
                     beforeEach {
                         let invalidJSONDictionary = [
+                            "name" : "build name",
+                            "team_name" : "team name",
                             "status" : "status",
                             "job_name" : "turtle job name",
                             "pipeline_name" : "turtle pipeline name"
@@ -151,6 +264,8 @@ class BuildDataDeserializerSpec: QuickSpec {
                     beforeEach {
                         let invalidJSONDictionary = [
                             "id" : "id value",
+                            "name" : "build name",
+                            "team_name" : "team name",
                             "status" : "status",
                             "job_name" : "turtle job name",
                             "pipeline_name" : "turtle pipeline name"
@@ -173,6 +288,8 @@ class BuildDataDeserializerSpec: QuickSpec {
                     beforeEach {
                         let invalidJSONDictionary = [
                             "id" : 3,
+                            "name" : "build name",
+                            "team_name" : "team name",
                             "status" : "status",
                             "job_name" : "turtle job name"
                         ] as [String : Any]
@@ -194,6 +311,8 @@ class BuildDataDeserializerSpec: QuickSpec {
                     beforeEach {
                         let invalidJSONDictionary = [
                             "id" : 3,
+                            "name" : "build name",
+                            "team_name" : "team name",
                             "status" : "status",
                             "job_name" : "turtle job name",
                             "pipeline_name" : 1

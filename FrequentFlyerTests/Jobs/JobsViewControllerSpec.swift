@@ -22,21 +22,25 @@ class JobsViewControllerSpec: QuickSpec {
     override func spec() {
         describe("JobsViewController") {
             var subject: JobsViewController!
-
             var mockJobsService: MockJobsService!
+
+            var mockJobDetailViewController: JobDetailViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+                mockJobDetailViewController = try! storyboard.mockIdentifier(JobDetailViewController.storyboardIdentifier, usingMockFor: JobDetailViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: JobsViewController.storyboardIdentifier) as! JobsViewController
 
                 let pipeline = Pipeline(name: "turtle pipeline")
                 subject.pipeline = pipeline
 
-                let target = Target(name: "turtle target",
-                                    api: "turtle api",
-                                    teamName: "turtle team",
-                                    token: Token(value: "turtle token value")
+                let target = Target(
+                    name: "turtle target",
+                    api: "turtle api",
+                    teamName: "turtle team",
+                    token: Token(value: "turtle token value")
                 )
                 subject.target = target
 
@@ -54,10 +58,11 @@ class JobsViewControllerSpec: QuickSpec {
                 }
 
                 it("calls out to the \(JobsService.self)") {
-                    let expectedTarget = Target(name: "turtle target",
-                                                api: "turtle api",
-                                                teamName: "turtle team",
-                                                token: Token(value: "turtle token value")
+                    let expectedTarget = Target(
+                        name: "turtle target",
+                        api: "turtle api",
+                        teamName: "turtle team",
+                        token: Token(value: "turtle token value")
                     )
 
                     let expectedPipeline = Pipeline(name: "turtle pipeline")
@@ -72,8 +77,8 @@ class JobsViewControllerSpec: QuickSpec {
 
                 describe("When the \(JobsService.self) resolves with jobs") {
                     beforeEach {
-                        let turtleJob = Job(name: "turtle job")
-                        let crabJob = Job(name: "crab job")
+                        let turtleJob = Job(name: "turtle job", builds: [])
+                        let crabJob = Job(name: "crab job", builds: [])
 
                         mockJobsService.jobsSubject.onNext([turtleJob, crabJob])
                         mockJobsService.jobsSubject.onCompleted()
@@ -98,6 +103,21 @@ class JobsViewControllerSpec: QuickSpec {
                             return
                         }
                         expect(cellTwo.jobNameLabel?.text).to(equal("crab job"))
+                    }
+
+                    describe("Selecting one of the job cells") {
+                        beforeEach {
+                            try! subject.jobsTableView?.selectRow(at: IndexPath(row: 1, section: 0))
+                        }
+
+                        it("presents a job detail view controller") {
+                            let jobDetailViewController: () -> JobDetailViewController? = {
+                                return Fleet.getApplicationScreen()?.topmostViewController as? JobDetailViewController
+                            }
+
+                            expect(jobDetailViewController()).toEventually(beIdenticalTo(mockJobDetailViewController))
+                            expect(jobDetailViewController()?.job).toEventually(equal(Job(name: "crab job", builds: [])))
+                        }
                     }
                 }
             }

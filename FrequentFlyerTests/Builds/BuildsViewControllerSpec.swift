@@ -58,10 +58,11 @@ class BuildsViewControllerSpec: QuickSpec {
                 }
 
                 it("calls out to the BuildsService") {
-                    let expectedTarget = Target(name: "turtle target",
-                                                api: "turtle api",
-                                                teamName: "turtle team",
-                                                token: Token(value: "turtle token value")
+                    let expectedTarget = Target(
+                        name: "turtle target",
+                        api: "turtle api",
+                        teamName: "turtle team",
+                        token: Token(value: "turtle token value")
                     )
                     expect(mockBuildsService.capturedTarget).to(equal(expectedTarget))
                 }
@@ -83,9 +84,9 @@ class BuildsViewControllerSpec: QuickSpec {
                             return
                         }
 
-                        let buildOne = Build(id: 3, jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
-                        let buildTwo = Build(id: 2, jobName: "crab job", status: "crab last status", pipelineName: "crab pipeline")
-                        let buildThree = Build(id: 1, jobName: "other turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
+                        let buildOne = Build(id: 3, name: "name", teamName: "team name", jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
+                        let buildTwo = Build(id: 2, name: "name", teamName: "team name", jobName: "crab job", status: "crab last status", pipelineName: "crab pipeline")
+                        let buildThree = Build(id: 1, name: "name", teamName: "team name", jobName: "other turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
                         completion([buildOne, buildTwo, buildThree], nil)
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
@@ -121,9 +122,17 @@ class BuildsViewControllerSpec: QuickSpec {
 
                         it("displays a detail page for the build associated with the selected row") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockBuildDetailViewController))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.build).toEventually(equal(Build(id: 3, jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.build).toEventually(equal(Build(id: 3, name: "name", teamName: "team name", jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")))
 
-                            let expectedBuild = Build(id: 3, jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
+                            let expectedBuild = Build(
+                                id: 3,
+                                name: "name",
+                                teamName: "team name",
+                                jobName: "turtle job",
+                                status: "turtle last status",
+                                pipelineName: "turtle pipeline"
+                            )
+
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.build).toEventually(equal(expectedBuild))
 
                             let expectedTarget = Target(name: "turtle target", api: "turtle api", teamName: "turtle team", token: Token(value: "turtle token value")

@@ -18,7 +18,7 @@ class BuildsDataDeserializer {
             guard let status = buildDictionary["status"] as? String else { continue }
             guard let pipelineName = buildDictionary["pipeline_name"] as? String else { continue }
 
-            builds.append(Build(id: id, jobName: jobName, status: status, pipelineName: pipelineName))
+            builds.append(Build(id: id, name: "", teamName: "", jobName: jobName, status: status, pipelineName: pipelineName))
         }
 
         return (builds, nil)

@@ -15,7 +15,7 @@
         <scene sceneID="4Xs-9o-y0c">
             <objects>
                 <navigationController id="3d8-pO-wnR" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="22l-gc-b0E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="22l-gc-b0E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -287,7 +287,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9sk-ci-M5H" id="EI1-eI-GTd">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ana-Ur-vXd" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
@@ -355,10 +355,10 @@
                                 <color key="sectionIndexTrackingBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BuildCell" id="3Ar-L3-vzz" customClass="BuildTableViewCell" customModule="FrequentFlyer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="343" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Ar-L3-vzz" id="7II-dP-NvI">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tUW-ik-lf7">
@@ -701,7 +701,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0F-6M-SLl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1820" y="1496"/>
+            <point key="canvasLocation" x="1762" y="2253"/>
         </scene>
         <!--Logs View Controller-->
         <scene sceneID="2Vg-Kn-0Gg">
@@ -750,7 +750,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f1d-g2-dM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2612" y="1496"/>
+            <point key="canvasLocation" x="2630" y="2253"/>
         </scene>
         <!--Jobs View Controller-->
         <scene sceneID="DFv-Cb-9ju">
@@ -772,7 +772,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gvY-oz-Klg" id="MlN-bw-Itq">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agy-nO-Sh9" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
@@ -804,11 +804,45 @@
                     </view>
                     <connections>
                         <outlet property="jobsTableView" destination="XU3-Xj-1fG" id="XmY-p4-NAy"/>
+                        <segue destination="zfc-Jf-lbt" kind="show" identifier="ShowJobDetail" id="gzw-Na-aP3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qkH-oG-qeM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="959" y="1496"/>
+        </scene>
+        <!--Job Detail View Controller-->
+        <scene sceneID="43D-VX-YzW">
+            <objects>
+                <viewController storyboardIdentifier="JobDetail" id="zfc-Jf-lbt" customClass="JobDetailViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4Kn-96-8L2"/>
+                        <viewControllerLayoutGuide type="bottom" id="IfJ-FD-GA8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hdv-6j-3sp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="THU-NZ-jO6" customClass="ControlPanel" customModule="FrequentFlyer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="THU-NZ-jO6" firstAttribute="width" secondItem="hdv-6j-3sp" secondAttribute="width" id="IZd-OQ-m26"/>
+                            <constraint firstItem="THU-NZ-jO6" firstAttribute="centerX" secondItem="hdv-6j-3sp" secondAttribute="centerX" id="V3K-Wr-X7K"/>
+                            <constraint firstItem="THU-NZ-jO6" firstAttribute="top" secondItem="4Kn-96-8L2" secondAttribute="bottom" id="cYV-I3-ij7"/>
+                            <constraint firstItem="THU-NZ-jO6" firstAttribute="height" secondItem="hdv-6j-3sp" secondAttribute="height" multiplier="0.225" id="hLU-hp-sOF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="controlPanel" destination="THU-NZ-jO6" id="n7U-e9-hca"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dAE-ng-TUH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1726" y="1494"/>
         </scene>
     </scenes>
     <resources>
