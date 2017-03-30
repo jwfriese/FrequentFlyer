@@ -5,7 +5,7 @@ import Nimble
 
 class BuildDataDeserializerSpec: QuickSpec {
     override func spec() {
-        fdescribe("BuildDataDeserializer") {
+        describe("BuildDataDeserializer") {
             var subject: BuildDataDeserializer!
 
             beforeEach {

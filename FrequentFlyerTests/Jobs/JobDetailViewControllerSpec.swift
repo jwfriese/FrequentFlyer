@@ -7,29 +7,22 @@ import RxSwift
 @testable import FrequentFlyer
 
 class JobDetailViewControllerSpec: QuickSpec {
-    class MockTriggerBuildService: TriggerBuildService {
-        var capturedTarget: Target?
-        var capturedJobName: String?
-        var capturedPipelineName: String?
-        var capturedCompletion: ((Build?, Error?) -> ())?
-
-        override func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String, completion: ((Build?, Error?) -> ())?) {
-            capturedTarget = target
-            capturedJobName = jobName
-            capturedPipelineName = pipelineName
-            capturedCompletion = completion
-        }
-    }
-
     override func spec() {
-        fdescribe("JobDetailViewController") {
+        describe("JobDetailViewController") {
             var subject: JobDetailViewController!
-            var mockTriggerBuildService: MockTriggerBuildService!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 subject = storyboard.instantiateViewController(withIdentifier: JobDetailViewController.storyboardIdentifier) as! JobDetailViewController
+
+                let target = Target(
+                    name: "targetName",
+                    api: "api",
+                    teamName: "teamName",
+                    token: Token(value: "tokenValue")
+                )
+                subject.target = target
 
                 let job = Job(
                     name: "turtle job",
@@ -45,6 +38,9 @@ class JobDetailViewControllerSpec: QuickSpec {
                     ]
                 )
                 subject.job = job
+
+                let pipeline = Pipeline(name: "pipeline")
+                subject.pipeline = pipeline
             }
 
             describe("After the view loads") {
@@ -59,62 +55,30 @@ class JobDetailViewControllerSpec: QuickSpec {
                 it("sets up its control panel") {
                     expect(subject.controlPanel?.latestJobNameLabel?.text).toEventually(equal("some build"))
                     expect(subject.controlPanel?.latestJobStatusLabel?.text).toEventually(equal("build status"))
-                }
+                    expect(subject.controlPanel?.pipeline).toEventually(equal(Pipeline(name: "pipeline")))
 
-                describe("Tapping the 'Retrigger' button") {
-                    beforeEach {
-                        try! subject.retriggerButton?.tap()
-                    }
-
-                    it("asks the \(TriggerBuildService.self) to trigger a new build") {
-                        let expectedTarget = Target(name: "turtle target", api: "turtle api", teamName: "turtle team name", token: Token(value: "turtle token value"))
-                        expect(mockTriggerBuildService.capturedTarget).to(equal(expectedTarget))
-                        expect(mockTriggerBuildService.capturedJobName).to(equal("turtle job"))
-                        expect(mockTriggerBuildService.capturedPipelineName).to(equal("turtle pipeline"))
-                    }
-
-                    describe("When the \(TriggerBuildService.self) returns with a build that was triggered") {
-                        beforeEach {
-                            guard let completion = mockTriggerBuildService.capturedCompletion else {
-                                fail("Failed to call the \(TriggerBuildService.self) with a completion handler")
-                                return
-                            }
-
-                            let build = Build(
-                                id: 124,
-                                name: "name",
-                                teamName: "team name",
+                    let expectedJob = Job(
+                        name: "turtle job",
+                        builds: [
+                            Build(
+                                id: 1,
+                                name: "some build",
+                                teamName: "turtle team",
                                 jobName: "turtle job",
-                                status: "turtle pending",
+                                status: "build status",
                                 pipelineName: "turtle pipeline"
                             )
+                        ]
+                    )
+                    expect(subject.controlPanel?.job).toEventually(equal(expectedJob))
 
-                            completion(build, nil)
-                        }
-
-                        it("presents an alert informing the user of the build that was triggered") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Triggered"))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Build #124 triggered for turtle job"))
-                        }
-                    }
-
-                    describe("When the \(TriggerBuildService.self) returns with an error") {
-                        beforeEach {
-                            guard let completion = mockTriggerBuildService.capturedCompletion else {
-                                fail("Failed to call the \(TriggerBuildService.self) with a completion handler")
-                                return
-                            }
-
-                            completion(nil, BasicError(details: "turtle trigger error"))
-                        }
-
-                        it("presents an alert informing the user of the error") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Trigger Failed"))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("turtle trigger error"))
-                        }
-                    }
+                    let expectedTarget = Target(
+                        name: "targetName",
+                        api: "api",
+                        teamName: "teamName",
+                        token: Token(value: "tokenValue")
+                    )
+                    expect(subject.controlPanel?.target).toEventually(equal(expectedTarget))
                 }
             }
         }

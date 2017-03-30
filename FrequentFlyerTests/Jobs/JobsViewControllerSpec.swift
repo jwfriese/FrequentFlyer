@@ -117,6 +117,17 @@ class JobsViewControllerSpec: QuickSpec {
 
                             expect(jobDetailViewController()).toEventually(beIdenticalTo(mockJobDetailViewController))
                             expect(jobDetailViewController()?.job).toEventually(equal(Job(name: "crab job", builds: [])))
+
+                            let expectedPipeline = Pipeline(name: "turtle pipeline")
+                            expect(jobDetailViewController()?.pipeline).toEventually(equal(expectedPipeline))
+
+                            let expectedTarget = Target(
+                                name: "turtle target",
+                                api: "turtle api",
+                                teamName: "turtle team",
+                                token: Token(value: "turtle token value")
+                            )
+                            expect(jobDetailViewController()?.target).toEventually(equal(expectedTarget))
                         }
                     }
                 }

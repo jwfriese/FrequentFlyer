@@ -823,26 +823,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="THU-NZ-jO6" customClass="ControlPanel" customModule="FrequentFlyer" customModuleProvider="target">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fj-Si-jGC">
                                 <rect key="frame" x="0.0" y="20" width="375" height="150"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                                <connections>
+                                    <segue destination="koQ-02-z0F" kind="embed" identifier="EmbedJobControlPanel" id="sdM-bE-3JQ"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="THU-NZ-jO6" firstAttribute="width" secondItem="hdv-6j-3sp" secondAttribute="width" id="IZd-OQ-m26"/>
-                            <constraint firstItem="THU-NZ-jO6" firstAttribute="centerX" secondItem="hdv-6j-3sp" secondAttribute="centerX" id="V3K-Wr-X7K"/>
-                            <constraint firstItem="THU-NZ-jO6" firstAttribute="top" secondItem="4Kn-96-8L2" secondAttribute="bottom" id="cYV-I3-ij7"/>
-                            <constraint firstItem="THU-NZ-jO6" firstAttribute="height" secondItem="hdv-6j-3sp" secondAttribute="height" multiplier="0.225" id="hLU-hp-sOF"/>
+                            <constraint firstItem="7fj-Si-jGC" firstAttribute="width" secondItem="hdv-6j-3sp" secondAttribute="width" id="3Oj-NG-2o9"/>
+                            <constraint firstItem="7fj-Si-jGC" firstAttribute="height" secondItem="hdv-6j-3sp" secondAttribute="height" multiplier="0.225" id="3q5-bC-5Jt"/>
+                            <constraint firstItem="7fj-Si-jGC" firstAttribute="top" secondItem="4Kn-96-8L2" secondAttribute="bottom" id="zAG-I3-0tX"/>
+                            <constraint firstItem="7fj-Si-jGC" firstAttribute="centerX" secondItem="hdv-6j-3sp" secondAttribute="centerX" id="zUi-eE-Xpy"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="controlPanel" destination="THU-NZ-jO6" id="n7U-e9-hca"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dAE-ng-TUH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1726" y="1494"/>
+        </scene>
+        <!--Job Control Panel View Controller-->
+        <scene sceneID="ekN-T5-BxD">
+            <objects>
+                <viewController storyboardIdentifier="JobControlPanel" id="koQ-02-z0F" customClass="JobControlPanelViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xnc-Wx-g7R">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uso-2E-BWq">
+                                <rect key="frame" x="50" y="42" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZs-2T-Gx7">
+                                <rect key="frame" x="166.5" y="42" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I3X-sh-W5u" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
+                                <rect key="frame" x="50" y="83" width="150" height="42.5"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="onRetriggerButtonTapped" destination="koQ-02-z0F" eventType="touchUpInside" id="ij7-Ci-O57"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="I3X-sh-W5u" firstAttribute="leading" secondItem="Uso-2E-BWq" secondAttribute="leading" id="62m-n4-hha"/>
+                            <constraint firstItem="IZs-2T-Gx7" firstAttribute="centerY" secondItem="Uso-2E-BWq" secondAttribute="centerY" id="9qa-bE-Jqc"/>
+                            <constraint firstItem="IZs-2T-Gx7" firstAttribute="centerX" secondItem="xnc-Wx-g7R" secondAttribute="centerX" id="A0d-kS-0TW"/>
+                            <constraint firstItem="I3X-sh-W5u" firstAttribute="height" secondItem="xnc-Wx-g7R" secondAttribute="height" multiplier="0.282" id="DdA-cO-BQn"/>
+                            <constraint firstItem="Uso-2E-BWq" firstAttribute="leading" secondItem="xnc-Wx-g7R" secondAttribute="leadingMargin" constant="33.5" id="E4B-eS-g9n"/>
+                            <constraint firstItem="Uso-2E-BWq" firstAttribute="top" secondItem="xnc-Wx-g7R" secondAttribute="topMargin" constant="41.5" id="Pga-Qx-lL1"/>
+                            <constraint firstItem="I3X-sh-W5u" firstAttribute="width" secondItem="xnc-Wx-g7R" secondAttribute="width" multiplier="0.4" id="ffB-aJ-Ndt"/>
+                            <constraint firstItem="I3X-sh-W5u" firstAttribute="top" secondItem="Uso-2E-BWq" secondAttribute="bottom" constant="20" id="jhq-FF-Uyh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="latestJobNameLabel" destination="Uso-2E-BWq" id="gBb-hG-tdl"/>
+                        <outlet property="latestJobStatusLabel" destination="IZs-2T-Gx7" id="dby-9v-c9p"/>
+                        <outlet property="retriggerButton" destination="I3X-sh-W5u" id="5eM-vy-NpG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lLw-Mz-zRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2511" y="1261"/>
         </scene>
     </scenes>
     <resources>

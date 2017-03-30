@@ -69,6 +69,8 @@ class JobsViewController: UIViewController {
                 return
             }
 
+            jobDetailViewController.target = target
+            jobDetailViewController.pipeline = pipeline
             jobDetailViewController.job = sender as? Job
         }
     }

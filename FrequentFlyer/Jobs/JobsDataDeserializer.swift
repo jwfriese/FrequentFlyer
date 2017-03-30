@@ -2,6 +2,8 @@ import Foundation
 import RxSwift
 
 class JobsDataDeserializer {
+    var buildDataDeserializer = BuildDataDeserializer()
+
     func deserialize(_ data: Data) -> Observable<[Job]> {
         var jobsJSONObject: Any?
         do {
@@ -16,7 +18,18 @@ class JobsDataDeserializer {
 
         for jobsDictionary in jobsJSON {
             guard let name = jobsDictionary["name"] as? String else { continue }
-            jobs.append(Job(name: name, builds: []))
+            guard let buildJSON = jobsDictionary["finished_build"] as? NSDictionary else { continue }
+
+            var builds: [Build] = []
+            do {
+                let buildData = try JSONSerialization.data(withJSONObject: buildJSON, options: .prettyPrinted)
+                let deserializeResult = buildDataDeserializer.deserialize(buildData)
+                if let build = deserializeResult.build {
+                    builds.append(build)
+                }
+            } catch { }
+
+            jobs.append(Job(name: name, builds: builds))
         }
 
         return Observable.from(optional: jobs)
