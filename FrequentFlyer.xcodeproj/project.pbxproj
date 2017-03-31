@@ -26,6 +26,7 @@
 		7B58A1A81E8C092C00FCBA13 /* JobDetailViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1A71E8C092C00FCBA13 /* JobDetailViewControllerSpec.swift */; };
 		7B58A1AF1E8CA1F800FCBA13 /* JobControlPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1AE1E8CA1F800FCBA13 /* JobControlPanelViewController.swift */; };
 		7B58A1B11E8CA52500FCBA13 /* JobControlPanelViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1B01E8CA52500FCBA13 /* JobControlPanelViewControllerSpec.swift */; };
+		7B58A1B31E8DFFD100FCBA13 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B58A1B21E8DFFD100FCBA13 /* SwiftyJSON.framework */; };
 		7B59010C1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59010B1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift */; };
 		7B59010E1E86425600BB4538 /* GitHubAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59010D1E86425600BB4538 /* GitHubAuthViewController.swift */; };
 		7B5F952B1DFAF573005E0DD2 /* HTTPSessionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */; };
@@ -197,6 +198,7 @@
 		7B58A1A71E8C092C00FCBA13 /* JobDetailViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B58A1AE1E8CA1F800FCBA13 /* JobControlPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobControlPanelViewController.swift; sourceTree = "<group>"; };
 		7B58A1B01E8CA52500FCBA13 /* JobControlPanelViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobControlPanelViewControllerSpec.swift; sourceTree = "<group>"; };
+		7B58A1B21E8DFFD100FCBA13 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		7B59010B1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubAuthViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B59010D1E86425600BB4538 /* GitHubAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubAuthViewController.swift; sourceTree = "<group>"; };
 		7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPSessionUtils.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				AEAFAAE71E2ECC3700ACD288 /* RxSwift.framework in Frameworks */,
 				AEAFAAE81E2ECC5000ACD288 /* RxCocoa.framework in Frameworks */,
 				7BF620951E841D8F00C0E47F /* BEMCheckBox.framework in Frameworks */,
+				7B58A1B31E8DFFD100FCBA13 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +807,7 @@
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B58A1B21E8DFFD100FCBA13 /* SwiftyJSON.framework */,
 				7BF620941E841D8F00C0E47F /* BEMCheckBox.framework */,
 				AEAFAAE41E2ECB7600ACD288 /* RxCocoa.framework */,
 				AEAFAAE21E2ECB6400ACD288 /* RxTest.framework */,
@@ -1027,6 +1031,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/BEMCheckBox.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
