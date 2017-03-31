@@ -2,7 +2,6 @@ import UIKit
 
 class LogsViewController: UIViewController {
     @IBOutlet weak var logOutputView: UITextView?
-    @IBOutlet weak var jumpToBottomButton: UIButton?
 
     var sseService = SSEService()
     var logsStylingParser = LogsStylingParser()
@@ -10,11 +9,18 @@ class LogsViewController: UIViewController {
     var target: Target?
     var build: Build?
 
-    class var storyboardIdentifier: String { get { return "LogsViewController" } }
+    class var storyboardIdentifier: String { get { return "Logs" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        logOutputView?.backgroundColor = Style.Colors.logsBackground
+        logOutputView?.textContainerInset = UIEdgeInsets(top: 32, left: 32, bottom: 0, right:32)
+        logOutputView?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        logOutputView?.font = Style.Fonts.bold(withSize: 14)
+    }
+
+    func fetchLogs() {
         guard let target = target else { return }
         guard let build = build else { return }
 

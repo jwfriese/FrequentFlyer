@@ -8,7 +8,6 @@ import EventSource
 
 class LogsViewControllerSpec: QuickSpec {
     override func spec() {
-
         class MockSSEService: SSEService {
             var capturedTarget: Target?
             var capturedBuild: Build?
@@ -78,33 +77,39 @@ class LogsViewControllerSpec: QuickSpec {
                     Fleet.setAsAppWindowRoot(subject)
                 }
 
-                it("asks the logs service to begin collecting logs") {
-                    let expectedTarget = try! Factory.createTarget()
-                    let expectedBuild = Build(id: 15, name: "name", teamName: "team name", jobName: "turtle-job", status: "pending", pipelineName: "turtle-pipeline")
-                    expect(mockSSEService.capturedTarget).to(equal(expectedTarget))
-                    expect(mockSSEService.capturedBuild).to(equal(expectedBuild))
-                }
-
-                describe("When the connection reports logs") {
+                describe("When requested to fetch logs") {
                     beforeEach {
-                        guard let logsCallback = mockSSEService.returnedConnection?.onLogsReceived else {
-                            fail("Failed to set a callback for received logs on the SSE connection")
-                            return
-                        }
-
-                        let turtleLogEvent = LogEvent(payload: "turtle log entry")
-                        let crabLogEvent = LogEvent(payload: "crab log entry")
-
-                        mockLogsStylingParser.mockStripStylingCoding(when: "turtle log entry", thenReturn: "parsed turtle log entry")
-                        mockLogsStylingParser.mockStripStylingCoding(when: "crab log entry", thenReturn: "parsed crab log entry")
-
-                        let logs = [turtleLogEvent, crabLogEvent]
-                        logsCallback(logs)
+                        subject.fetchLogs()
                     }
 
-                    it("appends the logs to the log view") {
-                        expect(subject.logOutputView?.text).toEventually(contain("parsed turtle log entry"))
-                        expect(subject.logOutputView?.text).toEventually(contain("parsed crab log entry"))
+                    it("asks the logs service to begin collecting logs") {
+                        let expectedTarget = try! Factory.createTarget()
+                        let expectedBuild = Build(id: 15, name: "name", teamName: "team name", jobName: "turtle-job", status: "pending", pipelineName: "turtle-pipeline")
+                        expect(mockSSEService.capturedTarget).to(equal(expectedTarget))
+                        expect(mockSSEService.capturedBuild).to(equal(expectedBuild))
+                    }
+
+                    describe("When the connection reports logs") {
+                        beforeEach {
+                            guard let logsCallback = mockSSEService.returnedConnection?.onLogsReceived else {
+                                fail("Failed to set a callback for received logs on the SSE connection")
+                                return
+                            }
+
+                            let turtleLogEvent = LogEvent(payload: "turtle log entry")
+                            let crabLogEvent = LogEvent(payload: "crab log entry")
+
+                            mockLogsStylingParser.mockStripStylingCoding(when: "turtle log entry", thenReturn: "parsed turtle log entry")
+                            mockLogsStylingParser.mockStripStylingCoding(when: "crab log entry", thenReturn: "parsed crab log entry")
+
+                            let logs = [turtleLogEvent, crabLogEvent]
+                            logsCallback(logs)
+                        }
+
+                        it("appends the logs to the log view") {
+                            expect(subject.logOutputView?.text).toEventually(contain("parsed turtle log entry"))
+                            expect(subject.logOutputView?.text).toEventually(contain("parsed crab log entry"))
+                        }
                     }
                 }
             }

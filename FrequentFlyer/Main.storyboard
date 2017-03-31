@@ -660,9 +660,6 @@
                                 <rect key="frame" x="137" y="437" width="102" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="View Logs"/>
-                                <connections>
-                                    <segue destination="c0A-BD-EeK" kind="show" identifier="ShowLogs" id="K46-8B-na1"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -702,55 +699,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0F-6M-SLl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1762" y="2253"/>
-        </scene>
-        <!--Logs View Controller-->
-        <scene sceneID="2Vg-Kn-0Gg">
-            <objects>
-                <viewController storyboardIdentifier="LogsViewController" id="c0A-BD-EeK" customClass="LogsViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="d3Q-Tk-kP1"/>
-                        <viewControllerLayoutGuide type="bottom" id="oby-lF-ms6"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GfO-Tr-Pg8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="PPN-k3-I78">
-                                <rect key="frame" x="24" y="44" width="327" height="599"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFO-pb-tlH">
-                                        <rect key="frame" x="0.0" y="0.0" width="327" height="0.0"/>
-                                        <state key="normal" title="Jump to Bottom"/>
-                                        <connections>
-                                            <action selector="onJumpToBottomTapped" destination="c0A-BD-EeK" eventType="touchUpInside" id="IPT-YG-UMK"/>
-                                        </connections>
-                                    </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1ue-SR-ah7">
-                                        <rect key="frame" x="0.0" y="24" width="327" height="575"/>
-                                        <color key="backgroundColor" red="0.14901960780000001" green="0.2156862745" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="PPN-k3-I78" secondAttribute="trailing" constant="24" id="1os-qA-lvJ"/>
-                            <constraint firstItem="PPN-k3-I78" firstAttribute="leading" secondItem="GfO-Tr-Pg8" secondAttribute="leading" constant="24" id="Val-Oo-hne"/>
-                            <constraint firstItem="PPN-k3-I78" firstAttribute="top" secondItem="d3Q-Tk-kP1" secondAttribute="bottom" constant="24" id="g30-sE-z9L"/>
-                            <constraint firstItem="oby-lF-ms6" firstAttribute="top" secondItem="PPN-k3-I78" secondAttribute="bottom" constant="24" id="wld-cj-4lz"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="jumpToBottomButton" destination="IFO-pb-tlH" id="g4M-ar-wha"/>
-                        <outlet property="logOutputView" destination="1ue-SR-ah7" id="cl5-qk-EXu"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f1d-g2-dM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2630" y="2253"/>
         </scene>
         <!--Jobs View Controller-->
         <scene sceneID="DFv-Cb-9ju">
@@ -823,10 +771,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fj-Si-jGC">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fj-Si-jGC" userLabel="Control Panel Container">
                                 <rect key="frame" x="0.0" y="20" width="375" height="150"/>
                                 <connections>
                                     <segue destination="koQ-02-z0F" kind="embed" identifier="EmbedJobControlPanel" id="sdM-bE-3JQ"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6C-J3-PUz" userLabel="Logs Container">
+                                <rect key="frame" x="-0.5" y="170" width="375" height="497"/>
+                                <connections>
+                                    <segue destination="uBf-DN-VAr" kind="embed" identifier="EmbedLogs" id="jQm-nv-6vg"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -834,6 +788,10 @@
                         <constraints>
                             <constraint firstItem="7fj-Si-jGC" firstAttribute="width" secondItem="hdv-6j-3sp" secondAttribute="width" id="3Oj-NG-2o9"/>
                             <constraint firstItem="7fj-Si-jGC" firstAttribute="height" secondItem="hdv-6j-3sp" secondAttribute="height" multiplier="0.225" id="3q5-bC-5Jt"/>
+                            <constraint firstItem="h6C-J3-PUz" firstAttribute="width" secondItem="hdv-6j-3sp" secondAttribute="width" id="CUI-Ay-HCu"/>
+                            <constraint firstItem="IfJ-FD-GA8" firstAttribute="top" secondItem="h6C-J3-PUz" secondAttribute="bottom" id="FKA-MG-wNb"/>
+                            <constraint firstItem="h6C-J3-PUz" firstAttribute="centerX" secondItem="hdv-6j-3sp" secondAttribute="centerX" id="bnv-Gc-5aK"/>
+                            <constraint firstItem="h6C-J3-PUz" firstAttribute="top" secondItem="7fj-Si-jGC" secondAttribute="bottom" id="eJG-4W-dfH"/>
                             <constraint firstItem="7fj-Si-jGC" firstAttribute="top" secondItem="4Kn-96-8L2" secondAttribute="bottom" id="zAG-I3-0tX"/>
                             <constraint firstItem="7fj-Si-jGC" firstAttribute="centerX" secondItem="hdv-6j-3sp" secondAttribute="centerX" id="zUi-eE-Xpy"/>
                         </constraints>
@@ -892,6 +850,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lLw-Mz-zRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2511" y="1261"/>
+        </scene>
+        <!--Logs View Controller-->
+        <scene sceneID="0kW-Vo-dln">
+            <objects>
+                <viewController storyboardIdentifier="Logs" id="uBf-DN-VAr" customClass="LogsViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pSi-KG-IvT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="497"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OZq-vz-rWd">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="497"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OZq-vz-rWd" firstAttribute="centerX" secondItem="pSi-KG-IvT" secondAttribute="centerX" id="TjR-TB-AQP"/>
+                            <constraint firstItem="OZq-vz-rWd" firstAttribute="width" secondItem="pSi-KG-IvT" secondAttribute="width" id="bzl-VI-GeL"/>
+                            <constraint firstItem="OZq-vz-rWd" firstAttribute="centerY" secondItem="pSi-KG-IvT" secondAttribute="centerY" id="gGF-wg-aZ3"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="OZq-vz-rWd" secondAttribute="bottom" id="oJ7-fC-Vqi"/>
+                            <constraint firstItem="OZq-vz-rWd" firstAttribute="top" secondItem="pSi-KG-IvT" secondAttribute="topMargin" id="ubc-Ys-Ln9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="logOutputView" destination="OZq-vz-rWd" id="kBD-Yg-MuX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YVU-bv-1eU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2510" y="1599"/>
         </scene>
     </scenes>
     <resources>
