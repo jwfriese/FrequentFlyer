@@ -89,7 +89,6 @@
 		7BA0321A1D843FEE00F20E23 /* DeserializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032171D843FEE00F20E23 /* DeserializationError.swift */; };
 		7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032181D843FEE00F20E23 /* BasicError.swift */; };
 		7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0321C1D843FF300F20E23 /* BuildTableViewCell.swift */; };
-		7BA032231D843FF300F20E23 /* BuildsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0321D1D843FF300F20E23 /* BuildsViewController.swift */; };
 		7BA032241D843FF300F20E23 /* BuildsTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0321E1D843FF300F20E23 /* BuildsTableViewHeaderView.swift */; };
 		7BA032251D843FF300F20E23 /* BuildsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0321F1D843FF300F20E23 /* BuildsService.swift */; };
 		7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032201D843FF300F20E23 /* BuildsDataDeserializer.swift */; };
@@ -107,7 +106,6 @@
 		7BA032491D84400900F20E23 /* HTTPClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032471D84400900F20E23 /* HTTPClientSpec.swift */; };
 		7BA0324C1D84400E00F20E23 /* DeserializationErrorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324A1D84400E00F20E23 /* DeserializationErrorSpec.swift */; };
 		7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324B1D84400E00F20E23 /* BasicErrorSpec.swift */; };
-		7BA032521D84401400F20E23 /* BuildsViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324E1D84401400F20E23 /* BuildsViewControllerSpec.swift */; };
 		7BA032531D84401400F20E23 /* BuildsServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324F1D84401400F20E23 /* BuildsServiceSpec.swift */; };
 		7BA032551D84401400F20E23 /* BuildsDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */; };
 		7BA0325A1D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032561D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift */; };
@@ -257,7 +255,6 @@
 		7BA032171D843FEE00F20E23 /* DeserializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeserializationError.swift; sourceTree = "<group>"; };
 		7BA032181D843FEE00F20E23 /* BasicError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicError.swift; sourceTree = "<group>"; };
 		7BA0321C1D843FF300F20E23 /* BuildTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTableViewCell.swift; sourceTree = "<group>"; };
-		7BA0321D1D843FF300F20E23 /* BuildsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsViewController.swift; sourceTree = "<group>"; };
 		7BA0321E1D843FF300F20E23 /* BuildsTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsTableViewHeaderView.swift; sourceTree = "<group>"; };
 		7BA0321F1D843FF300F20E23 /* BuildsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsService.swift; sourceTree = "<group>"; };
 		7BA032201D843FF300F20E23 /* BuildsDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsDataDeserializer.swift; sourceTree = "<group>"; };
@@ -275,7 +272,6 @@
 		7BA032471D84400900F20E23 /* HTTPClientSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClientSpec.swift; sourceTree = "<group>"; };
 		7BA0324A1D84400E00F20E23 /* DeserializationErrorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeserializationErrorSpec.swift; sourceTree = "<group>"; };
 		7BA0324B1D84400E00F20E23 /* BasicErrorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicErrorSpec.swift; sourceTree = "<group>"; };
-		7BA0324E1D84401400F20E23 /* BuildsViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BA0324F1D84401400F20E23 /* BuildsServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsServiceSpec.swift; sourceTree = "<group>"; };
 		7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsDataDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BA032561D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesViewControllerSpec.swift; sourceTree = "<group>"; };
@@ -585,7 +581,6 @@
 			isa = PBXGroup;
 			children = (
 				7BA0321C1D843FF300F20E23 /* BuildTableViewCell.swift */,
-				7BA0321D1D843FF300F20E23 /* BuildsViewController.swift */,
 				7BA0321E1D843FF300F20E23 /* BuildsTableViewHeaderView.swift */,
 				7BA0321F1D843FF300F20E23 /* BuildsService.swift */,
 				7BA032201D843FF300F20E23 /* BuildsDataDeserializer.swift */,
@@ -674,7 +669,6 @@
 		7BA032091D843F3000F20E23 /* Builds */ = {
 			isa = PBXGroup;
 			children = (
-				7BA0324E1D84401400F20E23 /* BuildsViewControllerSpec.swift */,
 				7BA0324F1D84401400F20E23 /* BuildsServiceSpec.swift */,
 				7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */,
 				7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */,
@@ -1080,7 +1074,6 @@
 				7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */,
 				7BCAEFF31D902AEB00BC817D /* AppRouterViewController.swift in Sources */,
 				7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */,
-				7BA032231D843FF300F20E23 /* BuildsViewController.swift in Sources */,
 				7B8B4D4D1E8636100084505B /* InfoLabel.swift in Sources */,
 				7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */,
 				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
@@ -1182,7 +1175,6 @@
 				7BA032771D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift in Sources */,
 				AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */,
 				7BA032441D84400400F20E23 /* TokenDataDeserializerSpec.swift in Sources */,
-				7BA032521D84401400F20E23 /* BuildsViewControllerSpec.swift in Sources */,
 				7B737BD11E075BC2007FC4E8 /* SSEServiceSpec.swift in Sources */,
 				7B58A1B61E8E07EB00FCBA13 /* BuildBuilder.swift in Sources */,
 				7B0E70801D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift in Sources */,

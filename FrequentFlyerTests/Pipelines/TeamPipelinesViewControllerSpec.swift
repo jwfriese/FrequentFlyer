@@ -29,7 +29,6 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
             var mockTeamPipelinesService: MockTeamPipelinesService!
             var mockKeychainWrapper: MockKeychainWrapper!
 
-            var mockBuildsViewController: BuildsViewController!
             var mockJobsViewController: JobsViewController!
             var mockConcourseEntryViewController: ConcourseEntryViewController!
 
@@ -37,7 +36,6 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 subject = storyboard.instantiateViewController(withIdentifier: TeamPipelinesViewController.storyboardIdentifier) as! TeamPipelinesViewController
 
-                mockBuildsViewController = try! storyboard.mockIdentifier(BuildsViewController.storyboardIdentifier, usingMockFor: BuildsViewController.self)
                 mockJobsViewController = try! storyboard.mockIdentifier(JobsViewController.storyboardIdentifier, usingMockFor: JobsViewController.self)
                 mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self)
 
