@@ -412,7 +412,6 @@
                     <connections>
                         <outlet property="buildsTableHeaderView" destination="fiT-S2-4SV" id="Ycz-QQ-AJf"/>
                         <outlet property="buildsTableView" destination="Ufe-11-Vgn" id="9Tx-jk-APC"/>
-                        <segue destination="PRv-Xz-CyK" kind="show" identifier="ShowBuildDetail" id="ZCT-to-Oo6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozw-1Q-3ye" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -600,106 +599,6 @@
             </objects>
             <point key="canvasLocation" x="1820" y="-112"/>
         </scene>
-        <!--Build Detail View Controller-->
-        <scene sceneID="iBB-As-87K">
-            <objects>
-                <viewController storyboardIdentifier="BuildDetail" id="PRv-Xz-CyK" customClass="BuildDetailViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ap3-rR-nkF"/>
-                        <viewControllerLayoutGuide type="bottom" id="ACD-LG-HNO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="lJt-AR-evM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pipeline" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQQ-If-cMD" userLabel="Pipeline Title Label">
-                                <rect key="frame" x="64" y="92" width="61" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zV-Zf-Zz9">
-                                <rect key="frame" x="221" y="92" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LKS-Mc-Ypd" userLabel="Job Title Label">
-                                <rect key="frame" x="64" y="185" width="29" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykb-kT-5Tu">
-                                <rect key="frame" x="221" y="185" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyk-bc-JlA" userLabel="Status Title Label">
-                                <rect key="frame" x="64" y="278" width="50" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fzv-DS-g01">
-                                <rect key="frame" x="221" y="278" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AAv-Hb-614">
-                                <rect key="frame" x="142" y="371" width="91" height="39"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="Retrigger"/>
-                                <connections>
-                                    <action selector="onRetriggerButtonTapped" destination="PRv-Xz-CyK" eventType="touchUpInside" id="ZVI-oi-Lad"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hM6-4e-w4E">
-                                <rect key="frame" x="137" y="437" width="102" height="39"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="View Logs"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="fzv-DS-g01" firstAttribute="leading" secondItem="ykb-kT-5Tu" secondAttribute="leading" id="95n-Yp-Ram"/>
-                            <constraint firstItem="hM6-4e-w4E" firstAttribute="top" secondItem="AAv-Hb-614" secondAttribute="bottom" constant="27" id="9Q8-N4-ipZ"/>
-                            <constraint firstItem="UQQ-If-cMD" firstAttribute="top" secondItem="ap3-rR-nkF" secondAttribute="bottom" constant="72" id="AF4-ru-STY"/>
-                            <constraint firstItem="AAv-Hb-614" firstAttribute="centerX" secondItem="lJt-AR-evM" secondAttribute="centerX" id="Hby-bI-vSy"/>
-                            <constraint firstItem="AAv-Hb-614" firstAttribute="centerX" secondItem="fzv-DS-g01" secondAttribute="centerX" id="I9m-YF-PHS"/>
-                            <constraint firstItem="fzv-DS-g01" firstAttribute="centerY" secondItem="Jyk-bc-JlA" secondAttribute="centerY" id="NLI-iM-MXu"/>
-                            <constraint firstItem="ykb-kT-5Tu" firstAttribute="leading" secondItem="0zV-Zf-Zz9" secondAttribute="leading" id="U2a-i8-YiY"/>
-                            <constraint firstItem="Jyk-bc-JlA" firstAttribute="leading" secondItem="LKS-Mc-Ypd" secondAttribute="leading" id="Z0B-Lf-kVV"/>
-                            <constraint firstItem="UQQ-If-cMD" firstAttribute="leading" secondItem="lJt-AR-evM" secondAttribute="leadingMargin" constant="48" id="aWR-nd-D2o"/>
-                            <constraint firstItem="0zV-Zf-Zz9" firstAttribute="leading" secondItem="UQQ-If-cMD" secondAttribute="trailing" constant="96" id="aal-Pe-vTR"/>
-                            <constraint firstItem="LKS-Mc-Ypd" firstAttribute="leading" secondItem="UQQ-If-cMD" secondAttribute="leading" id="bZg-U7-xNJ"/>
-                            <constraint firstItem="Jyk-bc-JlA" firstAttribute="top" secondItem="LKS-Mc-Ypd" secondAttribute="bottom" constant="72" id="cqM-CK-Mrj"/>
-                            <constraint firstItem="hM6-4e-w4E" firstAttribute="centerX" secondItem="lJt-AR-evM" secondAttribute="centerX" id="el2-DG-R57"/>
-                            <constraint firstItem="AAv-Hb-614" firstAttribute="top" secondItem="fzv-DS-g01" secondAttribute="bottom" constant="72" id="fG2-Gp-a0C"/>
-                            <constraint firstItem="LKS-Mc-Ypd" firstAttribute="top" secondItem="UQQ-If-cMD" secondAttribute="bottom" constant="72" id="oum-6s-2qe"/>
-                            <constraint firstItem="0zV-Zf-Zz9" firstAttribute="centerY" secondItem="UQQ-If-cMD" secondAttribute="centerY" id="rbE-Tf-bcL"/>
-                            <constraint firstItem="ykb-kT-5Tu" firstAttribute="centerY" secondItem="LKS-Mc-Ypd" secondAttribute="centerY" id="tJs-1R-gWe"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="I9m-YF-PHS"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <connections>
-                        <outlet property="jobValueLabel" destination="ykb-kT-5Tu" id="QB5-Nv-jmW"/>
-                        <outlet property="pipelineValueLabel" destination="0zV-Zf-Zz9" id="2tp-iI-WSy"/>
-                        <outlet property="retriggerButton" destination="AAv-Hb-614" id="LTL-1w-deL"/>
-                        <outlet property="statusValueLabel" destination="fzv-DS-g01" id="BaK-PU-HPu"/>
-                        <outlet property="viewLogsButton" destination="hM6-4e-w4E" id="Ldf-uX-R89"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="r0F-6M-SLl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1762" y="2253"/>
-        </scene>
         <!--Jobs View Controller-->
         <scene sceneID="DFv-Cb-9ju">
             <objects>
@@ -778,7 +677,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6C-J3-PUz" userLabel="Logs Container">
-                                <rect key="frame" x="-0.5" y="170" width="375" height="497"/>
+                                <rect key="frame" x="0.0" y="170" width="375" height="497"/>
                                 <connections>
                                     <segue destination="uBf-DN-VAr" kind="embed" identifier="EmbedLogs" id="jQm-nv-6vg"/>
                                 </connections>

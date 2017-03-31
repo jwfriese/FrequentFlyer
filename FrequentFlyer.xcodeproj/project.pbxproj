@@ -122,8 +122,6 @@
 		7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0327A1D84BC9300F20E23 /* AuthType.swift */; };
 		7BA0327D1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */; };
 		7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */; };
-		7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */; };
-		7BA032891D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */; };
 		7BA48F501DD763E4008BDE19 /* Error+FrequentFlyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */; };
 		7BCAEFE81D901A4C00BC817D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFE71D901A4C00BC817D /* main.swift */; };
 		7BCAEFEA1D901AA000BC817D /* TestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFE91D901AA000BC817D /* TestAppDelegate.swift */; };
@@ -292,8 +290,6 @@
 		7BA0327A1D84BC9300F20E23 /* AuthType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthType.swift; sourceTree = "<group>"; };
 		7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodDataDeserializer.swift; sourceTree = "<group>"; };
 		7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodDataDeserializerSpec.swift; sourceTree = "<group>"; };
-		7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
-		7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+FrequentFlyer.swift"; sourceTree = "<group>"; };
 		7BCAEFE71D901A4C00BC817D /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		7BCAEFE91D901AA000BC817D /* TestAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAppDelegate.swift; sourceTree = "<group>"; };
@@ -594,7 +590,6 @@
 				7BA0321F1D843FF300F20E23 /* BuildsService.swift */,
 				7BA032201D843FF300F20E23 /* BuildsDataDeserializer.swift */,
 				7BA032211D843FF300F20E23 /* Build.swift */,
-				7BA032861D859FD000F20E23 /* BuildDetailViewController.swift */,
 				7B2EAE391D85ED0A00A91234 /* TriggerBuildService.swift */,
 				7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */,
 			);
@@ -682,7 +677,6 @@
 				7BA0324E1D84401400F20E23 /* BuildsViewControllerSpec.swift */,
 				7BA0324F1D84401400F20E23 /* BuildsServiceSpec.swift */,
 				7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */,
-				7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */,
 				7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */,
 				7B2EAE3F1D85F5CE00A91234 /* BuildDataDeserializerSpec.swift */,
 				7B58A1B41E8E07CD00FCBA13 /* ModelBuilder */,
@@ -1112,7 +1106,6 @@
 				7BCAEFE81D901A4C00BC817D /* main.swift in Sources */,
 				7B737BC51E075BBB007FC4E8 /* SSEService.swift in Sources */,
 				7B8B4D5A1E86398A0084505B /* UnderlineTextFieldTextField.swift in Sources */,
-				7BA032871D859FD000F20E23 /* BuildDetailViewController.swift in Sources */,
 				7B8B4D551E8638F30084505B /* UnderlineTextField.swift in Sources */,
 				7B6F74BD1E802D5F00C7C005 /* LoginViewController.swift in Sources */,
 				7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */,
@@ -1173,7 +1166,6 @@
 				7B58A1B11E8CA52500FCBA13 /* JobControlPanelViewControllerSpec.swift in Sources */,
 				7BA032791D84908000F20E23 /* AuthMethodsServiceSpec.swift in Sources */,
 				7B737BCC1E075BC2007FC4E8 /* LogEventSpec.swift in Sources */,
-				7BA032891D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift in Sources */,
 				7B2EAE401D85F5CE00A91234 /* BuildDataDeserializerSpec.swift in Sources */,
 				7BA0325B1D84401900F20E23 /* TeamPipelinesServiceSpec.swift in Sources */,
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
