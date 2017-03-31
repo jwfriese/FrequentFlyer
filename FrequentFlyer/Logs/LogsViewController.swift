@@ -14,6 +14,7 @@ class LogsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        logOutputView?.text = ""
         logOutputView?.backgroundColor = Style.Colors.logsBackground
         logOutputView?.textContainerInset = UIEdgeInsets(top: 32, left: 32, bottom: 0, right:32)
         logOutputView?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
