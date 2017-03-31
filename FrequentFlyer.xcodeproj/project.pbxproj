@@ -108,16 +108,13 @@
 		7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324B1D84400E00F20E23 /* BasicErrorSpec.swift */; };
 		7BA032521D84401400F20E23 /* BuildsViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324E1D84401400F20E23 /* BuildsViewControllerSpec.swift */; };
 		7BA032531D84401400F20E23 /* BuildsServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0324F1D84401400F20E23 /* BuildsServiceSpec.swift */; };
-		7BA032541D84401400F20E23 /* BuildSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032501D84401400F20E23 /* BuildSpec.swift */; };
 		7BA032551D84401400F20E23 /* BuildsDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */; };
 		7BA0325A1D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032561D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift */; };
 		7BA0325B1D84401900F20E23 /* TeamPipelinesServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032571D84401900F20E23 /* TeamPipelinesServiceSpec.swift */; };
-		7BA0325C1D84401900F20E23 /* PipelineSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032581D84401900F20E23 /* PipelineSpec.swift */; };
 		7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032591D84401900F20E23 /* PipelineDataDeserializerSpec.swift */; };
 		7BA032631D84401E00F20E23 /* TargetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0325E1D84401E00F20E23 /* TargetSpec.swift */; };
 		7BA032691D8441AC00F20E23 /* AuthMethodsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032681D8441AC00F20E23 /* AuthMethodsService.swift */; };
 		7BA0326B1D8441E200F20E23 /* AuthMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0326A1D8441E200F20E23 /* AuthMethod.swift */; };
-		7BA0326D1D84465800F20E23 /* AuthMethodSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0326C1D84465800F20E23 /* AuthMethodSpec.swift */; };
 		7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */; };
 		7BA032771D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032761D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift */; };
 		7BA032791D84908000F20E23 /* AuthMethodsServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */; };
@@ -280,16 +277,13 @@
 		7BA0324B1D84400E00F20E23 /* BasicErrorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicErrorSpec.swift; sourceTree = "<group>"; };
 		7BA0324E1D84401400F20E23 /* BuildsViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BA0324F1D84401400F20E23 /* BuildsServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsServiceSpec.swift; sourceTree = "<group>"; };
-		7BA032501D84401400F20E23 /* BuildSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildSpec.swift; sourceTree = "<group>"; };
 		7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsDataDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BA032561D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BA032571D84401900F20E23 /* TeamPipelinesServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPipelinesServiceSpec.swift; sourceTree = "<group>"; };
-		7BA032581D84401900F20E23 /* PipelineSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineSpec.swift; sourceTree = "<group>"; };
 		7BA032591D84401900F20E23 /* PipelineDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineDataDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BA0325E1D84401E00F20E23 /* TargetSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetSpec.swift; sourceTree = "<group>"; };
 		7BA032681D8441AC00F20E23 /* AuthMethodsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodsService.swift; sourceTree = "<group>"; };
 		7BA0326A1D8441E200F20E23 /* AuthMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethod.swift; sourceTree = "<group>"; };
-		7BA0326C1D84465800F20E23 /* AuthMethodSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodSpec.swift; sourceTree = "<group>"; };
 		7BA032741D84904300F20E23 /* BasicAuthTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAuthTokenService.swift; sourceTree = "<group>"; };
 		7BA032761D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAuthTokenServiceSpec.swift; sourceTree = "<group>"; };
 		7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodsServiceSpec.swift; sourceTree = "<group>"; };
@@ -644,7 +638,6 @@
 				7BA032401D84400400F20E23 /* TokenSpec.swift */,
 				7BA032411D84400400F20E23 /* TokenDataDeserializerSpec.swift */,
 				7BA032421D84400400F20E23 /* UnauthenticatedTokenServiceSpec.swift */,
-				7BA0326C1D84465800F20E23 /* AuthMethodSpec.swift */,
 				7BA032761D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift */,
 				7B6F74BE1E802DC600C7C005 /* LoginViewControllerSpec.swift */,
 				7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */,
@@ -678,7 +671,6 @@
 			children = (
 				7BA0324E1D84401400F20E23 /* BuildsViewControllerSpec.swift */,
 				7BA0324F1D84401400F20E23 /* BuildsServiceSpec.swift */,
-				7BA032501D84401400F20E23 /* BuildSpec.swift */,
 				7BA032511D84401400F20E23 /* BuildsDataDeserializerSpec.swift */,
 				7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */,
 				7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */,
@@ -692,7 +684,6 @@
 			children = (
 				7BA032561D84401900F20E23 /* TeamPipelinesViewControllerSpec.swift */,
 				7BA032571D84401900F20E23 /* TeamPipelinesServiceSpec.swift */,
-				7BA032581D84401900F20E23 /* PipelineSpec.swift */,
 				7BA032591D84401900F20E23 /* PipelineDataDeserializerSpec.swift */,
 			);
 			name = Pipeline;
@@ -1169,7 +1160,6 @@
 				7BA032431D84400400F20E23 /* TokenSpec.swift in Sources */,
 				7BA032631D84401E00F20E23 /* TargetSpec.swift in Sources */,
 				7B58A1B11E8CA52500FCBA13 /* JobControlPanelViewControllerSpec.swift in Sources */,
-				7BA0325C1D84401900F20E23 /* PipelineSpec.swift in Sources */,
 				7BA032791D84908000F20E23 /* AuthMethodsServiceSpec.swift in Sources */,
 				7B737BCC1E075BC2007FC4E8 /* LogEventSpec.swift in Sources */,
 				7BA032891D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift in Sources */,
@@ -1186,10 +1176,8 @@
 				7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */,
 				7BCAEFEA1D901AA000BC817D /* TestAppDelegate.swift in Sources */,
 				7B58A1A81E8C092C00FCBA13 /* JobDetailViewControllerSpec.swift in Sources */,
-				7BA0326D1D84465800F20E23 /* AuthMethodSpec.swift in Sources */,
 				7BA032771D84905A00F20E23 /* BasicAuthTokenServiceSpec.swift in Sources */,
 				AE343E421D7F5143008251CA /* AppDelegateSpec.swift in Sources */,
-				7BA032541D84401400F20E23 /* BuildSpec.swift in Sources */,
 				7BA032441D84400400F20E23 /* TokenDataDeserializerSpec.swift in Sources */,
 				7BA032521D84401400F20E23 /* BuildsViewControllerSpec.swift in Sources */,
 				7B737BD11E075BC2007FC4E8 /* SSEServiceSpec.swift in Sources */,
