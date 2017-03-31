@@ -69,14 +69,9 @@ class JobControlPanelViewControllerSpec: QuickSpec {
                                 return
                             }
 
-                            let build = Build(
-                                id: 124,
-                                name: "name",
-                                teamName: "team name",
-                                jobName: "job_name",
-                                status: "turtle pending",
-                                pipelineName: "pipeline_name"
-                            )
+                            let build = BuildBuilder()
+                                .withId(124)
+                                .build()
 
                             completion(build, nil)
                         }
@@ -84,7 +79,7 @@ class JobControlPanelViewControllerSpec: QuickSpec {
                         it("presents an alert informing the user of the build that was triggered") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Triggered"))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Build #124 triggered for 'job_name'"))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Build #124 triggered for 'jobName'"))
                         }
                     }
 

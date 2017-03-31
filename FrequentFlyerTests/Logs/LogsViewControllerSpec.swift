@@ -61,14 +61,7 @@ class LogsViewControllerSpec: QuickSpec {
                 mockLogsStylingParser = MockLogsStylingParser()
                 subject.logsStylingParser = mockLogsStylingParser
 
-                subject.build = Build(
-                    id: 15,
-                    name: "name",
-                    teamName: "team name",
-                    jobName: "turtle-job",
-                    status: "pending",
-                    pipelineName: "turtle-pipeline"
-                )
+                subject.build = BuildBuilder().withName("LogsViewControllerBuild").build()
                 subject.target = try! Factory.createTarget()
             }
 
@@ -84,7 +77,7 @@ class LogsViewControllerSpec: QuickSpec {
 
                     it("asks the logs service to begin collecting logs") {
                         let expectedTarget = try! Factory.createTarget()
-                        let expectedBuild = Build(id: 15, name: "name", teamName: "team name", jobName: "turtle-job", status: "pending", pipelineName: "turtle-pipeline")
+                        let expectedBuild = BuildBuilder().withName("LogsViewControllerBuild").build()
                         expect(mockSSEService.capturedTarget).to(equal(expectedTarget))
                         expect(mockSSEService.capturedBuild).to(equal(expectedBuild))
                     }

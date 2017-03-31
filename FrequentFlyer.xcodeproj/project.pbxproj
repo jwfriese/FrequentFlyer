@@ -27,6 +27,7 @@
 		7B58A1AF1E8CA1F800FCBA13 /* JobControlPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1AE1E8CA1F800FCBA13 /* JobControlPanelViewController.swift */; };
 		7B58A1B11E8CA52500FCBA13 /* JobControlPanelViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1B01E8CA52500FCBA13 /* JobControlPanelViewControllerSpec.swift */; };
 		7B58A1B31E8DFFD100FCBA13 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B58A1B21E8DFFD100FCBA13 /* SwiftyJSON.framework */; };
+		7B58A1B61E8E07EB00FCBA13 /* BuildBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1B51E8E07EB00FCBA13 /* BuildBuilder.swift */; };
 		7B59010C1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59010B1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift */; };
 		7B59010E1E86425600BB4538 /* GitHubAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59010D1E86425600BB4538 /* GitHubAuthViewController.swift */; };
 		7B5F952B1DFAF573005E0DD2 /* HTTPSessionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */; };
@@ -196,6 +197,7 @@
 		7B58A1AE1E8CA1F800FCBA13 /* JobControlPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobControlPanelViewController.swift; sourceTree = "<group>"; };
 		7B58A1B01E8CA52500FCBA13 /* JobControlPanelViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobControlPanelViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B58A1B21E8DFFD100FCBA13 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		7B58A1B51E8E07EB00FCBA13 /* BuildBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildBuilder.swift; sourceTree = "<group>"; };
 		7B59010B1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubAuthViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B59010D1E86425600BB4538 /* GitHubAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubAuthViewController.swift; sourceTree = "<group>"; };
 		7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPSessionUtils.swift; sourceTree = "<group>"; };
@@ -388,6 +390,14 @@
 				7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */,
 			);
 			path = Input;
+			sourceTree = "<group>";
+		};
+		7B58A1B41E8E07CD00FCBA13 /* ModelBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				7B58A1B51E8E07EB00FCBA13 /* BuildBuilder.swift */,
+			);
+			path = ModelBuilder;
 			sourceTree = "<group>";
 		};
 		7B5F952D1DFAF5BE005E0DD2 /* NativeWeb */ = {
@@ -675,6 +685,7 @@
 				7BA032881D859FEE00F20E23 /* BuildDetailViewControllerSpec.swift */,
 				7B2EAE3B1D85EE2400A91234 /* TriggerBuildServiceSpec.swift */,
 				7B2EAE3F1D85F5CE00A91234 /* BuildDataDeserializerSpec.swift */,
+				7B58A1B41E8E07CD00FCBA13 /* ModelBuilder */,
 			);
 			path = Builds;
 			sourceTree = "<group>";
@@ -1181,6 +1192,7 @@
 				7BA032441D84400400F20E23 /* TokenDataDeserializerSpec.swift in Sources */,
 				7BA032521D84401400F20E23 /* BuildsViewControllerSpec.swift in Sources */,
 				7B737BD11E075BC2007FC4E8 /* SSEServiceSpec.swift in Sources */,
+				7B58A1B61E8E07EB00FCBA13 /* BuildBuilder.swift in Sources */,
 				7B0E70801D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift in Sources */,
 				7BA032551D84401400F20E23 /* BuildsDataDeserializerSpec.swift in Sources */,
 				7BA032491D84400900F20E23 /* HTTPClientSpec.swift in Sources */,

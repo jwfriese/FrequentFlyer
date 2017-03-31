@@ -78,14 +78,7 @@ class TriggerBuildServiceSpec: QuickSpec {
                 describe("When the request resolves with a success response and data for a build that is triggered") {
 
                     beforeEach {
-                        mockBuildDataDeserializer.toReturnBuild = Build(
-                            id: 124,
-                            name: "name",
-                            teamName: "team name",
-                            jobName: "turtle job",
-                            status: "turtle status",
-                            pipelineName: "turtle pipeline"
-                        )
+                        mockBuildDataDeserializer.toReturnBuild = BuildBuilder().build()
 
                         let buildData = "build data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: buildData, statusCode: 200))
@@ -96,14 +89,7 @@ class TriggerBuildServiceSpec: QuickSpec {
                     }
 
                     it("resolves the service's completion handler using the build the deserializer returns") {
-                        let expectedBuild = Build(
-                            id: 124,
-                            name: "name",
-                            teamName: "team name",
-                            jobName: "turtle job",
-                            status: "turtle status",
-                            pipelineName: "turtle pipeline"
-                        )
+                        let expectedBuild = BuildBuilder().build()
                         expect(capturedBuild).to(equal(expectedBuild))
                     }
 

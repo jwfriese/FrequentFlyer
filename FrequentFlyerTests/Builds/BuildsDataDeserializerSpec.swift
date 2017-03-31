@@ -50,8 +50,11 @@ class BuildsDataDeserializerSpec: QuickSpec {
                         return
                     }
 
-                    expect(builds[0]).to(equal(Build(id: 2, name: "name", teamName:"team name", jobName: "turtle job name", status: "status 2", pipelineName: "turtle pipeline name")))
-                    expect(builds[1]).to(equal(Build(id: 1, name: "name", teamName:"team name", jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name")))
+                    let expectedBuildOne = Build(id: 2, name: "name", teamName:"team name", jobName: "turtle job name", status: "status 2", pipelineName: "turtle pipeline name")
+                    let expectedBuildTwo = Build(id: 1, name: "name", teamName:"team name", jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name")
+
+                    expect(builds[0]).to(equal(expectedBuildOne))
+                    expect(builds[1]).to(equal(expectedBuildTwo))
                 }
 
                 it("returns no error") {

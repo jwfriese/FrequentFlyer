@@ -40,14 +40,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                 let job = Job(
                     name: "turtle job",
                     builds: [
-                        Build(
-                            id: 1,
-                            name: "some build",
-                            teamName: "turtle team",
-                            jobName: "turtle job",
-                            status: "build status",
-                            pipelineName: "turtle pipeline"
-                        )
+                        BuildBuilder().build()
                     ]
                 )
                 subject.job = job
@@ -73,14 +66,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                     let expectedJob = Job(
                         name: "turtle job",
                         builds: [
-                            Build(
-                                id: 1,
-                                name: "some build",
-                                teamName: "turtle team",
-                                jobName: "turtle job",
-                                status: "build status",
-                                pipelineName: "turtle pipeline"
-                            )
+                            BuildBuilder().build()
                         ]
                     )
                     expect(subject.controlPanel?.job).toEventually(equal(expectedJob))
@@ -95,14 +81,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                 }
 
                 it("sets up its logs pane") {
-                    let expectedBuild = Build(
-                        id: 1,
-                        name: "some build",
-                        teamName: "turtle team",
-                        jobName: "turtle job",
-                        status: "build status",
-                        pipelineName: "turtle pipeline"
-                    )
+                    let expectedBuild = BuildBuilder().build()
                     expect(subject.logsPane?.build).toEventually(equal(expectedBuild))
 
                     let expectedTarget = Target(

@@ -87,14 +87,7 @@ class JobsDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing job data where some of the data is invalid") {
-                let mockBuildOutput = Build(
-                    id: 5,
-                    name: "name",
-                    teamName: "teamName",
-                    jobName: "jobName",
-                    status: "status",
-                    pipelineName: "pipelineName"
-                )
+                let mockBuildOutput = BuildBuilder().withName("build from deserializer").build()
 
                 beforeEach {
                     mockBuildDataDeserializer.toReturnBuild = mockBuildOutput

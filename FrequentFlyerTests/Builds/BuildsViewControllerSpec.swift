@@ -84,9 +84,9 @@ class BuildsViewControllerSpec: QuickSpec {
                             return
                         }
 
-                        let buildOne = Build(id: 3, name: "name", teamName: "team name", jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
-                        let buildTwo = Build(id: 2, name: "name", teamName: "team name", jobName: "crab job", status: "crab last status", pipelineName: "crab pipeline")
-                        let buildThree = Build(id: 1, name: "name", teamName: "team name", jobName: "other turtle job", status: "turtle last status", pipelineName: "turtle pipeline")
+                        let buildOne = BuildBuilder().withId(3).withJobName("turtle job").withStatus("turtle status").build()
+                        let buildTwo = BuildBuilder().withId(2).withJobName("crab job").withStatus("crab status").build()
+                        let buildThree = BuildBuilder().withId(1).withJobName("puppy job").withStatus("puppy status").build()
                         completion([buildOne, buildTwo, buildThree], nil)
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
@@ -122,7 +122,7 @@ class BuildsViewControllerSpec: QuickSpec {
 
                         it("displays a detail page for the build associated with the selected row") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockBuildDetailViewController))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.build).toEventually(equal(Build(id: 3, name: "name", teamName: "team name", jobName: "turtle job", status: "turtle last status", pipelineName: "turtle pipeline")))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? BuildDetailViewController)?.build).toEventually(equal(BuildBuilder().withId(3).withJobName("turtle job").withStatus("turtle status").build()))
 
                             let expectedBuild = Build(
                                 id: 3,
