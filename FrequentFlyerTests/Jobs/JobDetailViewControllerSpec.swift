@@ -59,8 +59,8 @@ class JobDetailViewControllerSpec: QuickSpec {
                 }
 
                 it("sets up its control panel") {
-                    expect(subject.controlPanel?.latestJobNameLabel?.text).toEventually(equal("some build"))
-                    expect(subject.controlPanel?.latestJobStatusLabel?.text).toEventually(equal("build status"))
+                    expect(subject.controlPanel?.latestJobNameLabel?.text).toEventually(equal("name"))
+                    expect(subject.controlPanel?.latestJobStatusLabel?.text).toEventually(equal("status"))
                     expect(subject.controlPanel?.pipeline).toEventually(equal(Pipeline(name: "pipeline")))
 
                     let expectedJob = Job(
