@@ -2,14 +2,15 @@ import UIKit
 
 class JobControlPanelViewController: UIViewController {
     @IBOutlet weak var latestJobNameLabel: UILabel?
-    @IBOutlet weak var latestJobStatusLabel: UILabel?
+    @IBOutlet weak var latestJobLastEventTimeLabel: UILabel?
     @IBOutlet weak var retriggerButton: RoundedButton?
 
     var triggerBuildService = TriggerBuildService()
+    var elapsedTimePrinter = ElapsedTimePrinter()
 
     var target: Target?
     var pipeline: Pipeline?
-    var job: Job?
+    private(set) var job: Job?
 
     class var storyboardIdentifier: String { get { return "JobControlPanel" } }
 
@@ -21,14 +22,23 @@ class JobControlPanelViewController: UIViewController {
         latestJobNameLabel?.font = Style.Fonts.regular(withSize: 22)
         latestJobNameLabel?.textColor = Style.Colors.darkInfoLabel
 
-        latestJobStatusLabel?.font = Style.Fonts.regular(withSize: 22)
-        latestJobStatusLabel?.textColor = Style.Colors.darkInfoLabel
+        latestJobLastEventTimeLabel?.font = Style.Fonts.regular(withSize: 22)
+        latestJobLastEventTimeLabel?.textColor = Style.Colors.darkInfoLabel
 
         retriggerButton?.setUp(withTitleText: "Retrigger",
                                titleFont: Style.Fonts.button,
                                controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
                                controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
         )
+    }
+
+    func setJob(_ job: Job) {
+        self.job = job
+        guard let latestCompletedBuild = job.builds.first else { return }
+        latestJobNameLabel?.text = latestCompletedBuild.name
+
+        let timeSinceBuildEnded = TimeInterval(latestCompletedBuild.endTime)
+        latestJobLastEventTimeLabel?.text = elapsedTimePrinter.printTime(since: timeSinceBuildEnded)
     }
 
     @IBAction func onRetriggerButtonTapped() {

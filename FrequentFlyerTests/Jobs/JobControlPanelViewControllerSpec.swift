@@ -21,9 +21,20 @@ class JobControlPanelViewControllerSpec: QuickSpec {
             }
         }
 
+        class MockElapsedTimePrinter: ElapsedTimePrinter {
+            var capturedTime: TimeInterval?
+            var toReturnResult = ""
+
+            override func printTime(since timePassedInSeconds: TimeInterval) -> String {
+                capturedTime = timePassedInSeconds
+                return toReturnResult
+            }
+        }
+
         describe("JobControlPanelViewController") {
             var subject: JobControlPanelViewController!
             var mockTriggerBuildService: MockTriggerBuildService!
+            var mockElapsedTimePrinter: MockElapsedTimePrinter!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -42,61 +53,80 @@ class JobControlPanelViewControllerSpec: QuickSpec {
                 subject.target = target
 
                 subject.pipeline = Pipeline(name: "pipeline_name")
-                subject.job = Job(name: "job_name", builds: [])
+
+                mockElapsedTimePrinter = MockElapsedTimePrinter()
+                subject.elapsedTimePrinter = mockElapsedTimePrinter
             }
 
             describe("After the view loads") {
                 beforeEach {
+                    mockElapsedTimePrinter.toReturnResult = "1 min ago"
                     let _ = Fleet.setInAppWindowRootNavigation(subject)
                 }
 
-                describe("Tapping the 'Retrigger' button") {
+                describe("Setting up the job") {
                     beforeEach {
-                        try! subject.retriggerButton?.tap()
+                        let latestBuild = BuildBuilder().withName("the last build").withEndTime(1000).build()
+                        subject.setJob(Job(name: "job_name", builds: [latestBuild]))
                     }
 
-                    it("asks the \(TriggerBuildService.self) to trigger a new build") {
-                        let expectedTarget = Target(name: "turtle target", api: "turtle api", teamName: "turtle team name", token: Token(value: "turtle token value"))
-                        expect(mockTriggerBuildService.capturedTarget).to(equal(expectedTarget))
-                        expect(mockTriggerBuildService.capturedJobName).to(equal("job_name"))
-                        expect(mockTriggerBuildService.capturedPipelineName).to(equal("pipeline_name"))
+                    it("displays the name of the latest build") {
+                        expect(subject.latestJobNameLabel?.text).toEventually(equal("the last build"))
                     }
 
-                    describe("When the \(TriggerBuildService.self) returns with a build that was triggered") {
+                    it("displays the time elapsed since the latest build completed") {
+                        expect(mockElapsedTimePrinter.capturedTime).to(equal(1000))
+                        expect(subject.latestJobLastEventTimeLabel?.text).toEventually(equal("1 min ago"))
+                    }
+
+                    describe("Tapping the 'Retrigger' button after setting up with a job") {
                         beforeEach {
-                            guard let completion = mockTriggerBuildService.capturedCompletion else {
-                                fail("Failed to call the \(TriggerBuildService.self) with a completion handler")
-                                return
+                            try! subject.retriggerButton?.tap()
+                        }
+
+                        it("asks the \(TriggerBuildService.self) to trigger a new build") {
+                            let expectedTarget = Target(name: "turtle target", api: "turtle api", teamName: "turtle team name", token: Token(value: "turtle token value"))
+                            expect(mockTriggerBuildService.capturedTarget).to(equal(expectedTarget))
+                            expect(mockTriggerBuildService.capturedJobName).to(equal("job_name"))
+                            expect(mockTriggerBuildService.capturedPipelineName).to(equal("pipeline_name"))
+                        }
+
+                        describe("When the \(TriggerBuildService.self) returns with a build that was triggered") {
+                            beforeEach {
+                                guard let completion = mockTriggerBuildService.capturedCompletion else {
+                                    fail("Failed to call the \(TriggerBuildService.self) with a completion handler")
+                                    return
+                                }
+
+                                let build = BuildBuilder()
+                                    .withId(124)
+                                    .build()
+
+                                completion(build, nil)
                             }
 
-                            let build = BuildBuilder()
-                                .withId(124)
-                                .build()
-
-                            completion(build, nil)
+                            it("presents an alert informing the user of the build that was triggered") {
+                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
+                                expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Triggered"))
+                                expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Build #124 triggered for 'jobName'"))
+                            }
                         }
 
-                        it("presents an alert informing the user of the build that was triggered") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Triggered"))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Build #124 triggered for 'jobName'"))
-                        }
-                    }
+                        describe("When the \(TriggerBuildService.self) returns with an error") {
+                            beforeEach {
+                                guard let completion = mockTriggerBuildService.capturedCompletion else {
+                                    fail("Failed to call the \(TriggerBuildService.self) with a completion handler")
+                                    return
+                                }
 
-                    describe("When the \(TriggerBuildService.self) returns with an error") {
-                        beforeEach {
-                            guard let completion = mockTriggerBuildService.capturedCompletion else {
-                                fail("Failed to call the \(TriggerBuildService.self) with a completion handler")
-                                return
+                                completion(nil, BasicError(details: "turtle trigger error"))
                             }
 
-                            completion(nil, BasicError(details: "turtle trigger error"))
-                        }
-
-                        it("presents an alert informing the user of the error") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Trigger Failed"))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("turtle trigger error"))
+                            it("presents an alert informing the user of the error") {
+                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
+                                expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Trigger Failed"))
+                                expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("turtle trigger error"))
+                            }
                         }
                     }
                 }

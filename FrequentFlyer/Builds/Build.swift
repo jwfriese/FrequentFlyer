@@ -5,13 +5,15 @@ struct Build {
     let jobName: String
     let status: String
     let pipelineName: String
+    let endTime: UInt
 
     init(id: Int,
          name: String,
          teamName: String,
          jobName: String,
          status: String,
-         pipelineName: String) {
+         pipelineName: String,
+         endTime: UInt) {
 
         self.id = id
         self.name = name
@@ -19,6 +21,7 @@ struct Build {
         self.jobName = jobName
         self.status = status
         self.pipelineName = pipelineName
+        self.endTime = endTime
     }
 }
 
@@ -29,5 +32,6 @@ func ==(lhs: Build, rhs: Build) -> Bool {
         lhs.teamName == rhs.teamName &&
         lhs.jobName == rhs.jobName &&
         lhs.status == rhs.status &&
-        lhs.pipelineName == rhs.pipelineName
+        lhs.pipelineName == rhs.pipelineName &&
+        lhs.endTime == rhs.endTime
 }

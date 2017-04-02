@@ -43,7 +43,8 @@ class JobsDataDeserializerSpec: QuickSpec {
                     teamName: "teamName",
                     jobName: "jobName",
                     status: "status",
-                    pipelineName: "pipelineName"
+                    pipelineName: "pipelineName",
+                    endTime: 10
                 )
 
                 beforeEach {

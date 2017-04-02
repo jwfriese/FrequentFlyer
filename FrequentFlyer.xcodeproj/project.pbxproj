@@ -121,6 +121,9 @@
 		7BA0327D1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */; };
 		7BA0327F1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */; };
 		7BA48F501DD763E4008BDE19 /* Error+FrequentFlyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */; };
+		7BC0348D1E915C080037E774 /* ElapsedTimePrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0348C1E915C080037E774 /* ElapsedTimePrinter.swift */; };
+		7BC034911E915C260037E774 /* ElapsedTimePrinterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC034901E915C260037E774 /* ElapsedTimePrinterSpec.swift */; };
+		7BC034931E915C400037E774 /* Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC034921E915C400037E774 /* Timepiece.swift */; };
 		7BCAEFE81D901A4C00BC817D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFE71D901A4C00BC817D /* main.swift */; };
 		7BCAEFEA1D901AA000BC817D /* TestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFE91D901AA000BC817D /* TestAppDelegate.swift */; };
 		7BCAEFF11D902AE500BC817D /* AppRouterViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF01D902AE500BC817D /* AppRouterViewControllerSpec.swift */; };
@@ -287,6 +290,9 @@
 		7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodDataDeserializer.swift; sourceTree = "<group>"; };
 		7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMethodDataDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+FrequentFlyer.swift"; sourceTree = "<group>"; };
+		7BC0348C1E915C080037E774 /* ElapsedTimePrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElapsedTimePrinter.swift; sourceTree = "<group>"; };
+		7BC034901E915C260037E774 /* ElapsedTimePrinterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElapsedTimePrinterSpec.swift; sourceTree = "<group>"; };
+		7BC034921E915C400037E774 /* Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timepiece.swift; sourceTree = "<group>"; };
 		7BCAEFE71D901A4C00BC817D /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		7BCAEFE91D901AA000BC817D /* TestAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAppDelegate.swift; sourceTree = "<group>"; };
 		7BCAEFF01D902AE500BC817D /* AppRouterViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouterViewControllerSpec.swift; sourceTree = "<group>"; };
@@ -697,6 +703,23 @@
 			path = Target;
 			sourceTree = "<group>";
 		};
+		7BC0348B1E915BAA0037E774 /* Time */ = {
+			isa = PBXGroup;
+			children = (
+				7BC0348C1E915C080037E774 /* ElapsedTimePrinter.swift */,
+				7BC034921E915C400037E774 /* Timepiece.swift */,
+			);
+			path = Time;
+			sourceTree = "<group>";
+		};
+		7BC0348E1E915C0C0037E774 /* Time */ = {
+			isa = PBXGroup;
+			children = (
+				7BC034901E915C260037E774 /* ElapsedTimePrinterSpec.swift */,
+			);
+			path = Time;
+			sourceTree = "<group>";
+		};
 		7BCAEFEE1D902A6B00BC817D /* AppRouting */ = {
 			isa = PBXGroup;
 			children = (
@@ -851,6 +874,7 @@
 				7BA032021D843E4700F20E23 /* Builds */,
 				7BA032011D843E4200F20E23 /* Pipeline */,
 				7BE663621E8A16A8006573C3 /* Jobs */,
+				7BC0348B1E915BAA0037E774 /* Time */,
 				7BA032001D843E3800F20E23 /* Target */,
 				7B737BB81E075B2F007FC4E8 /* Logs */,
 				7B673E761E7EF51F00CAC921 /* Styling */,
@@ -877,6 +901,7 @@
 				7BA032091D843F3000F20E23 /* Builds */,
 				7BA0320A1D843F3500F20E23 /* Pipeline */,
 				7BE663671E8A1B6E006573C3 /* Jobs */,
+				7BC0348E1E915C0C0037E774 /* Time */,
 				7BA0320B1D843F3A00F20E23 /* Target */,
 				7B737BB91E075B47007FC4E8 /* Logs */,
 			);
@@ -1122,6 +1147,7 @@
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
 				7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */,
+				7BC0348D1E915C080037E774 /* ElapsedTimePrinter.swift in Sources */,
 				7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */,
 				7BA032261D843FF300F20E23 /* BuildsDataDeserializer.swift in Sources */,
 				7B58A1A61E8C03F000FCBA13 /* JobDetailViewController.swift in Sources */,
@@ -1141,6 +1167,7 @@
 				7BA0327B1D84BC9300F20E23 /* AuthType.swift in Sources */,
 				7B8B4D581E8639160084505B /* Underline.swift in Sources */,
 				7BE6636D1E8A1D9C006573C3 /* Job.swift in Sources */,
+				7BC034931E915C400037E774 /* Timepiece.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1186,6 +1213,7 @@
 				7B737BD01E075BC2007FC4E8 /* SSEEventParserSpec.swift in Sources */,
 				7BA0324D1D84400E00F20E23 /* BasicErrorSpec.swift in Sources */,
 				7B59010C1E86424E00BB4538 /* GitHubAuthViewControllerSpec.swift in Sources */,
+				7BC034911E915C260037E774 /* ElapsedTimePrinterSpec.swift in Sources */,
 				7B737BCE1E075BC2007FC4E8 /* LogsViewControllerSpec.swift in Sources */,
 				7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */,
 				7BEDE2251D8C29770054D13B /* FactoryError.swift in Sources */,

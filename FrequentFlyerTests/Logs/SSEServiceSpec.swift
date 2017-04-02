@@ -37,7 +37,7 @@ class SSEServiceSpec: QuickSpec {
 
                 beforeEach {
                     let target = Target(name: "turtle target", api: "https://turtle.com", teamName: "turtleTeam", token: Token(value: "tokenValue"))
-                    let build = Build(id: 123, name: "name", teamName: "team name", jobName: "turtleJob", status: "pending", pipelineName: "turtlePipeline")
+                    let build = BuildBuilder().withId(123).build()
 
                     connection = subject.openSSEConnection(target: target, build: build)
                 }

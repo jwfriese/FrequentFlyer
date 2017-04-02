@@ -21,7 +21,8 @@ class BuildDataDeserializerSpec: QuickSpec {
                     ("team_name", "turtle team name"),
                     ("status", "status 2"),
                     ("job_name", "turtle job name"),
-                    ("pipeline_name", "turtle pipeline name")
+                    ("pipeline_name", "turtle pipeline name"),
+                    ("end_time", 10000)
                 ])
             }
 
@@ -40,7 +41,8 @@ class BuildDataDeserializerSpec: QuickSpec {
                         teamName: "turtle team name",
                         jobName: "turtle job name",
                         status: "status 2",
-                        pipelineName: "turtle pipeline name"
+                        pipelineName: "turtle pipeline name",
+                        endTime: 10000
                     )
 
                     expect(result.build).to(equal(expectedBuild))
@@ -267,6 +269,42 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                     it("returns an error") {
                         expect(result.error).to(equal(DeserializationError(details: "Expected value for 'pipeline_name' field to be a string", type: .typeMismatch)))
+                    }
+                }
+
+                context("Missing required 'endTime' field") {
+                    beforeEach {
+                        var invalidBuildJSON: JSON! = validBuildJSON
+                        _ = invalidBuildJSON.dictionaryObject?.removeValue(forKey: "end_time")
+
+                        let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
+                        result = subject.deserialize(invalidData)
+                    }
+
+                    it("returns nil for the build") {
+                        expect(result.build).to(beNil())
+                    }
+
+                    it("returns an error") {
+                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'end_time' field", type: .missingRequiredData)))
+                    }
+                }
+
+                context("'endTime' field is not a uint") {
+                    beforeEach {
+                        var invalidBuildJSON: JSON! = validBuildJSON
+                        _ = invalidBuildJSON.dictionaryObject?.updateValue("value", forKey: "end_time")
+
+                        let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
+                        result = subject.deserialize(invalidData)
+                    }
+
+                    it("returns nil for the build") {
+                        expect(result.build).to(beNil())
+                    }
+
+                    it("returns an error") {
+                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'end_time' field to be an unsigned integer", type: .typeMismatch)))
                     }
                 }
             }

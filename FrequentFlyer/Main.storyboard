@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3d8-pO-wnR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3d8-pO-wnR">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +14,7 @@
         <scene sceneID="4Xs-9o-y0c">
             <objects>
                 <navigationController id="3d8-pO-wnR" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="22l-gc-b0E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="22l-gc-b0E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -286,7 +286,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9sk-ci-M5H" id="EI1-eI-GTd">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ana-Ur-vXd" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
@@ -499,7 +499,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gvY-oz-Klg" id="MlN-bw-Itq">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agy-nO-Sh9" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
@@ -584,6 +584,10 @@
         <scene sceneID="ekN-T5-BxD">
             <objects>
                 <viewController storyboardIdentifier="JobControlPanel" id="koQ-02-z0F" customClass="JobControlPanelViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Sff-NE-VhA"/>
+                        <viewControllerLayoutGuide type="bottom" id="OsW-9g-eRt"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xnc-Wx-g7R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -621,8 +625,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="latestJobLastEventTimeLabel" destination="IZs-2T-Gx7" id="2OX-lF-M8k"/>
                         <outlet property="latestJobNameLabel" destination="Uso-2E-BWq" id="gBb-hG-tdl"/>
-                        <outlet property="latestJobStatusLabel" destination="IZs-2T-Gx7" id="dby-9v-c9p"/>
                         <outlet property="retriggerButton" destination="I3X-sh-W5u" id="5eM-vy-NpG"/>
                     </connections>
                 </viewController>
@@ -634,6 +638,10 @@
         <scene sceneID="0kW-Vo-dln">
             <objects>
                 <viewController storyboardIdentifier="Logs" id="uBf-DN-VAr" customClass="LogsViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NIe-VC-PZi"/>
+                        <viewControllerLayoutGuide type="bottom" id="OTv-VB-LDO"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pSi-KG-IvT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="497"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

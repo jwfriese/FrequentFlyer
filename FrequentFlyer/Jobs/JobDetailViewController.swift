@@ -31,15 +31,12 @@ class JobDetailViewController: UIViewController {
         guard let target = target else { return }
         guard let pipeline = pipeline else { return }
         guard let job = job else { return }
-        guard let latestBuild = job.builds.first else { return }
 
         title = job.name
 
         controlPanel.target = target
         controlPanel.pipeline = pipeline
-        controlPanel.job = job
-        controlPanel.latestJobNameLabel?.text = latestBuild.name
-        controlPanel.latestJobStatusLabel?.text = latestBuild.status
+        controlPanel.setJob(job)
 
         logsPane.build = job.builds.first
         logsPane.target = target
