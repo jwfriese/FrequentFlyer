@@ -86,9 +86,9 @@ class BuildsDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing builds data where all individual builds are valid") {
-                let expectedBuildOne = Build(id: 1, name: "name", teamName:"team name", jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name", endTime: 10)
-                let expectedBuildTwo = Build(id: 2, name: "name", teamName:"team name", jobName: "turtle job name", status: "status 2", pipelineName: "turtle pipeline name", endTime: 10)
-                let expectedBuildThree = Build(id: 2, name: "name", teamName: "team name", jobName: "puppy job name", status: "status 3", pipelineName: "puppy pipeline name", endTime: 10)
+                let expectedBuildOne = Build(id: 1, name: "name", teamName:"team name", jobName: "crab job name", status: .started, pipelineName: "crab pipeline name", endTime: 10)
+                let expectedBuildTwo = Build(id: 2, name: "name", teamName:"team name", jobName: "turtle job name", status: .succeeded, pipelineName: "turtle pipeline name", endTime: 10)
+                let expectedBuildThree = Build(id: 2, name: "name", teamName: "team name", jobName: "puppy job name", status: .failed, pipelineName: "puppy pipeline name", endTime: 10)
 
                 beforeEach {
                     let validBuildsJSON = JSON([
@@ -127,8 +127,8 @@ class BuildsDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing builds data where one of the builds errors") {
-                let expectedBuildOne = Build(id: 1, name: "name", teamName:"team name", jobName: "crab job name", status: "status 1", pipelineName: "crab pipeline name", endTime: 10)
-                let expectedBuildTwo = Build(id: 3, name: "name", teamName: "team name", jobName: "puppy job name", status: "status 3", pipelineName: "puppy pipeline name", endTime: 10)
+                let expectedBuildOne = Build(id: 1, name: "name", teamName:"team name", jobName: "crab job name", status: .started, pipelineName: "crab pipeline name", endTime: 10)
+                let expectedBuildTwo = Build(id: 3, name: "name", teamName: "team name", jobName: "puppy job name", status: .failed, pipelineName: "puppy pipeline name", endTime: 10)
 
                 beforeEach {
                     let validBuildsJSON = JSON([

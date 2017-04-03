@@ -42,7 +42,7 @@ class JobsDataDeserializerSpec: QuickSpec {
                     name: "name",
                     teamName: "teamName",
                     jobName: "jobName",
-                    status: "status",
+                    status: .errored,
                     pipelineName: "pipelineName",
                     endTime: 10
                 )

@@ -1,6 +1,8 @@
 import Foundation
 
 class BuildDataDeserializer {
+    var buildStatusInterpreter = BuildStatusInterpreter()
+
     func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
         var buildJSONObject: Any?
         do {
@@ -51,6 +53,10 @@ class BuildDataDeserializer {
             return typeMismatchErrorCaseForKey("status", expectedType: "a string")
         }
 
+        guard let interpretedStatus = buildStatusInterpreter.interpret(status) else {
+            return (nil, DeserializationError(details: "Failed to interpret '\(status)' as a build status.", type: .typeMismatch))
+        }
+
         guard let pipelineNameObject = buildJSON.value(forKey: "pipeline_name") else {
             return missingDataErrorCaseForKey("pipeline_name")
         }
@@ -71,7 +77,7 @@ class BuildDataDeserializer {
                           name: name,
                           teamName: teamName,
                           jobName: jobName,
-                          status: status,
+                          status: interpretedStatus,
                           pipelineName: pipelineName,
                           endTime: endTime
         )

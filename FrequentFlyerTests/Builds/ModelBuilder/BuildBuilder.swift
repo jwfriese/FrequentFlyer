@@ -5,7 +5,7 @@ class BuildBuilder {
     private var nextName = "name"
     private var nextTeamName = "teamName"
     private var nextJobName = "jobName"
-    private var nextStatus = "status"
+    private var nextStatus = BuildStatus.pending
     private var nextPipelineName = "pipelineName"
     private var nextEndTime = UInt(100)
 
@@ -14,7 +14,7 @@ class BuildBuilder {
         nextName = "name"
         nextTeamName = "teamName"
         nextJobName = "jobName"
-        nextStatus = "status"
+        nextStatus = BuildStatus.pending
         nextPipelineName = "pipelineName"
         nextEndTime = UInt(100)
     }
@@ -58,7 +58,7 @@ class BuildBuilder {
         return self
     }
 
-    func withStatus(_ status: String) -> BuildBuilder {
+    func withStatus(_ status: BuildStatus) -> BuildBuilder {
         nextStatus = status
         return self
     }

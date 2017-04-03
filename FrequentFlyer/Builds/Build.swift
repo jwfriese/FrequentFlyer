@@ -3,7 +3,7 @@ struct Build {
     let name: String
     let teamName: String
     let jobName: String
-    let status: String
+    let status: BuildStatus
     let pipelineName: String
     let endTime: UInt
 
@@ -11,7 +11,7 @@ struct Build {
          name: String,
          teamName: String,
          jobName: String,
-         status: String,
+         status: BuildStatus,
          pipelineName: String,
          endTime: UInt) {
 

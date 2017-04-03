@@ -6,14 +6,28 @@ import SwiftyJSON
 @testable import FrequentFlyer
 
 class BuildDataDeserializerSpec: QuickSpec {
+    class MockBuildStatusInterpreter: BuildStatusInterpreter {
+        var capturedInput: String?
+        var toReturnInterpretedStatus: BuildStatus?
+
+        override func interpret(_ statusString: String) -> BuildStatus? {
+            capturedInput = statusString
+            return toReturnInterpretedStatus
+        }
+    }
+
     override func spec() {
         describe("BuildDataDeserializer") {
             var subject: BuildDataDeserializer!
+            var mockBuildStatusInterpreter: MockBuildStatusInterpreter!
 
             var validBuildJSON: JSON!
 
             beforeEach {
                 subject = BuildDataDeserializer()
+
+                mockBuildStatusInterpreter = MockBuildStatusInterpreter()
+                subject.buildStatusInterpreter = mockBuildStatusInterpreter
 
                 validBuildJSON = JSON(dictionaryLiteral: [
                     ("id", 2),
@@ -28,8 +42,10 @@ class BuildDataDeserializerSpec: QuickSpec {
 
             describe("Deserializing build data that is all valid") {
                 var result: (build: Build?, error: DeserializationError?)
+                var interpretedStatus = BuildStatus.failed
 
                 beforeEach {
+                    mockBuildStatusInterpreter.toReturnInterpretedStatus = interpretedStatus
                     let validData = try! validBuildJSON.rawData(options: .prettyPrinted)
                     result = subject.deserialize(validData)
                 }
@@ -40,11 +56,12 @@ class BuildDataDeserializerSpec: QuickSpec {
                         name: "turtle build name",
                         teamName: "turtle team name",
                         jobName: "turtle job name",
-                        status: "status 2",
+                        status: interpretedStatus,
                         pipelineName: "turtle pipeline name",
                         endTime: 10000
                     )
 
+                    expect(mockBuildStatusInterpreter.capturedInput).to(equal("status 2"))
                     expect(result.build).to(equal(expectedBuild))
                 }
 
@@ -55,6 +72,10 @@ class BuildDataDeserializerSpec: QuickSpec {
 
             describe("Deserializing build data where the data is invalid") {
                 var result: (build: Build?, error: DeserializationError?)
+
+                beforeEach {
+                    mockBuildStatusInterpreter.toReturnInterpretedStatus = .failed
+                }
 
                 context("Missing required 'name' field") {
                     beforeEach {
@@ -161,6 +182,26 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                     it("returns an error") {
                         expect(result.error).to(equal(DeserializationError(details: "Expected value for 'status' field to be a string", type: .typeMismatch)))
+                    }
+                }
+
+                context("'status' field is a value that cannot be interpreted") {
+                    beforeEach {
+                        var invalidBuildJSON: JSON! = validBuildJSON
+                        _ = invalidBuildJSON.dictionaryObject?.updateValue("not a status", forKey: "status")
+
+                        mockBuildStatusInterpreter.toReturnInterpretedStatus = nil
+
+                        let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
+                        result = subject.deserialize(invalidData)
+                    }
+
+                    it("returns nil for the build") {
+                        expect(result.build).to(beNil())
+                    }
+
+                    it("returns an error") {
+                        expect(result.error).to(equal(DeserializationError(details: "Failed to interpret 'not a status' as a build status.", type: .typeMismatch)))
                     }
                 }
 

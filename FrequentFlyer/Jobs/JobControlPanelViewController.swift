@@ -3,6 +3,7 @@ import UIKit
 class JobControlPanelViewController: UIViewController {
     @IBOutlet weak var latestJobNameLabel: UILabel?
     @IBOutlet weak var latestJobLastEventTimeLabel: UILabel?
+    @IBOutlet weak var buildStatusBadge: BuildStatusBadge?
     @IBOutlet weak var retriggerButton: RoundedButton?
 
     var triggerBuildService = TriggerBuildService()
@@ -39,6 +40,8 @@ class JobControlPanelViewController: UIViewController {
 
         let timeSinceBuildEnded = TimeInterval(latestCompletedBuild.endTime)
         latestJobLastEventTimeLabel?.text = elapsedTimePrinter.printTime(since: timeSinceBuildEnded)
+
+        buildStatusBadge?.setUp(for: latestCompletedBuild.status)
     }
 
     @IBAction func onRetriggerButtonTapped() {
