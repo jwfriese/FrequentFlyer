@@ -36,7 +36,7 @@ class JobControlPanelViewController: UIViewController {
     func setJob(_ job: Job) {
         self.job = job
         guard let latestCompletedBuild = job.builds.first else { return }
-        latestJobNameLabel?.text = latestCompletedBuild.name
+        latestJobNameLabel?.text = "#\(latestCompletedBuild.name)"
 
         let timeSinceBuildEnded = TimeInterval(latestCompletedBuild.endTime)
         latestJobLastEventTimeLabel?.text = elapsedTimePrinter.printTime(since: timeSinceBuildEnded)

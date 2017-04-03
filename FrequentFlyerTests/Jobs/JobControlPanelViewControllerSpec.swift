@@ -71,7 +71,7 @@ class JobControlPanelViewControllerSpec: QuickSpec {
                     }
 
                     it("displays the name of the latest build") {
-                        expect(subject.latestJobNameLabel?.text).toEventually(equal("the last build"))
+                        expect(subject.latestJobNameLabel?.text).toEventually(equal("#the last build"))
                     }
 
                     it("displays the time elapsed since the latest build completed") {
