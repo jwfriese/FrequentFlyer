@@ -5,7 +5,7 @@ import Fleet
 
 @testable import FrequentFlyer
 
-class JobControlPanelViewControllerSpec: QuickSpec {
+class BuildControlPanelViewControllerSpec: QuickSpec {
     override func spec() {
         class MockTriggerBuildService: TriggerBuildService {
             var capturedTarget: Target?
@@ -31,15 +31,15 @@ class JobControlPanelViewControllerSpec: QuickSpec {
             }
         }
 
-        describe("JobControlPanelViewController") {
-            var subject: JobControlPanelViewController!
+        describe("BuildControlPanelViewController") {
+            var subject: BuildControlPanelViewController!
             var mockTriggerBuildService: MockTriggerBuildService!
             var mockElapsedTimePrinter: MockElapsedTimePrinter!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                subject = storyboard.instantiateViewController(withIdentifier: JobControlPanelViewController.storyboardIdentifier) as? JobControlPanelViewController
+                subject = storyboard.instantiateViewController(withIdentifier: BuildControlPanelViewController.storyboardIdentifier) as? BuildControlPanelViewController
 
                 mockTriggerBuildService = MockTriggerBuildService()
                 subject.triggerBuildService = mockTriggerBuildService
@@ -64,23 +64,49 @@ class JobControlPanelViewControllerSpec: QuickSpec {
                     let _ = Fleet.setInAppWindowRootNavigation(subject)
                 }
 
-                describe("Setting up the job") {
-                    beforeEach {
-                        let latestBuild = BuildBuilder().withName("the last build").withEndTime(1000).build()
-                        subject.setJob(Job(name: "job_name", builds: [latestBuild]))
+                describe("Setting up the build") {
+                    describe("When the build has a start time") {
+                        beforeEach {
+                            let build = BuildBuilder().withName("the next build").withStartTime(1000).withEndTime(nil).build()
+                            subject.setBuild(build)
+                        }
+
+                        it("displays the name of the next build") {
+                            expect(subject.latestJobNameLabel?.text).toEventually(equal("#the next build"))
+                        }
+
+                        it("displays the time elapsed since the next build started") {
+                            expect(mockElapsedTimePrinter.capturedTime).to(equal(1000))
+                            expect(subject.latestJobLastEventTimeLabel?.text).toEventually(equal("1 min ago"))
+                        }
                     }
 
-                    it("displays the name of the latest build") {
-                        expect(subject.latestJobNameLabel?.text).toEventually(equal("#the last build"))
-                    }
+                    describe("When the build has no start time") {
+                        beforeEach {
+                            let build = BuildBuilder().withName("the next build").withStartTime(nil).withEndTime(nil).build()
+                            subject.setBuild(build)
+                        }
 
-                    it("displays the time elapsed since the latest build completed") {
-                        expect(mockElapsedTimePrinter.capturedTime).to(equal(1000))
-                        expect(subject.latestJobLastEventTimeLabel?.text).toEventually(equal("1 min ago"))
+                        it("displays the name of the next build") {
+                            expect(subject.latestJobNameLabel?.text).toEventually(equal("#the next build"))
+                        }
+
+                        it("displays two dashes for the time label") {
+                            expect(mockElapsedTimePrinter.capturedTime).to(beNil())
+                            expect(subject.latestJobLastEventTimeLabel?.text).toEventually(equal("--"))
+                        }
                     }
 
                     describe("Tapping the 'Retrigger' button after setting up with a job") {
                         beforeEach {
+                            let build = BuildBuilder()
+                                .withName("the next build")
+                                .withJobName("job_name")
+                                .withStartTime(1000)
+                                .withEndTime(nil)
+                                .build()
+                            subject.setBuild(build)
+
                             try! subject.retriggerButton?.tap()
                         }
 

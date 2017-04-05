@@ -1,6 +1,6 @@
 import UIKit
 
-class JobControlPanelViewController: UIViewController {
+class BuildControlPanelViewController: UIViewController {
     @IBOutlet weak var latestJobNameLabel: UILabel?
     @IBOutlet weak var latestJobLastEventTimeLabel: UILabel?
     @IBOutlet weak var buildStatusBadge: BuildStatusBadge?
@@ -11,9 +11,9 @@ class JobControlPanelViewController: UIViewController {
 
     var target: Target?
     var pipeline: Pipeline?
-    private(set) var job: Job?
+    private(set) var build: Build?
 
-    class var storyboardIdentifier: String { get { return "JobControlPanel" } }
+    class var storyboardIdentifier: String { get { return "BuildControlPanel" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,23 +33,29 @@ class JobControlPanelViewController: UIViewController {
         )
     }
 
-    func setJob(_ job: Job) {
-        self.job = job
-        guard let latestCompletedBuild = job.builds.first else { return }
-        latestJobNameLabel?.text = "#\(latestCompletedBuild.name)"
+    func setBuild(_ build: Build) {
+        self.build = build
+        latestJobNameLabel?.text = "#\(build.name)"
+        buildStatusBadge?.setUp(for: build.status)
 
-        let timeSinceBuildEnded = TimeInterval(latestCompletedBuild.endTime)
-        latestJobLastEventTimeLabel?.text = elapsedTimePrinter.printTime(since: timeSinceBuildEnded)
-
-        buildStatusBadge?.setUp(for: latestCompletedBuild.status)
+        if let endTime = build.endTime {
+            let timeSinceBuildEnded = TimeInterval(endTime)
+            latestJobLastEventTimeLabel?.text = elapsedTimePrinter.printTime(since: timeSinceBuildEnded)
+        }
+        else if let startTime = build.startTime {
+            let timeSinceBuildStarted = TimeInterval(startTime)
+            latestJobLastEventTimeLabel?.text = elapsedTimePrinter.printTime(since: timeSinceBuildStarted)
+        } else {
+            latestJobLastEventTimeLabel?.text = "--"
+        }
     }
 
     @IBAction func onRetriggerButtonTapped() {
         guard let target = target else { return }
-        guard let job = job else { return }
+        guard let build = build else { return }
         guard let pipeline = pipeline else { return }
 
-        triggerBuildService.triggerBuild(forTarget: target, forJob: job.name, inPipeline: pipeline.name) { build, error in
+        triggerBuildService.triggerBuild(forTarget: target, forJob: build.jobName, inPipeline: pipeline.name) { build, error in
             var alertTitle: String?
             var alertMessage: String?
             if let build = build {

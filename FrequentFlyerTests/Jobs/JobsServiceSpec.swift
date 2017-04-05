@@ -94,7 +94,7 @@ class JobsServiceSpec: QuickSpec {
                 describe("When the request resolves with a success response and valid pipeline data") {
                     beforeEach {
                         mockJobsDataDeserializer.toReturnJobs = [
-                            Job(name: "turtle job", builds: [])
+                            Job(name: "turtle job", nextBuild: nil, finishedBuild: nil)
                         ]
 
                         let validJobData = "valid job data".data(using: String.Encoding.utf8)
@@ -108,7 +108,7 @@ class JobsServiceSpec: QuickSpec {
 
                     it("emits deserialized jobs on the returned stream") {
                         expect(jobStreamResult.elements.count).to(equal(1))
-                        expect(jobStreamResult.elements[0]).to(equal([Job(name: "turtle job", builds: [])]))
+                        expect(jobStreamResult.elements[0]).to(equal([Job(name: "turtle job", nextBuild: nil, finishedBuild: nil)]))
                     }
                 }
 

@@ -18,18 +18,32 @@ class JobsDataDeserializer {
 
         for jobsDictionary in jobsJSON {
             guard let name = jobsDictionary["name"] as? String else { continue }
-            guard let buildJSON = jobsDictionary["finished_build"] as? NSDictionary else { continue }
 
-            var builds: [Build] = []
-            do {
-                let buildData = try JSONSerialization.data(withJSONObject: buildJSON, options: .prettyPrinted)
-                let deserializeResult = buildDataDeserializer.deserialize(buildData)
-                if let build = deserializeResult.build {
-                    builds.append(build)
-                }
-            } catch { }
+            let finishedBuildJSON = jobsDictionary["finished_build"] as? NSDictionary
+            let nextBuildJSON = jobsDictionary["next_build"] as? NSDictionary
 
-            jobs.append(Job(name: name, builds: builds))
+            if finishedBuildJSON == nil && nextBuildJSON == nil { continue }
+
+            var finishedBuild: Build? = nil
+            if let finishedBuildJSON = finishedBuildJSON {
+                do {
+
+                    let finishedBuildData = try JSONSerialization.data(withJSONObject: finishedBuildJSON, options: .prettyPrinted)
+                    finishedBuild = buildDataDeserializer.deserialize(finishedBuildData).build
+                } catch { }
+            }
+
+            var nextBuild: Build? = nil
+            if let nextBuildJSON = nextBuildJSON {
+                do {
+
+                    let nextBuildData = try JSONSerialization.data(withJSONObject: nextBuildJSON, options: .prettyPrinted)
+                    nextBuild = buildDataDeserializer.deserialize(nextBuildData).build
+                } catch { }
+            }
+
+
+            jobs.append(Job(name: name, nextBuild: nextBuild, finishedBuild: finishedBuild))
         }
 
         return Observable.from(optional: jobs)

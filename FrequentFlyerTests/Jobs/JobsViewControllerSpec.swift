@@ -77,8 +77,8 @@ class JobsViewControllerSpec: QuickSpec {
 
                 describe("When the \(JobsService.self) resolves with jobs") {
                     beforeEach {
-                        let turtleJob = Job(name: "turtle job", builds: [])
-                        let crabJob = Job(name: "crab job", builds: [])
+                        let turtleJob = Job(name: "turtle job", nextBuild: nil, finishedBuild: nil)
+                        let crabJob = Job(name: "crab job", nextBuild: nil, finishedBuild: nil)
 
                         mockJobsService.jobsSubject.onNext([turtleJob, crabJob])
                         mockJobsService.jobsSubject.onCompleted()
@@ -116,7 +116,7 @@ class JobsViewControllerSpec: QuickSpec {
                             }
 
                             expect(jobDetailViewController()).toEventually(beIdenticalTo(mockJobDetailViewController))
-                            expect(jobDetailViewController()?.job).toEventually(equal(Job(name: "crab job", builds: [])))
+                            expect(jobDetailViewController()?.job).toEventually(equal(Job(name: "crab job", nextBuild: nil, finishedBuild: nil)))
 
                             let expectedPipeline = Pipeline(name: "turtle pipeline")
                             expect(jobDetailViewController()?.pipeline).toEventually(equal(expectedPipeline))

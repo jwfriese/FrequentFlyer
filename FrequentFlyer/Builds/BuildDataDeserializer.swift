@@ -65,12 +65,24 @@ class BuildDataDeserializer {
             return typeMismatchErrorCaseForKey("pipeline_name", expectedType: "a string")
         }
 
-        guard let endTimeObject = buildJSON.value(forKey: "end_time") else {
-            return missingDataErrorCaseForKey("end_time")
+        let startTimeObject = buildJSON.value(forKey: "start_time")
+        var startTime: UInt? = nil
+        if startTimeObject != nil {
+            guard let castedStartTime = startTimeObject as? UInt else {
+                return typeMismatchErrorCaseForKey("start_time", expectedType: "an unsigned integer")
+            }
+
+            startTime = castedStartTime
         }
 
-        guard let endTime = endTimeObject as? UInt else {
-            return typeMismatchErrorCaseForKey("end_time", expectedType: "an unsigned integer")
+        let endTimeObject = buildJSON.value(forKey: "end_time")
+        var endTime: UInt? = nil
+        if endTimeObject != nil {
+            guard let castedEndTime = endTimeObject as? UInt else {
+                return typeMismatchErrorCaseForKey("end_time", expectedType: "an unsigned integer")
+            }
+
+            endTime = castedEndTime
         }
 
         let build = Build(id: id,
@@ -79,6 +91,7 @@ class BuildDataDeserializer {
                           jobName: jobName,
                           status: interpretedStatus,
                           pipelineName: pipelineName,
+                          startTime: startTime,
                           endTime: endTime
         )
 

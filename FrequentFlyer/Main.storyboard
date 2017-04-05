@@ -14,7 +14,7 @@
         <scene sceneID="4Xs-9o-y0c">
             <objects>
                 <navigationController id="3d8-pO-wnR" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="22l-gc-b0E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="22l-gc-b0E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -553,7 +553,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fj-Si-jGC" userLabel="Control Panel Container">
                                 <rect key="frame" x="0.0" y="20" width="375" height="150"/>
                                 <connections>
-                                    <segue destination="koQ-02-z0F" kind="embed" identifier="EmbedJobControlPanel" id="sdM-bE-3JQ"/>
+                                    <segue destination="koQ-02-z0F" kind="embed" identifier="EmbedBuildControlPanel" id="sdM-bE-3JQ"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6C-J3-PUz" userLabel="Logs Container">
@@ -580,10 +580,10 @@
             </objects>
             <point key="canvasLocation" x="1726" y="1494"/>
         </scene>
-        <!--Job Control Panel View Controller-->
+        <!--Build Control Panel View Controller-->
         <scene sceneID="ekN-T5-BxD">
             <objects>
-                <viewController storyboardIdentifier="JobControlPanel" id="koQ-02-z0F" customClass="JobControlPanelViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BuildControlPanel" id="koQ-02-z0F" customClass="BuildControlPanelViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sff-NE-VhA"/>
                         <viewControllerLayoutGuide type="bottom" id="OsW-9g-eRt"/>

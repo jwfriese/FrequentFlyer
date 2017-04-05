@@ -1,10 +1,12 @@
 struct Job {
-    var name: String
-    var builds: [Build]
+    let name: String
+    let nextBuild: Build?
+    let finishedBuild: Build?
 
-    init(name: String, builds: [Build]) {
+    init(name: String, nextBuild: Build?, finishedBuild: Build?) {
         self.name = name
-        self.builds = builds
+        self.nextBuild = nextBuild
+        self.finishedBuild = finishedBuild
     }
 }
 
@@ -12,5 +14,6 @@ extension Job: Equatable { }
 
 func ==(lhs: Job, rhs: Job) -> Bool {
     return lhs.name == rhs.name &&
-        lhs.builds == rhs.builds
+        lhs.nextBuild == rhs.nextBuild &&
+        lhs.finishedBuild == rhs.finishedBuild
 }

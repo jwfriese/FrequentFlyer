@@ -2,17 +2,43 @@ import XCTest
 import Quick
 import Nimble
 import RxSwift
+import SwiftyJSON
+
 @testable import FrequentFlyer
 
 class JobsDataDeserializerSpec: QuickSpec {
     class MockBuildDataDeserializer: BuildDataDeserializer {
-        var capturedInputList: [Data] = []
-        var toReturnBuild: Build?
-        var toReturnError: DeserializationError?
+        private var toReturnBuild: [Data : Build] = [:]
+        private var toReturnError: [Data : DeserializationError] = [:]
+
+        fileprivate func when(_ data: JSON, thenReturn build: Build) {
+            let jsonData = try! data.rawData(options: .prettyPrinted)
+            toReturnBuild[jsonData] = build
+        }
+
+        fileprivate func when(_ data: JSON, thenErrorWith error: DeserializationError) {
+            let jsonData = try! data.rawData(options: .prettyPrinted)
+            toReturnError[jsonData] = error
+        }
 
         override func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
-            capturedInputList.append(data)
-            return (toReturnBuild, toReturnError)
+            let inputAsJSON = JSON(data: data)
+
+            for (keyData, build) in toReturnBuild {
+                let keyAsJSON = JSON(data: keyData)
+                if keyAsJSON == inputAsJSON {
+                    return (build, nil)
+                }
+            }
+
+            for (keyData, error) in toReturnError {
+                let keyAsJSON = JSON(data: keyData)
+                if keyAsJSON == inputAsJSON {
+                    return (nil, error)
+                }
+            }
+
+            return (nil, nil)
         }
     }
 
@@ -20,6 +46,19 @@ class JobsDataDeserializerSpec: QuickSpec {
         describe("JobsDataDeserializer") {
             var subject: JobsDataDeserializer!
             var mockBuildDataDeserializer: MockBuildDataDeserializer!
+
+            var validNextBuildJSONOne: JSON!
+            var validFinishedBuildJSONOne: JSON!
+            var validNextBuildJSONTwo: JSON!
+            var validFinishedBuildJSONTwo: JSON!
+
+            var validFinishedBuildResultOne: Build!
+            var validNextBuildResultOne: Build!
+            var validFinishedBuildResultTwo: Build!
+            var validNextBuildResultTwo: Build!
+
+            var validJobJSONOne: JSON!
+            var validJobJSONTwo: JSON!
 
             let publishSubject = PublishSubject<[Job]>()
             var result: StreamResult<[Job]>!
@@ -34,34 +73,55 @@ class JobsDataDeserializerSpec: QuickSpec {
 
                 mockBuildDataDeserializer = MockBuildDataDeserializer()
                 subject.buildDataDeserializer = mockBuildDataDeserializer
+
+                validFinishedBuildJSONOne = JSON(dictionaryLiteral: [
+                    ("name", "finished one")
+                ])
+
+                validNextBuildJSONOne = JSON(dictionaryLiteral: [
+                    ("name", "next one")
+                ])
+
+
+                validJobJSONOne = JSON(dictionaryLiteral :[
+                    ("name", "turtle job"),
+                    ("finished_build", validFinishedBuildJSONOne),
+                    ("next_build", validNextBuildJSONOne)
+                ])
+
+                validFinishedBuildJSONTwo = JSON(dictionaryLiteral: [
+                    ("name", "finished two"),
+                ])
+
+                validNextBuildJSONTwo = JSON(dictionaryLiteral: [
+                    ("name", "next two")
+                ])
+
+                validJobJSONTwo = JSON(dictionaryLiteral :[
+                    ("name", "crab job"),
+                    ("finished_build", validFinishedBuildJSONTwo),
+                    ("next_build", validNextBuildJSONTwo)
+                ])
+
+                validFinishedBuildResultOne = BuildBuilder().withName("finished one").build()
+                validNextBuildResultOne = BuildBuilder().withName("next one").build()
+                validFinishedBuildResultTwo = BuildBuilder().withName("finished two").build()
+                validNextBuildResultTwo = BuildBuilder().withName("next two").build()
+
+                mockBuildDataDeserializer.when(validFinishedBuildJSONOne, thenReturn: validFinishedBuildResultOne)
+                mockBuildDataDeserializer.when(validFinishedBuildJSONTwo, thenReturn: validFinishedBuildResultTwo)
+                mockBuildDataDeserializer.when(validNextBuildJSONOne, thenReturn: validNextBuildResultOne)
+                mockBuildDataDeserializer.when(validNextBuildJSONTwo, thenReturn: validNextBuildResultTwo)
             }
 
             describe("Deserializing jobs data that is all valid") {
-                let mockBuildOutput = Build(
-                    id: 5,
-                    name: "name",
-                    teamName: "teamName",
-                    jobName: "jobName",
-                    status: .errored,
-                    pipelineName: "pipelineName",
-                    endTime: 10
-                )
-
                 beforeEach {
-                    let validDataJSONArray = [
-                        [
-                            "name" : "turtle job",
-                            "finished_build" : [ "turtle_key" : "turtle_value" ]
-                        ],
-                        [
-                            "name" : "crab job",
-                            "finished_build" : [ "crab_key" : "crab_value" ]
-                        ]
-                    ]
+                    let validInputJSON = JSON([
+                        validJobJSONOne,
+                        validJobJSONTwo
+                    ])
 
-                    mockBuildDataDeserializer.toReturnBuild = mockBuildOutput
-
-                    let validData = try! JSONSerialization.data(withJSONObject: validDataJSONArray, options: .prettyPrinted)
+                    let validData = try! validInputJSON.rawData(options: .prettyPrinted)
                     result = StreamResult(subject.deserialize(validData))
                 }
 
@@ -71,15 +131,8 @@ class JobsDataDeserializerSpec: QuickSpec {
                         return
                     }
 
-                    expect(jobs[0]).to(equal(Job(name: "turtle job", builds: [mockBuildOutput])))
-                    expect(jobs[1]).to(equal(Job(name: "crab job", builds: [mockBuildOutput])))
-                }
-
-                it("used the \(BuildDataDeserializer.self) to deserialize build data") {
-                    let expectedDeserializerTurtleInput = try! JSONSerialization.data(withJSONObject: ["turtle_key":"turtle_value"], options: .prettyPrinted)
-                    let expectedDeserializerCrabInput = try! JSONSerialization.data(withJSONObject: ["crab_key":"crab_value"], options: .prettyPrinted)
-                    expect(mockBuildDataDeserializer.capturedInputList).to(contain(expectedDeserializerTurtleInput))
-                    expect(mockBuildDataDeserializer.capturedInputList).to(contain(expectedDeserializerCrabInput))
+                    expect(jobs[0]).to(equal(Job(name: "turtle job", nextBuild: validNextBuildResultOne, finishedBuild: validFinishedBuildResultOne)))
+                    expect(jobs[1]).to(equal(Job(name: "crab job", nextBuild: validNextBuildResultTwo, finishedBuild: validFinishedBuildResultTwo)))
                 }
 
                 it("returns no error") {
@@ -88,31 +141,22 @@ class JobsDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing job data where some of the data is invalid") {
-                let mockBuildOutput = BuildBuilder().withName("build from deserializer").build()
-
-                beforeEach {
-                    mockBuildDataDeserializer.toReturnBuild = mockBuildOutput
-                }
-
                 context("Missing required 'name' field") {
                     beforeEach {
-                        let partiallyValidDataJSONArray = [
-                            [
-                                "name" : "turtle job",
-                                "finished_build" : [ "turtle_key" : "turtle_value" ]
-                            ],
-                            [
-                                "somethingelse" : "value",
-                                "finished_build" : [ "turtle_key" : "turtle_value" ]
-                            ]
-                        ]
+                        var invalidJobJSON: JSON! = validJobJSONTwo
+                        _ = invalidJobJSON.dictionaryObject?.removeValue(forKey: "name")
 
-                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
-                        result = StreamResult(subject.deserialize(partiallyValidData))
+                        let inputJSON = JSON([
+                            validJobJSONOne,
+                            invalidJobJSON
+                        ])
+
+                        let invalidData = try! inputJSON.rawData(options: .prettyPrinted)
+                        result = StreamResult(subject.deserialize(invalidData))
                     }
 
                     it("emits a job only for each valid JSON job entry") {
-                        expect(jobs).to(equal([Job(name: "turtle job", builds: [mockBuildOutput])]))
+                        expect(jobs).to(equal([Job(name: "turtle job", nextBuild: validNextBuildResultOne, finishedBuild: validFinishedBuildResultOne)]))
                     }
 
                     it("emits completed") {
@@ -122,23 +166,20 @@ class JobsDataDeserializerSpec: QuickSpec {
 
                 context("'name' field is not a string") {
                     beforeEach {
-                        let partiallyValidDataJSONArray = [
-                            [
-                                "name" : "turtle job",
-                                "finished_build" : [ "turtle_key" : "turtle_value" ]
-                            ],
-                            [
-                                "name" : 1,
-                                "finished_build" : [ "turtle_key" : "turtle_value" ]
-                            ]
-                        ]
+                        var invalidJobJSON: JSON! = validJobJSONTwo
+                        _ = invalidJobJSON.dictionaryObject?.updateValue(1, forKey: "name")
 
-                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
-                        result = StreamResult(subject.deserialize(partiallyValidData))
+                        let inputJSON = JSON([
+                            validJobJSONOne,
+                            invalidJobJSON
+                        ])
+
+                        let invalidData = try! inputJSON.rawData(options: .prettyPrinted)
+                        result = StreamResult(subject.deserialize(invalidData))
                     }
 
                     it("emits a job only for each valid JSON job entry") {
-                        expect(jobs).to(equal([Job(name: "turtle job", builds: [mockBuildOutput])]))
+                        expect(jobs).to(equal([Job(name: "turtle job", nextBuild: validNextBuildResultOne, finishedBuild: validFinishedBuildResultOne)]))
                     }
 
                     it("emits completed") {
@@ -146,50 +187,23 @@ class JobsDataDeserializerSpec: QuickSpec {
                     }
                 }
 
-                context("Missing required 'finished_build' field") {
+                context("Missing both 'next_build' and 'finished_build' fields simulataneously") {
                     beforeEach {
-                        let partiallyValidDataJSONArray = [
-                            [
-                                "name" : "turtle job"
-                            ],
-                            [
-                                "name" : "value",
-                                "finished_build" : [ "turtle_key" : "turtle_value" ]
-                            ]
-                        ]
+                        var invalidJobJSON: JSON! = validJobJSONTwo
+                        _ = invalidJobJSON.dictionaryObject?.removeValue(forKey: "next_build")
+                        _ = invalidJobJSON.dictionaryObject?.removeValue(forKey: "finished_build")
 
-                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
-                        result = StreamResult(subject.deserialize(partiallyValidData))
+                        let inputJSON = JSON([
+                            validJobJSONOne,
+                            invalidJobJSON
+                        ])
+
+                        let invalidData = try! inputJSON.rawData(options: .prettyPrinted)
+                        result = StreamResult(subject.deserialize(invalidData))
                     }
 
                     it("emits a job only for each valid JSON job entry") {
-                        expect(jobs).to(equal([Job(name: "value", builds: [mockBuildOutput])]))
-                    }
-
-                    it("emits completed") {
-                        expect(result.completed).to(beTrue())
-                    }
-                }
-
-                context("'finished_build' field is not a dictionary") {
-                    beforeEach {
-                        let partiallyValidDataJSONArray = [
-                            [
-                                "name" : "turtle job",
-                                "finished_build" : "not a dictionary",
-                            ],
-                            [
-                                "name" : "crab job",
-                                "finished_build" : [ "key" : "value" ]
-                            ]
-                        ]
-
-                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
-                        result = StreamResult(subject.deserialize(partiallyValidData))
-                    }
-
-                    it("emits a job only for each valid JSON job entry") {
-                        expect(jobs).to(equal([Job(name: "crab job", builds: [mockBuildOutput])]))
+                        expect(jobs).to(equal([Job(name: "turtle job", nextBuild: validNextBuildResultOne, finishedBuild: validFinishedBuildResultOne)]))
                     }
 
                     it("emits completed") {

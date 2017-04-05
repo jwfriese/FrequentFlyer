@@ -33,16 +33,17 @@ class BuildDataDeserializerSpec: QuickSpec {
                     ("id", 2),
                     ("name", "turtle build name"),
                     ("team_name", "turtle team name"),
-                    ("status", "status 2"),
                     ("job_name", "turtle job name"),
+                    ("status", "status 2"),
                     ("pipeline_name", "turtle pipeline name"),
+                    ("start_time", 5000),
                     ("end_time", 10000)
                 ])
             }
 
             describe("Deserializing build data that is all valid") {
                 var result: (build: Build?, error: DeserializationError?)
-                var interpretedStatus = BuildStatus.failed
+                let interpretedStatus = BuildStatus.failed
 
                 beforeEach {
                     mockBuildStatusInterpreter.toReturnInterpretedStatus = interpretedStatus
@@ -58,6 +59,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                         jobName: "turtle job name",
                         status: interpretedStatus,
                         pipelineName: "turtle pipeline name",
+                        startTime: 5000,
                         endTime: 10000
                     )
 
@@ -313,10 +315,10 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
                 }
 
-                context("Missing required 'endTime' field") {
+                context("'startTime' field is present and not a uint") {
                     beforeEach {
                         var invalidBuildJSON: JSON! = validBuildJSON
-                        _ = invalidBuildJSON.dictionaryObject?.removeValue(forKey: "end_time")
+                        _ = invalidBuildJSON.dictionaryObject?.updateValue("value", forKey: "start_time")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
                         result = subject.deserialize(invalidData)
@@ -327,11 +329,11 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error).to(equal(DeserializationError(details: "Missing required 'end_time' field", type: .missingRequiredData)))
+                        expect(result.error).to(equal(DeserializationError(details: "Expected value for 'start_time' field to be an unsigned integer", type: .typeMismatch)))
                     }
                 }
 
-                context("'endTime' field is not a uint") {
+                context("'endTime' field is present and not a uint") {
                     beforeEach {
                         var invalidBuildJSON: JSON! = validBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.updateValue("value", forKey: "end_time")

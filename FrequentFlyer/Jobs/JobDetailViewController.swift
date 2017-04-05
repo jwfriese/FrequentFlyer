@@ -8,13 +8,13 @@ class JobDetailViewController: UIViewController {
     var job: Job?
 
     class var storyboardIdentifier: String { get { return "JobDetail" } }
-    class var embedJobControlPanelSegueId: String { get { return "EmbedJobControlPanel" } }
+    class var embedJobControlPanelSegueId: String { get { return "EmbedBuildControlPanel" } }
     class var embedLogsSegueId: String { get { return "EmbedLogs" } }
 
-    weak var controlPanel: JobControlPanelViewController? {
+    weak var controlPanel: BuildControlPanelViewController? {
         return childViewControllers.first { controller in
-            return controller is JobControlPanelViewController
-            } as? JobControlPanelViewController
+            return controller is BuildControlPanelViewController
+            } as? BuildControlPanelViewController
     }
 
     weak var logsPane: LogsViewController? {
@@ -34,11 +34,20 @@ class JobDetailViewController: UIViewController {
 
         title = job.name
 
+        var build: Build!
+        if job.nextBuild != nil {
+            build = job.nextBuild
+        } else if job.finishedBuild != nil {
+            build = job.finishedBuild
+        } else {
+            return
+        }
+
         controlPanel.target = target
         controlPanel.pipeline = pipeline
-        controlPanel.setJob(job)
+        controlPanel.setBuild(build)
 
-        logsPane.build = job.builds.first
+        logsPane.build = build
         logsPane.target = target
         logsPane.fetchLogs()
     }

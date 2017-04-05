@@ -7,7 +7,8 @@ class BuildBuilder {
     private var nextJobName = "jobName"
     private var nextStatus = BuildStatus.pending
     private var nextPipelineName = "pipelineName"
-    private var nextEndTime = UInt(100)
+    private var nextStartTime: UInt? = UInt(50)
+    private var nextEndTime: UInt? = UInt(100)
 
     private func reset() {
         nextId = 1
@@ -16,6 +17,7 @@ class BuildBuilder {
         nextJobName = "jobName"
         nextStatus = BuildStatus.pending
         nextPipelineName = "pipelineName"
+        nextStartTime = UInt(50)
         nextEndTime = UInt(100)
     }
 
@@ -31,6 +33,7 @@ class BuildBuilder {
             jobName: nextJobName,
             status: nextStatus,
             pipelineName: nextPipelineName,
+            startTime: nextStartTime,
             endTime: nextEndTime
         )
 
@@ -68,7 +71,12 @@ class BuildBuilder {
         return self
     }
 
-    func withEndTime(_ endTime: UInt) -> BuildBuilder {
+    func withStartTime(_ startTime: UInt?) -> BuildBuilder {
+        nextStartTime = startTime
+        return self
+    }
+
+    func withEndTime(_ endTime: UInt?) -> BuildBuilder {
         nextEndTime = endTime
         return self
     }
