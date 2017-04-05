@@ -592,6 +592,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2i-Oe-LmB" userLabel="Time Header Label">
+                                <rect key="frame" x="166" y="17" width="161" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uso-2E-BWq">
                                 <rect key="frame" x="50" y="42" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -618,18 +624,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="IZs-2T-Gx7" firstAttribute="top" secondItem="o2i-Oe-LmB" secondAttribute="bottom" constant="4" id="5DD-Ef-llk"/>
                             <constraint firstItem="I3X-sh-W5u" firstAttribute="leading" secondItem="Uso-2E-BWq" secondAttribute="leading" id="62m-n4-hha"/>
                             <constraint firstItem="IZs-2T-Gx7" firstAttribute="centerY" secondItem="Uso-2E-BWq" secondAttribute="centerY" id="9qa-bE-Jqc"/>
                             <constraint firstItem="IZs-2T-Gx7" firstAttribute="centerX" secondItem="xnc-Wx-g7R" secondAttribute="centerX" id="A0d-kS-0TW"/>
                             <constraint firstItem="8iT-fk-Ljw" firstAttribute="centerY" secondItem="IZs-2T-Gx7" secondAttribute="centerY" id="AMf-Wq-fjg"/>
                             <constraint firstItem="I3X-sh-W5u" firstAttribute="height" secondItem="xnc-Wx-g7R" secondAttribute="height" multiplier="0.282" id="DdA-cO-BQn"/>
                             <constraint firstItem="Uso-2E-BWq" firstAttribute="leading" secondItem="xnc-Wx-g7R" secondAttribute="leadingMargin" constant="33.5" id="E4B-eS-g9n"/>
+                            <constraint firstItem="o2i-Oe-LmB" firstAttribute="leading" secondItem="IZs-2T-Gx7" secondAttribute="leading" id="Oa4-Bn-F7u"/>
                             <constraint firstItem="8iT-fk-Ljw" firstAttribute="width" secondItem="xnc-Wx-g7R" secondAttribute="width" multiplier="0.152" id="PIk-mn-HBQ"/>
                             <constraint firstItem="Uso-2E-BWq" firstAttribute="top" secondItem="xnc-Wx-g7R" secondAttribute="topMargin" constant="41.5" id="Pga-Qx-lL1"/>
                             <constraint firstItem="I3X-sh-W5u" firstAttribute="width" secondItem="xnc-Wx-g7R" secondAttribute="width" multiplier="0.4" id="ffB-aJ-Ndt"/>
                             <constraint firstItem="I3X-sh-W5u" firstAttribute="top" secondItem="Uso-2E-BWq" secondAttribute="bottom" constant="20" id="jhq-FF-Uyh"/>
                             <constraint firstItem="8iT-fk-Ljw" firstAttribute="height" secondItem="xnc-Wx-g7R" secondAttribute="height" multiplier="0.133333" id="loy-1t-3mF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8iT-fk-Ljw" secondAttribute="trailing" constant="20" id="tcU-rL-2ib"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="o2i-Oe-LmB" secondAttribute="trailing" constant="32" id="wdf-T5-Bog"/>
                         </constraints>
                     </view>
                     <connections>
@@ -637,6 +646,7 @@
                         <outlet property="latestJobLastEventTimeLabel" destination="IZs-2T-Gx7" id="2OX-lF-M8k"/>
                         <outlet property="latestJobNameLabel" destination="Uso-2E-BWq" id="gBb-hG-tdl"/>
                         <outlet property="retriggerButton" destination="I3X-sh-W5u" id="5eM-vy-NpG"/>
+                        <outlet property="timeHeaderLabel" destination="o2i-Oe-LmB" id="DWi-vY-3Q8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lLw-Mz-zRh" userLabel="First Responder" sceneMemberID="firstResponder"/>

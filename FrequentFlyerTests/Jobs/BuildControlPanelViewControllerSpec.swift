@@ -65,19 +65,44 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
                 }
 
                 describe("Setting up the build") {
+                    describe("When the build has an end time") {
+                        beforeEach {
+                            let build = BuildBuilder().withName("the last build").withStartTime(1000).withEndTime(1030).build()
+                            mockElapsedTimePrinter.toReturnResult = "X s ago"
+                            subject.setBuild(build)
+                        }
+
+                        it("displays the name of the build") {
+                            expect(subject.latestJobNameLabel?.text).toEventually(equal("#the last build"))
+                        }
+
+                        it("displays the time elapsed since the build finished") {
+                            expect(mockElapsedTimePrinter.capturedTime).to(equal(1030))
+                            expect(subject.latestJobLastEventTimeLabel?.text).toEventually(equal("X s ago"))
+                        }
+
+                        it("sets the time title label to 'Finished'") {
+                            expect(subject.timeHeaderLabel?.text).to(equal("Finished"))
+                        }
+                    }
+
                     describe("When the build has a start time") {
                         beforeEach {
                             let build = BuildBuilder().withName("the next build").withStartTime(1000).withEndTime(nil).build()
                             subject.setBuild(build)
                         }
 
-                        it("displays the name of the next build") {
+                        it("displays the name of the build") {
                             expect(subject.latestJobNameLabel?.text).toEventually(equal("#the next build"))
                         }
 
-                        it("displays the time elapsed since the next build started") {
+                        it("displays the time elapsed since the build started") {
                             expect(mockElapsedTimePrinter.capturedTime).to(equal(1000))
                             expect(subject.latestJobLastEventTimeLabel?.text).toEventually(equal("1 min ago"))
+                        }
+
+                        it("sets the time title label to 'Started'") {
+                            expect(subject.timeHeaderLabel?.text).to(equal("Started"))
                         }
                     }
 
@@ -87,13 +112,17 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
                             subject.setBuild(build)
                         }
 
-                        it("displays the name of the next build") {
+                        it("displays the name of the build") {
                             expect(subject.latestJobNameLabel?.text).toEventually(equal("#the next build"))
                         }
 
                         it("displays two dashes for the time label") {
                             expect(mockElapsedTimePrinter.capturedTime).to(beNil())
                             expect(subject.latestJobLastEventTimeLabel?.text).toEventually(equal("--"))
+                        }
+
+                        it("sets the time title label to a blank string ''") {
+                            expect(subject.timeHeaderLabel?.text).to(equal(""))
                         }
                     }
 

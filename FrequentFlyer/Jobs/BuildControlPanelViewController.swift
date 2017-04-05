@@ -1,6 +1,7 @@
 import UIKit
 
 class BuildControlPanelViewController: UIViewController {
+    @IBOutlet weak var timeHeaderLabel: UILabel?
     @IBOutlet weak var latestJobNameLabel: UILabel?
     @IBOutlet weak var latestJobLastEventTimeLabel: UILabel?
     @IBOutlet weak var buildStatusBadge: BuildStatusBadge?
@@ -26,6 +27,9 @@ class BuildControlPanelViewController: UIViewController {
         latestJobLastEventTimeLabel?.font = Style.Fonts.regular(withSize: 22)
         latestJobLastEventTimeLabel?.textColor = Style.Colors.darkInfoLabel
 
+        timeHeaderLabel?.font = Style.Fonts.regular(withSize: 14)
+        timeHeaderLabel?.textColor = Style.Colors.darkInfoLabel
+
         retriggerButton?.setUp(withTitleText: "Retrigger",
                                titleFont: Style.Fonts.button,
                                controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
@@ -41,12 +45,14 @@ class BuildControlPanelViewController: UIViewController {
         if let endTime = build.endTime {
             let timeSinceBuildEnded = TimeInterval(endTime)
             latestJobLastEventTimeLabel?.text = elapsedTimePrinter.printTime(since: timeSinceBuildEnded)
-        }
-        else if let startTime = build.startTime {
+            timeHeaderLabel?.text = "Finished"
+        } else if let startTime = build.startTime {
             let timeSinceBuildStarted = TimeInterval(startTime)
             latestJobLastEventTimeLabel?.text = elapsedTimePrinter.printTime(since: timeSinceBuildStarted)
+            timeHeaderLabel?.text = "Started"
         } else {
             latestJobLastEventTimeLabel?.text = "--"
+            timeHeaderLabel?.text = ""
         }
     }
 
