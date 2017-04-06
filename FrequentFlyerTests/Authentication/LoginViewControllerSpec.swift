@@ -217,7 +217,7 @@ class LoginViewControllerSpec: QuickSpec {
 
                             let alert = screen?.topmostViewController as? UIAlertController
                             expect(alert?.title).toEventually(equal("Authorization Failed"))
-                            expect(alert?.message).toEventually(equal("turtle authentication error"))
+                            expect(alert?.message).toEventually(equal("Please check that the username and password you entered are correct."))
                         }
 
                         it("re-enables the log in button") {

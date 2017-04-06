@@ -88,7 +88,7 @@ class LoginViewController: UIViewController {
         },
             onError: { error in
                 let alert = UIAlertController(title: "Authorization Failed",
-                                              message: error.localizedDescription,
+                                              message: "Please check that the username and password you entered are correct.",
                                               preferredStyle: .alert
                 )
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
