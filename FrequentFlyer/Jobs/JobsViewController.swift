@@ -6,6 +6,7 @@ class JobsViewController: UIViewController {
     @IBOutlet weak var jobsTableView: UITableView?
 
     var jobsService = JobsService()
+    var elapsedTimePrinter = ElapsedTimePrinter()
 
     var pipeline: Pipeline?
     var target: Target?
@@ -41,6 +42,16 @@ class JobsViewController: UIViewController {
                     .items(cellIdentifier: JobsTableViewCell.cellReuseIdentifier, cellType: JobsTableViewCell.self)) {
                         index, job, cell in
                         cell.jobNameLabel?.text = job.name
+                        if let nextBuild = job.nextBuild {
+                            cell.latestJobLastEventTimeLabel?.text = self.elapsedTimePrinter.printTime(since: TimeInterval(nextBuild.startTime))
+                            cell.buildStatusBadge?.setUp(for: nextBuild.status)
+                        } else if let finishedBuild = job.finishedBuild {
+                            cell.latestJobLastEventTimeLabel?.text = self.elapsedTimePrinter.printTime(since: TimeInterval(finishedBuild.endTime))
+                            cell.buildStatusBadge?.setUp(for: finishedBuild.status)
+                        } else {
+                            cell.latestJobLastEventTimeLabel?.text = "--"
+                            cell.buildStatusBadge?.isHidden = true
+                        }
             }
             .disposed(by: disposeBag)
     }

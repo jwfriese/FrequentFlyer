@@ -2,6 +2,7 @@ import UIKit
 
 class BuildStatusBadge: UIView {
     private var contentView: UIView!
+    var status: BuildStatus?
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -26,6 +27,8 @@ class BuildStatusBadge: UIView {
     }
 
     func setUp(for buildStatus: BuildStatus) {
+        status = buildStatus
+
         var text = ""
         var badgeColor = UIColor.black
 

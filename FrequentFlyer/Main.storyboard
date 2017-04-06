@@ -502,20 +502,39 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agy-nO-Sh9" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agy-nO-Sh9" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
                                                     <rect key="frame" x="28" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIy-Hn-gvC">
+                                                    <rect key="frame" x="150" y="11" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5jQ-qJ-VID" customClass="BuildStatusBadge" customModule="FrequentFlyer" customModuleProvider="target">
+                                                    <rect key="frame" x="245.5" y="12" width="69.5" height="18"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Agy-nO-Sh9" firstAttribute="leading" secondItem="MlN-bw-Itq" secondAttribute="leadingMargin" constant="20" id="5VU-Mn-Vip"/>
+                                                <constraint firstItem="sIy-Hn-gvC" firstAttribute="centerY" secondItem="MlN-bw-Itq" secondAttribute="centerY" id="MHv-vl-y9e"/>
+                                                <constraint firstItem="5jQ-qJ-VID" firstAttribute="width" secondItem="MlN-bw-Itq" secondAttribute="width" multiplier="0.202" id="f7v-s1-3EE"/>
+                                                <constraint firstItem="5jQ-qJ-VID" firstAttribute="centerY" secondItem="MlN-bw-Itq" secondAttribute="centerY" id="gqQ-Nd-G7H"/>
+                                                <constraint firstItem="sIy-Hn-gvC" firstAttribute="leading" secondItem="Agy-nO-Sh9" secondAttribute="trailing" constant="8" id="p2O-ei-u4A"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="5jQ-qJ-VID" secondAttribute="trailing" constant="20" id="u0b-Kv-Vms"/>
+                                                <constraint firstItem="5jQ-qJ-VID" firstAttribute="leading" secondItem="sIy-Hn-gvC" secondAttribute="trailing" constant="8" id="wnu-K5-nya"/>
+                                                <constraint firstItem="5jQ-qJ-VID" firstAttribute="height" secondItem="MlN-bw-Itq" secondAttribute="height" multiplier="0.416667" id="z6h-vl-cf2"/>
                                                 <constraint firstItem="Agy-nO-Sh9" firstAttribute="centerY" secondItem="MlN-bw-Itq" secondAttribute="centerY" id="zpP-BH-e9s"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="buildStatusBadge" destination="5jQ-qJ-VID" id="Vac-cP-YXy"/>
                                             <outlet property="jobNameLabel" destination="Agy-nO-Sh9" id="RlD-8h-pa1"/>
+                                            <outlet property="latestJobLastEventTimeLabel" destination="sIy-Hn-gvC" id="JX0-sf-hDR"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -32,6 +32,15 @@ class ElapsedTimePrinterSpec: QuickSpec {
             describe("Printing a human-readable representation of time elapsed") {
                 var result: String!
 
+                describe("When input it nil") {
+                    beforeEach {
+                        result = subject.printTime(since: nil)
+                    }
+
+                    it("pretty prints") {
+                        expect(result).to(equal("--"))
+                    }
+                }
                 describe("When the given time is in the past") {
                     describe("When the time is less than a minute ago") {
                         beforeEach {

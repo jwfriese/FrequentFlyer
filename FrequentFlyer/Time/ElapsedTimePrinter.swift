@@ -3,8 +3,12 @@ import Foundation
 class ElapsedTimePrinter {
     var timepiece = Timepiece()
 
-    func printTime(since timeSinceEpochInSeconds: TimeInterval) -> String {
-        let inputAsDate = Date(timeIntervalSince1970: timeSinceEpochInSeconds)
+    func printTime(since timeSinceEpochInSeconds: TimeInterval?) -> String {
+        guard let input = timeSinceEpochInSeconds else {
+            return "--"
+        }
+
+        let inputAsDate = Date(timeIntervalSince1970: input)
         let now = timepiece.now()
         let timePassed = now.timeIntervalSince(inputAsDate)
 

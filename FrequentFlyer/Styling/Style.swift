@@ -8,6 +8,7 @@ class Style {
         static var titledTextFieldTitleLabelColor = UIColor(colorLiteralRed: 92/255, green: 109/255, blue: 127/255, alpha: 1)
         static var titledTextFieldContentColor = UIColor(colorLiteralRed: 92/255, green: 109/255, blue: 127/255, alpha: 1)
         static var buttonNormal = UIColor(colorLiteralRed: 77/255, green: 169/255, blue: 225/255, alpha: 1)
+        static var veryLightInfoLabel = UIColor(colorLiteralRed: 137/255, green: 157/255, blue: 178/255, alpha: 1)
         static var lightInfoLabel = UIColor(colorLiteralRed: 92/255, green: 109/255, blue: 127/255, alpha: 1)
         static var darkInfoLabel = UIColor(colorLiteralRed: 25/255, green: 37/255, blue: 47/255, alpha: 1)
         static var navigationBar = UIColor(colorLiteralRed: 77/255, green: 169/255, blue: 225/255, alpha: 1)

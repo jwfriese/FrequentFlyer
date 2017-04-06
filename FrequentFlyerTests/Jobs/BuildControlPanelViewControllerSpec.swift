@@ -25,7 +25,7 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
             var capturedTime: TimeInterval?
             var toReturnResult = ""
 
-            override func printTime(since timePassedInSeconds: TimeInterval) -> String {
+            override func printTime(since timePassedInSeconds: TimeInterval?) -> String {
                 capturedTime = timePassedInSeconds
                 return toReturnResult
             }

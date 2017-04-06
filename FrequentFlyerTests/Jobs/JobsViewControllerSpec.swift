@@ -19,10 +19,21 @@ class JobsViewControllerSpec: QuickSpec {
         }
     }
 
+    class MockElapsedTimePrinter: ElapsedTimePrinter {
+        var capturedTime: TimeInterval?
+        var toReturnResult = ""
+
+        override func printTime(since timePassedInSeconds: TimeInterval?) -> String {
+            capturedTime = timePassedInSeconds
+            return toReturnResult
+        }
+    }
+
     override func spec() {
         describe("JobsViewController") {
             var subject: JobsViewController!
             var mockJobsService: MockJobsService!
+            var mockElapsedTimePrinter: MockElapsedTimePrinter!
 
             var mockJobDetailViewController: JobDetailViewController!
 
@@ -46,10 +57,14 @@ class JobsViewControllerSpec: QuickSpec {
 
                 mockJobsService = MockJobsService()
                 subject.jobsService = mockJobsService
+
+                mockElapsedTimePrinter = MockElapsedTimePrinter()
+                subject.elapsedTimePrinter = mockElapsedTimePrinter
             }
 
             describe("After the view loads") {
                 beforeEach {
+                    mockElapsedTimePrinter.toReturnResult = "5 min ago"
                     let _ = Fleet.setInAppWindowRootNavigation(subject)
                 }
 
@@ -77,16 +92,21 @@ class JobsViewControllerSpec: QuickSpec {
 
                 describe("When the \(JobsService.self) resolves with jobs") {
                     beforeEach {
-                        let turtleJob = Job(name: "turtle job", nextBuild: nil, finishedBuild: nil)
-                        let crabJob = Job(name: "crab job", nextBuild: nil, finishedBuild: nil)
+                        let finishedTurtleBuild = BuildBuilder().withStatus(.failed).withEndTime(1000).build()
+                        let turtleJob = Job(name: "turtle job", nextBuild: nil, finishedBuild: finishedTurtleBuild)
 
-                        mockJobsService.jobsSubject.onNext([turtleJob, crabJob])
+                        let nextCrabBuild = BuildBuilder().withStatus(.pending).withStartTime(500).build()
+                        let crabJob = Job(name: "crab job", nextBuild: nextCrabBuild, finishedBuild: nil)
+
+                        let puppyJob = Job(name: "puppy job", nextBuild: nil, finishedBuild: nil)
+
+                        mockJobsService.jobsSubject.onNext([turtleJob, crabJob, puppyJob])
                         mockJobsService.jobsSubject.onCompleted()
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 
                     it("inserts a row for each job returned by the service") {
-                        expect(subject.jobsTableView?.numberOfRows(inSection: 0)).toEventually(equal(2))
+                        expect(subject.jobsTableView?.numberOfRows(inSection: 0)).toEventually(equal(3))
                     }
 
                     it("creates a cell in each row for each build with correct pipeline name returned by the service") {
@@ -103,6 +123,46 @@ class JobsViewControllerSpec: QuickSpec {
                             return
                         }
                         expect(cellTwo.jobNameLabel?.text).to(equal("crab job"))
+
+                        let cellThreeOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 2, section: 0))
+                        guard let cellThree = cellThreeOpt as? JobsTableViewCell else {
+                            fail("Failed to fetch a \(JobsTableViewCell.self)")
+                            return
+                        }
+                        expect(cellThree.jobNameLabel?.text).to(equal("puppy job"))
+                    }
+
+                    it("will display data about the latest finished build if no next build available") {
+                        let cellOneOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 0, section: 0))
+                        guard let cellOne = cellOneOpt as? JobsTableViewCell else {
+                            fail("Failed to fetch a \(JobsTableViewCell.self)")
+                            return
+                        }
+
+                        expect(cellOne.latestJobLastEventTimeLabel?.text).to(equal("5 min ago"))
+                        expect(cellOne.buildStatusBadge?.status).to(equal(BuildStatus.failed))
+                    }
+
+                    it("will display data about the next build if one is available") {
+                        let cellTwoOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 1, section: 0))
+                        guard let cellTwo = cellTwoOpt as? JobsTableViewCell else {
+                            fail("Failed to fetch a \(JobsTableViewCell.self)")
+                            return
+                        }
+
+                        expect(cellTwo.latestJobLastEventTimeLabel?.text).to(equal("5 min ago"))
+                        expect(cellTwo.buildStatusBadge?.status).to(equal(BuildStatus.pending))
+                    }
+
+                    it("will display '--' and no status badge if neither type of build is available") {
+                        let cellThreeOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 2, section: 0))
+                        guard let cellThree = cellThreeOpt as? JobsTableViewCell else {
+                            fail("Failed to fetch a \(JobsTableViewCell.self)")
+                            return
+                        }
+
+                        expect(cellThree.latestJobLastEventTimeLabel?.text).to(equal("--"))
+                        expect(cellThree.buildStatusBadge?.isHidden).to(beTrue())
                     }
 
                     describe("Selecting one of the job cells") {
@@ -116,7 +176,7 @@ class JobsViewControllerSpec: QuickSpec {
                             }
 
                             expect(jobDetailViewController()).toEventually(beIdenticalTo(mockJobDetailViewController))
-                            expect(jobDetailViewController()?.job).toEventually(equal(Job(name: "crab job", nextBuild: nil, finishedBuild: nil)))
+                            expect(jobDetailViewController()?.job?.name).toEventually(equal("crab job"))
 
                             let expectedPipeline = Pipeline(name: "turtle pipeline")
                             expect(jobDetailViewController()?.pipeline).toEventually(equal(expectedPipeline))
