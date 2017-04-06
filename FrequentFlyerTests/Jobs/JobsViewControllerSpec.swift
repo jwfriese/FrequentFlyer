@@ -189,6 +189,13 @@ class JobsViewControllerSpec: QuickSpec {
                             )
                             expect(jobDetailViewController()?.target).toEventually(equal(expectedTarget))
                         }
+
+                        it("immediately deselects the cell") {
+                            let selectedCell = subject.jobsTableView?.cellForRow(at: IndexPath(row: 0, section: 0))
+                            expect(selectedCell).toEventuallyNot(beNil())
+                            expect(selectedCell?.isHighlighted).toEventually(beFalse())
+                            expect(selectedCell?.isSelected).toEventually(beFalse())
+                        }
                     }
                 }
             }

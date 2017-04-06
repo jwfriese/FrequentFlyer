@@ -117,5 +117,6 @@ extension TeamPipelinesViewController: UITableViewDataSource {
 extension TeamPipelinesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: TeamPipelinesViewController.showJobsSegueId, sender: indexPath)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }

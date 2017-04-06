@@ -213,7 +213,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                     describe("Tapping one of the cells") {
                         beforeEach {
-                            subject.tableView(subject.teamPipelinesTableView!, didSelectRowAt: IndexPath(row: 0, section: 0))
+                            try! subject.teamPipelinesTableView!.selectRow(at: IndexPath(row: 0, section: 0))
                         }
 
                         it("sets up and presents the pipeline's jobs page") {
@@ -230,6 +230,13 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                                                         token: Token(value: "turtle token value")
                             )
                             expect(jobsViewController()?.target).toEventually(equal(expectedTarget))
+                        }
+
+                        it("immediately deselects the cell") {
+                            let selectedCell = subject.teamPipelinesTableView?.cellForRow(at: IndexPath(row: 0, section: 0))
+                            expect(selectedCell).toEventuallyNot(beNil())
+                            expect(selectedCell?.isHighlighted).toEventually(beFalse())
+                            expect(selectedCell?.isSelected).toEventually(beFalse())
                         }
                     }
                 }
