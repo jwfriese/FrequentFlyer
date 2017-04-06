@@ -1,7 +1,16 @@
 class StylingDescriptorBuilder {
     fileprivate var openingStylingDescriptors: [String] {
         get {
-            return ["[1m", "[0;32m", "[32m", "[33m", "[36m", "[91m"]
+            return [
+                "[1m",
+                "[0;32m",
+                "[31m",
+                "[32m",
+                "[33m",
+                "[36m",
+                "[91m",
+                "[34;1m"
+            ]
         }
     }
 
