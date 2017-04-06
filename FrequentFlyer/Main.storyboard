@@ -256,6 +256,7 @@
                         <outlet property="gitHubAuthButton" destination="0eV-co-R3z" id="hlI-K2-kSO"/>
                         <outlet property="gitHubAuthDisplayLabel" destination="3wI-sU-1O8" id="gd3-f8-Qpa"/>
                         <outlet property="passwordField" destination="GKR-TU-d5j" id="lSu-bd-Klr"/>
+                        <outlet property="scrollView" destination="3sd-hF-rkQ" id="sQZ-L9-wos"/>
                         <outlet property="stayLoggedInToggle" destination="jVa-Ws-Afp" id="1Ye-GD-X2W"/>
                         <outlet property="usernameField" destination="kcD-kb-tuD" id="5Ic-DC-msW"/>
                         <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="Gdb-7Z-m57"/>

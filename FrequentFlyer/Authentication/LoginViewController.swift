@@ -2,6 +2,7 @@ import UIKit
 import RxSwift
 
 class LoginViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView?
     @IBOutlet weak var usernameField: TitledTextField?
     @IBOutlet weak var passwordField: TitledTextField?
     @IBOutlet weak var stayLoggedInToggle: TitledCheckBox?
@@ -11,6 +12,7 @@ class LoginViewController: UIViewController {
 
     var basicAuthTokenService = BasicAuthTokenService()
     var keychainWrapper = KeychainWrapper()
+    var userTextInputPageOperator = UserTextInputPageOperator()
 
     var concourseURLString: String?
     var authMethods: [AuthMethod]?
@@ -132,6 +134,7 @@ extension LoginViewController {
             passwordField?.titleLabel?.text = "Password"
             stayLoggedInToggle?.titleLabel?.text = "Stay logged in?"
             passwordField?.textField?.isSecureTextEntry = true
+            userTextInputPageOperator.delegate = self
         } else {
             usernameField?.isHidden = true
             passwordField?.isHidden = true
@@ -150,5 +153,14 @@ extension LoginViewController {
             gitHubAuthButton?.isHidden = true
             gitHubAuthDisplayLabel?.isHidden = true
         }
+    }
+}
+
+extension LoginViewController: UserTextInputPageDelegate {
+    var pageView: UIView { get { return view } }
+    var pageScrollView: UIScrollView { get { return scrollView! } }
+
+    var textFields: [UITextField] {
+        get { return [usernameField!.textField!, passwordField!.textField!] }
     }
 }
