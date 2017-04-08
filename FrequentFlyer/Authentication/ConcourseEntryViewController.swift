@@ -14,6 +14,7 @@ class ConcourseEntryViewController: UIViewController {
     class var storyboardIdentifier: String { get { return "ConcourseEntry" } }
     class var showLoginSegueId: String { get { return "ShowLogin" } }
     class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
+    class var showGitHubAuthSegueId: String { get { return "ShowGitHubAuth" } }
 
     var authMethod$: Observable<AuthMethod>?
     var disposeBag = DisposeBag()
@@ -70,6 +71,13 @@ class ConcourseEntryViewController: UIViewController {
             teamPipelinesService.httpClient = HTTPClient()
             teamPipelinesService.pipelineDataDeserializer = PipelineDataDeserializer()
             teamPipelinesViewController.teamPipelinesService = teamPipelinesService
+        } else if segue.identifier == ConcourseEntryViewController.showGitHubAuthSegueId {
+            guard let gitHubAuthMethod = sender as? AuthMethod else { return }
+            guard let gitHubAuthViewController = segue.destination as? GitHubAuthViewController else { return }
+            guard let concourseURLString = concourseURLEntryField?.textField?.text else { return }
+
+            gitHubAuthViewController.concourseURLString = concourseURLString
+            gitHubAuthViewController.gitHubAuthURLString = gitHubAuthMethod.url
         }
     }
 
@@ -80,9 +88,23 @@ class ConcourseEntryViewController: UIViewController {
             authMethod$ = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
             authMethod$?.toArray().subscribe(
                 onNext: { authMethods in
-                    guard authMethods.count > 0 else { self.handleAuthMethodsError(concourseURLString) ; return }
+                    guard authMethods.count > 0 else {
+                        self.handleAuthMethodsError(concourseURLString)
+                        return
+                    }
+
+                    var segueIdentifier: String!
+                    var sender: Any!
+                    if authMethods.count == 1 && authMethods.first!.type == .gitHub {
+                        segueIdentifier = ConcourseEntryViewController.showGitHubAuthSegueId
+                        sender = authMethods.first!
+                    } else {
+                        segueIdentifier = ConcourseEntryViewController.showLoginSegueId
+                        sender = authMethods
+                    }
+
                     DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: ConcourseEntryViewController.showLoginSegueId, sender: authMethods)
+                        self.performSegue(withIdentifier: segueIdentifier, sender: sender)
                     }
             },
                 onError: { _ in

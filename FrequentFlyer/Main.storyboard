@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3d8-pO-wnR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3d8-pO-wnR">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -129,6 +129,7 @@
                         <outlet property="submitButton" destination="z9d-gU-Ttz" id="3Gb-DW-7Ze"/>
                         <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="vJK-D0-aXI"/>
                         <segue destination="lU6-MP-khL" kind="show" identifier="ShowLogin" id="zMW-N3-ZS9"/>
+                        <segue destination="1H1-8y-8ag" kind="show" identifier="ShowGitHubAuth" id="3HC-Bh-LrC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBl-dN-Z3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -717,7 +718,8 @@
         <image name="Gear" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="vJK-D0-aXI"/>
         <segue reference="mf8-JP-wQv"/>
-        <segue reference="8fK-Iz-ap1"/>
+        <segue reference="3HC-Bh-LrC"/>
     </inferredMetricsTieBreakers>
 </document>

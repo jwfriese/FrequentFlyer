@@ -38,12 +38,14 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
             var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
             var mockLoginViewController: LoginViewController!
+            var mockGitHubAuthViewController: GitHubAuthViewController!
             var mockTeamPipelinesViewController: TeamPipelinesViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 mockLoginViewController = try! storyboard.mockIdentifier(LoginViewController.storyboardIdentifier, usingMockFor: LoginViewController.self)
+                mockGitHubAuthViewController = try! storyboard.mockIdentifier(GitHubAuthViewController.storyboardIdentifier, usingMockFor: GitHubAuthViewController.self)
                 mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: ConcourseEntryViewController.storyboardIdentifier) as! ConcourseEntryViewController
@@ -213,6 +215,25 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                         it("sets the entered Concourse URL on the view controller") {
                             expect(mockLoginViewController.concourseURLString).toEventually(equal("https://concourse.com"))
+                        }
+                    }
+
+                    describe("When the auth methods service call resolves only with GitHub authentication") {
+                        beforeEach {
+                            let gitHubAuthMethod = AuthMethod(type: .gitHub, url: "gitHub-auth.com")
+                            returnAuthMethods([gitHubAuthMethod])
+                        }
+
+                        it("presents a GitHubAuthViewController") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockGitHubAuthViewController))
+                        }
+
+                        it("sets the entered Concourse URL on the view controller") {
+                            expect(mockGitHubAuthViewController.concourseURLString).toEventually(equal("https://concourse.com"))
+                        }
+
+                        it("sets the auth method's auth URL on the view controller") {
+                            expect(mockGitHubAuthViewController.gitHubAuthURLString).toEventually(equal("gitHub-auth.com"))
                         }
                     }
 
