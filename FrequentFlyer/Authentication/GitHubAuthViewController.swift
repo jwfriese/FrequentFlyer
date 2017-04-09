@@ -43,6 +43,11 @@ class GitHubAuthViewController: UIViewController {
         userTextInputPageOperator.delegate = self
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        openGitHubAuthPageButton?.isEnabled = true
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == GitHubAuthViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
@@ -70,6 +75,7 @@ class GitHubAuthViewController: UIViewController {
     }
 
     @IBAction func openGitHubAuthPageButtonTapped() {
+        openGitHubAuthPageButton?.isEnabled = false
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: GitHubAuthViewController.showGitHubAuthenticationWebPageSegueId, sender: nil)
         }

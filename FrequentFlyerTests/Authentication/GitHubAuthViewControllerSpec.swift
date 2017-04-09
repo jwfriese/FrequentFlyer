@@ -161,6 +161,10 @@ class GitHubAuthViewControllerSpec: QuickSpec {
                         expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockWebViewController))
                     }
 
+                    it("disables the button") {
+                        expect(subject.openGitHubAuthPageButton?.isEnabled).toEventually(beFalse())
+                    }
+
                     describe("The presented web view") {
                         it("is loaded with the given auth URL") {
                             let predicate: () -> Bool = {
