@@ -110,6 +110,7 @@ class LoginViewController: UIViewController {
         if let gitHubAuthDefinition = authMethods?.first(where: { method in
             return method.type == .gitHub
         }) {
+            self.gitHubAuthButton?.isEnabled = false
             performSegue(withIdentifier: LoginViewController.showGitHubAuthSegueId, sender: gitHubAuthDefinition.url)
         }
     }
@@ -153,6 +154,12 @@ extension LoginViewController {
             gitHubAuthButton?.isHidden = true
             gitHubAuthDisplayLabel?.isHidden = true
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        gitHubAuthButton?.isEnabled = true
     }
 }
 

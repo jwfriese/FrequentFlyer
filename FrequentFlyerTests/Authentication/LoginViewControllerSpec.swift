@@ -132,7 +132,7 @@ class LoginViewControllerSpec: QuickSpec {
                         try! subject.basicAuthLoginButton?.tap()
                     }
 
-                    it("calls out to the BasicAuthTokenService with the entered username and password") {
+                    it("calls out to the \(BasicAuthTokenService.self) with the entered username and password") {
                         expect(mockBasicAuthTokenService.capturedTeamName).to(equal("main"))
                         expect(mockBasicAuthTokenService.capturedConcourseURL).to(equal("concourse URL"))
                         expect(mockBasicAuthTokenService.capturedUsername).to(equal("turtle username"))
@@ -143,7 +143,7 @@ class LoginViewControllerSpec: QuickSpec {
                         expect(subject.basicAuthLoginButton!.isEnabled).to(beFalse())
                     }
 
-                    describe("When the BasicAuthTokenService resolves with a token") {
+                    describe("When the \(BasicAuthTokenService.self) resolves with a token") {
                         describe("When the 'Stay logged in?' toggle is off") {
                             beforeEach {
                                 subject.stayLoggedInToggle?.checkBox?.on = false
@@ -157,7 +157,7 @@ class LoginViewControllerSpec: QuickSpec {
                                 expect(mockKeychainWrapper.capturedTarget).to(beNil())
                             }
 
-                            it("replaces itself with the TeamPipelinesViewController") {
+                            it("replaces itself with the \(TeamPipelinesViewController.self)") {
                                 expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
                             }
 
@@ -183,7 +183,7 @@ class LoginViewControllerSpec: QuickSpec {
                                 mockBasicAuthTokenService.tokenSubject.onCompleted()
                             }
 
-                            it("replaces itself with the TeamPipelinesViewController") {
+                            it("replaces itself with the \(TeamPipelinesViewController.self)") {
                                 expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
                             }
 
@@ -194,7 +194,7 @@ class LoginViewControllerSpec: QuickSpec {
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
 
-                            it("asks the KeychainWrapper to save the newly created target") {
+                            it("asks the \(KeychainWrapper.self) to save the newly created target") {
                                 let expectedTarget = Target(name: "target", api: "concourse URL",
                                                             teamName: "main", token: Token(value: "turtle token")
                                 )
@@ -203,7 +203,7 @@ class LoginViewControllerSpec: QuickSpec {
                         }
                     }
 
-                    describe("When the BasicAuthTokenService resolves with an error") {
+                    describe("When the \(BasicAuthTokenService.self) resolves with an error") {
                         beforeEach {
                             let error = BasicError(details: "turtle authentication error")
                             mockBasicAuthTokenService.tokenSubject.onError(error)
@@ -237,7 +237,7 @@ class LoginViewControllerSpec: QuickSpec {
                             try! subject.gitHubAuthButton?.tap()
                         }
 
-                        it("presents a GitHubAuthViewController") {
+                        it("presents a \(GitHubAuthViewController.self)") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockGitHubAuthViewController))
                         }
 
@@ -247,6 +247,10 @@ class LoginViewControllerSpec: QuickSpec {
 
                         it("sets the auth method's auth URL on the view controller") {
                             expect(mockGitHubAuthViewController.gitHubAuthURLString).to(equal("gitHub-auth.com"))
+                        }
+
+                        it("disables the button") {
+                            expect(subject.gitHubAuthButton?.isEnabled).toEventually(beFalse())
                         }
                     }
                 }
