@@ -84,38 +84,41 @@ class ConcourseEntryViewController: UIViewController {
     @IBAction func submitButtonTapped() {
         guard let concourseURLString = concourseURLEntryField?.textField?.text else { return }
 
-        if concourseURLString.hasPrefix("http://") || concourseURLString.hasPrefix("https://") {
-            authMethod$ = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
-            authMethod$?.toArray().subscribe(
-                onNext: { authMethods in
-                    guard authMethods.count > 0 else {
-                        self.handleAuthMethodsError(concourseURLString)
-                        return
-                    }
-
-                    var segueIdentifier: String!
-                    var sender: Any!
-                    if authMethods.count == 1 && authMethods.first!.type == .gitHub {
-                        segueIdentifier = ConcourseEntryViewController.showGitHubAuthSegueId
-                        sender = authMethods.first!
-                    } else {
-                        segueIdentifier = ConcourseEntryViewController.showLoginSegueId
-                        sender = authMethods
-                    }
-
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: segueIdentifier, sender: sender)
-                    }
-            },
-                onError: { _ in
-                    self.handleAuthMethodsError(concourseURLString)
-            })
-                .addDisposableTo(self.disposeBag)
-        } else {
+        guard concourseURLString.hasPrefix("http://") || concourseURLString.hasPrefix("https://") else {
             let alert = UIAlertController(title: "Error", message: "Please enter a URL that begins with either 'http://' or 'https://'", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
+            return
         }
+
+        submitButton?.isEnabled = false
+
+        authMethod$ = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
+        authMethod$?.toArray().subscribe(
+            onNext: { authMethods in
+                guard authMethods.count > 0 else {
+                    self.handleAuthMethodsError(concourseURLString)
+                    return
+                }
+
+                var segueIdentifier: String!
+                var sender: Any!
+                if authMethods.count == 1 && authMethods.first!.type == .gitHub {
+                    segueIdentifier = ConcourseEntryViewController.showGitHubAuthSegueId
+                    sender = authMethods.first!
+                } else {
+                    segueIdentifier = ConcourseEntryViewController.showLoginSegueId
+                    sender = authMethods
+                }
+
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: segueIdentifier, sender: sender)
+                }
+        },
+            onError: { _ in
+                self.handleAuthMethodsError(concourseURLString)
+        })
+            .addDisposableTo(self.disposeBag)
     }
 
     private func handleAuthMethodsError(_ concourseURLString: String) {
@@ -137,6 +140,7 @@ class ConcourseEntryViewController: UIViewController {
                                                   preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     DispatchQueue.main.async {
+                        self.submitButton?.isEnabled = true
                         self.present(alert, animated: true, completion: nil)
                     }
             },

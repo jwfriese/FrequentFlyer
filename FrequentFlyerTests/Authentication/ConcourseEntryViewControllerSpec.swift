@@ -190,6 +190,10 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         methodSubject.onCompleted()
                     }
 
+                    it("disables the button") {
+                        expect(subject.submitButton?.isEnabled).toEventually(beFalse())
+                    }
+
                     it("makes a call to the auth methods service using the input team and Concourse URL") {
                         expect(mockAuthMethodsService.capturedTeamName).to(equal("main"))
                         expect(mockAuthMethodsService.capturedConcourseURL).to(equal("https://concourse.com"))
@@ -280,6 +284,10 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                                 let alert = screen?.topmostViewController as? UIAlertController
                                 expect(alert?.title).toEventually(equal("Authorization Failed"))
                                 expect(alert?.message).toEventually(equal("error details"))
+                            }
+
+                            it("enables the button") {
+                                expect(subject.submitButton?.isEnabled).toEventually(beTrue())
                             }
                         }
                     }
