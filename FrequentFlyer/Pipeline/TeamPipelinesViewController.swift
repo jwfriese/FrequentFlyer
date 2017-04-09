@@ -19,15 +19,6 @@ class TeamPipelinesViewController: UIViewController {
         super.viewDidLoad()
         guard let target = target else { return }
 
-        navigationController?.navigationBar.barTintColor = Style.Colors.navigationBar
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.titleTextAttributes = [
-            NSForegroundColorAttributeName : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
-            NSFontAttributeName : Style.Fonts.regular(withSize: 18)
-        ]
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationController?.navigationBar.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-
         title = "Pipelines"
         teamPipelinesService.getPipelines(forTarget: target) { pipelines, error in
             self.pipelines = pipelines
