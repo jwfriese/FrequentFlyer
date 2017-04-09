@@ -122,6 +122,7 @@ extension LoginViewController {
         super.viewDidLoad()
 
         guard let authMethods = authMethods else { return }
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         let doesProvideBasicAuth = authMethods.contains(where: { method in return method.type == .basic })
         if doesProvideBasicAuth {
