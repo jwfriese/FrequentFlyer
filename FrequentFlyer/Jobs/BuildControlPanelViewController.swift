@@ -61,6 +61,8 @@ class BuildControlPanelViewController: UIViewController {
         guard let build = build else { return }
         guard let pipeline = pipeline else { return }
 
+        retriggerButton?.isEnabled = false
+
         triggerBuildService.triggerBuild(forTarget: target, forJob: build.jobName, inPipeline: pipeline.name) { build, error in
             var alertTitle: String?
             var alertMessage: String?
@@ -77,6 +79,7 @@ class BuildControlPanelViewController: UIViewController {
 
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.retriggerButton?.isEnabled = true
             }
         }
     }

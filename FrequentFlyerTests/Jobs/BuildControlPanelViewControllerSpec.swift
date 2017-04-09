@@ -139,6 +139,10 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
                             try! subject.retriggerButton?.tap()
                         }
 
+                        it("disables the button") {
+                            expect(subject.retriggerButton?.isEnabled).toEventually(beFalse())
+                        }
+
                         it("asks the \(TriggerBuildService.self) to trigger a new build") {
                             let expectedTarget = Target(name: "turtle target", api: "turtle api", teamName: "turtle team name", token: Token(value: "turtle token value"))
                             expect(mockTriggerBuildService.capturedTarget).to(equal(expectedTarget))
@@ -165,6 +169,10 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
                                 expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Triggered"))
                                 expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Build #124 triggered for 'jobName'"))
                             }
+
+                            it("enables the button") {
+                                expect(subject.retriggerButton?.isEnabled).toEventually(beTrue())
+                            }
                         }
 
                         describe("When the \(TriggerBuildService.self) returns with an error") {
@@ -181,6 +189,10 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
                                 expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
                                 expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Build Trigger Failed"))
                                 expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("turtle trigger error"))
+                            }
+
+                            it("enables the button") {
+                                expect(subject.retriggerButton?.isEnabled).toEventually(beTrue())
                             }
                         }
                     }
