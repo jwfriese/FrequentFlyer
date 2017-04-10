@@ -18,6 +18,7 @@ class TeamPipelinesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let target = target else { return }
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         title = "Pipelines"
         teamPipelinesService.getPipelines(forTarget: target) { pipelines, error in
