@@ -86,7 +86,8 @@ class JobsDataDeserializerSpec: QuickSpec {
                 validJobJSONOne = JSON(dictionaryLiteral :[
                     ("name", "turtle job"),
                     ("finished_build", validFinishedBuildJSONOne),
-                    ("next_build", validNextBuildJSONOne)
+                    ("next_build", validNextBuildJSONOne),
+                    ("groups", ["group_one", "group_two"])
                 ])
 
                 validFinishedBuildJSONTwo = JSON(dictionaryLiteral: [
@@ -100,7 +101,8 @@ class JobsDataDeserializerSpec: QuickSpec {
                 validJobJSONTwo = JSON(dictionaryLiteral :[
                     ("name", "crab job"),
                     ("finished_build", validFinishedBuildJSONTwo),
-                    ("next_build", validNextBuildJSONTwo)
+                    ("next_build", validNextBuildJSONTwo),
+                    ("groups", ["group_one", "group_three"])
                 ])
 
                 validFinishedBuildResultOne = BuildBuilder().withName("finished one").build()
@@ -131,8 +133,22 @@ class JobsDataDeserializerSpec: QuickSpec {
                         return
                     }
 
-                    expect(jobs[0]).to(equal(Job(name: "turtle job", nextBuild: validNextBuildResultOne, finishedBuild: validFinishedBuildResultOne)))
-                    expect(jobs[1]).to(equal(Job(name: "crab job", nextBuild: validNextBuildResultTwo, finishedBuild: validFinishedBuildResultTwo)))
+                    let expectedJobOne = Job(
+                        name: "turtle job",
+                        nextBuild: validNextBuildResultOne,
+                        finishedBuild: validFinishedBuildResultOne,
+                        groups: ["group_one", "group_two"]
+                    )
+
+                    let expectedJobTwo = Job(
+                        name: "crab job",
+                        nextBuild: validNextBuildResultTwo,
+                        finishedBuild: validFinishedBuildResultTwo,
+                        groups: ["group_one", "group_three"]
+                    )
+
+                    expect(jobs[0]).to(equal(expectedJobOne))
+                    expect(jobs[1]).to(equal(expectedJobTwo))
                 }
 
                 it("returns no error") {
@@ -156,7 +172,13 @@ class JobsDataDeserializerSpec: QuickSpec {
                     }
 
                     it("emits a job only for each valid JSON job entry") {
-                        expect(jobs).to(equal([Job(name: "turtle job", nextBuild: validNextBuildResultOne, finishedBuild: validFinishedBuildResultOne)]))
+                        let expectedJob = Job(
+                            name: "turtle job",
+                            nextBuild: validNextBuildResultOne,
+                            finishedBuild: validFinishedBuildResultOne,
+                            groups: ["group_one", "group_two"]
+                        )
+                        expect(jobs).to(equal([expectedJob]))
                     }
 
                     it("emits completed") {
@@ -179,7 +201,13 @@ class JobsDataDeserializerSpec: QuickSpec {
                     }
 
                     it("emits a job only for each valid JSON job entry") {
-                        expect(jobs).to(equal([Job(name: "turtle job", nextBuild: validNextBuildResultOne, finishedBuild: validFinishedBuildResultOne)]))
+                        let expectedJob = Job(
+                            name: "turtle job",
+                            nextBuild: validNextBuildResultOne,
+                            finishedBuild: validFinishedBuildResultOne,
+                            groups: ["group_one", "group_two"]
+                        )
+                        expect(jobs).to(equal([expectedJob]))
                     }
 
                     it("emits completed") {
@@ -203,7 +231,13 @@ class JobsDataDeserializerSpec: QuickSpec {
                     }
 
                     it("emits a job only for each valid JSON job entry") {
-                        expect(jobs).to(equal([Job(name: "turtle job", nextBuild: validNextBuildResultOne, finishedBuild: validFinishedBuildResultOne)]))
+                        let expectedJob = Job(
+                            name: "turtle job",
+                            nextBuild: validNextBuildResultOne,
+                            finishedBuild: validFinishedBuildResultOne,
+                            groups: ["group_one", "group_two"]
+                        )
+                        expect(jobs).to(equal([expectedJob]))
                     }
 
                     it("emits completed") {

@@ -18,6 +18,7 @@ class JobsDataDeserializer {
 
         for jobsDictionary in jobsJSON {
             guard let name = jobsDictionary["name"] as? String else { continue }
+            guard let groups = jobsDictionary["groups"] as? Array<String> else { continue }
 
             let finishedBuildJSON = jobsDictionary["finished_build"] as? NSDictionary
             let nextBuildJSON = jobsDictionary["next_build"] as? NSDictionary
@@ -43,7 +44,9 @@ class JobsDataDeserializer {
             }
 
 
-            jobs.append(Job(name: name, nextBuild: nextBuild, finishedBuild: finishedBuild))
+            jobs.append(
+                Job(name: name, nextBuild: nextBuild, finishedBuild: finishedBuild, groups: groups)
+            )
         }
 
         return Observable.from(optional: jobs)

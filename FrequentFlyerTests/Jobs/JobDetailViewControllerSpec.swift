@@ -46,7 +46,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                     describe("When only a finished build is available on the job") {
                         beforeEach {
                             let finishedBuild = BuildBuilder().withName("a finished build").withEndTime(1000).build()
-                            subject.job = Job(name: "job_name", nextBuild: nil, finishedBuild: finishedBuild)
+                            subject.job = Job(name: "job_name", nextBuild: nil, finishedBuild: finishedBuild, groups: [])
                             let _ = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
@@ -91,7 +91,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                     describe("When only a next build is available on the job") {
                         beforeEach {
                             let nextBuild = BuildBuilder().withName("the next build").withStartTime(1000).withEndTime(nil).build()
-                            subject.job = Job(name: "job_name", nextBuild: nextBuild, finishedBuild: nil)
+                            subject.job = Job(name: "job_name", nextBuild: nextBuild, finishedBuild: nil, groups: [])
                             let _ = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
@@ -137,7 +137,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                         beforeEach {
                             let nextBuild = BuildBuilder().withName("the next build").withStartTime(1000).withEndTime(nil).build()
                             let finishedBuild = BuildBuilder().withName("a finished build").withEndTime(1000).build()
-                            subject.job = Job(name: "job_name", nextBuild: nextBuild, finishedBuild: finishedBuild)
+                            subject.job = Job(name: "job_name", nextBuild: nextBuild, finishedBuild: finishedBuild, groups: [])
                             let _ = Fleet.setInAppWindowRootNavigation(subject)
                         }
 

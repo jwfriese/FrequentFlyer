@@ -93,12 +93,12 @@ class JobsViewControllerSpec: QuickSpec {
                 describe("When the \(JobsService.self) resolves with jobs") {
                     beforeEach {
                         let finishedTurtleBuild = BuildBuilder().withStatus(.failed).withEndTime(1000).build()
-                        let turtleJob = Job(name: "turtle job", nextBuild: nil, finishedBuild: finishedTurtleBuild)
+                        let turtleJob = Job(name: "turtle job", nextBuild: nil, finishedBuild: finishedTurtleBuild, groups: [])
 
                         let nextCrabBuild = BuildBuilder().withStatus(.pending).withStartTime(500).build()
-                        let crabJob = Job(name: "crab job", nextBuild: nextCrabBuild, finishedBuild: nil)
+                        let crabJob = Job(name: "crab job", nextBuild: nextCrabBuild, finishedBuild: nil, groups: [])
 
-                        let puppyJob = Job(name: "puppy job", nextBuild: nil, finishedBuild: nil)
+                        let puppyJob = Job(name: "puppy job", nextBuild: nil, finishedBuild: nil, groups: [])
 
                         mockJobsService.jobsSubject.onNext([turtleJob, crabJob, puppyJob])
                         mockJobsService.jobsSubject.onCompleted()
