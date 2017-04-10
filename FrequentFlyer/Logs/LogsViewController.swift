@@ -2,6 +2,7 @@ import UIKit
 
 class LogsViewController: UIViewController {
     @IBOutlet weak var logOutputView: UITextView?
+    @IBOutlet weak var jumpToBottomButton: RoundedButton?
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView?
 
     var sseService = SSEService()
@@ -23,6 +24,12 @@ class LogsViewController: UIViewController {
 
         loadingIndicator?.color = Style.Colors.lightLoadingIndicator
         loadingIndicator?.hidesWhenStopped = true
+
+        jumpToBottomButton?.setUp(withTitleText: "V",
+                                  titleFont: Style.Fonts.button,
+                                  controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
+                                  controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
+        )
     }
 
     func fetchLogs() {
@@ -57,5 +64,10 @@ class LogsViewController: UIViewController {
                 }
             }
         }
+    }
+
+    @IBAction func onJumpToBottomTapped() {
+        guard let length = logOutputView?.text.characters.count else { return }
+        logOutputView?.scrollRangeToVisible(NSMakeRange(0, length))
     }
 }

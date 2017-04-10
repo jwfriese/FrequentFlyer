@@ -711,6 +711,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eP3-gc-PiB" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
+                                <rect key="frame" x="284.5" y="424" width="56" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="eP3-gc-PiB" secondAttribute="height" multiplier="1:1" id="iZA-bH-CIx"/>
+                                </constraints>
+                                <state key="normal" title="V"/>
+                                <connections>
+                                    <action selector="onJumpToBottomTapped" destination="uBf-DN-VAr" eventType="touchUpInside" id="Frd-vN-djD"/>
+                                </connections>
+                            </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3O1-XJ-iw3">
                                 <rect key="frame" x="146" y="64" width="82.5" height="82.5"/>
                                 <constraints>
@@ -722,15 +732,19 @@
                         <constraints>
                             <constraint firstItem="3O1-XJ-iw3" firstAttribute="width" secondItem="pSi-KG-IvT" secondAttribute="width" multiplier="0.22" id="6oV-ao-9al"/>
                             <constraint firstItem="3O1-XJ-iw3" firstAttribute="centerX" secondItem="pSi-KG-IvT" secondAttribute="centerX" id="8om-t6-UaS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eP3-gc-PiB" secondAttribute="trailing" constant="18.5" id="HGz-6C-CHb"/>
                             <constraint firstItem="OZq-vz-rWd" firstAttribute="centerX" secondItem="pSi-KG-IvT" secondAttribute="centerX" id="TjR-TB-AQP"/>
                             <constraint firstItem="OZq-vz-rWd" firstAttribute="width" secondItem="pSi-KG-IvT" secondAttribute="width" id="bzl-VI-GeL"/>
                             <constraint firstItem="OZq-vz-rWd" firstAttribute="centerY" secondItem="pSi-KG-IvT" secondAttribute="centerY" id="gGF-wg-aZ3"/>
+                            <constraint firstItem="eP3-gc-PiB" firstAttribute="width" secondItem="pSi-KG-IvT" secondAttribute="width" multiplier="0.15" id="iEO-68-eKH"/>
                             <constraint firstAttribute="bottomMargin" secondItem="OZq-vz-rWd" secondAttribute="bottom" id="oJ7-fC-Vqi"/>
                             <constraint firstItem="OZq-vz-rWd" firstAttribute="top" secondItem="pSi-KG-IvT" secondAttribute="topMargin" id="ubc-Ys-Ln9"/>
                             <constraint firstItem="3O1-XJ-iw3" firstAttribute="top" secondItem="NIe-VC-PZi" secondAttribute="bottom" constant="64" id="xrr-Ec-3kH"/>
+                            <constraint firstItem="OTv-VB-LDO" firstAttribute="top" secondItem="eP3-gc-PiB" secondAttribute="bottom" constant="17" id="yRE-fw-m8G"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="jumpToBottomButton" destination="eP3-gc-PiB" id="y8I-6z-s4D"/>
                         <outlet property="loadingIndicator" destination="3O1-XJ-iw3" id="JoB-Pd-orY"/>
                         <outlet property="logOutputView" destination="OZq-vz-rWd" id="kBD-Yg-MuX"/>
                     </connections>
