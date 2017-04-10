@@ -25,7 +25,7 @@ class LogsViewController: UIViewController {
         loadingIndicator?.color = Style.Colors.lightLoadingIndicator
         loadingIndicator?.hidesWhenStopped = true
 
-        jumpToBottomButton?.setUp(withTitleText: "V",
+        jumpToBottomButton?.setUp(withTitleText: "v",
                                   titleFont: Style.Fonts.button,
                                   controlStateTitleColors: [.normal : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)],
                                   controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
