@@ -26,6 +26,16 @@ class UnderlineTextField: UIView {
         contentView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
     }
 
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        // Because this view contains the actual text view, explicitly give it a chance
+        // to claim a touch it otherwise wouldn't.
+        if let hitTextField = textField?.hitTest(point, with: event) {
+            return hitTextField
+        }
+
+        return super.hitTest(point, with: event)
+    }
+
     private weak var cachedTextField: UnderlineTextFieldTextField?
     weak var textField: UnderlineTextFieldTextField? {
         get {

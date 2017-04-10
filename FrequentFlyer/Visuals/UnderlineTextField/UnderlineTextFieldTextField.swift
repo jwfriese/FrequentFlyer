@@ -10,10 +10,14 @@ class UnderlineTextFieldTextField: UITextField {
     }
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let tolerance = CGFloat(10.0)
+        let topTolerance = CGFloat(14.0)
+        let bottomTolerance = CGFloat(10.0)
         if event?.type == .touches {
+            let topBound = bounds.origin.y
             let bottomBound = bounds.origin.y + bounds.size.height
-            if point.y <= (bottomBound + tolerance) {
+            let isWithinTopBound = point.y >= (topBound - topTolerance)
+            let isWithinBottomBound = point.y <= (bottomBound + bottomTolerance)
+            if isWithinTopBound && isWithinBottomBound {
                 return self
             }
         }
