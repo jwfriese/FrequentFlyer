@@ -131,45 +131,18 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                 describe("Entering a Concourse URL without 'http://' or 'https://' and hitting 'Submit'") {
                     beforeEach {
-                        try! subject.concourseURLEntryField?.textField?.enter(text: "concourse.com")
+                        try! subject.concourseURLEntryField?.textField?.enter(text: "partial-concourse.com")
 
                         try! subject.submitButton?.tap()
                     }
 
-                    it("presents an error alert") {
-                        let alert: () -> UIAlertController? = {
-                            return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
-                        }
-
-                        expect(alert()).toEventually(beAnInstanceOf(UIAlertController.self))
-                        expect(alert()?.title).toEventually(equal("Error"))
-                        expect(alert()?.message).toEventually(equal("Please enter a URL that begins with either 'http://' or 'https://'"))
+                    it("prepends your request with `https://` and submits") {
+                        expect(mockAuthMethodsService.capturedTeamName).to(equal("main"))
+                        expect(mockAuthMethodsService.capturedConcourseURL).to(equal("https://partial-concourse.com"))
                     }
 
-                    describe("Tapping the 'OK' button on the alert") {
-                        it("dismisses the alert") {
-                            var didPresentAlert = false
-                            var didTapOK = false
-                            let assertOKButtonClearsAlert: () -> Bool = {
-                                if didTapOK {
-                                    return Fleet.getApplicationScreen()?.topmostViewController === subject
-                                }
-
-                                if didPresentAlert {
-                                    let alert = Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
-                                    try! alert?.tapAlertAction(withTitle: "OK")
-                                    didTapOK = true
-                                }
-
-                                if let alert = Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController {
-                                    didPresentAlert = true
-                                }
-
-                                return false
-                            }
-
-                            expect(assertOKButtonClearsAlert()).toEventually(beTrue())
-                        }
+                    it("disables the button") {
+                        expect(subject.submitButton?.isEnabled).toEventually(beFalse())
                     }
                 }
 

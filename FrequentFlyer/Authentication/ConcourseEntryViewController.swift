@@ -78,13 +78,11 @@ class ConcourseEntryViewController: UIViewController {
     }
 
     @IBAction func submitButtonTapped() {
-        guard let concourseURLString = concourseURLEntryField?.textField?.text else { return }
+        guard var concourseURLString = concourseURLEntryField?.textField?.text else { return }
 
-        guard concourseURLString.hasPrefix("http://") || concourseURLString.hasPrefix("https://") else {
-            let alert = UIAlertController(title: "Error", message: "Please enter a URL that begins with either 'http://' or 'https://'", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
-            return
+        let inputHasProtocol = concourseURLString.hasPrefix("http://") || concourseURLString.hasPrefix("https://")
+        if !inputHasProtocol {
+            concourseURLString = "https://" + concourseURLString
         }
 
         submitButton?.isEnabled = false
