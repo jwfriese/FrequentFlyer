@@ -13,6 +13,7 @@ class Style {
         static var darkInfoLabel = UIColor(colorLiteralRed: 25/255, green: 37/255, blue: 47/255, alpha: 1)
         static var navigationBar = UIColor(colorLiteralRed: 77/255, green: 169/255, blue: 225/255, alpha: 1)
         static var logsBackground = UIColor(colorLiteralRed: 92/255, green: 109/255, blue: 127/255, alpha: 1)
+        static var lightLoadingIndicator = UIColor.white
 
         class Status {
             static var pending = UIColor(colorLiteralRed: 176/255, green: 181/255, blue: 185/255, alpha: 1)

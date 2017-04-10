@@ -2,6 +2,7 @@ import UIKit
 
 class LogsViewController: UIViewController {
     @IBOutlet weak var logOutputView: UITextView?
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView?
 
     var sseService = SSEService()
     var logsStylingParser = LogsStylingParser()
@@ -19,11 +20,16 @@ class LogsViewController: UIViewController {
         logOutputView?.textContainerInset = UIEdgeInsets(top: 32, left: 32, bottom: 0, right:32)
         logOutputView?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         logOutputView?.font = Style.Fonts.bold(withSize: 14)
+
+        loadingIndicator?.color = Style.Colors.lightLoadingIndicator
+        loadingIndicator?.hidesWhenStopped = true
     }
 
     func fetchLogs() {
         guard let target = target else { return }
         guard let build = build else { return }
+
+        loadingIndicator?.startAnimating()
 
         let connection = sseService.openSSEConnection(target: target, build: build)
         connection.onLogsReceived = onMessagesReceived
@@ -43,6 +49,10 @@ class LogsViewController: UIViewController {
                 }
 
                 DispatchQueue.main.async {
+                    if self.loadingIndicator != nil && self.loadingIndicator!.isAnimating {
+                        self.loadingIndicator!.stopAnimating()
+                    }
+
                     logOutputView.text = existingText + textToAdd
                 }
             }

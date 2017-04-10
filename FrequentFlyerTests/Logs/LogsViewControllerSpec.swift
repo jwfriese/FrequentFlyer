@@ -82,6 +82,10 @@ class LogsViewControllerSpec: QuickSpec {
                         expect(mockSSEService.capturedBuild).to(equal(expectedBuild))
                     }
 
+                    it("starts a loading indicator") {
+                        expect(subject.loadingIndicator?.isAnimating).to(beTrue())
+                    }
+
                     describe("When the connection reports logs") {
                         beforeEach {
                             guard let logsCallback = mockSSEService.returnedConnection?.onLogsReceived else {
@@ -102,6 +106,10 @@ class LogsViewControllerSpec: QuickSpec {
                         it("appends the logs to the log view") {
                             expect(subject.logOutputView?.text).toEventually(contain("parsed turtle log entry"))
                             expect(subject.logOutputView?.text).toEventually(contain("parsed crab log entry"))
+                        }
+
+                        it("stops any active loading indicator") {
+                            expect(subject.loadingIndicator?.isAnimating).toEventually(beFalse())
                         }
                     }
                 }
