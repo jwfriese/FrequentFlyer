@@ -65,6 +65,8 @@
 		7B6F74BB1E7F8F9A00C7C005 /* GenerateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74BA1E7F8F9A00C7C005 /* GenerateImage.swift */; };
 		7B6F74BD1E802D5F00C7C005 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74BC1E802D5F00C7C005 /* LoginViewController.swift */; };
 		7B6F74BF1E802DC600C7C005 /* LoginViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F74BE1E802DC600C7C005 /* LoginViewControllerSpec.swift */; };
+		7B72902C1E9DEE73005A9A22 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B72902A1E9DEE73005A9A22 /* Fabric.framework */; };
+		7B72902D1E9DEE73005A9A22 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B72902B1E9DEE73005A9A22 /* Crashlytics.framework */; };
 		7B737BC01E075BBB007FC4E8 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */; };
 		7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */; };
 		7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */; };
@@ -244,6 +246,8 @@
 		7B6F74BA1E7F8F9A00C7C005 /* GenerateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateImage.swift; sourceTree = "<group>"; };
 		7B6F74BC1E802D5F00C7C005 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7B6F74BE1E802DC600C7C005 /* LoginViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerSpec.swift; sourceTree = "<group>"; };
+		7B72902A1E9DEE73005A9A22 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		7B72902B1E9DEE73005A9A22 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		7B737BBA1E075BBB007FC4E8 /* LogEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
 		7B737BBB1E075BBB007FC4E8 /* LogsStylingParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsStylingParser.swift; sourceTree = "<group>"; };
 		7B737BBC1E075BBB007FC4E8 /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
@@ -363,8 +367,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */,
+				7B72902D1E9DEE73005A9A22 /* Crashlytics.framework in Frameworks */,
 				7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */,
 				AEAFAAE71E2ECC3700ACD288 /* RxSwift.framework in Frameworks */,
+				7B72902C1E9DEE73005A9A22 /* Fabric.framework in Frameworks */,
 				AEAFAAE81E2ECC5000ACD288 /* RxCocoa.framework in Frameworks */,
 				7BF620951E841D8F00C0E47F /* BEMCheckBox.framework in Frameworks */,
 				7B58A1B31E8DFFD100FCBA13 /* SwiftyJSON.framework in Frameworks */,
@@ -857,6 +863,8 @@
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B72902A1E9DEE73005A9A22 /* Fabric.framework */,
+				7B72902B1E9DEE73005A9A22 /* Crashlytics.framework */,
 				7B0425F71E9D1750008E488F /* RxDataSources.framework */,
 				7B58A1B21E8DFFD100FCBA13 /* SwiftyJSON.framework */,
 				7BF620941E841D8F00C0E47F /* BEMCheckBox.framework */,
@@ -958,6 +966,7 @@
 				AEA5D5081D7F2CEC00D76EBA /* Frameworks */,
 				AEA5D5091D7F2CEC00D76EBA /* Resources */,
 				7BEDE1FF1D8986D50054D13B /* Copy Carthage frameworks */,
+				7B7290291E9DEE36005A9A22 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1076,6 +1085,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7B7290291E9DEE36005A9A22 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 1fdf2d2645cd210998cfcf553395cfc9794b2e26 2c0b1f1c0f399c80e650cc2409a3ab6c4aff5508f2765791b51aa82f2f5b7800";
+		};
 		7BEDE1FF1D8986D50054D13B /* Copy Carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1348,6 +1371,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FrequentFlyer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1403,7 +1427,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 0.21.0;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1495,6 +1519,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FrequentFlyer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1515,6 +1540,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FrequentFlyer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
