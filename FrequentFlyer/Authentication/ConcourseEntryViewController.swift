@@ -50,7 +50,9 @@ class ConcourseEntryViewController: UIViewController {
                 return
             }
 
-            guard let concourseURLString = concourseURLEntryField?.textField?.text else { return }
+            guard var concourseURLString = concourseURLEntryField?.textField?.text else { return }
+            concourseURLString = validatedConcourseURL(fromInput: concourseURLString)
+
             guard let authMethods = sender as? [AuthMethod] else { return }
 
             loginViewController.authMethods = authMethods
@@ -70,20 +72,28 @@ class ConcourseEntryViewController: UIViewController {
         } else if segue.identifier == ConcourseEntryViewController.showGitHubAuthSegueId {
             guard let gitHubAuthMethod = sender as? AuthMethod else { return }
             guard let gitHubAuthViewController = segue.destination as? GitHubAuthViewController else { return }
-            guard let concourseURLString = concourseURLEntryField?.textField?.text else { return }
+            guard var concourseURLString = concourseURLEntryField?.textField?.text else { return }
+
+            concourseURLString = validatedConcourseURL(fromInput: concourseURLString)
 
             gitHubAuthViewController.concourseURLString = concourseURLString
             gitHubAuthViewController.gitHubAuthURLString = gitHubAuthMethod.url
         }
     }
 
-    @IBAction func submitButtonTapped() {
-        guard var concourseURLString = concourseURLEntryField?.textField?.text else { return }
-
-        let inputHasProtocol = concourseURLString.hasPrefix("http://") || concourseURLString.hasPrefix("https://")
+    private func validatedConcourseURL(fromInput input: String) -> String {
+        var concourseURLString = input
+        let inputHasProtocol = input.hasPrefix("http://") || input.hasPrefix("https://")
         if !inputHasProtocol {
             concourseURLString = "https://" + concourseURLString
         }
+
+        return concourseURLString
+    }
+
+    @IBAction func submitButtonTapped() {
+        guard var concourseURLString = concourseURLEntryField?.textField?.text else { return }
+        concourseURLString = validatedConcourseURL(fromInput: concourseURLString)
 
         submitButton?.isEnabled = false
 
