@@ -1,12 +1,12 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class JobsViewController: UIViewController {
     @IBOutlet weak var jobsTableView: UITableView?
 
-    var jobsService = JobsService()
-    var elapsedTimePrinter = ElapsedTimePrinter()
+    var jobsTableViewDataSource = JobsTableViewDataSource()
 
     var pipeline: Pipeline?
     var target: Target?
@@ -34,25 +34,9 @@ class JobsViewController: UIViewController {
     private func setUpCellPopulation(withTarget target: Target, pipeline: Pipeline) {
         guard let jobsTableView = jobsTableView else { return }
 
-        jobsService
-            .getJobs(forTarget: target, pipeline: pipeline)
-            .bindTo(
-                jobsTableView
-                    .rx
-                    .items(cellIdentifier: JobsTableViewCell.cellReuseIdentifier, cellType: JobsTableViewCell.self)) {
-                        index, job, cell in
-                        cell.jobNameLabel?.text = job.name
-                        if let nextBuild = job.nextBuild {
-                            cell.latestJobLastEventTimeLabel?.text = self.elapsedTimePrinter.printTime(since: TimeInterval(nextBuild.startTime))
-                            cell.buildStatusBadge?.setUp(for: nextBuild.status)
-                        } else if let finishedBuild = job.finishedBuild {
-                            cell.latestJobLastEventTimeLabel?.text = self.elapsedTimePrinter.printTime(since: TimeInterval(finishedBuild.endTime))
-                            cell.buildStatusBadge?.setUp(for: finishedBuild.status)
-                        } else {
-                            cell.latestJobLastEventTimeLabel?.text = "--"
-                            cell.buildStatusBadge?.isHidden = true
-                        }
-            }
+        jobsTableViewDataSource.setUp(withTarget: target, pipeline: pipeline)
+        jobsTableViewDataSource.openJobsStream()
+            .bind(to: jobsTableView.rx.items(dataSource: jobsTableViewDataSource))
             .disposed(by: disposeBag)
     }
 

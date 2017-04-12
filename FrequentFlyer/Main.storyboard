@@ -632,29 +632,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2i-Oe-LmB" userLabel="Time Header Label">
-                                <rect key="frame" x="166" y="17" width="161" height="21"/>
+                                <rect key="frame" x="166" y="16.5" width="161" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uso-2E-BWq">
-                                <rect key="frame" x="50" y="42" width="42" height="21"/>
+                                <rect key="frame" x="49.5" y="41.5" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZs-2T-Gx7">
-                                <rect key="frame" x="166.5" y="42" width="42" height="21"/>
+                                <rect key="frame" x="166.5" y="41.5" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8iT-fk-Ljw" customClass="BuildStatusBadge" customModule="FrequentFlyer" customModuleProvider="target">
-                                <rect key="frame" x="282" y="42.5" width="57" height="20"/>
+                                <rect key="frame" x="282" y="42" width="57" height="20"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I3X-sh-W5u" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
-                                <rect key="frame" x="50" y="83" width="150" height="42.5"/>
+                                <rect key="frame" x="49.5" y="82.5" width="150" height="42.5"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="onRetriggerButtonTapped" destination="koQ-02-z0F" eventType="touchUpInside" id="ij7-Ci-O57"/>

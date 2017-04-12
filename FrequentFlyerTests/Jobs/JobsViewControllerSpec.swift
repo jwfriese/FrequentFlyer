@@ -56,10 +56,10 @@ class JobsViewControllerSpec: QuickSpec {
                 subject.target = target
 
                 mockJobsService = MockJobsService()
-                subject.jobsService = mockJobsService
+                subject.jobsTableViewDataSource.jobsService = mockJobsService
 
                 mockElapsedTimePrinter = MockElapsedTimePrinter()
-                subject.elapsedTimePrinter = mockElapsedTimePrinter
+                subject.jobsTableViewDataSource.elapsedTimePrinter = mockElapsedTimePrinter
             }
 
             describe("After the view loads") {
@@ -84,10 +84,6 @@ class JobsViewControllerSpec: QuickSpec {
 
                     expect(mockJobsService.capturedTarget).toEventually(equal(expectedTarget))
                     expect(mockJobsService.capturedPipeline).toEventually(equal(expectedPipeline))
-                }
-
-                it("has one section in its table view") {
-                    expect(subject.jobsTableView?.numberOfSections).toEventually(equal(1))
                 }
 
                 describe("When the \(JobsService.self) resolves with jobs") {

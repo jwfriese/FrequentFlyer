@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B0425F41E9C8070008E488F /* JobGroupHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0425F31E9C8070008E488F /* JobGroupHeaderView.xib */; };
+		7B0425F61E9C808C008E488F /* JobGroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0425F51E9C808C008E488F /* JobGroupHeaderView.swift */; };
+		7B0425F81E9D1750008E488F /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0425F71E9D1750008E488F /* RxDataSources.framework */; };
+		7B0425FA1E9D19D1008E488F /* JobsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0425F91E9D19D1008E488F /* JobsTableViewDataSource.swift */; };
 		7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */; };
 		7B0E70801D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */; };
 		7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */; };
@@ -181,6 +185,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7B0425F31E9C8070008E488F /* JobGroupHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JobGroupHeaderView.xib; sourceTree = "<group>"; };
+		7B0425F51E9C808C008E488F /* JobGroupHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobGroupHeaderView.swift; sourceTree = "<group>"; };
+		7B0425F71E9D1750008E488F /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
+		7B0425F91E9D19D1008E488F /* JobsTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsTableViewDataSource.swift; sourceTree = "<group>"; };
 		7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcourseEntryViewController.swift; sourceTree = "<group>"; };
 		7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcourseEntryViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayWrapper.swift; sourceTree = "<group>"; };
@@ -360,6 +368,7 @@
 				AEAFAAE81E2ECC5000ACD288 /* RxCocoa.framework in Frameworks */,
 				7BF620951E841D8F00C0E47F /* BEMCheckBox.framework in Frameworks */,
 				7B58A1B31E8DFFD100FCBA13 /* SwiftyJSON.framework in Frameworks */,
+				7B0425F81E9D1750008E488F /* RxDataSources.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,7 +780,10 @@
 				7B58A1A11E8B42F400FCBA13 /* JobsDataDeserializer.swift */,
 				7BE6636A1E8A1D39006573C3 /* JobsService.swift */,
 				7BE663651E8A1A62006573C3 /* JobsTableViewCell.swift */,
+				7B0425F91E9D19D1008E488F /* JobsTableViewDataSource.swift */,
 				7BE663631E8A16F0006573C3 /* JobsViewController.swift */,
+				7B0425F51E9C808C008E488F /* JobGroupHeaderView.swift */,
+				7B0425F31E9C8070008E488F /* JobGroupHeaderView.xib */,
 			);
 			path = Jobs;
 			sourceTree = "<group>";
@@ -845,6 +857,7 @@
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B0425F71E9D1750008E488F /* RxDataSources.framework */,
 				7B58A1B21E8DFFD100FCBA13 /* SwiftyJSON.framework */,
 				7BF620941E841D8F00C0E47F /* BEMCheckBox.framework */,
 				AEAFAAE41E2ECB7600ACD288 /* RxCocoa.framework */,
@@ -1031,6 +1044,7 @@
 				7B673EBD1E7EFC5500CAC921 /* Lato-MediumItalic.ttf in Resources */,
 				7B673ECF1E7F070E00CAC921 /* TitledTextField.xib in Resources */,
 				7B673EC01E7EFC5600CAC921 /* Lato-SemiboldItalic.ttf in Resources */,
+				7B0425F41E9C8070008E488F /* JobGroupHeaderView.xib in Resources */,
 				7B673EB21E7EFC5500CAC921 /* Lato-BlackItalic.ttf in Resources */,
 				7B673EB81E7EFC5500CAC921 /* Lato-HeavyItalic.ttf in Resources */,
 				AEA5D5161D7F2CEC00D76EBA /* Assets.xcassets in Resources */,
@@ -1074,6 +1088,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/BEMCheckBox.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -1158,6 +1173,7 @@
 				7B6F74BD1E802D5F00C7C005 /* LoginViewController.swift in Sources */,
 				7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */,
 				7BF620981E841FC600C0E47F /* TitledCheckBox.swift in Sources */,
+				7B0425F61E9C808C008E488F /* JobGroupHeaderView.swift in Sources */,
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
 				7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */,
 				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
@@ -1172,6 +1188,7 @@
 				7BE663661E8A1A62006573C3 /* JobsTableViewCell.swift in Sources */,
 				7B5F952B1DFAF573005E0DD2 /* HTTPSessionUtils.swift in Sources */,
 				7BC1EC0B1E92928500459C36 /* BuildStatus.swift in Sources */,
+				7B0425FA1E9D19D1008E488F /* JobsTableViewDataSource.swift in Sources */,
 				7BA48F501DD763E4008BDE19 /* Error+FrequentFlyer.swift in Sources */,
 				7B673ED11E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift in Sources */,
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
