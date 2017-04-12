@@ -44,6 +44,14 @@ class ConcourseEntryViewController: UIViewController {
         userTextInputPageOperator.delegate = self
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        if let text = concourseURLEntryField?.textField?.text {
+            submitButton?.isEnabled = !text.isEmpty
+        } else {
+            submitButton?.isEnabled = false
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ConcourseEntryViewController.showLoginSegueId {
             guard let loginViewController = segue.destination as? LoginViewController else {
