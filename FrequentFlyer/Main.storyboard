@@ -650,7 +650,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8iT-fk-Ljw" customClass="BuildStatusBadge" customModule="FrequentFlyer" customModuleProvider="target">
-                                <rect key="frame" x="282" y="42" width="57" height="20"/>
+                                <rect key="frame" x="263.5" y="42" width="75.5" height="20"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I3X-sh-W5u" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
@@ -671,7 +671,7 @@
                             <constraint firstItem="I3X-sh-W5u" firstAttribute="height" secondItem="xnc-Wx-g7R" secondAttribute="height" multiplier="0.282" id="DdA-cO-BQn"/>
                             <constraint firstItem="Uso-2E-BWq" firstAttribute="leading" secondItem="xnc-Wx-g7R" secondAttribute="leadingMargin" constant="33.5" id="E4B-eS-g9n"/>
                             <constraint firstItem="o2i-Oe-LmB" firstAttribute="leading" secondItem="IZs-2T-Gx7" secondAttribute="leading" id="Oa4-Bn-F7u"/>
-                            <constraint firstItem="8iT-fk-Ljw" firstAttribute="width" secondItem="xnc-Wx-g7R" secondAttribute="width" multiplier="0.152" id="PIk-mn-HBQ"/>
+                            <constraint firstItem="8iT-fk-Ljw" firstAttribute="width" secondItem="xnc-Wx-g7R" secondAttribute="width" multiplier="0.202" id="PIk-mn-HBQ"/>
                             <constraint firstItem="Uso-2E-BWq" firstAttribute="top" secondItem="xnc-Wx-g7R" secondAttribute="topMargin" constant="41.5" id="Pga-Qx-lL1"/>
                             <constraint firstItem="I3X-sh-W5u" firstAttribute="width" secondItem="xnc-Wx-g7R" secondAttribute="width" multiplier="0.4" id="ffB-aJ-Ndt"/>
                             <constraint firstItem="I3X-sh-W5u" firstAttribute="top" secondItem="Uso-2E-BWq" secondAttribute="bottom" constant="20" id="jhq-FF-Uyh"/>
