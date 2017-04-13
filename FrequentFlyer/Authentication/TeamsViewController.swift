@@ -38,7 +38,6 @@ class TeamsViewController: UIViewController {
             .disposed(by: disposeBag)
 
         teamsTableView.rx.modelSelected(String.self)
-            .single()
             .flatMap { teamName in
                 self.doAuthMethodsCall(forTeamName: teamName, concourseURLString: concourseURLString)
             }
