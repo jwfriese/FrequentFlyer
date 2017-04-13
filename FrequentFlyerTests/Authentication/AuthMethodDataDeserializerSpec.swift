@@ -188,6 +188,16 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                                 "type" : "oauth",
                                 "display_name": "something else",
                                 "auth_url": "oauth_crab.com"
+                            ],
+                            [
+                                "type" : "oauth",
+                                "display_name": AuthMethod.DisplayNames.uaa,
+                                "auth_url": "uaa_oauth_turtle.com"
+                            ],
+                            [
+                                "type" : "oauth",
+                                "display_name": "something else",
+                                "auth_url": "oauth_crab.com"
                             ]
                         ]
 
@@ -198,7 +208,8 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                     it("emits an auth method for each valid JSON auth method entry") {
                         let expectedAuthMethods = [
                             AuthMethod(type: .basic, displayName: AuthMethod.DisplayNames.basic, url: "basic_turtle.com"),
-                            AuthMethod(type: .gitHub, displayName: AuthMethod.DisplayNames.gitHub, url: "oauth_turtle.com")
+                            AuthMethod(type: .gitHub, displayName: AuthMethod.DisplayNames.gitHub, url: "oauth_turtle.com"),
+                            AuthMethod(type: .uaa, displayName: AuthMethod.DisplayNames.uaa, url: "uaa_oauth_turtle.com"),
                         ]
 
                         expect(authMethods).to(equal(expectedAuthMethods))

@@ -49,7 +49,7 @@ class TeamsViewController: UIViewController {
 
                 var segueIdentifier: String!
                 var sender: Any!
-                if authMethods.count == 1 && authMethods.first!.type == .gitHub {
+                if self.isGitHubAuthTheOnlySupportedAuthType(inAuthMethodCollection: authMethods) {
                     segueIdentifier = TeamsViewController.showGitHubAuthSegueId
                     sender = authMethods.first!
                 } else {
@@ -71,6 +71,14 @@ class TeamsViewController: UIViewController {
                         }
             })
             .addDisposableTo(disposeBag)
+    }
+
+    private func isGitHubAuthTheOnlySupportedAuthType(inAuthMethodCollection authMethods: [AuthMethod]) -> Bool {
+        let authMethodsWithoutUAA = authMethods.filter { authMethod in
+            return authMethod.type != .uaa
+        }
+
+        return authMethodsWithoutUAA.count == 1 && authMethodsWithoutUAA.first!.type == .gitHub
     }
 
     private func doAuthMethodsCall(forTeamName teamName: String, concourseURLString: String) -> Observable<[AuthMethod]> {

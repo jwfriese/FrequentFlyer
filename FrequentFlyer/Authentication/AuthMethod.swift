@@ -6,6 +6,7 @@ struct AuthMethod {
     class DisplayNames {
         static let basic = "Basic Auth"
         static let gitHub = "GitHub"
+        static let uaa = "UAA"
     }
 
     init(type: AuthType, displayName: String, url: String) {

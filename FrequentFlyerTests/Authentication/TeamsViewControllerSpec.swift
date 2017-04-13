@@ -149,6 +149,26 @@ class TeamsViewControllerSpec: QuickSpec {
                         }
                     }
 
+                    describe("When the auth methods service call resolves with GitHub and UAA authentication") {
+                        beforeEach {
+                            let gitHubAuthMethod = AuthMethod(type: .gitHub, displayName: "", url: "gitHub-auth.com")
+                            let uaaAuthMethod = AuthMethod(type: .uaa, displayName: "", url: "uaa-auth.com")
+                            returnAuthMethods([gitHubAuthMethod, uaaAuthMethod])
+                        }
+
+                        it("presents a \(GitHubAuthViewController.self)") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockGitHubAuthViewController))
+                        }
+
+                        it("sets the entered Concourse URL on the view controller") {
+                            expect(mockGitHubAuthViewController.concourseURLString).toEventually(equal("https://concourse.com"))
+                        }
+
+                        it("sets the auth method's auth URL on the view controller") {
+                            expect(mockGitHubAuthViewController.gitHubAuthURLString).toEventually(equal("gitHub-auth.com"))
+                        }
+                    }
+
                     describe("When the auth methods service call resolves with no auth methods and no error") {
                         beforeEach {
                             returnAuthMethods([])

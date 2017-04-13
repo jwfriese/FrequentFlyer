@@ -24,6 +24,8 @@ class AuthMethodDataDeserializer {
                 type = .basic
             } else if typeString == "oauth" && displayNameString == AuthMethod.DisplayNames.gitHub {
                 type = .gitHub
+            } else if typeString == "oauth" && displayNameString == AuthMethod.DisplayNames.uaa {
+                type = .uaa
             } else {
                 continue
             }
