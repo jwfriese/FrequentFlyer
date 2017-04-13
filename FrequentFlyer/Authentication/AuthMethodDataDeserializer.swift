@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 
 class AuthMethodDataDeserializer {
-    func deserialize(_ data: Data) -> Observable<AuthMethod> {
+    func deserialize(_ data: Data) -> Observable<[AuthMethod]> {
         var authMethodsJSONObject: Any?
         do {
             authMethodsJSONObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
@@ -28,6 +28,6 @@ class AuthMethodDataDeserializer {
             authMethods.append(AuthMethod(type: type, url: urlString))
         }
 
-        return Observable.from(authMethods)
+        return Observable.from(optional: authMethods)
     }
 }

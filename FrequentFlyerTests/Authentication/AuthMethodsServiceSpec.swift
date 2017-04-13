@@ -26,14 +26,14 @@ class AuthMethodsServiceSpec: QuickSpec {
             var toReturnAuthMethods: [AuthMethod]?
             var toReturnDeserializationError: DeserializationError?
 
-            override func deserialize(_ data: Data) -> Observable<AuthMethod> {
+            override func deserialize(_ data: Data) -> Observable<[AuthMethod]> {
                 capturedData = data
-                let subject = ReplaySubject<AuthMethod>.createUnbounded()
+                let subject = ReplaySubject<[AuthMethod]>.createUnbounded()
                 if let error = toReturnDeserializationError {
                     subject.onError(error)
                 } else {
                     if let authMethods = toReturnAuthMethods {
-                        authMethods.forEach { subject.onNext($0) }
+                        subject.onNext(authMethods)
                     }
                     subject.onCompleted()
                 }
@@ -57,7 +57,7 @@ class AuthMethodsServiceSpec: QuickSpec {
             }
 
             describe("Fetching auth methods for a target") {
-                var method$: Observable<AuthMethod>!
+                var method$: Observable<[AuthMethod]>!
                 var methodStreamResult: StreamResult<AuthMethod>!
 
                 beforeEach {

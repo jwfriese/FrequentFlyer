@@ -128,9 +128,7 @@
                         <outlet property="concourseURLEntryField" destination="zIO-hG-GAI" id="A7Z-BQ-V1d"/>
                         <outlet property="scrollView" destination="0f2-3M-bKj" id="LIT-C9-FvR"/>
                         <outlet property="submitButton" destination="z9d-gU-Ttz" id="3Gb-DW-7Ze"/>
-                        <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="vJK-D0-aXI"/>
-                        <segue destination="lU6-MP-khL" kind="show" identifier="ShowLogin" id="zMW-N3-ZS9"/>
-                        <segue destination="1H1-8y-8ag" kind="show" identifier="ShowGitHubAuth" id="3HC-Bh-LrC"/>
+                        <segue destination="b8U-st-aSa" kind="show" identifier="ShowTeams" id="xYA-ns-OH1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBl-dN-Z3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -271,6 +269,67 @@
             </objects>
             <point key="canvasLocation" x="350" y="590"/>
         </scene>
+        <!--Teams View Controller-->
+        <scene sceneID="1vX-C5-Hdr">
+            <objects>
+                <viewController storyboardIdentifier="Teams" id="b8U-st-aSa" customClass="TeamsViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="00j-dS-rxA"/>
+                        <viewControllerLayoutGuide type="bottom" id="Idc-pV-TvX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aaY-PE-bsZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jhk-fd-WPm">
+                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TeamCell" id="seb-ND-lgC" customClass="TeamTableViewCell" customModule="FrequentFlyer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="seb-ND-lgC" id="v7T-nd-kDt">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5N-0s-UMu" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="11" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="G5N-0s-UMu" firstAttribute="centerY" secondItem="v7T-nd-kDt" secondAttribute="centerY" id="7a8-ol-dKu"/>
+                                                <constraint firstItem="G5N-0s-UMu" firstAttribute="leading" secondItem="v7T-nd-kDt" secondAttribute="leadingMargin" constant="16" id="THW-Gg-dKH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="teamLabel" destination="G5N-0s-UMu" id="lyJ-gF-tgO"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Jhk-fd-WPm" firstAttribute="leading" secondItem="aaY-PE-bsZ" secondAttribute="leadingMargin" id="UMt-fu-MgR"/>
+                            <constraint firstItem="Idc-pV-TvX" firstAttribute="top" secondItem="Jhk-fd-WPm" secondAttribute="bottom" id="e68-v2-UED"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jhk-fd-WPm" secondAttribute="trailing" id="rVX-w0-N9c"/>
+                            <constraint firstItem="Jhk-fd-WPm" firstAttribute="top" secondItem="00j-dS-rxA" secondAttribute="bottom" id="zVe-yI-ph4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="teamsTableView" destination="Jhk-fd-WPm" id="hUx-pP-3O9"/>
+                        <segue destination="lU6-MP-khL" kind="show" identifier="ShowLogin" id="Thd-ED-wmb"/>
+                        <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="goX-FM-oN5"/>
+                        <segue destination="1H1-8y-8ag" kind="show" identifier="ShowGitHubAuth" id="38W-HA-ADg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E5R-5m-0Bc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1342" y="591"/>
+        </scene>
         <!--Team Pipelines View Controller-->
         <scene sceneID="Ycc-d0-je9">
             <objects>
@@ -291,7 +350,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9sk-ci-M5H" id="EI1-eI-GTd">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ana-Ur-vXd" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
@@ -519,7 +578,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gvY-oz-Klg" id="MlN-bw-Itq">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agy-nO-Sh9" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
@@ -758,8 +817,8 @@
         <image name="Gear" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8fK-Iz-ap1"/>
-        <segue reference="3HC-Bh-LrC"/>
+        <segue reference="38W-HA-ADg"/>
         <segue reference="mf8-JP-wQv"/>
+        <segue reference="goX-FM-oN5"/>
     </inferredMetricsTieBreakers>
 </document>

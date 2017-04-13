@@ -9,14 +9,31 @@ class StreamResult<T> {
 
     init(_ stream: Observable<T>) {
         stream
-            .subscribe(on)
+            .subscribe(onSingle)
             .addDisposableTo(disposeBag)
     }
 
-    private func on(_ event: Event<T>) {
+    init(_ stream: Observable<[T]>) {
+        stream
+            .subscribe(onCollection)
+            .addDisposableTo(disposeBag)
+    }
+
+    private func onSingle(_ event: Event<T>) {
         switch event {
         case .next(let e):
             elements.append(e)
+        case .completed:
+            completed = true
+        case .error(let error):
+            self.error = error
+        }
+    }
+
+    private func onCollection(_ event: Event<[T]>) {
+        switch event {
+        case .next(let e):
+            elements.append(contentsOf: e)
         case .completed:
             completed = true
         case .error(let error):

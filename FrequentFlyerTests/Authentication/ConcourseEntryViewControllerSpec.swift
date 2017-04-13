@@ -6,55 +6,33 @@ import RxSwift
 @testable import FrequentFlyer
 
 class ConcourseEntryViewControllerSpec: QuickSpec {
-    class MockAuthMethodsService: AuthMethodsService {
-        var capturedTeamName: String?
+    class MockTeamListService: TeamListService {
         var capturedConcourseURL: String?
-        var authMethodsSubject = PublishSubject<AuthMethod>()
+        var teamListSubject = PublishSubject<[String]>()
 
-        override func getMethods(forTeamName teamName: String, concourseURL: String) -> Observable<AuthMethod> {
-            capturedTeamName = teamName
+        override func getTeams(forConcourseWithURL concourseURL: String) -> Observable<[String]> {
             capturedConcourseURL = concourseURL
-            return authMethodsSubject
-        }
-    }
-
-    class MockUnauthenticatedTokenService: UnauthenticatedTokenService {
-        var capturedTeamName: String?
-        var capturedConcourseURL: String?
-        var tokenSubject = PublishSubject<Token>()
-
-        override func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String) -> Observable<Token> {
-            capturedTeamName = teamName
-            capturedConcourseURL = concourseURL
-            return tokenSubject
+            return teamListSubject
         }
     }
 
     override func spec() {
         describe("ConcourseEntryViewController") {
             var subject: ConcourseEntryViewController!
-            var mockAuthMethodsService: MockAuthMethodsService!
-            var mockUnauthenticatedTokenService: MockUnauthenticatedTokenService!
+            var mockTeamListService: MockTeamListService!
             var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
-            var mockLoginViewController: LoginViewController!
-            var mockGitHubAuthViewController: GitHubAuthViewController!
-            var mockTeamPipelinesViewController: TeamPipelinesViewController!
+            var mockTeamsViewController: TeamsViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockLoginViewController = try! storyboard.mockIdentifier(LoginViewController.storyboardIdentifier, usingMockFor: LoginViewController.self)
-                mockGitHubAuthViewController = try! storyboard.mockIdentifier(GitHubAuthViewController.storyboardIdentifier, usingMockFor: GitHubAuthViewController.self)
-                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
+                mockTeamsViewController = try! storyboard.mockIdentifier(TeamsViewController.storyboardIdentifier, usingMockFor: TeamsViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: ConcourseEntryViewController.storyboardIdentifier) as! ConcourseEntryViewController
 
-                mockAuthMethodsService = MockAuthMethodsService()
-                subject.authMethodsService = mockAuthMethodsService
-
-                mockUnauthenticatedTokenService = MockUnauthenticatedTokenService()
-                subject.unauthenticatedTokenService = mockUnauthenticatedTokenService
+                mockTeamListService = MockTeamListService()
+                subject.teamListService = mockTeamListService
 
                 mockUserTextInputPageOperator = UserTextInputPageOperator()
                 subject.userTextInputPageOperator = mockUserTextInputPageOperator
@@ -129,12 +107,6 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                     }
                 }
 
-                func returnAuthMethods(_ methods: [AuthMethod]) {
-                    let methodSubject = mockAuthMethodsService.authMethodsSubject
-                    for method in methods { methodSubject.onNext(method) }
-                    methodSubject.onCompleted()
-                }
-
                 describe("Entering a Concourse URL without 'http://' or 'https://' and hitting 'Submit'") {
                     beforeEach {
                         try! subject.concourseURLEntryField?.textField?.enter(text: "partial-concourse.com")
@@ -142,111 +114,33 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         try! subject.submitButton?.tap()
                     }
 
-                    it("prepends your request with `https://` and submits") {
-                        expect(mockAuthMethodsService.capturedTeamName).to(equal("main"))
-                        expect(mockAuthMethodsService.capturedConcourseURL).to(equal("https://partial-concourse.com"))
-                    }
-
                     it("disables the button") {
                         expect(subject.submitButton?.isEnabled).toEventually(beFalse())
                     }
 
-                    it("makes a call to the auth methods service using the input team and Concourse URL") {
-                        expect(mockAuthMethodsService.capturedTeamName).to(equal("main"))
-                        expect(mockAuthMethodsService.capturedConcourseURL).to(equal("https://partial-concourse.com"))
+                    it("prepends your request with `https://` and uses it to make a call to the team list service") {
+                        expect(mockTeamListService.capturedConcourseURL).to(equal("https://partial-concourse.com"))
                     }
 
-                    describe("When the auth methods service call resolves with some auth methods and no error") {
+                    describe("When the team list service call resolves with some team names") {
                         beforeEach {
-                            let basicAuthMethod = AuthMethod(type: .basic, url: "basic-auth.com")
-                            let gitHubAuthMethod = AuthMethod(type: .gitHub, url: "gitHub-auth.com")
-                            returnAuthMethods([basicAuthMethod, gitHubAuthMethod])
+                            mockTeamListService.teamListSubject.onNext(["turtle_team", "crab_team", "puppy_team"])
+                            mockTeamListService.teamListSubject.onCompleted()
                         }
 
-                        it("presents a LoginViewController") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockLoginViewController))
+                        it("makes a call to the team list service using the Concourse URL") {
+                            expect(mockTeamListService.capturedConcourseURL).to(equal("https://partial-concourse.com"))
                         }
 
-                        it("sets the fetched auth methods on the view controller") {
-                            expect(mockLoginViewController.authMethods).toEventually(equal([
-                                AuthMethod(type: .basic, url: "basic-auth.com"),
-                                AuthMethod(type: .gitHub, url: "gitHub-auth.com")
-                                ]))
-                        }
-
-                        it("sets the entered Concourse URL on the view controller") {
-                            expect(mockLoginViewController.concourseURLString).toEventually(equal("https://partial-concourse.com"))
+                        it("presents the \(TeamsViewController.self)") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamsViewController))
+                            expect(mockTeamsViewController.concourseURLString).toEventually(equal("https://partial-concourse.com"))
+                            expect(mockTeamsViewController.teams).toEventually(equal(["turtle_team", "crab_team", "puppy_team"]))
                         }
                     }
 
-                    describe("When the auth methods service call resolves only with GitHub authentication") {
-                        beforeEach {
-                            let gitHubAuthMethod = AuthMethod(type: .gitHub, url: "gitHub-auth.com")
-                            returnAuthMethods([gitHubAuthMethod])
-                        }
+                    describe("When the team list service call resolves with no teams") {
 
-                        it("presents a GitHubAuthViewController") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockGitHubAuthViewController))
-                        }
-
-                        it("sets the entered Concourse URL on the view controller") {
-                            expect(mockGitHubAuthViewController.concourseURLString).toEventually(equal("https://partial-concourse.com"))
-                        }
-
-                        it("sets the auth method's auth URL on the view controller") {
-                            expect(mockGitHubAuthViewController.gitHubAuthURLString).toEventually(equal("gitHub-auth.com"))
-                        }
-                    }
-
-                    describe("When the auth methods service call resolves with no auth methods and no error") {
-                        beforeEach {
-                            returnAuthMethods([])
-                        }
-
-                        it("makes a call to the token auth service using the input team, Concourse URL, and no other credentials") {
-                            expect(mockUnauthenticatedTokenService.capturedTeamName).to(equal("main"))
-                            expect(mockUnauthenticatedTokenService.capturedConcourseURL).to(equal("https://partial-concourse.com"))
-                        }
-
-                        describe("When the token auth service call resolves with a valid token") {
-                            beforeEach {
-                                let token = Token(value: "turtle auth token")
-                                mockUnauthenticatedTokenService.tokenSubject.onNext(token)
-                            }
-
-                            it("replaces itself with the TeamPipelinesViewController") {
-                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
-                            }
-
-                            it("creates a new target from the entered information and view controller") {
-                                let expectedTarget = Target(name: "target", api: "https://partial-concourse.com",
-                                                            teamName: "main", token: Token(value: "turtle auth token")
-                                )
-                                expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
-                            }
-                        }
-
-                        describe("When the token auth service call resolves with some error") {
-                            beforeEach {
-                                let error = BasicError(details: "error details")
-                                mockUnauthenticatedTokenService.tokenSubject.onError(error)
-                            }
-
-                            it("presents an alert that contains the error message from the token auth service") {
-                                expect(subject.presentedViewController).toEventually(beAKindOf(UIAlertController.self))
-
-                                let screen = Fleet.getApplicationScreen()
-                                expect(screen?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
-
-                                let alert = screen?.topmostViewController as? UIAlertController
-                                expect(alert?.title).toEventually(equal("Authorization Failed"))
-                                expect(alert?.message).toEventually(equal("error details"))
-                            }
-
-                            it("enables the button") {
-                                expect(subject.submitButton?.isEnabled).toEventually(beTrue())
-                            }
-                        }
                     }
                 }
 
@@ -261,102 +155,29 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         expect(subject.submitButton?.isEnabled).toEventually(beFalse())
                     }
 
-                    it("makes a call to the auth methods service using the input team and Concourse URL") {
-                        expect(mockAuthMethodsService.capturedTeamName).to(equal("main"))
-                        expect(mockAuthMethodsService.capturedConcourseURL).to(equal("https://concourse.com"))
+                    it("uses the entered Concourse URL to make a call to the team list service") {
+                        expect(mockTeamListService.capturedConcourseURL).to(equal("https://concourse.com"))
                     }
 
-                    describe("When the auth methods service call resolves with some auth methods and no error") {
+                    describe("When the team list service call resolves with some team names") {
                         beforeEach {
-                            let basicAuthMethod = AuthMethod(type: .basic, url: "basic-auth.com")
-                            let gitHubAuthMethod = AuthMethod(type: .gitHub, url: "gitHub-auth.com")
-                            returnAuthMethods([basicAuthMethod, gitHubAuthMethod])
+                            mockTeamListService.teamListSubject.onNext(["turtle_team", "crab_team", "puppy_team"])
+                            mockTeamListService.teamListSubject.onCompleted()
                         }
 
-                        it("presents a LoginViewController") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockLoginViewController))
+                        it("makes a call to the team list service using the Concourse URL") {
+                            expect(mockTeamListService.capturedConcourseURL).to(equal("https://concourse.com"))
                         }
 
-                        it("sets the fetched auth methods on the view controller") {
-                            expect(mockLoginViewController.authMethods).toEventually(equal([
-                                AuthMethod(type: .basic, url: "basic-auth.com"),
-                                AuthMethod(type: .gitHub, url: "gitHub-auth.com")
-                                ]))
-                        }
-
-                        it("sets the entered Concourse URL on the view controller") {
-                            expect(mockLoginViewController.concourseURLString).toEventually(equal("https://concourse.com"))
+                        it("presents the \(TeamsViewController.self)") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamsViewController))
+                            expect(mockTeamsViewController.concourseURLString).toEventually(equal("https://concourse.com"))
+                            expect(mockTeamsViewController.teams).toEventually(equal(["turtle_team", "crab_team", "puppy_team"]))
                         }
                     }
 
-                    describe("When the auth methods service call resolves only with GitHub authentication") {
-                        beforeEach {
-                            let gitHubAuthMethod = AuthMethod(type: .gitHub, url: "gitHub-auth.com")
-                            returnAuthMethods([gitHubAuthMethod])
-                        }
+                    describe("When the team list service call resolves with no teams") {
 
-                        it("presents a GitHubAuthViewController") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockGitHubAuthViewController))
-                        }
-
-                        it("sets the entered Concourse URL on the view controller") {
-                            expect(mockGitHubAuthViewController.concourseURLString).toEventually(equal("https://concourse.com"))
-                        }
-
-                        it("sets the auth method's auth URL on the view controller") {
-                            expect(mockGitHubAuthViewController.gitHubAuthURLString).toEventually(equal("gitHub-auth.com"))
-                        }
-                    }
-
-                    describe("When the auth methods service call resolves with no auth methods and no error") {
-                        beforeEach {
-                            returnAuthMethods([])
-                        }
-
-                        it("makes a call to the token auth service using the input team, Concourse URL, and no other credentials") {
-                            expect(mockUnauthenticatedTokenService.capturedTeamName).to(equal("main"))
-                            expect(mockUnauthenticatedTokenService.capturedConcourseURL).to(equal("https://concourse.com"))
-                        }
-
-                        describe("When the token auth service call resolves with a valid token") {
-                            beforeEach {
-                                let token = Token(value: "turtle auth token")
-                                mockUnauthenticatedTokenService.tokenSubject.onNext(token)
-                            }
-
-                            it("replaces itself with the TeamPipelinesViewController") {
-                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
-                            }
-
-                            it("creates a new target from the entered information and view controller") {
-                                let expectedTarget = Target(name: "target", api: "https://concourse.com",
-                                                            teamName: "main", token: Token(value: "turtle auth token")
-                                )
-                                expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
-                            }
-                        }
-
-                        describe("When the token auth service call resolves with some error") {
-                            beforeEach {
-                                let error = BasicError(details: "error details")
-                                mockUnauthenticatedTokenService.tokenSubject.onError(error)
-                            }
-
-                            it("presents an alert that contains the error message from the token auth service") {
-                                expect(subject.presentedViewController).toEventually(beAKindOf(UIAlertController.self))
-
-                                let screen = Fleet.getApplicationScreen()
-                                expect(screen?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
-
-                                let alert = screen?.topmostViewController as? UIAlertController
-                                expect(alert?.title).toEventually(equal("Authorization Failed"))
-                                expect(alert?.message).toEventually(equal("error details"))
-                            }
-
-                            it("enables the button") {
-                                expect(subject.submitButton?.isEnabled).toEventually(beTrue())
-                            }
-                        }
                     }
                 }
             }

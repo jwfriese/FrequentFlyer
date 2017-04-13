@@ -5,7 +5,7 @@ class AuthMethodsService {
     var httpClient = HTTPClient()
     var authMethodsDataDeserializer = AuthMethodDataDeserializer()
 
-    func getMethods(forTeamName teamName: String, concourseURL: String) -> Observable<AuthMethod> {
+    func getMethods(forTeamName teamName: String, concourseURL: String) -> Observable<[AuthMethod]> {
         let urlString = "\(concourseURL)/api/v1/teams/\(teamName)/auth/methods"
         let url = URL(string: urlString)
         var request = URLRequest(url: url!)

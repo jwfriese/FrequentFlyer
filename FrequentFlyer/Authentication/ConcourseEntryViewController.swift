@@ -7,14 +7,13 @@ class ConcourseEntryViewController: UIViewController {
     @IBOutlet weak var concourseURLEntryField: TitledTextField?
     @IBOutlet weak var submitButton: RoundedButton?
 
+    var teamListService = TeamListService()
     var authMethodsService = AuthMethodsService()
     var unauthenticatedTokenService = UnauthenticatedTokenService()
     var userTextInputPageOperator = UserTextInputPageOperator()
 
     class var storyboardIdentifier: String { get { return "ConcourseEntry" } }
-    class var showLoginSegueId: String { get { return "ShowLogin" } }
-    class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
-    class var showGitHubAuthSegueId: String { get { return "ShowGitHubAuth" } }
+    class var showTeamsSegueId: String { get { return "ShowTeams" } }
 
     var authMethod$: Observable<AuthMethod>?
     var disposeBag = DisposeBag()
@@ -53,39 +52,15 @@ class ConcourseEntryViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ConcourseEntryViewController.showLoginSegueId {
-            guard let loginViewController = segue.destination as? LoginViewController else {
-                return
-            }
-
+        if segue.identifier == ConcourseEntryViewController.showTeamsSegueId {
+            guard let teamsViewController = segue.destination as? TeamsViewController else { return }
             guard var concourseURLString = concourseURLEntryField?.textField?.text else { return }
             concourseURLString = validatedConcourseURL(fromInput: concourseURLString)
 
-            guard let authMethods = sender as? [AuthMethod] else { return }
+            guard let teams = sender as? [String] else { return }
 
-            loginViewController.authMethods = authMethods
-            loginViewController.concourseURLString = concourseURLString
-        } else if segue.identifier == ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId {
-            guard let target = sender as? Target else { return }
-            guard let teamPipelinesViewController = segue.destination as? TeamPipelinesViewController else {
-                return
-            }
-
-            teamPipelinesViewController.target = target
-
-            let teamPipelinesService = TeamPipelinesService()
-            teamPipelinesService.httpClient = HTTPClient()
-            teamPipelinesService.pipelineDataDeserializer = PipelineDataDeserializer()
-            teamPipelinesViewController.teamPipelinesService = teamPipelinesService
-        } else if segue.identifier == ConcourseEntryViewController.showGitHubAuthSegueId {
-            guard let gitHubAuthMethod = sender as? AuthMethod else { return }
-            guard let gitHubAuthViewController = segue.destination as? GitHubAuthViewController else { return }
-            guard var concourseURLString = concourseURLEntryField?.textField?.text else { return }
-
-            concourseURLString = validatedConcourseURL(fromInput: concourseURLString)
-
-            gitHubAuthViewController.concourseURLString = concourseURLString
-            gitHubAuthViewController.gitHubAuthURLString = gitHubAuthMethod.url
+            teamsViewController.concourseURLString = concourseURLString
+            teamsViewController.teams = teams
         }
     }
 
@@ -105,61 +80,17 @@ class ConcourseEntryViewController: UIViewController {
 
         submitButton?.isEnabled = false
 
-        authMethod$ = authMethodsService.getMethods(forTeamName: "main", concourseURL: concourseURLString)
-        authMethod$?.toArray().subscribe(
-            onNext: { authMethods in
-                guard authMethods.count > 0 else {
-                    self.handleAuthMethodsError(concourseURLString)
-                    return
-                }
-
-                var segueIdentifier: String!
-                var sender: Any!
-                if authMethods.count == 1 && authMethods.first!.type == .gitHub {
-                    segueIdentifier = ConcourseEntryViewController.showGitHubAuthSegueId
-                    sender = authMethods.first!
-                } else {
-                    segueIdentifier = ConcourseEntryViewController.showLoginSegueId
-                    sender = authMethods
-                }
-
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: segueIdentifier, sender: sender)
-                }
-        },
-            onError: { _ in
-                self.handleAuthMethodsError(concourseURLString)
-        })
-            .addDisposableTo(self.disposeBag)
-    }
-
-    private func handleAuthMethodsError(_ concourseURLString: String) {
-        unauthenticatedTokenService.getUnauthenticatedToken(forTeamName: "main", concourseURL: concourseURLString)
+        teamListService.getTeams(forConcourseWithURL: concourseURLString)
             .subscribe(
-                onNext: { token in
-                    let newTarget = Target(name: "target",
-                                           api: concourseURLString,
-                                           teamName: "main",
-                                           token: token)
+                onNext: { teams in
                     DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: ConcourseEntryViewController.setTeamPipelinesAsRootPageSegueId, sender: newTarget)
+                        self.performSegue(withIdentifier: ConcourseEntryViewController.showTeamsSegueId, sender: teams)
                     }
+            },
+                onError: { _ in
 
-            },
-                onError: { error in
-                    let alert = UIAlertController(title: "Authorization Failed",
-                                                  message: error.localizedDescription,
-                                                  preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    DispatchQueue.main.async {
-                        self.submitButton?.isEnabled = true
-                        self.present(alert, animated: true, completion: nil)
-                    }
-            },
-                onCompleted: nil,
-                onDisposed: nil
-            )
-            .addDisposableTo(disposeBag)
+            })
+                .addDisposableTo(self.disposeBag)
     }
 }
 
