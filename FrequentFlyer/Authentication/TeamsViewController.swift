@@ -27,6 +27,7 @@ class TeamsViewController: UIViewController {
         guard let teamsTableView = teamsTableView else { return }
 
         title = "Teams"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         Observable.just(teams)
             .bind(to: teamsTableView.rx.items(
