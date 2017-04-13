@@ -47,6 +47,12 @@ class TeamsViewController: UIViewController {
                     return
                 }
 
+                if authMethods.count == 1 && authMethods.first!.type == .uaa {
+                    let errorMessage = "The app does not support UAA yet."
+                    self.presentErrorAlert(withTitle: "Unsupported Auth Method", message: errorMessage)
+                    return
+                }
+
                 var segueIdentifier: String!
                 var sender: Any!
                 if self.isGitHubAuthTheOnlySupportedAuthType(inAuthMethodCollection: authMethods) {
@@ -62,13 +68,8 @@ class TeamsViewController: UIViewController {
                 }
             },
                        onError: { _ in
-                        let alert = UIAlertController(title: "Error",
-                                                      message: "Encountered error when trying to fetch Concourse auth methods. Please check your Concourse configuration and try again later.",
-                                                      preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        DispatchQueue.main.async {
-                            self.present(alert, animated: true, completion: nil)
-                        }
+                        let errorMessage = "Encountered error when trying to fetch Concourse auth methods. Please check your Concourse configuration and try again later."
+                        self.presentErrorAlert(withTitle: "Error", message: errorMessage)
             })
             .addDisposableTo(disposeBag)
     }
@@ -84,6 +85,16 @@ class TeamsViewController: UIViewController {
     private func doAuthMethodsCall(forTeamName teamName: String, concourseURLString: String) -> Observable<[AuthMethod]> {
         selectedTeamName = teamName
         return authMethodsService.getMethods(forTeamName: teamName, concourseURL: concourseURLString)
+    }
+
+    private func presentErrorAlert(withTitle title: String, message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

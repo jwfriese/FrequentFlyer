@@ -169,6 +169,24 @@ class TeamsViewControllerSpec: QuickSpec {
                         }
                     }
 
+                    describe("When the auth methods service call resolves with only UAA authentication") {
+                        beforeEach {
+                            let uaaAuthMethod = AuthMethod(type: .uaa, displayName: "", url: "uaa-auth.com")
+                            returnAuthMethods([uaaAuthMethod])
+                        }
+
+                        it("presents an alert that lets the user know that the app does not yet support UAA") {
+                            expect(subject.presentedViewController).toEventually(beAKindOf(UIAlertController.self))
+
+                            let screen = Fleet.getApplicationScreen()
+                            expect(screen?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
+
+                            let alert = screen?.topmostViewController as? UIAlertController
+                            expect(alert?.title).toEventually(equal("Unsupported Auth Method"))
+                            expect(alert?.message).toEventually(equal("The app does not support UAA yet."))
+                        }
+                    }
+
                     describe("When the auth methods service call resolves with no auth methods and no error") {
                         beforeEach {
                             returnAuthMethods([])
