@@ -21,15 +21,16 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing auth methods data that is all valid") {
-
                 beforeEach {
                     let validDataJSONArray = [
                         [
                             "type" : "basic",
+                            "display_name" : AuthMethod.DisplayNames.basic,
                             "auth_url": "basic_turtle.com"
                         ],
                         [
                             "type" : "oauth",
+                            "display_name": AuthMethod.DisplayNames.gitHub,
                             "auth_url": "oauth_turtle.com"
                         ]
                     ]
@@ -44,8 +45,8 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                         return
                     }
 
-                    expect(authMethods[0]).to(equal(AuthMethod(type: .basic, url: "basic_turtle.com")))
-                    expect(authMethods[1]).to(equal(AuthMethod(type: .gitHub, url: "oauth_turtle.com")))
+                    expect(authMethods[0]).to(equal(AuthMethod(type: .basic, displayName: AuthMethod.DisplayNames.basic, url: "basic_turtle.com")))
+                    expect(authMethods[1]).to(equal(AuthMethod(type: .gitHub, displayName: AuthMethod.DisplayNames.gitHub, url: "oauth_turtle.com")))
                 }
 
                 it("returns no error") {
@@ -54,16 +55,17 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing auth method data where some of the data is invalid") {
-
                 context("Missing required 'type' field") {
                     beforeEach {
                         let partiallyValidDataJSONArray = [
                             [
                                 "type" : "basic",
+                                "display_name" : AuthMethod.DisplayNames.basic,
                                 "auth_url": "basic_turtle.com"
                             ],
                             [
                                 "somethingelse" : "value",
+                                "display_name" : AuthMethod.DisplayNames.basic,
                                 "auth_url": "basic_crab.com"
                             ]
                         ]
@@ -73,7 +75,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                     }
 
                     it("emits an auth method for each valid JSON auth method entry") {
-                        expect(authMethods).to(equal([AuthMethod(type: .basic, url: "basic_turtle.com")]))
+                        expect(authMethods).to(equal([AuthMethod(type: .basic, displayName: AuthMethod.DisplayNames.basic, url: "basic_turtle.com")]))
                     }
 
                     it("emits completed") {
@@ -86,10 +88,12 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                         let partiallyValidDataJSONArray = [
                             [
                                 "type" : "basic",
+                                "display_name" : AuthMethod.DisplayNames.basic,
                                 "auth_url": "basic_turtle.com"
                             ],
                             [
                                 "type" : 1,
+                                "display_name" : AuthMethod.DisplayNames.basic,
                                 "auth_url": "basic_turtle.com"
                             ]
                         ]
@@ -99,7 +103,105 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                     }
 
                     it("emits an auth method for each valid JSON auth method entry") {
-                        expect(authMethods).to(equal([AuthMethod(type: .basic, url: "basic_turtle.com")]))
+                        expect(authMethods).to(equal([AuthMethod(type: .basic, displayName: AuthMethod.DisplayNames.basic, url: "basic_turtle.com")]))
+                    }
+
+                    it("emits completed") {
+                        expect(result.completed).to(beTrue())
+                    }
+                }
+
+                context("Missing required 'display_name' field") {
+                    beforeEach {
+                        let partiallyValidDataJSONArray = [
+                            [
+                                "type" : "basic",
+                                "display_name" : AuthMethod.DisplayNames.basic
+                                ],
+                            [
+                                "type" : "oauth",
+                                "display_name" : AuthMethod.DisplayNames.gitHub,
+                                "auth_url": "basic_crab.com"
+                            ]
+                        ]
+
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
+                        result = StreamResult(subject.deserialize(partiallyValidData))
+                    }
+
+                    it("emits an auth method for each valid JSON auth method entry") {
+                        expect(authMethods).to(equal([AuthMethod(type: .gitHub, displayName: AuthMethod.DisplayNames.gitHub, url: "basic_crab.com")]))
+                    }
+
+                    it("emits completed") {
+                        expect(result.completed).to(beTrue())
+                    }
+                }
+
+                context("'display_name' field is not a string") {
+                    beforeEach {
+                        let partiallyValidDataJSONArray = [
+                            [
+                                "type" : "basic",
+                                "display_name" : AuthMethod.DisplayNames.basic,
+                                "auth_url": "basic_turtle.com"
+                            ],
+                            [
+                                "type" : "oauth",
+                                "display_name" : 1,
+                                "auth_url": "oauth_turtle.com"
+                            ]
+                        ]
+
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
+                        result = StreamResult(subject.deserialize(partiallyValidData))
+                    }
+
+                    it("emits an auth method for each valid JSON auth method entry") {
+                        expect(authMethods).to(equal([AuthMethod(type: .basic, displayName: AuthMethod.DisplayNames.basic, url: "basic_turtle.com")]))
+                    }
+
+                    it("emits completed") {
+                        expect(result.completed).to(beTrue())
+                    }
+                }
+
+                context("Unrecognized combination of 'type' and 'display_name'") {
+                    beforeEach {
+                        let partiallyValidDataJSONArray = [
+                            [
+                                "type" : "basic",
+                                "display_name" : AuthMethod.DisplayNames.basic,
+                                "auth_url": "basic_turtle.com"
+                            ],
+                            [
+                                "type" : "basic",
+                                "display_name" : "something else",
+                                "auth_url": "basic_crab.com"
+                            ],
+                            [
+                                "type" : "oauth",
+                                "display_name": AuthMethod.DisplayNames.gitHub,
+                                "auth_url": "oauth_turtle.com"
+                            ],
+                            [
+                                "type" : "oauth",
+                                "display_name": "something else",
+                                "auth_url": "oauth_crab.com"
+                            ]
+                        ]
+
+                        let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
+                        result = StreamResult(subject.deserialize(partiallyValidData))
+                    }
+
+                    it("emits an auth method for each valid JSON auth method entry") {
+                        let expectedAuthMethods = [
+                            AuthMethod(type: .basic, displayName: AuthMethod.DisplayNames.basic, url: "basic_turtle.com"),
+                            AuthMethod(type: .gitHub, displayName: AuthMethod.DisplayNames.gitHub, url: "oauth_turtle.com")
+                        ]
+
+                        expect(authMethods).to(equal(expectedAuthMethods))
                     }
 
                     it("emits completed") {
@@ -112,9 +214,11 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                         let partiallyValidDataJSONArray = [
                             [
                                 "type" : "basic",
+                                "display_name" : AuthMethod.DisplayNames.basic
                             ],
                             [
                                 "type" : "oauth",
+                                "display_name" : AuthMethod.DisplayNames.gitHub,
                                 "auth_url": "basic_crab.com"
                             ]
                         ]
@@ -124,7 +228,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                     }
 
                     it("emits an auth method for each valid JSON auth method entry") {
-                        expect(authMethods).to(equal([AuthMethod(type: .gitHub, url: "basic_crab.com")]))
+                        expect(authMethods).to(equal([AuthMethod(type: .gitHub, displayName: AuthMethod.DisplayNames.gitHub, url: "basic_crab.com")]))
                     }
 
                     it("emits completed") {
@@ -137,10 +241,12 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                         let partiallyValidDataJSONArray = [
                             [
                                 "type" : "basic",
+                                "display_name" : AuthMethod.DisplayNames.basic,
                                 "auth_url": "basic_turtle.com"
                             ],
                             [
                                 "type" : "basic",
+                                "display_name" : AuthMethod.DisplayNames.basic,
                                 "auth_url": 1
                             ]
                         ]
@@ -150,7 +256,7 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                     }
 
                     it("emits an auth method for each valid JSON auth method entry") {
-                        expect(authMethods).to(equal([AuthMethod(type: .basic, url: "basic_turtle.com")]))
+                        expect(authMethods).to(equal([AuthMethod(type: .basic, displayName: AuthMethod.DisplayNames.basic, url: "basic_turtle.com")]))
                     }
 
                     it("emits completed") {

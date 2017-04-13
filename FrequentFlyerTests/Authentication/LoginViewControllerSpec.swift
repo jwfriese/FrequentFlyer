@@ -62,7 +62,7 @@ class LoginViewControllerSpec: QuickSpec {
                 describe("Form setup") {
                     context("When only basic auth is available") {
                         beforeEach {
-                            subject.authMethods = [AuthMethod(type: .basic, url: "basic-auth.com")]
+                            subject.authMethods = [AuthMethod(type: .basic, displayName: "", url: "basic-auth.com")]
                             let _ = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
@@ -81,7 +81,7 @@ class LoginViewControllerSpec: QuickSpec {
 
                     context("When only GitHub auth is available") {
                         beforeEach {
-                            subject.authMethods = [AuthMethod(type: .gitHub, url: "gitHub-auth.com")]
+                            subject.authMethods = [AuthMethod(type: .gitHub, displayName: "", url: "gitHub-auth.com")]
                             let _ = Fleet.setInAppWindowRootNavigation(subject)
                         }
 
@@ -101,8 +101,8 @@ class LoginViewControllerSpec: QuickSpec {
                     context("When both basic auth and GitHub auth are available") {
                         beforeEach {
                             subject.authMethods = [
-                                AuthMethod(type: .basic, url: "basic-auth.com"),
-                                AuthMethod(type: .gitHub, url: "gitHub-auth.com")
+                                AuthMethod(type: .basic, displayName: "", url: "basic-auth.com"),
+                                AuthMethod(type: .gitHub, displayName: "", url: "gitHub-auth.com")
                             ]
 
                             let _ = Fleet.setInAppWindowRootNavigation(subject)
@@ -124,7 +124,7 @@ class LoginViewControllerSpec: QuickSpec {
 
                 describe("Submitting using basic auth") {
                     beforeEach {
-                        subject.authMethods = [AuthMethod(type: .basic, url: "basic-auth.com")]
+                        subject.authMethods = [AuthMethod(type: .basic, displayName: "", url: "basic-auth.com")]
                         let _ = Fleet.setInAppWindowRootNavigation(subject)
 
                         try? subject.usernameField?.textField?.enter(text: "turtle username")
@@ -228,7 +228,7 @@ class LoginViewControllerSpec: QuickSpec {
 
                 describe("Using GitHub auth") {
                     beforeEach {
-                        subject.authMethods = [AuthMethod(type: .gitHub, url: "gitHub-auth.com")]
+                        subject.authMethods = [AuthMethod(type: .gitHub, displayName: "", url: "gitHub-auth.com")]
                         let _ = Fleet.setInAppWindowRootNavigation(subject)
                     }
 

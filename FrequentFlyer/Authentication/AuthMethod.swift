@@ -1,9 +1,16 @@
 struct AuthMethod {
-    fileprivate(set) var type: AuthType
-    fileprivate(set) var url: String
+    let type: AuthType
+    let displayName: String
+    let url: String
 
-    init(type: AuthType, url: String) {
+    class DisplayNames {
+        static let basic = "Basic Auth"
+        static let gitHub = "GitHub"
+    }
+
+    init(type: AuthType, displayName: String, url: String) {
         self.type = type
+        self.displayName = displayName
         self.url = url
     }
 }
@@ -11,5 +18,7 @@ struct AuthMethod {
 extension AuthMethod: Equatable {}
 
 func ==(lhs: AuthMethod, rhs: AuthMethod) -> Bool {
-    return lhs.type == rhs.type && lhs.url == rhs.url
+    return lhs.type == rhs.type &&
+        lhs.displayName == rhs.displayName &&
+        lhs.url == rhs.url
 }

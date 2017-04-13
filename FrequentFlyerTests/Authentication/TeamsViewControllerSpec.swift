@@ -109,8 +109,8 @@ class TeamsViewControllerSpec: QuickSpec {
 
                     describe("When the auth methods service call resolves with many auth methods") {
                         beforeEach {
-                            let basicAuthMethod = AuthMethod(type: .basic, url: "basic-auth.com")
-                            let gitHubAuthMethod = AuthMethod(type: .gitHub, url: "gitHub-auth.com")
+                            let basicAuthMethod = AuthMethod(type: .basic, displayName: "", url: "basic-auth.com")
+                            let gitHubAuthMethod = AuthMethod(type: .gitHub, displayName: "", url: "gitHub-auth.com")
                             returnAuthMethods([basicAuthMethod, gitHubAuthMethod])
                         }
 
@@ -120,8 +120,8 @@ class TeamsViewControllerSpec: QuickSpec {
 
                         it("sets the fetched auth methods on the view controller") {
                             expect(mockLoginViewController.authMethods).toEventually(equal([
-                                AuthMethod(type: .basic, url: "basic-auth.com"),
-                                AuthMethod(type: .gitHub, url: "gitHub-auth.com")
+                                AuthMethod(type: .basic, displayName: "", url: "basic-auth.com"),
+                                AuthMethod(type: .gitHub, displayName: "", url: "gitHub-auth.com")
                                 ]))
                         }
 
@@ -132,7 +132,7 @@ class TeamsViewControllerSpec: QuickSpec {
 
                     describe("When the auth methods service call resolves only with GitHub authentication") {
                         beforeEach {
-                            let gitHubAuthMethod = AuthMethod(type: .gitHub, url: "gitHub-auth.com")
+                            let gitHubAuthMethod = AuthMethod(type: .gitHub, displayName: "", url: "gitHub-auth.com")
                             returnAuthMethods([gitHubAuthMethod])
                         }
 
