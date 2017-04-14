@@ -128,6 +128,10 @@ class TeamsViewControllerSpec: QuickSpec {
                         it("sets the Concourse URL on the view controller") {
                             expect(mockLoginViewController.concourseURLString).toEventually(equal("https://concourse.com"))
                         }
+
+                        it("sets the selected team on the view controller") {
+                            expect(mockLoginViewController.teamName).toEventually(equal("turtle_team"))
+                        }
                     }
 
                     describe("When the auth methods service call resolves only with GitHub authentication") {
@@ -146,6 +150,10 @@ class TeamsViewControllerSpec: QuickSpec {
 
                         it("sets the auth method's auth URL on the view controller") {
                             expect(mockGitHubAuthViewController.gitHubAuthURLString).toEventually(equal("gitHub-auth.com"))
+                        }
+
+                        it("sets the selected team on the view controller") {
+                            expect(mockGitHubAuthViewController.teamName).toEventually(equal("turtle_team"))
                         }
                     }
 
@@ -166,6 +174,10 @@ class TeamsViewControllerSpec: QuickSpec {
 
                         it("sets the auth method's auth URL on the view controller") {
                             expect(mockGitHubAuthViewController.gitHubAuthURLString).toEventually(equal("gitHub-auth.com"))
+                        }
+
+                        it("sets the selected team on the view controller") {
+                            expect(mockGitHubAuthViewController.teamName).toEventually(equal("turtle_team"))
                         }
                     }
 

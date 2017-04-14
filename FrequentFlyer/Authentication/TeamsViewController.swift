@@ -105,6 +105,7 @@ class TeamsViewController: UIViewController {
 
             loginViewController.authMethods = authMethods
             loginViewController.concourseURLString = concourseURLString
+            loginViewController.teamName = selectedTeamName
         } else if segue.identifier == TeamsViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
             guard let teamPipelinesViewController = segue.destination as? TeamPipelinesViewController else {
@@ -123,6 +124,7 @@ class TeamsViewController: UIViewController {
             guard let concourseURLString = concourseURLString else { return }
 
             gitHubAuthViewController.concourseURLString = concourseURLString
+            gitHubAuthViewController.teamName = selectedTeamName
             gitHubAuthViewController.gitHubAuthURLString = gitHubAuthMethod.url
         }
     }

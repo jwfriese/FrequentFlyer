@@ -56,6 +56,7 @@ class LoginViewControllerSpec: QuickSpec {
                 subject.keychainWrapper = mockKeychainWrapper
 
                 subject.concourseURLString = "concourse URL"
+                subject.teamName = "team_name"
             }
 
             describe("After the view loads") {
@@ -133,7 +134,7 @@ class LoginViewControllerSpec: QuickSpec {
                     }
 
                     it("calls out to the \(BasicAuthTokenService.self) with the entered username and password") {
-                        expect(mockBasicAuthTokenService.capturedTeamName).to(equal("main"))
+                        expect(mockBasicAuthTokenService.capturedTeamName).to(equal("team_name"))
                         expect(mockBasicAuthTokenService.capturedConcourseURL).to(equal("concourse URL"))
                         expect(mockBasicAuthTokenService.capturedUsername).to(equal("turtle username"))
                         expect(mockBasicAuthTokenService.capturedPassword).to(equal("turtle password"))
@@ -163,7 +164,7 @@ class LoginViewControllerSpec: QuickSpec {
 
                             it("creates a new target from the entered information and view controller") {
                                 let expectedTarget = Target(name: "target", api: "concourse URL",
-                                                            teamName: "main", token: Token(value: "turtle token")
+                                                            teamName: "team_name", token: Token(value: "turtle token")
                                 )
 
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
@@ -189,14 +190,14 @@ class LoginViewControllerSpec: QuickSpec {
 
                             it("creates a new target from the entered information and view controller") {
                                 let expectedTarget = Target(name: "target", api: "concourse URL",
-                                                            teamName: "main", token: Token(value: "turtle token")
+                                                            teamName: "team_name", token: Token(value: "turtle token")
                                 )
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
 
                             it("asks the \(KeychainWrapper.self) to save the newly created target") {
                                 let expectedTarget = Target(name: "target", api: "concourse URL",
-                                                            teamName: "main", token: Token(value: "turtle token")
+                                                            teamName: "team_name", token: Token(value: "turtle token")
                                 )
                                 expect(mockKeychainWrapper.capturedTarget).to(equal(expectedTarget))
                             }

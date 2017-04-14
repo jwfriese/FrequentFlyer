@@ -13,6 +13,7 @@ class GitHubAuthViewController: UIViewController {
     var userTextInputPageOperator = UserTextInputPageOperator()
 
     var concourseURLString: String?
+    var teamName: String?
     var gitHubAuthURLString: String?
 
     class var storyboardIdentifier: String { get { return "GitHubAuth" } }
@@ -83,6 +84,7 @@ class GitHubAuthViewController: UIViewController {
 
     @IBAction func logInButtonTapped() {
         guard let concourseURLString = concourseURLString else { return }
+        guard let teamName = teamName else { return }
         guard let tokenString = tokenTextField?.textField?.text else { return }
 
         loginButton?.isEnabled = false
@@ -105,7 +107,7 @@ class GitHubAuthViewController: UIViewController {
                 let token = Token(value: tokenString)
                 let newTarget = Target(name: "target",
                                        api: concourseURLString,
-                                       teamName: "main",
+                                       teamName: teamName,
                                        token: token)
                 if self.stayLoggedInToggle != nil && self.stayLoggedInToggle!.checkBox!.on {
                     self.keychainWrapper.saveTarget(newTarget)

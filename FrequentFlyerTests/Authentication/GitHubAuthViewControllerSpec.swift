@@ -58,6 +58,7 @@ class GitHubAuthViewControllerSpec: QuickSpec {
                 subject = storyboard.instantiateViewController(withIdentifier: GitHubAuthViewController.storyboardIdentifier) as! GitHubAuthViewController
 
                 subject.concourseURLString = "turtle_concourse.com"
+                subject.teamName = "turtle_team"
                 subject.gitHubAuthURLString = "turtle_gitHub.com"
 
                 mockKeychainWrapper = MockKeychainWrapper()
@@ -223,7 +224,7 @@ class GitHubAuthViewControllerSpec: QuickSpec {
 
                             it("creates a new target from the entered information and view controller") {
                                 let expectedTarget = Target(name: "target", api: "turtle_concourse.com",
-                                                            teamName: "main", token: Token(value: "token of the GitHub Turtle")
+                                                            teamName: "turtle_team", token: Token(value: "token of the GitHub Turtle")
                                 )
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
@@ -247,14 +248,14 @@ class GitHubAuthViewControllerSpec: QuickSpec {
 
                             it("creates a new target from the entered information and sets it on the view controller") {
                                 let expectedTarget = Target(name: "target", api: "turtle_concourse.com",
-                                                            teamName: "main", token: Token(value: "token of the GitHub Turtle")
+                                                            teamName: "turtle_team", token: Token(value: "token of the GitHub Turtle")
                                 )
                                 expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
 
                             it("asks the KeychainWrapper to save the new target") {
                                 let expectedTarget = Target(name: "target", api: "turtle_concourse.com",
-                                                            teamName: "main", token: Token(value: "token of the GitHub Turtle")
+                                                            teamName: "turtle_team", token: Token(value: "token of the GitHub Turtle")
                                 )
 
                                 expect(mockKeychainWrapper.capturedTarget).to(equal(expectedTarget))

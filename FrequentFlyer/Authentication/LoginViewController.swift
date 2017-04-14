@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     var userTextInputPageOperator = UserTextInputPageOperator()
 
     var concourseURLString: String?
+    var teamName: String?
     var authMethods: [AuthMethod]?
 
     var token$: Observable<Token>?
@@ -65,10 +66,11 @@ class LoginViewController: UIViewController {
         guard let username = usernameField?.textField?.text else { return }
         guard let password = passwordField?.textField?.text else { return }
         guard let concourseURL = concourseURLString else { return }
+        guard let teamName = teamName else { return }
 
         basicAuthLoginButton?.isEnabled = false
 
-        token$ = basicAuthTokenService.getToken(forTeamWithName: "main",
+        token$ = basicAuthTokenService.getToken(forTeamWithName: teamName,
                                                 concourseURL: concourseURL,
                                                 username: username,
                                                 password: password
@@ -78,7 +80,7 @@ class LoginViewController: UIViewController {
             onNext: { token in
                 let newTarget = Target(name: "target",
                                        api: concourseURL,
-                                       teamName: "main",
+                                       teamName: teamName,
                                        token: token)
                 if self.stayLoggedInToggle != nil && self.stayLoggedInToggle!.checkBox!.on {
                     self.keychainWrapper.saveTarget(newTarget)
