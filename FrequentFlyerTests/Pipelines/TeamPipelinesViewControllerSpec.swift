@@ -84,6 +84,15 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     expect(subject.numberOfSections(in: subject.teamPipelinesTableView!)).to(equal(1))
                 }
 
+                it("has an active loading indicator") {
+                    expect(subject.loadingIndicator?.isAnimating).toEventually(beTrue())
+                    expect(subject.loadingIndicator?.isHidden).toEventually(beFalse())
+                }
+
+                it("hides the table views row lines while there is no content") {
+                    expect(subject.teamPipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.none))
+                }
+
                 describe("Tapping the gear in the navigation item") {
                     beforeEach {
                         try! subject.gearBarButtonItem?.tap()
@@ -197,6 +206,15 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                         let pipelineTwo = Pipeline(name: "turtle pipeline two")
                         completion([pipelineOne, pipelineTwo], nil)
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
+                    }
+
+                    it("stops and hides the loading indicator") {
+                        expect(subject.loadingIndicator?.isAnimating).toEventually(beFalse())
+                        expect(subject.loadingIndicator?.isHidden).toEventually(beTrue())
+                    }
+
+                    it("shows the table views row lines") {
+                        expect(subject.teamPipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
                     }
 
                     it("adds a row to the table for each of the pipelines returned") {

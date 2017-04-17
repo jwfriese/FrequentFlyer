@@ -3,6 +3,7 @@ import UIKit
 class TeamPipelinesViewController: UIViewController {
     @IBOutlet weak var teamPipelinesTableView: UITableView?
     @IBOutlet weak var gearBarButtonItem: UIBarButtonItem?
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView?
 
     var teamPipelinesService = TeamPipelinesService()
     var keychainWrapper = KeychainWrapper()
@@ -21,10 +22,14 @@ class TeamPipelinesViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         title = "Pipelines"
+        loadingIndicator?.startAnimating()
+        teamPipelinesTableView?.separatorStyle = .none
         teamPipelinesService.getPipelines(forTarget: target) { pipelines, error in
             self.pipelines = pipelines
             DispatchQueue.main.async {
+                self.teamPipelinesTableView?.separatorStyle = .singleLine
                 self.teamPipelinesTableView?.reloadData()
+                self.loadingIndicator?.stopAnimating()
             }
         }
 

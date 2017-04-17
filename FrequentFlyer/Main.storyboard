@@ -289,7 +289,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="seb-ND-lgC" id="v7T-nd-kDt">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5N-0s-UMu" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
@@ -350,7 +350,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9sk-ci-M5H" id="EI1-eI-GTd">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ana-Ur-vXd" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
@@ -371,12 +371,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="0XW-uA-bc1">
+                                <rect key="frame" x="177" y="128" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="0XW-uA-bc1" firstAttribute="centerX" secondItem="0je-yI-F7S" secondAttribute="centerX" id="0iE-kc-qVQ"/>
                             <constraint firstItem="ZLh-97-86X" firstAttribute="top" secondItem="PWe-7J-igF" secondAttribute="bottom" id="5pc-Yh-PU2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PWe-7J-igF" secondAttribute="trailing" id="8W7-NZ-kAH"/>
                             <constraint firstItem="PWe-7J-igF" firstAttribute="top" secondItem="3aQ-Wg-Pfj" secondAttribute="bottom" id="Gb2-0b-wBa"/>
+                            <constraint firstItem="0XW-uA-bc1" firstAttribute="top" secondItem="3aQ-Wg-Pfj" secondAttribute="bottom" constant="108" id="WWV-HC-k6K"/>
                             <constraint firstItem="PWe-7J-igF" firstAttribute="leading" secondItem="0je-yI-F7S" secondAttribute="leadingMargin" id="gXx-f7-k98"/>
                         </constraints>
                     </view>
@@ -390,6 +395,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="gearBarButtonItem" destination="CDV-jc-y0b" id="v4W-9p-c7h"/>
+                        <outlet property="loadingIndicator" destination="0XW-uA-bc1" id="2ve-Tq-vEp"/>
                         <outlet property="teamPipelinesTableView" destination="PWe-7J-igF" id="FA8-CU-nCp"/>
                         <segue destination="rvu-Hz-VhO" kind="custom" identifier="SetConcourseEntryAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="mf8-JP-wQv"/>
                         <segue destination="59U-m5-ymA" kind="show" identifier="ShowJobs" id="rhP-vj-xfn"/>
@@ -578,7 +584,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gvY-oz-Klg" id="MlN-bw-Itq">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agy-nO-Sh9" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
