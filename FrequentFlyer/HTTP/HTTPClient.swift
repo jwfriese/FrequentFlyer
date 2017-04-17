@@ -1,4 +1,5 @@
 import Foundation
+import class UIKit.UIApplication
 import RxSwift
 
 class HTTPClient {
@@ -10,30 +11,32 @@ class HTTPClient {
     }
 
     func perform(request: URLRequest) -> Observable<HTTPResponse> {
-        let $ = PublishSubject<HTTPResponse>()
+        let responseSubject = PublishSubject<HTTPResponse>()
 
         let dataTask = session.dataTask(with: request, completionHandler: { data, response, error in
             guard let response = response else {
                 guard let error = error else {
-                    $.onError(BasicError(details: "Unexpected error - received no response and no error"))
+                    responseSubject.onError(BasicError(details: "Unexpected error - received no response and no error"))
                     return
                 }
 
-                $.onError(BasicError(details: error.localizedDescription))
+                responseSubject.onError(BasicError(details: error.localizedDescription))
                 return
             }
 
             guard let httpURLResponse = response as? HTTPURLResponse else {
-                $.onError(BasicError(details: "HTTPClient only supports HTTP and HTTPS"))
+                responseSubject.onError(BasicError(details: "HTTPClient only supports HTTP and HTTPS"))
                 return
             }
 
-            $.onNext(HTTPResponseImpl(body: data, statusCode: httpURLResponse.statusCode))
-            $.onCompleted()
+            responseSubject.onNext(HTTPResponseImpl(body: data, statusCode: httpURLResponse.statusCode))
+            responseSubject.onCompleted()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         })
 
         dataTask.resume()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
-        return $.asObservable()
+        return responseSubject.asObservable()
     }
 }
