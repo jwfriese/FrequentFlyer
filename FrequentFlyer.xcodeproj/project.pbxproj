@@ -24,6 +24,7 @@
 		7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */; };
 		7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */; };
 		7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */; };
+		7B4B869E1EA50F7D00FBD6A2 /* AuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4B869D1EA50F7D00FBD6A2 /* AuthorizationError.swift */; };
 		7B58A1A01E8B428C00FCBA13 /* JobsServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A19F1E8B428C00FCBA13 /* JobsServiceSpec.swift */; };
 		7B58A1A21E8B42F400FCBA13 /* JobsDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1A11E8B42F400FCBA13 /* JobsDataDeserializer.swift */; };
 		7B58A1A41E8B43F400FCBA13 /* JobsDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58A1A31E8B43F400FCBA13 /* JobsDataDeserializerSpec.swift */; };
@@ -212,6 +213,7 @@
 		7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageOperator.swift; sourceTree = "<group>"; };
 		7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageOperatorSpec.swift; sourceTree = "<group>"; };
 		7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageDelegate.swift; sourceTree = "<group>"; };
+		7B4B869D1EA50F7D00FBD6A2 /* AuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationError.swift; sourceTree = "<group>"; };
 		7B58A19F1E8B428C00FCBA13 /* JobsServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsServiceSpec.swift; sourceTree = "<group>"; };
 		7B58A1A11E8B42F400FCBA13 /* JobsDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsDataDeserializer.swift; sourceTree = "<group>"; };
 		7B58A1A31E8B43F400FCBA13 /* JobsDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsDataDeserializerSpec.swift; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 		7BA032031D843E5200F20E23 /* Error */ = {
 			isa = PBXGroup;
 			children = (
+				7B4B869D1EA50F7D00FBD6A2 /* AuthorizationError.swift */,
 				7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */,
 				7BA032171D843FEE00F20E23 /* DeserializationError.swift */,
 				7BA032181D843FEE00F20E23 /* BasicError.swift */,
@@ -1256,6 +1259,7 @@
 				7B673EC51E7F000900CAC921 /* PageTitleLabel.swift in Sources */,
 				7BA0322D1D843FF900F20E23 /* TeamPipelinesViewController.swift in Sources */,
 				7BC1EC0D1E9299CE00459C36 /* BuildStatusInterpreter.swift in Sources */,
+				7B4B869E1EA50F7D00FBD6A2 /* AuthorizationError.swift in Sources */,
 				7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */,
 				7BA0326B1D8441E200F20E23 /* AuthMethod.swift in Sources */,
 				7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */,

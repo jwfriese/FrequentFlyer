@@ -53,9 +53,10 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
             }
 
             describe("After the view has loaded") {
+                var navigationController: UINavigationController!
+
                 beforeEach {
-                    let navigationController = UINavigationController(rootViewController: subject)
-                    Fleet.setAsAppWindowRoot(navigationController)
+                    navigationController = Fleet.setInAppWindowRootNavigation(subject)
                 }
 
                 it("sets the title") {
@@ -255,6 +256,58 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                             expect(selectedCell).toEventuallyNot(beNil())
                             expect(selectedCell?.isHighlighted).toEventually(beFalse())
                             expect(selectedCell?.isSelected).toEventually(beFalse())
+                        }
+                    }
+                }
+
+                describe("When the pipelines service call resolves with an 'Unauthorized' response") {
+                    beforeEach {
+                        guard let completion = mockTeamPipelinesService.capturedCompletion else {
+                            fail("Failed to pass a completion handler to the \(TeamPipelinesService.self)")
+                            return
+                        }
+
+                        completion(nil, AuthorizationError())
+                        RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
+                    }
+
+                    it("stops and hides the loading indicator") {
+                        expect(subject.loadingIndicator?.isAnimating).toEventually(beFalse())
+                        expect(subject.loadingIndicator?.isHidden).toEventually(beTrue())
+                    }
+
+                    it("shows the table views row lines") {
+                        expect(subject.teamPipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
+                    }
+
+                    it("presents an alert describing the authorization error") {
+                        let alert: () -> UIAlertController? = {
+                            return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                        }
+
+                        expect(alert()).toEventuallyNot(beNil())
+                        expect(alert()?.title).toEventually(equal("Unauthorized"))
+                        expect(alert()?.message).toEventually(equal("Your credentials have expired. Please authenticate again."))
+                    }
+
+                    describe("Tapping the 'Log Out' button on the alert") {
+                        it("pops itself back to the initial page") {
+                            let screen = Fleet.getApplicationScreen()
+                            var didTapLogOut = false
+                            let assertLogOutTappedBehavior = { () -> Bool in
+                                if didTapLogOut {
+                                    return screen?.topmostViewController === mockConcourseEntryViewController
+                                }
+
+                                if let alert = screen?.topmostViewController as? UIAlertController {
+                                    try! alert.tapAlertAction(withTitle: "Log Out")
+                                    didTapLogOut = true
+                                }
+
+                                return false
+                            }
+
+                            expect(assertLogOutTappedBehavior()).toEventually(beTrue())
                         }
                     }
                 }

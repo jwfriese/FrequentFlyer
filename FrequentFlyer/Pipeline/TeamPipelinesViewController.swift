@@ -25,16 +25,53 @@ class TeamPipelinesViewController: UIViewController {
         loadingIndicator?.startAnimating()
         teamPipelinesTableView?.separatorStyle = .none
         teamPipelinesService.getPipelines(forTarget: target) { pipelines, error in
-            self.pipelines = pipelines
+            if error is AuthorizationError {
+                self.handleAuthorizationError()
+                return
+            }
+
+            self.handlePipelinesReceived(pipelines!)
+        }
+
+        teamPipelinesTableView?.dataSource = self
+        teamPipelinesTableView?.delegate = self
+    }
+
+    private func handlePipelinesReceived(_ pipelines: [Pipeline]) {
+        self.pipelines = pipelines
+        DispatchQueue.main.async {
+            self.teamPipelinesTableView?.separatorStyle = .singleLine
+            self.teamPipelinesTableView?.reloadData()
+            self.loadingIndicator?.stopAnimating()
+        }
+    }
+
+    private func handleAuthorizationError() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(
+                title: "Unauthorized",
+                message: "Your credentials have expired. Please authenticate again.",
+                preferredStyle: .alert
+            )
+
+            alert.addAction(
+                UIAlertAction(
+                    title: "Log Out",
+                    style: .destructive,
+                    handler: { _ in
+                        self.keychainWrapper.deleteTarget()
+                        self.performSegue(withIdentifier: TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
+                }
+                )
+            )
+
             DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
                 self.teamPipelinesTableView?.separatorStyle = .singleLine
                 self.teamPipelinesTableView?.reloadData()
                 self.loadingIndicator?.stopAnimating()
             }
         }
-
-        teamPipelinesTableView?.dataSource = self
-        teamPipelinesTableView?.delegate = self
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -76,7 +113,7 @@ class TeamPipelinesViewController: UIViewController {
                 handler: { _ in
                     self.keychainWrapper.deleteTarget()
                     self.performSegue(withIdentifier: TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
-                }
+            }
             )
         )
 

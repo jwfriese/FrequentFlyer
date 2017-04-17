@@ -26,6 +26,11 @@ class TeamPipelinesService {
                         return
                     }
 
+                    if response.statusCode == 401 {
+                        completion(nil, AuthorizationError())
+                        return
+                    }
+
                     let deserializationResult = self.pipelineDataDeserializer.deserialize(data)
                     completion(deserializationResult.pipelines, deserializationResult.error)
             },

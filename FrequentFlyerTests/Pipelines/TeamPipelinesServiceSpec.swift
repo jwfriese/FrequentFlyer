@@ -120,6 +120,21 @@ class TeamPipelinesServiceSpec: QuickSpec {
                     }
                 }
 
+                describe("When the request resolves with a 401 response") {
+                    beforeEach {
+                        let unauthorizedData = "not authorized".data(using: String.Encoding.utf8)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: unauthorizedData, statusCode: 401))
+                    }
+
+                    it("calls the completion handler with nil for the pipeline data") {
+                        expect(resultPipelines).to(beNil())
+                    }
+
+                    it("calls the completion handler with an \(AuthorizationError.self)") {
+                        expect(resultError as? AuthorizationError).toNot(beNil())
+                    }
+                }
+
                 describe("When the request resolves with an error") {
                     beforeEach {
                         mockHTTPClient.responseSubject.onError(BasicError(details: "error details"))
