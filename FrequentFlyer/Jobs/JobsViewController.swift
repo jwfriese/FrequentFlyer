@@ -5,6 +5,7 @@ import RxDataSources
 
 class JobsViewController: UIViewController {
     @IBOutlet weak var jobsTableView: UITableView?
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView?
 
     var jobsTableViewDataSource = JobsTableViewDataSource()
 
@@ -34,8 +35,16 @@ class JobsViewController: UIViewController {
     private func setUpCellPopulation(withTarget target: Target, pipeline: Pipeline) {
         guard let jobsTableView = jobsTableView else { return }
 
+        self.jobsTableView?.separatorStyle = .none
+        self.loadingIndicator?.startAnimating()
         jobsTableViewDataSource.setUp(withTarget: target, pipeline: pipeline)
         jobsTableViewDataSource.openJobsStream()
+            .do(onNext: { _ in
+                DispatchQueue.main.async {
+                    self.jobsTableView?.separatorStyle = .singleLine
+                    self.loadingIndicator?.stopAnimating()
+                }
+            })
             .bind(to: jobsTableView.rx.items(dataSource: jobsTableViewDataSource))
             .disposed(by: disposeBag)
     }

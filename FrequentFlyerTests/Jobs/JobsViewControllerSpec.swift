@@ -86,6 +86,15 @@ class JobsViewControllerSpec: QuickSpec {
                     expect(mockJobsService.capturedPipeline).toEventually(equal(expectedPipeline))
                 }
 
+                it("has an active loading indicator") {
+                    expect(subject.loadingIndicator?.isAnimating).toEventually(beTrue())
+                    expect(subject.loadingIndicator?.isHidden).toEventually(beFalse())
+                }
+
+                it("hides the table views row lines while there is no content") {
+                    expect(subject.jobsTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.none))
+                }
+
                 describe("When the \(JobsService.self) resolves with jobs") {
                     beforeEach {
                         let finishedTurtleBuild = BuildBuilder().withStatus(.failed).withEndTime(1000).build()
@@ -99,6 +108,15 @@ class JobsViewControllerSpec: QuickSpec {
                         mockJobsService.jobsSubject.onNext([turtleJob, crabJob, puppyJob])
                         mockJobsService.jobsSubject.onCompleted()
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
+                    }
+
+                    it("stops and hides the loading indicator") {
+                        expect(subject.loadingIndicator?.isAnimating).toEventually(beFalse())
+                        expect(subject.loadingIndicator?.isHidden).toEventually(beTrue())
+                    }
+
+                    it("shows the table views row lines") {
+                        expect(subject.jobsTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
                     }
 
                     it("inserts a row for each job returned by the service") {

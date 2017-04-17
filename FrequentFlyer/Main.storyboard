@@ -624,10 +624,15 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="yua-zP-dLb">
+                                <rect key="frame" x="177" y="128" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="yua-zP-dLb" firstAttribute="top" secondItem="3DH-Y4-pvV" secondAttribute="bottom" constant="108" id="0UF-nM-afF"/>
                             <constraint firstItem="XU3-Xj-1fG" firstAttribute="top" secondItem="3DH-Y4-pvV" secondAttribute="bottom" id="1Rg-eT-8CS"/>
+                            <constraint firstItem="yua-zP-dLb" firstAttribute="centerX" secondItem="uH0-0I-Waw" secondAttribute="centerX" id="AXJ-Zz-VSR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="XU3-Xj-1fG" secondAttribute="trailing" id="J8Q-VK-wNf"/>
                             <constraint firstItem="XU3-Xj-1fG" firstAttribute="leading" secondItem="uH0-0I-Waw" secondAttribute="leadingMargin" id="h4v-Wt-ncc"/>
                             <constraint firstItem="mx1-sg-VhO" firstAttribute="top" secondItem="XU3-Xj-1fG" secondAttribute="bottom" id="q8c-iB-5lC"/>
@@ -635,6 +640,7 @@
                     </view>
                     <connections>
                         <outlet property="jobsTableView" destination="XU3-Xj-1fG" id="XmY-p4-NAy"/>
+                        <outlet property="loadingIndicator" destination="yua-zP-dLb" id="W7v-QP-f3r"/>
                         <segue destination="zfc-Jf-lbt" kind="show" identifier="ShowJobDetail" id="gzw-Na-aP3"/>
                     </connections>
                 </viewController>
