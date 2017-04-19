@@ -8,6 +8,7 @@ class JobsViewController: UIViewController {
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView?
 
     var jobsTableViewDataSource = JobsTableViewDataSource()
+    var keychainWrapper = KeychainWrapper()
 
     var pipeline: Pipeline?
     var target: Target?
@@ -16,6 +17,7 @@ class JobsViewController: UIViewController {
 
     class var storyboardIdentifier: String { get { return "Jobs" } }
     class var showJobDetailSegueId: String { get { return "ShowJobDetail" } }
+    class var setConcourseEntryAsRootPageSegueId: String { get { return "SetConcourseEntryAsRootPage" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,14 +41,49 @@ class JobsViewController: UIViewController {
         self.loadingIndicator?.startAnimating()
         jobsTableViewDataSource.setUp(withTarget: target, pipeline: pipeline)
         jobsTableViewDataSource.openJobsStream()
-            .do(onNext: { _ in
+            .do(onNext: self.onNext(),
+                onError: self.onError()
+            )
+            .bind(to: jobsTableView.rx.items(dataSource: jobsTableViewDataSource))
+            .disposed(by: disposeBag)
+    }
+
+    private func onNext() -> ([JobGroupSection]) -> () {
+        return { _ in
+            DispatchQueue.main.async {
+                self.jobsTableView?.separatorStyle = .singleLine
+                self.loadingIndicator?.stopAnimating()
+            }
+        }
+    }
+
+    private func onError() -> (Error) -> () {
+        return { error in
+            if error is AuthorizationError {
+                let alert = UIAlertController(
+                    title: "Unauthorized",
+                    message: "Your credentials have expired. Please authenticate again.",
+                    preferredStyle: .alert
+                )
+
+                alert.addAction(
+                    UIAlertAction(
+                        title: "Log Out",
+                        style: .destructive,
+                        handler: { _ in
+                            self.keychainWrapper.deleteTarget()
+                            self.performSegue(withIdentifier: JobsViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
+                    }
+                    )
+                )
+
                 DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
                     self.jobsTableView?.separatorStyle = .singleLine
                     self.loadingIndicator?.stopAnimating()
                 }
-            })
-            .bind(to: jobsTableView.rx.items(dataSource: jobsTableViewDataSource))
-            .disposed(by: disposeBag)
+            }
+        }
     }
 
     private func setUpCellSelect() {

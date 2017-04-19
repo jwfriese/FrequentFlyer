@@ -125,6 +125,21 @@ class JobsServiceSpec: QuickSpec {
                     }
                 }
 
+                describe("When the request resolves with a 401 response") {
+                    beforeEach {
+                        let unauthorizedData = "not authorized".data(using: String.Encoding.utf8)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: unauthorizedData, statusCode: 401))
+                    }
+
+                    it("emits no jobs") {
+                        expect(jobStreamResult.elements).to(haveCount(0))
+                    }
+
+                    it("emits an \(AuthorizationError.self)") {
+                        expect(jobStreamResult.error as? AuthorizationError).toNot(beNil())
+                    }
+                }
+
                 describe("When the request resolves with an error") {
                     beforeEach {
                         mockHTTPClient.responseSubject.onError(BasicError(details: "error details"))

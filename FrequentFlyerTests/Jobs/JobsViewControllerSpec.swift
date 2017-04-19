@@ -29,18 +29,29 @@ class JobsViewControllerSpec: QuickSpec {
         }
     }
 
+    class MockKeychainWrapper: KeychainWrapper {
+        var didCallDelete = false
+
+        override func deleteTarget() {
+            didCallDelete = true
+        }
+    }
+
     override func spec() {
         describe("JobsViewController") {
             var subject: JobsViewController!
             var mockJobsService: MockJobsService!
             var mockElapsedTimePrinter: MockElapsedTimePrinter!
+            var mockKeychainWrapper: MockKeychainWrapper!
 
             var mockJobDetailViewController: JobDetailViewController!
+            var mockConcourseEntryViewController: ConcourseEntryViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 mockJobDetailViewController = try! storyboard.mockIdentifier(JobDetailViewController.storyboardIdentifier, usingMockFor: JobDetailViewController.self)
+                mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: JobsViewController.storyboardIdentifier) as! JobsViewController
 
@@ -60,6 +71,9 @@ class JobsViewControllerSpec: QuickSpec {
 
                 mockElapsedTimePrinter = MockElapsedTimePrinter()
                 subject.jobsTableViewDataSource.elapsedTimePrinter = mockElapsedTimePrinter
+
+                mockKeychainWrapper = MockKeychainWrapper()
+                subject.keychainWrapper = mockKeychainWrapper
             }
 
             describe("After the view loads") {
@@ -209,6 +223,81 @@ class JobsViewControllerSpec: QuickSpec {
                             expect(selectedCell).toEventuallyNot(beNil())
                             expect(selectedCell?.isHighlighted).toEventually(beFalse())
                             expect(selectedCell?.isSelected).toEventually(beFalse())
+                        }
+                    }
+                }
+
+                describe("When the \(JobsService.self) resolves with an 'Unauthorized' response") {
+                    beforeEach {
+                        mockJobsService.jobsSubject.onError(AuthorizationError())
+                        RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
+                    }
+
+                    it("stops and hides the loading indicator") {
+                        expect(subject.loadingIndicator?.isAnimating).toEventually(beFalse())
+                        expect(subject.loadingIndicator?.isHidden).toEventually(beTrue())
+                    }
+
+                    it("shows the table views row lines") {
+                        expect(subject.jobsTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
+                    }
+
+                    it("presents an alert describing the authorization error") {
+                        let alert: () -> UIAlertController? = {
+                            return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                        }
+
+                        expect(alert()).toEventuallyNot(beNil())
+                        expect(alert()?.title).toEventually(equal("Unauthorized"))
+                        expect(alert()?.message).toEventually(equal("Your credentials have expired. Please authenticate again."))
+                    }
+
+                    describe("Tapping the 'Log Out' button on the alert") {
+                        it("pops itself back to the initial page") {
+                            let screen = Fleet.getApplicationScreen()
+                            var didTapLogOut = false
+                            let assertLogOutTappedBehavior = { () -> Bool in
+                                if didTapLogOut {
+                                    return screen?.topmostViewController === mockConcourseEntryViewController
+                                }
+
+                                if let alert = screen?.topmostViewController as? UIAlertController {
+                                    try! alert.tapAlertAction(withTitle: "Log Out")
+                                    didTapLogOut = true
+                                }
+
+                                return false
+                            }
+
+                            expect(assertLogOutTappedBehavior()).toEventually(beTrue())
+                        }
+
+                        it("asks its \(KeychainWrapper.self) to delete its target") {
+                            let alert: () -> UIAlertController? = { _ in
+                                return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                            }
+
+                            var alertDidAppear = false
+                            var didAttemptLogOutTap = false
+                            let assertDidDeleteFromKeychain: () -> Bool = { _ in
+                                if !alertDidAppear {
+                                    if alert() != nil {
+                                        alertDidAppear = true
+                                    }
+
+                                    return false
+                                }
+
+                                if !didAttemptLogOutTap {
+                                    try! alert()!.tapAlertAction(withTitle: "Log Out")
+                                    didAttemptLogOutTap = true
+                                    return false
+                                }
+
+                                return mockKeychainWrapper.didCallDelete
+                            }
+
+                            expect(assertDidDeleteFromKeychain()).toEventually(beTrue())
                         }
                     }
                 }

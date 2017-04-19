@@ -1,5 +1,8 @@
-import Foundation
+import protocol Foundation.LocalizedError
+import struct Foundation.URL
+import struct Foundation.URLRequest
 import RxSwift
+import RxCocoa
 
 class JobsService {
     var httpClient = HTTPClient()
@@ -14,6 +17,11 @@ class JobsService {
         request.httpMethod = "GET"
 
         return httpClient.perform(request: request)
+            .do(onNext: { response in
+                if response.statusCode == 401 {
+                    throw AuthorizationError()
+                }
+            })
             .map { $0.body! }
             .flatMap { self.jobsDataDeserializer.deserialize($0) }
     }
