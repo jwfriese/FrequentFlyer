@@ -31,7 +31,7 @@ class TriggerBuildServiceSpec: QuickSpec {
             }
         }
 
-        describe("TriggerBuildService") {
+        fdescribe("TriggerBuildService") {
             var subject: TriggerBuildService!
             var mockHTTPClient: MockHTTPClient!
             var mockBuildDataDeserializer: MockBuildDataDeserializer!
@@ -47,8 +47,8 @@ class TriggerBuildServiceSpec: QuickSpec {
             }
 
             describe("Triggering a new build for a job") {
-                var capturedBuild: Build?
-                var capturedError: Error?
+                var build$: Observable<Build>!
+                var buildStreamResult: StreamResult<Build>!
 
                 beforeEach {
                     let target = Target(name: "turtle target",
@@ -57,15 +57,13 @@ class TriggerBuildServiceSpec: QuickSpec {
                                         token: Token(value: "turtle token value")
                     )
 
-                    subject.triggerBuild(forTarget: target, forJob: "crab_job", inPipeline: "crab_pipeline") { build, error in
-                        capturedBuild = build
-                        capturedError = error
-                    }
+                    build$ = subject.triggerBuild(forTarget: target, forJob: "crab_job", inPipeline: "crab_pipeline")
+                    buildStreamResult = StreamResult(build$)
                 }
 
-                it("makes a request through the HTTPClient") {
+                it("makes a request through the \(HTTPClient.self)") {
                     guard let request = mockHTTPClient.capturedRequest else {
-                        fail("Failed to make request with the HTTPClient")
+                        fail("Failed to make request with the \(HTTPClient.self)")
                         return
                     }
 
@@ -74,27 +72,32 @@ class TriggerBuildServiceSpec: QuickSpec {
                     expect(request.allHTTPHeaderFields?["Content-Type"]).to(equal("application/json"))
                     expect(request.allHTTPHeaderFields?["Authorization"]).to(equal("Bearer turtle token value"))
                 }
+                
+                it("does not ask the HTTP client a second time when a second subscribe occurs") {
+                    buildStreamResult.disposeBag = DisposeBag()
+                    _ = build$.subscribe()
+                    
+                    expect(mockHTTPClient.callCount).to(equal(1))
+                }
 
                 describe("When the request resolves with a success response and data for a build that is triggered") {
-
                     beforeEach {
-                        mockBuildDataDeserializer.toReturnBuild = BuildBuilder().build()
+                        mockBuildDataDeserializer.toReturnBuild = BuildBuilder().withName("result build").build()
 
                         let buildData = "build data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: buildData, statusCode: 200))
                     }
 
                     it("passes the data to the deserializer") {
-                        expect(mockBuildDataDeserializer.capturedData).to(equal("build data".data(using: String.Encoding.utf8)))
+                        let expectedData = "build data".data(using: String.Encoding.utf8)
+                        expect(mockBuildDataDeserializer.capturedData).to(equal(expectedData))
                     }
 
-                    it("resolves the service's completion handler using the build the deserializer returns") {
-                        let expectedBuild = BuildBuilder().build()
-                        expect(capturedBuild).to(equal(expectedBuild))
-                    }
-
-                    it("resolves the service's completion handler with a nil error") {
-                        expect(capturedError).to(beNil())
+                    it("emits the build produced by the deserializer") {
+                        let expectedBuild = BuildBuilder().withName("result build").build()
+                        
+                        expect(buildStreamResult.elements.count).to(equal(1))
+                        expect(buildStreamResult.elements[0]).to(equal(expectedBuild))
                     }
                 }
 
@@ -102,48 +105,44 @@ class TriggerBuildServiceSpec: QuickSpec {
                     beforeEach {
                         mockHTTPClient.responseSubject.onError(BasicError(details: "some error string"))
                     }
-
-                    it("resolves the service's completion handler with nil for the build") {
-                        expect(capturedBuild).to(beNil())
+                    
+                    it("emits no build") {
+                        expect(buildStreamResult.elements).to(haveCount(0))
                     }
-
-                    it("resolves the service's completion handler with the error that the client returned") {
-                        guard let capturedError = capturedError else {
-                            fail("Failed to call completion handler with an error")
-                            return
-                        }
-
-                        expect(capturedError as? BasicError).to(equal(BasicError(details: "some error string")))
+                    
+                    it("emits the error that the client returned") {
+                        expect(buildStreamResult.error as? BasicError).to(equal(BasicError(details: "some error string")))
                     }
                 }
 
                 describe("When the request resolves with success response and deserialization fails") {
-                    var invalidBuildData: Data!
-
                     beforeEach {
                         mockBuildDataDeserializer.toReturnError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
 
-                        invalidBuildData = "invalid build data".data(using: String.Encoding.utf8)
+                        let invalidBuildData = "invalid build data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidBuildData, statusCode: 200))
                     }
-
-                    it("passes the data to the deserializer") {
-                        expect(mockBuildDataDeserializer.capturedData).to(equal(invalidBuildData))
-                    }
-
-                    it("resolves the service's completion handler with a nil build") {
-                        expect(capturedBuild).to(beNil())
-                    }
-
-                    it("resolves the service's completion handler with the error the deserializer returns") {
-                        guard let capturedError = capturedError else {
-                            fail("Failed to call completion handler with an error")
-                            return
-                        }
-
-                        expect(capturedError as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
+                    
+                    it("calls the completion handler with the error that came from the deserializer") {
+                        expect(buildStreamResult.error as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
                     }
                 }
+                
+                describe("When the request resolves with a 401 response") {
+                    beforeEach {
+                        let unauthorizedData = "not authorized".data(using: String.Encoding.utf8)
+                        mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: unauthorizedData, statusCode: 401))
+                    }
+                    
+                    it("emits no build") {
+                        expect(buildStreamResult.elements).to(haveCount(0))
+                    }
+                    
+                    it("emits an \(AuthorizationError.self)") {
+                        expect(buildStreamResult.error as? AuthorizationError).toNot(beNil())
+                    }
+                }
+
             }
         }
     }

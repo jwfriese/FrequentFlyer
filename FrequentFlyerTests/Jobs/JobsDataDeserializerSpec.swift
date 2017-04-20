@@ -82,7 +82,6 @@ class JobsDataDeserializerSpec: QuickSpec {
                     ("name", "next one")
                 ])
 
-
                 validJobJSONOne = JSON(dictionaryLiteral :[
                     ("name", "turtle job"),
                     ("finished_build", validFinishedBuildJSONOne),

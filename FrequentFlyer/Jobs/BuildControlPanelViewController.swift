@@ -63,24 +63,24 @@ class BuildControlPanelViewController: UIViewController {
 
         retriggerButton?.isEnabled = false
 
-        triggerBuildService.triggerBuild(forTarget: target, forJob: build.jobName, inPipeline: pipeline.name) { build, error in
-            var alertTitle: String?
-            var alertMessage: String?
-            if let build = build {
-                alertTitle = "Build Triggered"
-                alertMessage = "Build #\(build.id) triggered for '\(build.jobName)'"
-            } else {
-                alertTitle = "Build Trigger Failed"
-                alertMessage = error?.localizedDescription
-            }
-
-            let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
-            DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
-                self.retriggerButton?.isEnabled = true
-            }
-        }
+//        triggerBuildService.triggerBuild(forTarget: target, forJob: build.jobName, inPipeline: pipeline.name) { build, error in
+//            var alertTitle: String?
+//            var alertMessage: String?
+//            if let build = build {
+//                alertTitle = "Build Triggered"
+//                alertMessage = "Build #\(build.id) triggered for '\(build.jobName)'"
+//            } else {
+//                alertTitle = "Build Trigger Failed"
+//                alertMessage = error?.localizedDescription
+//            }
+//
+//            let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//
+//            DispatchQueue.main.async {
+//                self.present(alert, animated: true, completion: nil)
+//                self.retriggerButton?.isEnabled = true
+//            }
+//        }
     }
 }

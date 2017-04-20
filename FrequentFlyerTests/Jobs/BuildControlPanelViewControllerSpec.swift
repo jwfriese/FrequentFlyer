@@ -2,6 +2,7 @@ import XCTest
 import Quick
 import Nimble
 import Fleet
+import RxSwift
 
 @testable import FrequentFlyer
 
@@ -11,13 +12,13 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
             var capturedTarget: Target?
             var capturedJobName: String?
             var capturedPipelineName: String?
-            var capturedCompletion: ((Build?, Error?) -> ())?
+            var buildSubject = PublishSubject<Build>()
 
-            override func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String, completion: ((Build?, Error?) -> ())?) {
+            override func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String) -> Observable<Build> {
                 capturedTarget = target
                 capturedJobName = jobName
                 capturedPipelineName = pipelineName
-                capturedCompletion = completion
+                return buildSubject
             }
         }
 
@@ -152,16 +153,11 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
 
                         describe("When the \(TriggerBuildService.self) returns with a build that was triggered") {
                             beforeEach {
-                                guard let completion = mockTriggerBuildService.capturedCompletion else {
-                                    fail("Failed to call the \(TriggerBuildService.self) with a completion handler")
-                                    return
-                                }
-
                                 let build = BuildBuilder()
                                     .withId(124)
                                     .build()
 
-                                completion(build, nil)
+                                mockTriggerBuildService.buildSubject.onNext(build)
                             }
 
                             it("presents an alert informing the user of the build that was triggered") {
@@ -177,12 +173,7 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
 
                         describe("When the \(TriggerBuildService.self) returns with an error") {
                             beforeEach {
-                                guard let completion = mockTriggerBuildService.capturedCompletion else {
-                                    fail("Failed to call the \(TriggerBuildService.self) with a completion handler")
-                                    return
-                                }
-
-                                completion(nil, BasicError(details: "turtle trigger error"))
+                                mockTriggerBuildService.buildSubject.onError(BasicError(details: "turtle trigger error"))
                             }
 
                             it("presents an alert informing the user of the error") {

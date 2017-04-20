@@ -1,75 +1,93 @@
 import Foundation
+import RxSwift
 
 class BuildDataDeserializer {
     var buildStatusInterpreter = BuildStatusInterpreter()
 
-    func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
+    func deserialize(_ data: Data) -> ReplaySubject<Build> {
+        let $ = ReplaySubject<Build>.createUnbounded()
+        
         var buildJSONObject: Any?
         do {
             buildJSONObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
         } catch { }
 
         guard let buildJSON = buildJSONObject as? NSDictionary else {
-            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
+            $.onError(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
+            return $
         }
 
         guard let idObject = buildJSON.value(forKey: "id") else {
-            return missingDataErrorCaseForKey("id")
+            $.onError(missingDataErrorCaseForKey("id"))
+            return $
         }
 
         guard let id = idObject as? Int else {
-            return typeMismatchErrorCaseForKey("id", expectedType: "an integer")
+            $.onError(typeMismatchErrorCaseForKey("id", expectedType: "an integer"))
+            return $
         }
 
         guard let nameObject = buildJSON.value(forKey: "name") else {
-            return missingDataErrorCaseForKey("name")
+            $.onError(missingDataErrorCaseForKey("name"))
+            return $
         }
 
         guard let name = nameObject as? String else {
-            return typeMismatchErrorCaseForKey("name", expectedType: "a string")
+            $.onError(typeMismatchErrorCaseForKey("name", expectedType: "a string"))
+            return $
         }
 
         guard let jobNameObject = buildJSON.value(forKey: "job_name") else {
-            return missingDataErrorCaseForKey("job_name")
+            $.onError(missingDataErrorCaseForKey("job_name"))
+            return $
         }
 
         guard let jobName = jobNameObject as? String else {
-            return typeMismatchErrorCaseForKey("job_name", expectedType: "a string")
+            $.onError(typeMismatchErrorCaseForKey("job_name", expectedType: "a string"))
+            return $
         }
 
         guard let teamNameObject = buildJSON.value(forKey: "team_name") else {
-            return missingDataErrorCaseForKey("team_name")
+            $.onError(missingDataErrorCaseForKey("team_name"))
+            return $
         }
 
         guard let teamName = teamNameObject as? String else {
-            return typeMismatchErrorCaseForKey("team_name", expectedType: "a string")
+            $.onError(typeMismatchErrorCaseForKey("team_name", expectedType: "a string"))
+            return $
         }
 
         guard let statusObject = buildJSON.value(forKey: "status") else {
-            return missingDataErrorCaseForKey("status")
+            $.onError(missingDataErrorCaseForKey("status"))
+            return $
         }
 
         guard let status = statusObject as? String else {
-            return typeMismatchErrorCaseForKey("status", expectedType: "a string")
+            $.onError(typeMismatchErrorCaseForKey("status", expectedType: "a string"))
+            return $
         }
 
         guard let interpretedStatus = buildStatusInterpreter.interpret(status) else {
-            return (nil, DeserializationError(details: "Failed to interpret '\(status)' as a build status.", type: .typeMismatch))
+            $.onError(DeserializationError(details: "Failed to interpret '\(status)' as a build status.", type: .typeMismatch))
+            return $
         }
 
         guard let pipelineNameObject = buildJSON.value(forKey: "pipeline_name") else {
-            return missingDataErrorCaseForKey("pipeline_name")
+            $.onError(missingDataErrorCaseForKey("pipeline_name"))
+            return $
         }
 
         guard let pipelineName = pipelineNameObject as? String else {
-            return typeMismatchErrorCaseForKey("pipeline_name", expectedType: "a string")
+            $.onError(typeMismatchErrorCaseForKey("pipeline_name", expectedType: "a string"))
+            return $
         }
 
         let startTimeObject = buildJSON.value(forKey: "start_time")
         var startTime: UInt? = nil
         if startTimeObject != nil {
             guard let castedStartTime = startTimeObject as? UInt else {
-                return typeMismatchErrorCaseForKey("start_time", expectedType: "an unsigned integer")
+                $.onError(typeMismatchErrorCaseForKey("start_time", expectedType: "an unsigned integer"))
+                return $
             }
 
             startTime = castedStartTime
@@ -79,7 +97,8 @@ class BuildDataDeserializer {
         var endTime: UInt? = nil
         if endTimeObject != nil {
             guard let castedEndTime = endTimeObject as? UInt else {
-                return typeMismatchErrorCaseForKey("end_time", expectedType: "an unsigned integer")
+                $.onError(typeMismatchErrorCaseForKey("end_time", expectedType: "an unsigned integer"))
+                return $
             }
 
             endTime = castedEndTime
@@ -95,16 +114,15 @@ class BuildDataDeserializer {
                           endTime: endTime
         )
 
-        return (build, nil)
+        $.onNext(build)
+        return $
     }
 
-    fileprivate func missingDataErrorCaseForKey(_ key: String) -> (Build?, DeserializationError?) {
-        let error = DeserializationError(details: "Missing required '\(key)' field", type: .missingRequiredData)
-        return (nil, error)
+    fileprivate func missingDataErrorCaseForKey(_ key: String) -> DeserializationError {
+        return DeserializationError(details: "Missing required '\(key)' field", type: .missingRequiredData)
     }
 
-    fileprivate func typeMismatchErrorCaseForKey(_ key: String, expectedType: String) -> (Build?, DeserializationError?) {
-        let error = DeserializationError(details: "Expected value for '\(key)' field to be \(expectedType)", type: .typeMismatch)
-        return (nil, error)
+    fileprivate func typeMismatchErrorCaseForKey(_ key: String, expectedType: String) -> DeserializationError {
+        return DeserializationError(details: "Expected value for '\(key)' field to be \(expectedType)", type: .typeMismatch)
     }
 }

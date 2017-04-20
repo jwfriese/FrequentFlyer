@@ -1,14 +1,17 @@
 import Foundation
 import SwiftyJSON
+import RxSwift
 
 class BuildsDataDeserializer {
     var buildDataDeserializer = BuildDataDeserializer()
 
-    func deserialize(_ buildsData: Data) -> (builds: [Build]?, error: DeserializationError?) {
+    func deserialize(_ buildsData: Data) -> ReplaySubject<[Build]> {
+        let $ = ReplaySubject<[Build]>.createUnbounded()
         let buildsJSONObject = JSON(data: buildsData)
 
         if buildsJSONObject.type == SwiftyJSON.Type.null {
-            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
+            $.onError(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
+            return $
         }
 
         var builds = [Build]()
@@ -21,7 +24,9 @@ class BuildsDataDeserializer {
                 }
             } catch {}
         }
+        
 
-        return (builds, nil)
+        $.onNext(builds)
+        return $
     }
 }

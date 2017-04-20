@@ -2,6 +2,7 @@ import XCTest
 import Quick
 import Nimble
 import SwiftyJSON
+import RxSwift
 
 @testable import FrequentFlyer
 
@@ -19,37 +20,30 @@ class BuildsDataDeserializerSpec: QuickSpec {
             let jsonData = try! data.rawData(options: .prettyPrinted)
             toReturnError[jsonData] = error
         }
-
-        override func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
-            let inputAsJSON = JSON(data: data)
-
-            for (keyData, build) in toReturnBuild {
-                let keyAsJSON = JSON(data: keyData)
-                if keyAsJSON == inputAsJSON {
-                    return (build, nil)
+        
+        override func deserialize(_ data: Data) -> ReplaySubject<Build> {
+            let subject = ReplaySubject<Build>.createUnbounded()
+            if let error = toReturnError[data] {
+                subject.onError(error)
+            } else {
+                if let token = toReturnBuild[data] {
+                    subject.onNext(token)
                 }
+                subject.onCompleted()
             }
-
-            for (keyData, error) in toReturnError {
-                let keyAsJSON = JSON(data: keyData)
-                if keyAsJSON == inputAsJSON {
-                    return (nil, error)
-                }
-            }
-
-            return (nil, nil)
+            return subject
         }
     }
 
     override func spec() {
-        describe("BuildsDataDeserializer") {
+        fdescribe("BuildsDataDeserializer") {
             var subject: BuildsDataDeserializer!
             var mockBuildDataDeserializer: MockBuildDataDeserializer!
 
             var validBuildJSONOne: JSON!
             var validBuildJSONTwo: JSON!
             var validBuildJSONThree: JSON!
-            var result: (builds: [Build]?, error: DeserializationError?)
+            var result: StreamResult<[Build]>!
 
             beforeEach {
                 subject = BuildsDataDeserializer()
@@ -102,26 +96,21 @@ class BuildsDataDeserializerSpec: QuickSpec {
                     mockBuildDataDeserializer.when(validBuildJSONThree, thenReturn: expectedBuildThree)
 
                     let validData = try! validBuildsJSON.rawData(options: .prettyPrinted)
-                    result = subject.deserialize(validData)
+                    result = StreamResult(subject.deserialize(validData))
                 }
 
-                it("returns a build for each JSON build entry") {
-                    guard let builds = result.builds else {
-                        fail("Failed to return any builds from the JSON data")
-                        return
-                    }
-
-                    if builds.count != 3 {
+                it("emits a build for each JSON build entry") {
+                    if result.elements.count != 3 {
                         fail("Expected to return 3 builds, returned \(builds.count)")
                         return
                     }
 
-                    expect(builds[0]).to(equal(expectedBuildOne))
-                    expect(builds[1]).to(equal(expectedBuildTwo))
-                    expect(builds[2]).to(equal(expectedBuildThree))
+                    expect(result.elements[0]).to(equal(expectedBuildOne))
+                    expect(result.elements[1]).to(equal(expectedBuildTwo))
+                    expect(result.elements[2]).to(equal(expectedBuildThree))
                 }
 
-                it("returns no error") {
+                it("emits no error") {
                     expect(result.error).to(beNil())
                 }
             }
@@ -142,25 +131,20 @@ class BuildsDataDeserializerSpec: QuickSpec {
                     mockBuildDataDeserializer.when(validBuildJSONThree, thenReturn: expectedBuildTwo)
 
                     let validData = try! validBuildsJSON.rawData(options: .prettyPrinted)
-                    result = subject.deserialize(validData)
+                    result = StreamResult(subject.deserialize(validData))
                 }
 
-                it("returns a build for each valid JSON build entry") {
-                    guard let builds = result.builds else {
-                        fail("Failed to return any builds from the JSON data")
-                        return
-                    }
-
-                    if builds.count != 2 {
+                it("emits a build for each valid JSON build entry") {
+                    if result.elements.count != 2 {
                         fail("Expected to return 2 builds, returned \(builds.count)")
                         return
                     }
 
-                    expect(builds[0]).to(equal(expectedBuildOne))
-                    expect(builds[1]).to(equal(expectedBuildTwo))
+                    expect(result.elements[0]).to(equal(expectedBuildOne))
+                    expect(result.elements[1]).to(equal(expectedBuildTwo))
                 }
 
-                it("returns no error") {
+                it("emits no error") {
                     expect(result.error).to(beNil())
                 }
             }
@@ -172,14 +156,14 @@ class BuildsDataDeserializerSpec: QuickSpec {
                     let buildsDataString = "some string"
 
                     let invalidbuildsData = buildsDataString.data(using: String.Encoding.utf8)
-                    result = subject.deserialize(invalidbuildsData!)
+                    result = StreamResult(subject.deserialize(invalidbuildsData!))
                 }
 
-                it("returns nil for the builds") {
-                    expect(result.builds).to(beNil())
+                it("emits no builds") {
+                    expect(result.elements.count).to(equal(0))
                 }
 
-                it("returns an error") {
+                it("emits an error") {
                     expect(result.error).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat)))
                 }
             }
