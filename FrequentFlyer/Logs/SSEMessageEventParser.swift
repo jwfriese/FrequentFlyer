@@ -1,18 +1,18 @@
 import Foundation
 import EventSource
 
-class SSEEventParser {
-    func parseConcourseEventFromSSEEvent(event: SSEEvent) -> (log: LogEvent?, error: FFError?) {
-        let eventJSONData = event.data!.data(using: String.Encoding.utf8)
+class SSEMessageEventParser {
+    func parseConcourseEventFromSSEMessageEvent(event: SSEMessageEvent) -> (log: LogEvent?, error: FFError?) {
+        let eventJSONData = event.data.data(using: String.Encoding.utf8)
         var eventJSONAny: Any?
         do {
             eventJSONAny = try JSONSerialization.jsonObject(with: eventJSONData!, options: .allowFragments)
         } catch {
-            return (nil, BasicError(details: "Could not parse event: Input SSEEvent data is not valid JSON"))
+            return (nil, BasicError(details: "Could not parse event: Input SSEMessageEvent data is not valid JSON"))
         }
 
         guard let eventJSON = eventJSONAny as? NSDictionary else {
-            return (nil, BasicError(details: "Could not parse event: Input SSEEvent data is not valid JSON"))
+            return (nil, BasicError(details: "Could not parse event: Input SSEMessageEvent data is not valid JSON"))
         }
 
         guard let baseData = eventJSON["data"] as? NSDictionary else {
