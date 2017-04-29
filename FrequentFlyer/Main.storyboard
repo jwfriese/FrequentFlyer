@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3d8-pO-wnR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3d8-pO-wnR">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -17,7 +18,7 @@
                 <navigationController id="3d8-pO-wnR" sceneMemberID="viewController">
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="22l-gc-b0E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="22l-gc-b0E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -819,6 +820,7 @@
                         <outlet property="jumpToBottomButton" destination="eP3-gc-PiB" id="y8I-6z-s4D"/>
                         <outlet property="loadingIndicator" destination="3O1-XJ-iw3" id="JoB-Pd-orY"/>
                         <outlet property="logOutputView" destination="OZq-vz-rWd" id="kBD-Yg-MuX"/>
+                        <segue destination="rvu-Hz-VhO" kind="custom" identifier="SetConcourseEntryAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="leM-aW-mc9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVU-bv-1eU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -830,8 +832,8 @@
         <image name="Gear" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YHG-Rz-c9I"/>
-        <segue reference="goX-FM-oN5"/>
-        <segue reference="38W-HA-ADg"/>
+        <segue reference="Gdb-7Z-m57"/>
+        <segue reference="leM-aW-mc9"/>
+        <segue reference="hwI-th-h9r"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -65,12 +65,10 @@ class TeamPipelinesViewController: UIViewController {
                 )
             )
 
-            DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
-                self.teamPipelinesTableView?.separatorStyle = .singleLine
-                self.teamPipelinesTableView?.reloadData()
-                self.loadingIndicator?.stopAnimating()
-            }
+            self.present(alert, animated: true, completion: nil)
+            self.teamPipelinesTableView?.separatorStyle = .singleLine
+            self.teamPipelinesTableView?.reloadData()
+            self.loadingIndicator?.stopAnimating()
         }
     }
 

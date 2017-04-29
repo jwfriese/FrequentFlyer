@@ -11,6 +11,7 @@ class SSEConnectionSpec: QuickSpec {
             var capturedURL: String?
             var capturedHeaders: [String : String]?
             var capturedOnEventDispatched: ((SSEMessageEvent) -> ())?
+            var capturedOnError: ((NSError?) -> ())?
 
             override init(url: String, headers: [String : String]) {
                 super.init(url: url, headers: headers)
@@ -20,6 +21,10 @@ class SSEConnectionSpec: QuickSpec {
 
             override func onEventDispatched(_ onEventDispatchedCallback: @escaping ((SSEMessageEvent) -> Void)) {
                 capturedOnEventDispatched = onEventDispatchedCallback
+            }
+
+            override func onError(_ onErrorCallback: @escaping ((NSError?) -> Void)) {
+                capturedOnError = onErrorCallback
             }
         }
 
@@ -55,7 +60,7 @@ class SSEConnectionSpec: QuickSpec {
 
                 beforeEach {
                     guard let onEventDispatchedCallback = mockEventSource.capturedOnEventDispatched else {
-                        fail("SSEConnection failed to register messages handler with its event source")
+                        fail("\(SSEConnection.self) failed to register messages handler with its event source")
                         return
                     }
 
@@ -83,6 +88,31 @@ class SSEConnectionSpec: QuickSpec {
                     let expectedTurtleLog = LogEvent(payload: "turtle data")
                     let expectedCrabLog = LogEvent(payload: "crab data")
                     expect(returnedLogs).to(equal([expectedTurtleLog, expectedCrabLog]))
+                }
+            }
+
+            describe("When the connection errors out") {
+                var didCallErrorHandler = false
+                let error = NSError()
+                var calledError: NSError?
+
+                beforeEach {
+                    guard let onErrorCallback = mockEventSource.capturedOnError else {
+                        fail("\(SSEConnection.self) failed to register error handler with its event source")
+                        return
+                    }
+
+                    subject.onError = { error in
+                        didCallErrorHandler = true
+                        calledError = error
+                    }
+
+                    onErrorCallback(error)
+                }
+
+                it("calls the given error handler") {
+                    expect(didCallErrorHandler).toEventually(beTrue())
+                    expect(calledError).toEventually(beIdenticalTo(error))
                 }
             }
         }

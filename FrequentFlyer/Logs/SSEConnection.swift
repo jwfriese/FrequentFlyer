@@ -5,6 +5,7 @@ class SSEConnection {
     private var sseEventParser: SSEMessageEventParser!
 
     var onLogsReceived: (([LogEvent]) -> ())?
+    var onError: ((NSError) -> ())?
 
     var urlString: String {
         get {
@@ -17,6 +18,7 @@ class SSEConnection {
         self.sseEventParser = sseEventParser
 
         self.eventSource.onEventDispatched(onEventDispatched)
+        self.eventSource.onError(onConnectionError)
     }
 
     fileprivate var onEventDispatched: ((SSEMessageEvent) -> ()) {
@@ -33,6 +35,21 @@ class SSEConnection {
 
                 if let onLogsReceived = self.onLogsReceived {
                     onLogsReceived(logs)
+                }
+            }
+        }
+    }
+
+    fileprivate var onConnectionError: ((NSError?) -> ()) {
+        get {
+            return { error in
+                guard let unboxedError = error else {
+                    print("\(SSEConnection.self) error: Connection closed by \(EventSource.self) with nil error")
+                    return
+                }
+
+                if let onError = self.onError {
+                    onError(unboxedError)
                 }
             }
         }

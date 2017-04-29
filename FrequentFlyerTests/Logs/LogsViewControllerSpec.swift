@@ -23,7 +23,7 @@ class LogsViewControllerSpec: QuickSpec {
 
         class MockSSEConnection: SSEConnection {
             init() {
-                let eventSource = EventSource(url: "http://something.com")
+                let eventSource = EventSource(url: "somethingwithnoprotocol.com")
                 let sseEventParser = SSEMessageEventParser()
 
                 super.init(eventSource: eventSource, sseEventParser: sseEventParser)
@@ -46,13 +46,27 @@ class LogsViewControllerSpec: QuickSpec {
             }
         }
 
+        class MockKeychainWrapper: KeychainWrapper {
+            var didCallDelete = false
+
+            override func deleteTarget() {
+                didCallDelete = true
+            }
+        }
+
         describe("LogsViewController") {
             var subject: LogsViewController!
             var mockSSEService: MockSSEService!
             var mockLogsStylingParser: MockLogsStylingParser!
+            var mockKeychainWrapper: MockKeychainWrapper!
+
+            var mockConcourseEntryViewController: ConcourseEntryViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+                mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self)
+
                 subject = storyboard.instantiateViewController(withIdentifier: LogsViewController.storyboardIdentifier) as! LogsViewController
 
                 mockSSEService = MockSSEService()
@@ -61,13 +75,16 @@ class LogsViewControllerSpec: QuickSpec {
                 mockLogsStylingParser = MockLogsStylingParser()
                 subject.logsStylingParser = mockLogsStylingParser
 
+                mockKeychainWrapper = MockKeychainWrapper()
+                subject.keychainWrapper = mockKeychainWrapper
+
                 subject.build = BuildBuilder().withName("LogsViewControllerBuild").build()
                 subject.target = try! Factory.createTarget()
             }
 
             describe("After the view has loaded") {
                 beforeEach {
-                    Fleet.setAsAppWindowRoot(subject)
+                    let _ = Fleet.setInAppWindowRootNavigation(subject)
                 }
 
                 describe("When requested to fetch logs") {
@@ -110,6 +127,53 @@ class LogsViewControllerSpec: QuickSpec {
 
                         it("stops any active loading indicator") {
                             expect(subject.loadingIndicator?.isAnimating).toEventually(beFalse())
+                        }
+                    }
+
+                    describe("When the connection errors for any reason") {
+                        beforeEach {
+                            guard let errorCallback = mockSSEService.returnedConnection?.onError else {
+                                fail("Failed to set a callback for errors on the SSE connection")
+                                return
+                            }
+
+                            errorCallback(NSError(domain: "", code: -1, userInfo: nil))
+                        }
+
+                        it("stops any active loading indicator") {
+                            expect(subject.loadingIndicator?.isAnimating).toEventually(beFalse())
+                            expect(subject.loadingIndicator?.isHidden).toEventually(beTrue())
+                        }
+
+                        it("presents an alert describing the authorization error") {
+                            let alert: () -> UIAlertController? = {
+                                return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                            }
+
+                            expect(alert()).toEventuallyNot(beNil())
+                            expect(alert()?.title).toEventually(equal("Unauthorized"))
+                            expect(alert()?.message).toEventually(equal("Your credentials have expired. Please authenticate again."))
+                        }
+
+                        describe("Tapping the 'Log Out' button on the alert") {
+                            it("pops itself back to the initial page") {
+                                let screen = Fleet.getApplicationScreen()
+                                var didTapLogOut = false
+                                let assertLogOutTappedBehavior = { () -> Bool in
+                                    if didTapLogOut {
+                                        return screen?.topmostViewController === mockConcourseEntryViewController
+                                    }
+
+                                    if let alert = screen?.topmostViewController as? UIAlertController {
+                                        try! alert.tapAlertAction(withTitle: "Log Out")
+                                        didTapLogOut = true
+                                    }
+
+                                    return false
+                                }
+
+                                expect(assertLogOutTappedBehavior()).toEventually(beTrue())
+                            }
                         }
                     }
                 }

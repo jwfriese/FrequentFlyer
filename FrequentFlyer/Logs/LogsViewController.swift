@@ -7,6 +7,7 @@ class LogsViewController: UIViewController {
 
     var sseService = SSEService()
     var logsStylingParser = LogsStylingParser()
+    var keychainWrapper = KeychainWrapper()
 
     var target: Target?
     var build: Build?
@@ -15,6 +16,7 @@ class LogsViewController: UIViewController {
     private var logsUpdateTimer: Timer!
 
     class var storyboardIdentifier: String { get { return "Logs" } }
+    class var setConcourseEntryAsRootPageSegueId: String { get { return "SetConcourseEntryAsRootPage" } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,28 @@ class LogsViewController: UIViewController {
         RunLoop.main.add(logsUpdateTimer, forMode: .defaultRunLoopMode)
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == LogsViewController.setConcourseEntryAsRootPageSegueId {
+            guard let concourseEntryViewController = segue.destination as? ConcourseEntryViewController else {
+                return
+            }
+
+            concourseEntryViewController.userTextInputPageOperator = UserTextInputPageOperator()
+
+            let authMethodsService = AuthMethodsService()
+            authMethodsService.httpClient = HTTPClient()
+            authMethodsService.authMethodsDataDeserializer = AuthMethodDataDeserializer()
+            concourseEntryViewController.authMethodsService = authMethodsService
+
+            let unauthenticatedTokenService = UnauthenticatedTokenService()
+            unauthenticatedTokenService.httpClient = HTTPClient()
+            unauthenticatedTokenService.tokenDataDeserializer = TokenDataDeserializer()
+            concourseEntryViewController.unauthenticatedTokenService = unauthenticatedTokenService
+
+            concourseEntryViewController.navigationItem.hidesBackButton = true
+        }
+    }
+
     func fetchLogs() {
         guard let target = target else { return }
         guard let build = build else { return }
@@ -53,6 +77,7 @@ class LogsViewController: UIViewController {
 
         let connection = sseService.openSSEConnection(target: target, build: build)
         connection.onLogsReceived = onMessagesReceived
+        connection.onError = { _ in self.handleAuthorizationError() }
     }
 
     fileprivate var onMessagesReceived: (([LogEvent]) -> ()) {
@@ -76,5 +101,29 @@ class LogsViewController: UIViewController {
     @IBAction func onJumpToBottomTapped() {
         guard let length = logOutputView?.text.characters.count else { return }
         logOutputView?.scrollRangeToVisible(NSMakeRange(0, length))
+    }
+
+    private func handleAuthorizationError() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(
+                title: "Unauthorized",
+                message: "Your credentials have expired. Please authenticate again.",
+                preferredStyle: .alert
+            )
+
+            alert.addAction(
+                UIAlertAction(
+                    title: "Log Out",
+                    style: .destructive,
+                    handler: { _ in
+                        self.keychainWrapper.deleteTarget()
+                        self.performSegue(withIdentifier: LogsViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
+                }
+                )
+            )
+
+            self.present(alert, animated: true, completion: nil)
+            self.loadingIndicator?.stopAnimating()
+        }
     }
 }
