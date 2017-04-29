@@ -5,13 +5,13 @@ import Nimble
 @testable import FrequentFlyer
 import EventSource
 
-class SSEEventParserSpec: QuickSpec {
+class SSEMessageEventParserSpec: QuickSpec {
     override func spec() {
-        describe("SSEEventParser") {
-            var subject: SSEEventParser!
+        describe("SSEMessageEventParser") {
+            var subject: SSEMessageEventParser!
 
             beforeEach {
-                subject = SSEEventParser()
+                subject = SSEMessageEventParser()
             }
 
             describe("Parsing log output from events") {
@@ -22,12 +22,12 @@ class SSEEventParserSpec: QuickSpec {
                     describe("When 'payload' data exists") {
                         beforeEach {
                             let eventDataString = "{\"event\":\"log\",\"data\":{\"payload\":\"turtle log message\"}}"
-                            let event = SSEEvent(id: "1",
-                                                 event: "event",
+                            let event = SSEMessageEvent(lastEventId: "1",
+                                                 type: "event",
                                                  data: eventDataString
                             )
 
-                            (result, error) = subject.parseConcourseEventFromSSEEvent(event: event)
+                            (result, error) = subject.parseConcourseEventFromSSEMessageEvent(event: event)
                         }
 
                         it("returns no error") {
@@ -42,12 +42,12 @@ class SSEEventParserSpec: QuickSpec {
                     describe("When event data does not have 'payload'") {
                         beforeEach {
                             let eventDataString = "{\"event\":\"log\",\"data\":{\"somenonsense\":\"turtle log message\"}}"
-                            let event = SSEEvent(id: "1",
-                                                 event: "event",
+                            let event = SSEMessageEvent(lastEventId: "1",
+                                                 type: "event",
                                                  data: eventDataString
                             )
 
-                            (result, error) = subject.parseConcourseEventFromSSEEvent(event: event)
+                            (result, error) = subject.parseConcourseEventFromSSEMessageEvent(event: event)
                         }
 
                         it("returns an error") {
@@ -64,12 +64,12 @@ class SSEEventParserSpec: QuickSpec {
                 describe("When the data event type is not 'log'") {
                     beforeEach {
                         let eventDataString = "{\"event\":\"crab-takeover\",\"data\":{\"payload\":\"turtle log message\"}}"
-                        let event = SSEEvent(id: "1",
-                                             event: "event",
+                        let event = SSEMessageEvent(lastEventId: "1",
+                                             type: "event",
                                              data: eventDataString
                         )
 
-                        (result, error) = subject.parseConcourseEventFromSSEEvent(event: event)
+                        (result, error) = subject.parseConcourseEventFromSSEMessageEvent(event: event)
                     }
 
                     it("returns an error") {
@@ -85,12 +85,12 @@ class SSEEventParserSpec: QuickSpec {
                 describe("When the data has no 'event'") {
                     beforeEach {
                         let eventDataString = "{\"data\":{\"payload\":\"turtle log message\"}}"
-                        let event = SSEEvent(id: "1",
-                                             event: "event",
+                        let event = SSEMessageEvent(lastEventId: "1",
+                                             type: "event",
                                              data: eventDataString
                         )
 
-                        (result, error) = subject.parseConcourseEventFromSSEEvent(event: event)
+                        (result, error) = subject.parseConcourseEventFromSSEMessageEvent(event: event)
                     }
 
                     it("returns an error") {
@@ -106,12 +106,12 @@ class SSEEventParserSpec: QuickSpec {
                 describe("When the event data JSON has no top-level 'data' field") {
                     beforeEach {
                         let eventDataString = "{\"event\":\"log\",\"wrong-field\":{\"payload\":\"turtle log message\"}}"
-                        let event = SSEEvent(id: "1",
-                                             event: "event",
+                        let event = SSEMessageEvent(lastEventId: "1",
+                                             type: "event",
                                              data: eventDataString
                         )
 
-                        (result, error) = subject.parseConcourseEventFromSSEEvent(event: event)
+                        (result, error) = subject.parseConcourseEventFromSSEMessageEvent(event: event)
                     }
 
                     it("returns an error") {
@@ -127,16 +127,16 @@ class SSEEventParserSpec: QuickSpec {
                 describe("When the event data JSON is not valid") {
                     beforeEach {
                         let eventDataString = "{invalid-json}}"
-                        let event = SSEEvent(id: "1",
-                                             event: "event",
+                        let event = SSEMessageEvent(lastEventId: "1",
+                                             type: "event",
                                              data: eventDataString
                         )
 
-                        (result, error) = subject.parseConcourseEventFromSSEEvent(event: event)
+                        (result, error) = subject.parseConcourseEventFromSSEMessageEvent(event: event)
                     }
 
                     it("returns an error") {
-                        let expectedErrorMessage = "Could not parse event: Input SSEEvent data is not valid JSON"
+                        let expectedErrorMessage = "Could not parse event: Input SSEMessageEvent data is not valid JSON"
                         expect(error?.details).to(equal(expectedErrorMessage))
                     }
 

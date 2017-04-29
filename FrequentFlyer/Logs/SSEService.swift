@@ -8,6 +8,6 @@ class SSEService {
         let authorizationValue = target.token.authValue
         let logsEventSource = eventSourceCreator.create(withURL: urlString, headers: ["Authorization" : authorizationValue])
 
-        return SSEConnection(eventSource: logsEventSource, sseEventParser: SSEEventParser())
+        return SSEConnection(eventSource: logsEventSource, sseEventParser: SSEMessageEventParser())
     }
 }

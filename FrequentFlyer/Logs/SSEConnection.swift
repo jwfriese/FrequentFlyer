@@ -2,7 +2,7 @@ import EventSource
 
 class SSEConnection {
     private var eventSource: EventSource!
-    private var sseEventParser: SSEEventParser!
+    private var sseEventParser: SSEMessageEventParser!
 
     var onLogsReceived: (([LogEvent]) -> ())?
 
@@ -12,25 +12,23 @@ class SSEConnection {
         }
     }
 
-    init(eventSource: EventSource, sseEventParser: SSEEventParser) {
+    init(eventSource: EventSource, sseEventParser: SSEMessageEventParser) {
         self.eventSource = eventSource
         self.sseEventParser = sseEventParser
 
-        self.eventSource.onMessagesReceived(onMessagesReceived)
+        self.eventSource.onEventDispatched(onEventDispatched)
     }
 
-    fileprivate var onMessagesReceived: (([SSEEvent]) -> ()) {
+    fileprivate var onEventDispatched: ((SSEMessageEvent) -> ()) {
         get {
-            return { events in
+            return { event in
                 var logs = [LogEvent]()
 
-                for event in events {
-                    let (log, error) = self.sseEventParser.parseConcourseEventFromSSEEvent(event: event)
-                    if let log = log {
-                        logs.append(log)
-                    } else if let error = error {
-                        print(error.details)
-                    }
+                let (log, error) = self.sseEventParser.parseConcourseEventFromSSEMessageEvent(event: event)
+                if let log = log {
+                    logs.append(log)
+                } else if let error = error {
+                    print(error.details)
                 }
 
                 if let onLogsReceived = self.onLogsReceived {

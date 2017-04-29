@@ -10,7 +10,7 @@ class SSEConnectionSpec: QuickSpec {
         class MockEventSource: EventSource {
             var capturedURL: String?
             var capturedHeaders: [String : String]?
-            var capturedOnMessagesReceived: (([SSEEvent]) -> ())?
+            var capturedOnEventDispatched: ((SSEMessageEvent) -> ())?
 
             override init(url: String, headers: [String : String]) {
                 super.init(url: url, headers: headers)
@@ -18,17 +18,17 @@ class SSEConnectionSpec: QuickSpec {
                 capturedHeaders = headers
             }
 
-            override func onMessagesReceived(_ onMessagesReceivedCallback: @escaping (([SSEEvent]) -> Void)) {
-                capturedOnMessagesReceived = onMessagesReceivedCallback
+            override func onEventDispatched(_ onEventDispatchedCallback: @escaping ((SSEMessageEvent) -> Void)) {
+                capturedOnEventDispatched = onEventDispatchedCallback
             }
         }
 
-        class MockSSEEventParser: SSEEventParser {
-            var capturedEvents: [SSEEvent] = [SSEEvent]()
+        class MockSSEMessageEventParser: SSEMessageEventParser {
+            var capturedEvents: [SSEMessageEvent] = [SSEMessageEvent]()
 
-            override func parseConcourseEventFromSSEEvent(event: SSEEvent) -> (log: LogEvent, error: FFError?) {
+            override func parseConcourseEventFromSSEMessageEvent(event: SSEMessageEvent) -> (log: LogEvent, error: FFError?) {
                 capturedEvents.append(event)
-                let logEvent = LogEvent(payload: event.data!)
+                let logEvent = LogEvent(payload: event.data)
                 return (logEvent, nil)
             }
         }
@@ -36,12 +36,12 @@ class SSEConnectionSpec: QuickSpec {
         describe("SSEConnection") {
             var subject: SSEConnection!
             var mockEventSource: MockEventSource!
-            var mockSSEEventParser: MockSSEEventParser!
+            var mockSSEMessageEventParser: MockSSEMessageEventParser!
 
             beforeEach {
                 mockEventSource = MockEventSource(url: "http://turtlesource.com", headers: ["header":"value"])
-                mockSSEEventParser = MockSSEEventParser()
-                subject = SSEConnection(eventSource: mockEventSource, sseEventParser: mockSSEEventParser)
+                mockSSEMessageEventParser = MockSSEMessageEventParser()
+                subject = SSEConnection(eventSource: mockEventSource, sseEventParser: mockSSEMessageEventParser)
             }
 
             it("can say its EventSource's URL string") {
@@ -49,29 +49,34 @@ class SSEConnectionSpec: QuickSpec {
             }
 
             describe("Processing events from the event source") {
-                var eventOne: SSEEvent!
-                var eventTwo: SSEEvent!
-                var returnedLogs: [LogEvent]?
+                var eventOne: SSEMessageEvent!
+                var eventTwo: SSEMessageEvent!
+                var returnedLogs: [LogEvent]!
 
                 beforeEach {
-                    guard let onMessagesCallback = mockEventSource.capturedOnMessagesReceived else {
+                    guard let onEventDispatchedCallback = mockEventSource.capturedOnEventDispatched else {
                         fail("SSEConnection failed to register messages handler with its event source")
                         return
                     }
 
-                    subject.onLogsReceived = { logs in
-                        returnedLogs = logs
+                    returnedLogs = [LogEvent]()
+
+                    let callback: ([LogEvent]) -> () = { logs in
+                        returnedLogs.append(contentsOf: logs)
                     }
 
-                    eventOne = SSEEvent(id: "1", event: "turtle event", data: "turtle data")
-                    eventTwo = SSEEvent(id: "2", event: "crab event", data: "crab data")
+                    subject.onLogsReceived = callback
 
-                    onMessagesCallback([eventOne, eventTwo])
+                    eventOne = SSEMessageEvent(lastEventId: "1", type: "turtle event", data: "turtle data")
+                    eventTwo = SSEMessageEvent(lastEventId: "2", type: "crab event", data: "crab data")
+
+                    onEventDispatchedCallback(eventOne)
+                    onEventDispatchedCallback(eventTwo)
                 }
 
                 it("passes the events to the log parser") {
-                    let expectedEvents: [SSEEvent] = [eventOne, eventTwo]
-                    expect(mockSSEEventParser.capturedEvents).to(equal(expectedEvents))
+                    let expectedEvents: [SSEMessageEvent] = [eventOne, eventTwo]
+                    expect(mockSSEMessageEventParser.capturedEvents).to(equal(expectedEvents))
                 }
 
                 it("calls the given logs received callback with the parsed logs") {

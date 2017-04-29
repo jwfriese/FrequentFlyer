@@ -24,7 +24,7 @@ class LogsViewControllerSpec: QuickSpec {
         class MockSSEConnection: SSEConnection {
             init() {
                 let eventSource = EventSource(url: "http://something.com")
-                let sseEventParser = SSEEventParser()
+                let sseEventParser = SSEMessageEventParser()
 
                 super.init(eventSource: eventSource, sseEventParser: sseEventParser)
             }
