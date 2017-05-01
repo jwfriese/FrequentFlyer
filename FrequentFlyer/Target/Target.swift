@@ -1,4 +1,6 @@
-class Target {
+import Locksmith
+
+struct Target {
     fileprivate(set) var name: String
     fileprivate(set) var api: String
     fileprivate(set) var teamName: String
@@ -24,21 +26,3 @@ func ==(lhs: Target, rhs: Target) -> Bool {
         lhs.token == rhs.token
 }
 
-extension Target: KeychainPersistable {
-    static var serviceName: String {
-        get {
-            return "Authentication"
-        }
-    }
-
-    var data: [String : AnyObject] {
-        get {
-            return [
-                "name" : name as AnyObject,
-                "api" : api as AnyObject,
-                "teamName" : teamName as AnyObject,
-                "token" : token.value as AnyObject
-            ]
-        }
-    }
-}
