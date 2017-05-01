@@ -86,7 +86,7 @@ class ConcourseEntryViewController: UIViewController {
                     self.handleTeamListServiceSuccess(withTeams: teams)
             },
                 onError: { _ in
-
+                    self.handleTeamListServiceError()
             })
                 .addDisposableTo(self.disposeBag)
     }
@@ -108,6 +108,20 @@ class ConcourseEntryViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
                 self.submitButton?.isEnabled = true
             }
+        }
+    }
+
+    private func handleTeamListServiceError() {
+        let alert = UIAlertController(
+            title: "Error",
+            message: "Could not connect to a Concourse at the given URL.",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+            self.submitButton?.isEnabled = true
         }
     }
 }
