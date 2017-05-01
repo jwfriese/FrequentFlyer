@@ -154,7 +154,6 @@
 		7BE6636D1E8A1D9C006573C3 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE6636C1E8A1D9C006573C3 /* Job.swift */; };
 		7BEB3D501E86EAD7005880FF /* DarkInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEB3D4F1E86EAD7005880FF /* DarkInfoLabel.swift */; };
 		7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEDE1FD1D8986C40054D13B /* Locksmith.framework */; };
-		7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */; };
 		7BEDE2051D8989910054D13B /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2031D8989910054D13B /* KeychainWrapper.swift */; };
 		7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE2091D89E6300054D13B /* Factory.swift */; };
 		7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */; };
@@ -341,7 +340,6 @@
 		7BE6636C1E8A1D9C006573C3 /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		7BEB3D4F1E86EAD7005880FF /* DarkInfoLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkInfoLabel.swift; sourceTree = "<group>"; };
 		7BEDE1FD1D8986C40054D13B /* Locksmith.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Locksmith.framework; path = Carthage/Build/iOS/Locksmith.framework; sourceTree = "<group>"; };
-		7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsService.swift; sourceTree = "<group>"; };
 		7BEDE2031D8989910054D13B /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		7BEDE2091D89E6300054D13B /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		7BEDE20B1D89E6E80054D13B /* TargetFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetFactory.swift; sourceTree = "<group>"; };
@@ -828,7 +826,6 @@
 		7BEDE2001D8989400054D13B /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				7BEDE2021D8989910054D13B /* NSUserDefaultsService.swift */,
 				7BEDE2031D8989910054D13B /* KeychainWrapper.swift */,
 			);
 			path = Persistence;
@@ -1177,7 +1174,6 @@
 				7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */,
 				7B1098951E96F76C0081B5C4 /* TimeInterval+FF.swift in Sources */,
 				7B8B4D4D1E8636100084505B /* InfoLabel.swift in Sources */,
-				7BEDE2041D8989910054D13B /* NSUserDefaultsService.swift in Sources */,
 				7BA0321B1D843FEE00F20E23 /* BasicError.swift in Sources */,
 				7BF6209C1E8421CB00C0E47F /* TitledCheckBoxTitleLabel.swift in Sources */,
 				7B673ECD1E7F06E200CAC921 /* TitledTextField.swift in Sources */,
