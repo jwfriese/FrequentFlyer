@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 
 class BuildControlPanelViewController: UIViewController {
     @IBOutlet weak var timeHeaderLabel: UILabel?
@@ -13,6 +14,8 @@ class BuildControlPanelViewController: UIViewController {
     var target: Target?
     var pipeline: Pipeline?
     private(set) var build: Build?
+
+    let disposeBag = DisposeBag()
 
     class var storyboardIdentifier: String { get { return "BuildControlPanel" } }
 
@@ -63,24 +66,27 @@ class BuildControlPanelViewController: UIViewController {
 
         retriggerButton?.isEnabled = false
 
-        triggerBuildService.triggerBuild(forTarget: target, forJob: build.jobName, inPipeline: pipeline.name) { build, error in
-            var alertTitle: String?
-            var alertMessage: String?
-            if let build = build {
-                alertTitle = "Build Triggered"
-                alertMessage = "Build #\(build.id) triggered for '\(build.jobName)'"
-            } else {
-                alertTitle = "Build Trigger Failed"
-                alertMessage = error?.localizedDescription
-            }
+        triggerBuildService.triggerBuild(forTarget: target, forJob: build.jobName, inPipeline: pipeline.name)
+            .subscribe(onNext: { build in
+                let alertTitle = "Build Triggered"
+                let alertMessage = "Build #\(build.id) triggered for '\(build.jobName)'"
+                let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
-            let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                    self.retriggerButton?.isEnabled = true
+                }
+            }, onError: { _ in
+                let alert = UIAlertController(title: "Build Trigger Failed", message: "Failed to trigger a new build. Please try again later.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
-            DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
-                self.retriggerButton?.isEnabled = true
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                    self.retriggerButton?.isEnabled = true
+                }
             }
-        }
+        )
+            .addDisposableTo(disposeBag)
     }
 }

@@ -7,7 +7,7 @@ class TriggerBuildService {
 
     let disposeBag = DisposeBag()
 
-    func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String, completion: ((Build?, Error?) -> ())?) {
+    func triggerBuild(forTarget target: Target, forJob jobName: String, inPipeline pipelineName: String) -> Observable<Build> {
         let urlString = "\(target.api)/api/v1/teams/\(target.teamName)/pipelines/\(pipelineName)/jobs/\(jobName)/builds"
         let url = URL(string: urlString)
         var request = URLRequest(url: url!)
@@ -15,26 +15,20 @@ class TriggerBuildService {
         request.allHTTPHeaderFields?["Content-Type"] = "application/json"
         request.allHTTPHeaderFields?["Authorization"] = target.token.authValue
 
-        httpClient.perform(request: request)
-            .subscribe(
-                onNext: { response in
-                    guard let completion = completion else { return }
-                    guard let data = response.body else {
-                        completion(nil, nil)
-                        return
-                    }
+        return httpClient.perform(request: request)
+            .map { response in
+                guard let data = response.body else {
+                    throw BasicError(details: "Expected data to return from call to retrigger build")
+                }
 
-                    let deserializationResult = self.buildDataDeserializer.deserialize(data)
-                    completion(deserializationResult.build, deserializationResult.error)
-            },
-                onError: { error in
-                    guard let completion = completion else { return }
-                    completion(nil, error)
+                let deserializationResult = self.buildDataDeserializer.deserialize(data)
+                if let build = deserializationResult.build {
+                    return build
+                } else if let error = deserializationResult.error {
+                    throw error
+                }
 
-            },
-                onCompleted: nil,
-                onDisposed: nil
-        )
-            .addDisposableTo(disposeBag)
+                throw BasicError(details: "Expected data to return from call to retrigger build")
+            }
     }
 }

@@ -2,6 +2,7 @@ import XCTest
 import Quick
 import Nimble
 import RxSwift
+import SwiftyJSON
 
 @testable import FrequentFlyer
 
@@ -36,6 +37,8 @@ class TriggerBuildServiceSpec: QuickSpec {
             var mockHTTPClient: MockHTTPClient!
             var mockBuildDataDeserializer: MockBuildDataDeserializer!
 
+            var result: StreamResult<Build>!
+
             beforeEach {
                 subject = TriggerBuildService()
 
@@ -47,9 +50,6 @@ class TriggerBuildServiceSpec: QuickSpec {
             }
 
             describe("Triggering a new build for a job") {
-                var capturedBuild: Build?
-                var capturedError: Error?
-
                 beforeEach {
                     let target = Target(name: "turtle target",
                                         api: "https://turtles.com",
@@ -57,10 +57,8 @@ class TriggerBuildServiceSpec: QuickSpec {
                                         token: Token(value: "turtle token value")
                     )
 
-                    subject.triggerBuild(forTarget: target, forJob: "crab_job", inPipeline: "crab_pipeline") { build, error in
-                        capturedBuild = build
-                        capturedError = error
-                    }
+                    let build$ = subject.triggerBuild(forTarget: target, forJob: "crab_job", inPipeline: "crab_pipeline")
+                    result = StreamResult(build$)
                 }
 
                 it("makes a request through the HTTPClient") {
@@ -76,7 +74,6 @@ class TriggerBuildServiceSpec: QuickSpec {
                 }
 
                 describe("When the request resolves with a success response and data for a build that is triggered") {
-
                     beforeEach {
                         mockBuildDataDeserializer.toReturnBuild = BuildBuilder().build()
 
@@ -90,11 +87,11 @@ class TriggerBuildServiceSpec: QuickSpec {
 
                     it("resolves the service's completion handler using the build the deserializer returns") {
                         let expectedBuild = BuildBuilder().build()
-                        expect(capturedBuild).to(equal(expectedBuild))
+                        expect(result.elements.first).to(equal(expectedBuild))
                     }
 
                     it("resolves the service's completion handler with a nil error") {
-                        expect(capturedError).to(beNil())
+                        expect(result.error).to(beNil())
                     }
                 }
 
@@ -104,16 +101,11 @@ class TriggerBuildServiceSpec: QuickSpec {
                     }
 
                     it("resolves the service's completion handler with nil for the build") {
-                        expect(capturedBuild).to(beNil())
+                        expect(result.elements.first).to(beNil())
                     }
 
                     it("resolves the service's completion handler with the error that the client returned") {
-                        guard let capturedError = capturedError else {
-                            fail("Failed to call completion handler with an error")
-                            return
-                        }
-
-                        expect(capturedError as? BasicError).to(equal(BasicError(details: "some error string")))
+                        expect(result.error as? BasicError).to(equal(BasicError(details: "some error string")))
                     }
                 }
 
@@ -132,16 +124,11 @@ class TriggerBuildServiceSpec: QuickSpec {
                     }
 
                     it("resolves the service's completion handler with a nil build") {
-                        expect(capturedBuild).to(beNil())
+                        expect(result.elements.first).to(beNil())
                     }
 
                     it("resolves the service's completion handler with the error the deserializer returns") {
-                        guard let capturedError = capturedError else {
-                            fail("Failed to call completion handler with an error")
-                            return
-                        }
-
-                        expect(capturedError as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
+                        expect(result.error as? DeserializationError).to(equal(DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)))
                     }
                 }
             }

@@ -24,6 +24,7 @@ class TeamsViewControllerSpec: QuickSpec {
         var capturedConcourseURL: String?
         var tokenSubject = PublishSubject<Token>()
 
+
         override func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String) -> Observable<Token> {
             capturedTeamName = teamName
             capturedConcourseURL = concourseURL
