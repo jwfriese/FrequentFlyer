@@ -1035,7 +1035,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = J9CKPFYEQU;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					AEA5D51E1D7F2CEC00D76EBA = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1361,7 +1361,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1398,7 +1398,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = J9CKPFYEQU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1410,7 +1410,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
 				PRODUCT_MODULE_NAME = "$(inherited)";
 				PRODUCT_NAME = "$(inherited)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3e2e41da-e943-4b26-8acf-f6d7614f913e";
+				PROVISIONING_PROFILE_SPECIFIER = ConcourseCI;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Test;
@@ -1458,7 +1459,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1512,10 +1513,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Jared Friese (J9CKPFYEQU)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jared Friese (J9CKPFYEQU)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1546,7 +1547,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = J9CKPFYEQU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1558,7 +1559,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
 				PRODUCT_MODULE_NAME = "$(inherited)";
 				PRODUCT_NAME = "$(inherited)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3e2e41da-e943-4b26-8acf-f6d7614f913e";
+				PROVISIONING_PROFILE_SPECIFIER = ConcourseCI;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1567,7 +1569,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = J9CKPFYEQU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1579,6 +1582,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
 				PRODUCT_MODULE_NAME = "$(inherited)";
 				PRODUCT_NAME = "$(inherited)";
+				PROVISIONING_PROFILE = "3e2e41da-e943-4b26-8acf-f6d7614f913e";
+				PROVISIONING_PROFILE_SPECIFIER = ConcourseCI;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
