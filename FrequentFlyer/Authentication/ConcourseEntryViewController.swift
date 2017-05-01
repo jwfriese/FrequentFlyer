@@ -83,14 +83,32 @@ class ConcourseEntryViewController: UIViewController {
         teamListService.getTeams(forConcourseWithURL: concourseURLString)
             .subscribe(
                 onNext: { teams in
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: ConcourseEntryViewController.showTeamsSegueId, sender: teams)
-                    }
+                    self.handleTeamListServiceSuccess(withTeams: teams)
             },
                 onError: { _ in
 
             })
                 .addDisposableTo(self.disposeBag)
+    }
+
+    private func handleTeamListServiceSuccess(withTeams teams: [String]) {
+        if teams.count > 0 {
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: ConcourseEntryViewController.showTeamsSegueId, sender: teams)
+            }
+        } else {
+            let alert = UIAlertController(
+                title: "No Teams",
+                message: "We could find your Concourse instance, but it has no teams to show you.",
+                preferredStyle: .alert
+            )
+
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+                self.submitButton?.isEnabled = true
+            }
+        }
     }
 }
 

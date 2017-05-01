@@ -140,7 +140,20 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                     }
 
                     describe("When the team list service call resolves with no teams") {
+                        beforeEach {
+                            mockTeamListService.teamListSubject.onNext([])
+                            mockTeamListService.teamListSubject.onCompleted()
+                        }
 
+                        it("presents an alert informing the user of the build that was triggered") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("No Teams"))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("We could find your Concourse instance, but it has no teams to show you."))
+                        }
+
+                        it("enables the button") {
+                            expect(subject.submitButton?.isEnabled).toEventually(beTrue())
+                        }
                     }
                 }
 
@@ -177,7 +190,20 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                     }
 
                     describe("When the team list service call resolves with no teams") {
+                        beforeEach {
+                            mockTeamListService.teamListSubject.onNext([])
+                            mockTeamListService.teamListSubject.onCompleted()
+                        }
 
+                        it("presents an alert informing the user of the build that was triggered") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("No Teams"))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("We could find your Concourse instance, but it has no teams to show you."))
+                        }
+
+                        it("enables the button") {
+                            expect(subject.submitButton?.isEnabled).toEventually(beTrue())
+                        }
                     }
                 }
             }
