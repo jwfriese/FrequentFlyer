@@ -29,10 +29,8 @@ class UnauthenticatedTokenServiceSpec: QuickSpec {
                 capturedTokenData = data
                 if let error = toReturnDeserializationError {
                     return Observable.error(error)
-                } else if let token = toReturnToken {
-                    return Observable.just(token)
                 } else {
-                    return Observable.empty()
+                    return Observable.from(optional: toReturnToken)
                 }
             }
         }

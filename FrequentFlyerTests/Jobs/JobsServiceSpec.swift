@@ -29,10 +29,8 @@ class JobsServiceSpec: QuickSpec {
                 capturedData = data
                 if let error = toReturnDeserializationError {
                     return Observable.error(error)
-                } else if let jobs = toReturnJobs {
-                    return Observable.just(jobs)
                 } else {
-                    return Observable.empty()
+                    return Observable.from(optional: toReturnJobs)
                 }
             }
         }

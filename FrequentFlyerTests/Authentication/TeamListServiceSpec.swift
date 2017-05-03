@@ -28,10 +28,8 @@ class TeamListServiceSpec: QuickSpec {
             capturedData = data
             if let error = toReturnDeserializationError {
                 return Observable.error(error)
-            } else if let teams = toReturnTeams {
-                return Observable.just(teams)
             } else {
-                return Observable.empty()
+                return Observable.from(optional: toReturnTeams)
             }
         }
     }

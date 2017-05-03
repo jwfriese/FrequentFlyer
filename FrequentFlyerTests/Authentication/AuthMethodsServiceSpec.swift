@@ -30,10 +30,8 @@ class AuthMethodsServiceSpec: QuickSpec {
                 capturedData = data
                 if let error = toReturnDeserializationError {
                     return Observable.error(error)
-                } else if let authMethods = toReturnAuthMethods {
-                    return Observable.just(authMethods)
                 } else {
-                    return Observable.empty()
+                    return Observable.from(optional: toReturnAuthMethods)
                 }
             }
         }
