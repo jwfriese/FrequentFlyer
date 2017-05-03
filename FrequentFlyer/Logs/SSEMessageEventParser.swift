@@ -4,10 +4,7 @@ import EventSource
 class SSEMessageEventParser {
     func parseConcourseEventFromSSEMessageEvent(event: SSEMessageEvent) -> (log: LogEvent?, error: FFError?) {
         let eventJSONData = event.data.data(using: String.Encoding.utf8)
-        var eventJSONAny: Any?
-        do {
-            eventJSONAny = try JSONSerialization.jsonObject(with: eventJSONData!, options: .allowFragments)
-        } catch {
+        guard let eventJSONAny = try? JSONSerialization.jsonObject(with: eventJSONData!, options: .allowFragments) else {
             return (nil, BasicError(details: "Could not parse event: Input SSEMessageEvent data is not valid JSON"))
         }
 

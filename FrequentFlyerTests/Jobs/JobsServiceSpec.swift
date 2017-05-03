@@ -27,16 +27,13 @@ class JobsServiceSpec: QuickSpec {
 
             override func deserialize(_ data: Data) -> Observable<[Job]> {
                 capturedData = data
-                let subject = ReplaySubject<[Job]>.createUnbounded()
                 if let error = toReturnDeserializationError {
-                    subject.onError(error)
+                    return Observable.error(error)
+                } else if let jobs = toReturnJobs {
+                    return Observable.just(jobs)
                 } else {
-                    if let jobs = toReturnJobs {
-                        subject.onNext(jobs)
-                    }
-                    subject.onCompleted()
+                    return Observable.empty()
                 }
-                return subject
             }
         }
 
