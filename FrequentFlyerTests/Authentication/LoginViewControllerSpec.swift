@@ -247,7 +247,11 @@ class LoginViewControllerSpec: QuickSpec {
                         }
 
                         it("sets the auth method's auth URL on the view controller") {
-                            expect(mockGitHubAuthViewController.gitHubAuthURLString).to(equal("gitHub-auth.com"))
+                            expect(mockGitHubAuthViewController.gitHubAuthURLString).toEventually(equal("gitHub-auth.com"))
+                        }
+
+                        it("sets the team name on the view controller") {
+                            expect(mockGitHubAuthViewController.teamName).toEventually(equal("team_name"))
                         }
 
                         it("disables the button") {

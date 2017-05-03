@@ -182,13 +182,13 @@ class GitHubAuthViewControllerSpec: QuickSpec {
                     }
                 }
 
-                describe("Entering a token and hitting the 'Submit' button") {
+                describe("Entering a token and hitting the 'Log In' button") {
                     beforeEach {
                         try! subject.tokenTextField?.textField?.enter(text: "token of the GitHub Turtle")
                         try! subject.loginButton?.tap()
                     }
 
-                    it("disables the 'Submit' button") {
+                    it("disables the 'Log In' button") {
                         expect(subject.loginButton?.isEnabled).to(beFalse())
                     }
 
@@ -288,7 +288,7 @@ class GitHubAuthViewControllerSpec: QuickSpec {
                             expect(alert?.message).toEventually(equal("validation error"))
                         }
 
-                        it("re-enables the 'Submit' button") {
+                        it("re-enables the 'Log In' button") {
                             expect(subject.loginButton?.isEnabled).toEventually(beTrue())
                         }
                     }

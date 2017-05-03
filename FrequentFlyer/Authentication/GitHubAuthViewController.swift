@@ -40,6 +40,7 @@ class GitHubAuthViewController: UIViewController {
         tokenTextField?.textField?.delegate = self
         tokenTextField?.textField?.placeholder = "Paste token here"
         stayLoggedInToggle?.titleLabel?.text = "Stay logged in?"
+        print("Disabling `Login` button...")
         loginButton?.isEnabled = false
         userTextInputPageOperator.delegate = self
     }

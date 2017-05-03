@@ -51,6 +51,9 @@ class LoginViewController: UIViewController {
             guard let concourseURLString = concourseURLString else { return }
             gitHubAuthViewController.concourseURLString = concourseURLString
 
+            guard let teamName = teamName else { return }
+            gitHubAuthViewController.teamName = teamName
+
             gitHubAuthViewController.keychainWrapper = KeychainWrapper()
             gitHubAuthViewController.httpSessionUtils = HTTPSessionUtils()
 
