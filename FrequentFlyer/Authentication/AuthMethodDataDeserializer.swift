@@ -8,12 +8,12 @@ class AuthMethodDataDeserializer {
         guard let authMethodsJSON = authMethodsJSONObject as? Array<NSDictionary> else {
             return Observable.error(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
         }
-        
+
         let authMethods = authMethodsJSON.flatMap { authMethodsDictionary -> AuthMethod? in
             guard let typeString = authMethodsDictionary["type"] as? String else { return nil }
             guard let displayNameString = authMethodsDictionary["display_name"] as? String else { return nil }
             guard let urlString = authMethodsDictionary["auth_url"] as? String else { return nil }
-            
+
             var type = AuthType.basic
             if typeString == "basic" && displayNameString == AuthMethod.DisplayNames.basic {
                 type = .basic
@@ -24,7 +24,7 @@ class AuthMethodDataDeserializer {
             } else {
                 return nil
             }
-            
+
             return AuthMethod(type: type, displayName: displayNameString, url: urlString)
         }
 

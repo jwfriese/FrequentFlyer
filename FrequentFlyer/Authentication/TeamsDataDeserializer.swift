@@ -10,7 +10,7 @@ class TeamsDataDeserializer {
         guard let teamsJSON = teamsJSONObject as? Array<NSDictionary> else {
             return Observable.error(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
         }
-        
+
         let teamNames = teamsJSON.flatMap { teamsDictionary in
             return teamsDictionary["name"] as? String
         }

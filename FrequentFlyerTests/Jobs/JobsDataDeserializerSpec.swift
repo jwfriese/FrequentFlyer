@@ -214,6 +214,80 @@ class JobsDataDeserializerSpec: QuickSpec {
                     }
                 }
 
+                context("Missing just 'next_build'") {
+                    beforeEach {
+                        var stillValidJobJSON: JSON! = validJobJSONTwo
+                        _ = stillValidJobJSON.dictionaryObject?.removeValue(forKey: "next_build")
+
+                        let inputJSON = JSON([
+                            validJobJSONOne,
+                            stillValidJobJSON
+                            ])
+
+                        let invalidData = try! inputJSON.rawData(options: .prettyPrinted)
+                        result = StreamResult(subject.deserialize(invalidData))
+                    }
+
+                    it("emits a job for each valid JSON job entry") {
+                        let expectedJobOne = Job(
+                            name: "turtle job",
+                            nextBuild: validNextBuildResultOne,
+                            finishedBuild: validFinishedBuildResultOne,
+                            groups: ["group_one", "group_two"]
+                        )
+
+                        let expectedJobTwo = Job(
+                            name: "crab job",
+                            nextBuild: nil,
+                            finishedBuild: validFinishedBuildResultTwo,
+                            groups: ["group_one", "group_three"]
+                        )
+
+                        expect(jobs).to(equal([expectedJobOne, expectedJobTwo]))
+                    }
+
+                    it("emits completed") {
+                        expect(result.completed).to(beTrue())
+                    }
+                }
+
+                context("Missing just 'finished_build'") {
+                    beforeEach {
+                        var stillValidJobJSON: JSON! = validJobJSONTwo
+                        _ = stillValidJobJSON.dictionaryObject?.removeValue(forKey: "finished_build")
+
+                        let inputJSON = JSON([
+                            validJobJSONOne,
+                            stillValidJobJSON
+                            ])
+
+                        let invalidData = try! inputJSON.rawData(options: .prettyPrinted)
+                        result = StreamResult(subject.deserialize(invalidData))
+                    }
+
+                    it("emits a job for each valid JSON job entry") {
+                        let expectedJobOne = Job(
+                            name: "turtle job",
+                            nextBuild: validNextBuildResultOne,
+                            finishedBuild: validFinishedBuildResultOne,
+                            groups: ["group_one", "group_two"]
+                        )
+
+                        let expectedJobTwo = Job(
+                            name: "crab job",
+                            nextBuild: validNextBuildResultTwo,
+                            finishedBuild: nil,
+                            groups: ["group_one", "group_three"]
+                        )
+
+                        expect(jobs).to(equal([expectedJobOne, expectedJobTwo]))
+                    }
+
+                    it("emits completed") {
+                        expect(result.completed).to(beTrue())
+                    }
+                }
+
                 context("Missing both 'next_build' and 'finished_build' fields simulataneously") {
                     beforeEach {
                         var invalidJobJSON: JSON! = validJobJSONTwo

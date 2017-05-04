@@ -24,11 +24,11 @@ class HTTPClientSpec: QuickSpec {
                         http$ = subject.perform(request: request)
                         result = StreamResult(http$)
                     }
-                    
+
                     it("shows the spinner while the request is loading") {
                         expect(UIApplication.shared.isNetworkActivityIndicatorVisible).to(beTrue())
                     }
-                    
+
                     it("hides the spinner when the request is complete") {
                         expect(UIApplication.shared.isNetworkActivityIndicatorVisible).toEventually(beFalse())
                     }

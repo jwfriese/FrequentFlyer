@@ -13,7 +13,7 @@ class BuildsDataDeserializer {
 
         let builds = buildsJSONObject.arrayValue.flatMap { nextBuildJSON -> Build? in
             guard let nextBuildJSONData = try? nextBuildJSON.rawData(options: .prettyPrinted) else { return nil }
-            
+
             return buildDataDeserializer.deserialize(nextBuildJSONData).build
         }
 
