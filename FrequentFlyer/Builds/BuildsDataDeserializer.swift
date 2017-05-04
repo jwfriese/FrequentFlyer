@@ -11,15 +11,10 @@ class BuildsDataDeserializer {
             return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
         }
 
-        var builds = [Build]()
-        for nextBuildJSON in buildsJSONObject.arrayValue {
-            do {
-                let nextBuildJSONData = try nextBuildJSON.rawData(options: .prettyPrinted)
-                let deserializeResult = buildDataDeserializer.deserialize(nextBuildJSONData)
-                if let build = deserializeResult.build {
-                    builds.append(build)
-                }
-            } catch {}
+        let builds = buildsJSONObject.arrayValue.flatMap { nextBuildJSON -> Build? in
+            guard let nextBuildJSONData = try? nextBuildJSON.rawData(options: .prettyPrinted) else { return nil }
+            
+            return buildDataDeserializer.deserialize(nextBuildJSONData).build
         }
 
         return (builds, nil)

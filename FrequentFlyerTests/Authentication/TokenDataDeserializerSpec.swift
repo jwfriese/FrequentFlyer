@@ -14,7 +14,7 @@ class TokenDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing valid token data") {
-                var deserialization$: ReplaySubject<Token>!
+                var deserialization$: Observable<Token>!
                 var result: StreamResult<Token>!
 
                 context("For data originating as a dictionary") {
@@ -59,7 +59,7 @@ class TokenDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing invalid token data") {
-                var deserialization$: ReplaySubject<Token>!
+                var deserialization$: Observable<Token>!
                 var result: StreamResult<Token>!
 
                 context("Missing 'value' key") {

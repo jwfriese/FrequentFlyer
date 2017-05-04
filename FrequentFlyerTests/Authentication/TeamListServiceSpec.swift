@@ -26,16 +26,11 @@ class TeamListServiceSpec: QuickSpec {
 
         override func deserialize(_ data: Data) -> Observable<[String]> {
             capturedData = data
-            let subject = ReplaySubject<[String]>.createUnbounded()
             if let error = toReturnDeserializationError {
-                subject.onError(error)
+                return Observable.error(error)
             } else {
-                if let teams = toReturnTeams {
-                    subject.onNext(teams)
-                }
-                subject.onCompleted()
+                return Observable.from(optional: toReturnTeams)
             }
-            return subject
         }
     }
 
