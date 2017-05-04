@@ -4,10 +4,7 @@ class BuildDataDeserializer {
     var buildStatusInterpreter = BuildStatusInterpreter()
 
     func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
-        var buildJSONObject: Any?
-        do {
-            buildJSONObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-        } catch { }
+        let buildJSONObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
 
         guard let buildJSON = buildJSONObject as? NSDictionary else {
             return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
@@ -66,23 +63,13 @@ class BuildDataDeserializer {
         }
 
         let startTimeObject = buildJSON.value(forKey: "start_time")
-        var startTime: UInt? = nil
-        if startTimeObject != nil {
-            guard let castedStartTime = startTimeObject as? UInt else {
-                return typeMismatchErrorCaseForKey("start_time", expectedType: "an unsigned integer")
-            }
-
-            startTime = castedStartTime
+        guard let startTime = startTimeObject as? UInt else {
+            return typeMismatchErrorCaseForKey("start_time", expectedType: "an unsigned integer")
         }
 
         let endTimeObject = buildJSON.value(forKey: "end_time")
-        var endTime: UInt? = nil
-        if endTimeObject != nil {
-            guard let castedEndTime = endTimeObject as? UInt else {
-                return typeMismatchErrorCaseForKey("end_time", expectedType: "an unsigned integer")
-            }
-
-            endTime = castedEndTime
+        guard let endTime = endTimeObject as? UInt else {
+            return typeMismatchErrorCaseForKey("end_time", expectedType: "an unsigned integer")
         }
 
         let build = Build(id: id,

@@ -5,21 +5,14 @@ import RxSwift
 
 class TeamsDataDeserializer {
     func deserialize(_ data: Data) -> Observable<[String]> {
-        var teamsJSONObject: Any?
-        do {
-            teamsJSONObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-        } catch { }
-
-        var teamNames = [String]()
+        let teamsJSONObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
 
         guard let teamsJSON = teamsJSONObject as? Array<NSDictionary> else {
             return Observable.error(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
         }
-
-        for teamsDictionary in teamsJSON {
-            guard let nameString = teamsDictionary["name"] as? String else { continue }
-
-            teamNames.append(nameString)
+        
+        let teamNames = teamsJSON.flatMap { teamsDictionary in
+            return teamsDictionary["name"] as? String
         }
 
         return Observable.from(optional: teamNames)

@@ -28,16 +28,11 @@ class AuthMethodsServiceSpec: QuickSpec {
 
             override func deserialize(_ data: Data) -> Observable<[AuthMethod]> {
                 capturedData = data
-                let subject = ReplaySubject<[AuthMethod]>.createUnbounded()
                 if let error = toReturnDeserializationError {
-                    subject.onError(error)
+                    return Observable.error(error)
                 } else {
-                    if let authMethods = toReturnAuthMethods {
-                        subject.onNext(authMethods)
-                    }
-                    subject.onCompleted()
+                    return Observable.from(optional: toReturnAuthMethods)
                 }
-                return subject
             }
         }
 

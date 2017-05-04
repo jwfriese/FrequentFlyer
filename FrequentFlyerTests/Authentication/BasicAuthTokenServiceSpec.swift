@@ -24,18 +24,13 @@ class BasicAuthTokenServiceSpec: QuickSpec {
             var toReturnToken: Token?
             var toReturnDeserializationError: DeserializationError?
 
-            override func deserialize(_ data: Data) -> ReplaySubject<Token> {
+            override func deserialize(_ data: Data) -> Observable<Token> {
                 capturedTokenData = data
-                let subject = ReplaySubject<Token>.createUnbounded()
                 if let error = toReturnDeserializationError {
-                    subject.onError(error)
+                    return Observable.error(error)
                 } else {
-                    if let token = toReturnToken {
-                        subject.onNext(token)
-                    }
-                    subject.onCompleted()
+                    return Observable.from(optional: toReturnToken)
                 }
-                return subject
             }
         }
 
