@@ -147,6 +147,7 @@
 		7BCAEFF31D902AEB00BC817D /* AppRouterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF21D902AEB00BC817D /* AppRouterViewController.swift */; };
 		7BCAEFF51D902B4E00BC817D /* SetAsRootPageSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAEFF41D902B4E00BC817D /* SetAsRootPageSegue.swift */; };
 		7BCBF2A71E00613E007D8623 /* EventSourceCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */; };
+		7BCFE3321F06F48900AC2D5F /* UnexpectedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFE3311F06F48900AC2D5F /* UnexpectedError.swift */; };
 		7BE663641E8A16F0006573C3 /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE663631E8A16F0006573C3 /* JobsViewController.swift */; };
 		7BE663661E8A1A62006573C3 /* JobsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE663651E8A1A62006573C3 /* JobsTableViewCell.swift */; };
 		7BE663691E8A1B86006573C3 /* JobsViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE663681E8A1B86006573C3 /* JobsViewControllerSpec.swift */; };
@@ -333,6 +334,7 @@
 		7BCAEFF21D902AEB00BC817D /* AppRouterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouterViewController.swift; sourceTree = "<group>"; };
 		7BCAEFF41D902B4E00BC817D /* SetAsRootPageSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAsRootPageSegue.swift; sourceTree = "<group>"; };
 		7BCBF2A61E00613E007D8623 /* EventSourceCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSourceCreator.swift; sourceTree = "<group>"; };
+		7BCFE3311F06F48900AC2D5F /* UnexpectedError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnexpectedError.swift; sourceTree = "<group>"; };
 		7BE663631E8A16F0006573C3 /* JobsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
 		7BE663651E8A1A62006573C3 /* JobsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsTableViewCell.swift; sourceTree = "<group>"; };
 		7BE663681E8A1B86006573C3 /* JobsViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsViewControllerSpec.swift; sourceTree = "<group>"; };
@@ -650,9 +652,10 @@
 			isa = PBXGroup;
 			children = (
 				7B4B869D1EA50F7D00FBD6A2 /* AuthorizationError.swift */,
-				7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */,
-				7BA032171D843FEE00F20E23 /* DeserializationError.swift */,
 				7BA032181D843FEE00F20E23 /* BasicError.swift */,
+				7BA032171D843FEE00F20E23 /* DeserializationError.swift */,
+				7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */,
+				7BCFE3311F06F48900AC2D5F /* UnexpectedError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -1242,6 +1245,7 @@
 				7BA0322D1D843FF900F20E23 /* TeamPipelinesViewController.swift in Sources */,
 				7BC1EC0D1E9299CE00459C36 /* BuildStatusInterpreter.swift in Sources */,
 				7B4B869E1EA50F7D00FBD6A2 /* AuthorizationError.swift in Sources */,
+				7BCFE3321F06F48900AC2D5F /* UnexpectedError.swift in Sources */,
 				7BA032751D84904300F20E23 /* BasicAuthTokenService.swift in Sources */,
 				7BA0326B1D8441E200F20E23 /* AuthMethod.swift in Sources */,
 				7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */,
