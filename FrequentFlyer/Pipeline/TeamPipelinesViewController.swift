@@ -30,6 +30,11 @@ class TeamPipelinesViewController: UIViewController {
                 return
             }
 
+            if error is UnexpectedError {
+                self.handleUnexpectedError()
+                return
+            }
+
             self.handlePipelinesReceived(pipelines!)
         }
 
@@ -71,6 +76,30 @@ class TeamPipelinesViewController: UIViewController {
             self.loadingIndicator?.stopAnimating()
         }
     }
+
+    private func handleUnexpectedError() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(
+                title: "Error",
+                message: "An unexpected error has occurred. Please try again.",
+                preferredStyle: .alert
+            )
+
+            alert.addAction(
+                UIAlertAction(
+                    title: "OK",
+                    style: .default,
+                    handler: nil
+                )
+            )
+
+            self.present(alert, animated: true, completion: nil)
+            self.teamPipelinesTableView?.separatorStyle = .singleLine
+            self.teamPipelinesTableView?.reloadData()
+            self.loadingIndicator?.stopAnimating()
+        }
+    }
+
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == TeamPipelinesViewController.showJobsSegueId {
