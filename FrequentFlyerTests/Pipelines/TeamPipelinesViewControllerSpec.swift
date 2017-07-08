@@ -363,6 +363,58 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                         }
                     }
                 }
+
+                describe("When disaster strikes and the pipelines service call resolves with a nil pipelines array AND a nil error") {
+                    beforeEach {
+                        guard let completion = mockTeamPipelinesService.capturedCompletion else {
+                            fail("Failed to pass a completion handler to the \(TeamPipelinesService.self)")
+                            return
+                        }
+
+                        completion(nil, nil)
+                        RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
+                    }
+
+                    it("stops and hides the loading indicator") {
+                        expect(subject.loadingIndicator?.isAnimating).toEventually(beFalse())
+                        expect(subject.loadingIndicator?.isHidden).toEventually(beTrue())
+                    }
+
+                    it("shows the table views row lines") {
+                        expect(subject.teamPipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
+                    }
+
+                    it("presents an alert describing the authorization error") {
+                        let alert: () -> UIAlertController? = {
+                            return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                        }
+
+                        expect(alert()).toEventuallyNot(beNil())
+                        expect(alert()?.title).toEventually(equal("Error"))
+                        expect(alert()?.message).toEventually(equal("An unexpected error has occurred. Please try again."))
+                    }
+
+                    describe("Tapping the 'OK' button on the alert") {
+                        it("dismisses the alert") {
+                            let screen = Fleet.getApplicationScreen()
+                            var didTapOK = false
+                            let assertOKTappedBehavior = { () -> Bool in
+                                if didTapOK {
+                                    return screen?.topmostViewController === subject
+                                }
+
+                                if let alert = screen?.topmostViewController as? UIAlertController {
+                                    try! alert.tapAlertAction(withTitle: "OK")
+                                    didTapOK = true
+                                }
+
+                                return false
+                            }
+
+                            expect(assertOKTappedBehavior()).toEventually(beTrue())
+                        }
+                    }
+                }
             }
         }
     }

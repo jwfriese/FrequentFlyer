@@ -35,13 +35,12 @@ class TeamPipelinesViewController: UIViewController {
                 return
             }
 
-            let didUnrecoverableErrorOccur = (pipelines == nil && error == nil)
-            if didUnrecoverableErrorOccur {
+            guard let pipelines = pipelines else {
                 self.handleUnexpectedError()
                 return
             }
 
-            self.handlePipelinesReceived(pipelines!)
+            self.handlePipelinesReceived(pipelines)
         }
 
         teamPipelinesTableView?.dataSource = self
