@@ -22,7 +22,7 @@ class TeamPipelinesService {
                 onNext: { response in
                     guard let completion = completion else { return }
                     guard let data = response.body else {
-                        completion(nil, UnexpectedError())
+                        completion(nil, UnexpectedError("Received response from \(TeamPipelinesService.self) with no response body: \(response)"))
                         return
                     }
 

@@ -319,7 +319,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                             return
                         }
 
-                        completion(nil, UnexpectedError())
+                        completion(nil, UnexpectedError(""))
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 
