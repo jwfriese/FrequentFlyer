@@ -133,6 +133,7 @@
 		7BA48F501DD763E4008BDE19 /* Error+FrequentFlyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */; };
 		7BAB4C9F1E93F57D00F63FFA /* BuildControlPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAB4C9E1E93F57D00F63FFA /* BuildControlPanelViewController.swift */; };
 		7BAB4CA31E93F59F00F63FFA /* BuildControlPanelViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAB4CA21E93F59F00F63FFA /* BuildControlPanelViewControllerSpec.swift */; };
+		7BB003FA1F1079E600444936 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB003F91F1079E600444936 /* Result.framework */; };
 		7BC0348D1E915C080037E774 /* ElapsedTimePrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0348C1E915C080037E774 /* ElapsedTimePrinter.swift */; };
 		7BC034911E915C260037E774 /* ElapsedTimePrinterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC034901E915C260037E774 /* ElapsedTimePrinterSpec.swift */; };
 		7BC034931E915C400037E774 /* Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC034921E915C400037E774 /* Timepiece.swift */; };
@@ -320,6 +321,7 @@
 		7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+FrequentFlyer.swift"; sourceTree = "<group>"; };
 		7BAB4C9E1E93F57D00F63FFA /* BuildControlPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildControlPanelViewController.swift; sourceTree = "<group>"; };
 		7BAB4CA21E93F59F00F63FFA /* BuildControlPanelViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildControlPanelViewControllerSpec.swift; sourceTree = "<group>"; };
+		7BB003F91F1079E600444936 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		7BC0348C1E915C080037E774 /* ElapsedTimePrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElapsedTimePrinter.swift; sourceTree = "<group>"; };
 		7BC034901E915C260037E774 /* ElapsedTimePrinterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElapsedTimePrinterSpec.swift; sourceTree = "<group>"; };
 		7BC034921E915C400037E774 /* Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timepiece.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB003FA1F1079E600444936 /* Result.framework in Frameworks */,
 				7BEDE1FE1D8986C40054D13B /* Locksmith.framework in Frameworks */,
 				7B72902D1E9DEE73005A9A22 /* Crashlytics.framework in Frameworks */,
 				7BFBA6951E0754DB00B71891 /* EventSource.framework in Frameworks */,
@@ -874,6 +877,7 @@
 		AE343E681D7F628C008251CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BB003F91F1079E600444936 /* Result.framework */,
 				7B72902A1E9DEE73005A9A22 /* Fabric.framework */,
 				7B72902B1E9DEE73005A9A22 /* Crashlytics.framework */,
 				7B0425F71E9D1750008E488F /* RxDataSources.framework */,
@@ -1123,6 +1127,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/BEMCheckBox.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (

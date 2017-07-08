@@ -4,6 +4,7 @@ import Nimble
 import RxSwift
 
 @testable import FrequentFlyer
+import Result
 
 class TeamPipelinesServiceSpec: QuickSpec {
     override func spec() {
@@ -25,9 +26,13 @@ class TeamPipelinesServiceSpec: QuickSpec {
             var toReturnPipelines: [Pipeline]?
             var toReturnError: DeserializationError?
 
-            override func deserialize(_ data: Data) -> ([Pipeline]?, DeserializationError?) {
+            override func deserialize(_ data: Data) -> Result<[Pipeline], DeserializationError> {
                 capturedData = data
-                return (toReturnPipelines, toReturnError)
+                if let pipelines = toReturnPipelines {
+                    return Result.success(pipelines)
+                }
+
+                return Result.failure(toReturnError!)
             }
         }
 
@@ -103,7 +108,7 @@ class TeamPipelinesServiceSpec: QuickSpec {
                     }
                 }
 
-                describe("When the request resolves with a success response and deserialization fails") {
+                describe("When the request resolves with a success response and deserialization fails with an error") {
                     beforeEach {
                         mockPipelineDataDeserializer.toReturnError = DeserializationError(details: "error details", type: .invalidInputFormat)
 

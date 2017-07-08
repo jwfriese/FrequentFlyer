@@ -1,11 +1,12 @@
 import Foundation
+import Result
 
 class PipelineDataDeserializer {
-    func deserialize(_ data: Data) -> (pipelines: [Pipeline]?, error: DeserializationError?) {
+    func deserialize(_ data: Data) -> Result<[Pipeline], DeserializationError> {
         let pipelinesJSONObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
 
         guard let pipelinesJSONArray = pipelinesJSONObject as? Array<NSDictionary> else {
-            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
+            return Result.failure(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
         }
 
         let pipelines = pipelinesJSONArray.flatMap { pipelineDictionary -> Pipeline? in
@@ -13,6 +14,6 @@ class PipelineDataDeserializer {
             return Pipeline(name: pipelineName)
         }
 
-        return (pipelines, nil)
+        return Result.success(pipelines)
     }
 }

@@ -32,7 +32,11 @@ class TeamPipelinesService {
                     }
 
                     let deserializationResult = self.pipelineDataDeserializer.deserialize(data)
-                    completion(deserializationResult.pipelines, deserializationResult.error)
+                    if let pipelines = deserializationResult.value {
+                        completion(pipelines, nil)
+                    } else if let error = deserializationResult.error {
+                        completion(nil, error)
+                    }
             },
                 onError: { error in
                     guard let completion = completion else { return }

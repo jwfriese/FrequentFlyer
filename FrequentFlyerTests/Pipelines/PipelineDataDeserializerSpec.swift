@@ -1,7 +1,9 @@
 import XCTest
 import Quick
 import Nimble
+
 @testable import FrequentFlyer
+import Result
 
 class PipelineDataDeserializerSpec: QuickSpec {
     override func spec() {
@@ -13,7 +15,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing pipeline data that is all valid") {
-                var result: (pipelines: [Pipeline]?, error: DeserializationError?)
+                var result: Result<[Pipeline], DeserializationError>!
 
                 beforeEach {
                     let validDataJSONArray = [
@@ -32,7 +34,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns a pipeline for each JSON pipeline entry") {
-                    guard let pipelines = result.pipelines else {
+                    guard let pipelines = result.value else {
                         fail("Failed to return any pipelines from the JSON data")
                         return
                     }
@@ -52,7 +54,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing pipeline data where some of the data is invalid") {
-                var result: (pipelines: [Pipeline]?, error: DeserializationError?)
+                var result: Result<[Pipeline], DeserializationError>!
 
                 context("Missing required 'name' field") {
                     beforeEach {
@@ -75,7 +77,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns a pipeline for each valid JSON pipeline entry") {
-                        guard let pipelines = result.pipelines else {
+                        guard let pipelines = result.value else {
                             fail("Failed to return any pipelines from the JSON data")
                             return
                         }
@@ -116,7 +118,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns a pipeline for each valid JSON pipeline entry") {
-                        guard let pipelines = result.pipelines else {
+                        guard let pipelines = result.value else {
                             fail("Failed to return any pipelines from the JSON data")
                             return
                         }
@@ -137,7 +139,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
             }
 
             describe("Given data cannot be interpreted as JSON") {
-                var result: (pipelines: [Pipeline]?, error: DeserializationError?)
+                var result: Result<[Pipeline], DeserializationError>!
 
                 beforeEach {
                     let pipelinesDataString = "some string"
@@ -147,7 +149,7 @@ class PipelineDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns nil for the pipelines") {
-                    expect(result.pipelines).to(beNil())
+                    expect(result.value).to(beNil())
                 }
 
                 it("returns an error") {

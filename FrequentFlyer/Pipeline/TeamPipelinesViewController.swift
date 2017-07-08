@@ -35,6 +35,12 @@ class TeamPipelinesViewController: UIViewController {
                 return
             }
 
+            let didUnrecoverableErrorOccur = (pipelines == nil && error == nil)
+            if didUnrecoverableErrorOccur {
+                self.handleUnexpectedError()
+                return
+            }
+
             self.handlePipelinesReceived(pipelines!)
         }
 
