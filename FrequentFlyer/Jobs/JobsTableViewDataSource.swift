@@ -43,15 +43,29 @@ class JobsTableViewDataSource: RxTableViewSectionedReloadDataSource<JobGroupSect
 
             return cell!
         }
+
+        titleForHeaderInSection = { (dataSource: TableViewSectionedDataSource<JobGroupSection>, sectionIndex: Int) -> String in
+            let section = dataSource[sectionIndex]
+            if let groupName = section.items.first?.groups.first {
+                return groupName
+            }
+
+            return "ungrouped"
+        }
     }
 
     func openJobsStream() -> Observable<[JobGroupSection]> {
         return jobsService
             .getJobs(forTarget: target, pipeline: pipeline)
             .map { jobs in
-                var section = JobGroupSection()
-                section.items = jobs
-                return [section]
+                var sections: [JobGroupSection] = []
+                jobs.forEach { job in
+                    var section = JobGroupSection()
+                    section.items.append(job)
+                    sections.append(section)
+                }
+
+                return sections
         }
     }
 }

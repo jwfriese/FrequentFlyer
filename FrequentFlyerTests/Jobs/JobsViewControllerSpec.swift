@@ -112,10 +112,10 @@ class JobsViewControllerSpec: QuickSpec {
                 describe("When the \(JobsService.self) resolves with jobs") {
                     beforeEach {
                         let finishedTurtleBuild = BuildBuilder().withStatus(.failed).withEndTime(1000).build()
-                        let turtleJob = Job(name: "turtle job", nextBuild: nil, finishedBuild: finishedTurtleBuild, groups: [])
+                        let turtleJob = Job(name: "turtle job", nextBuild: nil, finishedBuild: finishedTurtleBuild, groups: ["turtle-group"])
 
                         let nextCrabBuild = BuildBuilder().withStatus(.pending).withStartTime(500).build()
-                        let crabJob = Job(name: "crab job", nextBuild: nextCrabBuild, finishedBuild: nil, groups: [])
+                        let crabJob = Job(name: "crab job", nextBuild: nextCrabBuild, finishedBuild: nil, groups: ["crab-group"])
 
                         let puppyJob = Job(name: "puppy job", nextBuild: nil, finishedBuild: nil, groups: [])
 
@@ -133,8 +133,14 @@ class JobsViewControllerSpec: QuickSpec {
                         expect(subject.jobsTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
                     }
 
-                    it("inserts a row for each job returned by the service") {
-                        expect(subject.jobsTableView?.numberOfRows(inSection: 0)).toEventually(equal(3))
+                    it("inserts a row for each job returned by the service, for each section created") {
+                        expect(subject.jobsTableView?.numberOfRows(inSection: 0)).toEventually(equal(1))
+                        expect(subject.jobsTableView?.numberOfRows(inSection: 1)).toEventually(equal(1))
+                        expect(subject.jobsTableView?.numberOfRows(inSection: 2)).toEventually(equal(1))
+                    }
+
+                    it("inserts a section for each group defined by the service, plus one for the `ungrouped` section") {
+                        expect(subject.jobsTableView?.numberOfSections).toEventually(equal(3))
                     }
 
                     it("creates a cell in each row for each build with correct pipeline name returned by the service") {
@@ -145,19 +151,25 @@ class JobsViewControllerSpec: QuickSpec {
                         }
                         expect(cellOne.jobNameLabel?.text).to(equal("turtle job"))
 
-                        let cellTwoOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 1, section: 0))
+                        let cellTwoOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 0, section: 1))
                         guard let cellTwo = cellTwoOpt as? JobsTableViewCell else {
                             fail("Failed to fetch a \(JobsTableViewCell.self)")
                             return
                         }
                         expect(cellTwo.jobNameLabel?.text).to(equal("crab job"))
 
-                        let cellThreeOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 2, section: 0))
+                        let cellThreeOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 0, section: 2))
                         guard let cellThree = cellThreeOpt as? JobsTableViewCell else {
                             fail("Failed to fetch a \(JobsTableViewCell.self)")
                             return
                         }
                         expect(cellThree.jobNameLabel?.text).to(equal("puppy job"))
+                    }
+
+                    it("creates headers for each group, where the group name in the table matches the jobs' group name") {
+                        expect(subject.jobsTableViewDataSource.tableView(UITableView(), titleForHeaderInSection: 0)).toEventually(equal("turtle-group"))
+                        expect(subject.jobsTableViewDataSource.tableView(UITableView(), titleForHeaderInSection: 1)).toEventually(equal("crab-group"))
+                        expect(subject.jobsTableViewDataSource.tableView(UITableView(), titleForHeaderInSection: 2)).toEventually(equal("ungrouped"))
                     }
 
                     it("will display data about the latest finished build if no next build available") {
@@ -172,7 +184,7 @@ class JobsViewControllerSpec: QuickSpec {
                     }
 
                     it("will display data about the next build if one is available") {
-                        let cellTwoOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 1, section: 0))
+                        let cellTwoOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 0, section: 1))
                         guard let cellTwo = cellTwoOpt as? JobsTableViewCell else {
                             fail("Failed to fetch a \(JobsTableViewCell.self)")
                             return
@@ -183,7 +195,7 @@ class JobsViewControllerSpec: QuickSpec {
                     }
 
                     it("will display '--' and no status badge if neither type of build is available") {
-                        let cellThreeOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 2, section: 0))
+                        let cellThreeOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 0, section: 2))
                         guard let cellThree = cellThreeOpt as? JobsTableViewCell else {
                             fail("Failed to fetch a \(JobsTableViewCell.self)")
                             return
@@ -195,7 +207,7 @@ class JobsViewControllerSpec: QuickSpec {
 
                     describe("Selecting one of the job cells") {
                         beforeEach {
-                            try! subject.jobsTableView?.selectRow(at: IndexPath(row: 1, section: 0))
+                            try! subject.jobsTableView?.selectRow(at: IndexPath(row: 0, section: 1))
                         }
 
                         it("presents a job detail view controller") {
