@@ -1,5 +1,6 @@
 import Foundation
 import RxSwift
+import Result
 
 class TriggerBuildService {
     var httpClient = HTTPClient()
@@ -22,7 +23,7 @@ class TriggerBuildService {
                 }
 
                 let deserializationResult = self.buildDataDeserializer.deserialize(data)
-                if let build = deserializationResult.build {
+                if let build = deserializationResult.value {
                     return build
                 } else if let error = deserializationResult.error {
                     throw error

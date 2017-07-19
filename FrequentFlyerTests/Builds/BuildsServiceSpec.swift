@@ -2,6 +2,8 @@ import XCTest
 import Quick
 import Nimble
 import RxSwift
+import SwiftyJSON
+import Result
 
 @testable import FrequentFlyer
 
@@ -22,12 +24,38 @@ class BuildsServiceSpec: QuickSpec {
 
         class MockBuildsDataDeserializer: BuildsDataDeserializer {
             var capturedData: Data?
-            var toReturnBuilds: [Build]?
-            var toReturnError: DeserializationError?
+            private var toReturnBuilds: [Data : [Build]] = [:]
+            private var toReturnError: [Data : DeserializationError] = [:]
 
-            override func deserialize(_ buildsData: Data) -> (builds: [Build]?, error: DeserializationError?) {
+            fileprivate func when(_ data: JSON, thenReturn builds: [Build]) {
+                let jsonData = try! data.rawData(options: .prettyPrinted)
+                toReturnBuilds[jsonData] = builds
+            }
+
+            fileprivate func when(_ data: JSON, thenErrorWith error: DeserializationError) {
+                let jsonData = try! data.rawData(options: .prettyPrinted)
+                toReturnError[jsonData] = error
+            }
+
+            override func deserialize(_ buildsData: Data) -> Result<[Build], DeserializationError> {
                 capturedData = buildsData
-                return (toReturnBuilds, toReturnError)
+                let inputAsJSON = JSON(data: buildsData)
+
+                for (keyData, builds) in toReturnBuilds {
+                    let keyAsJSON = JSON(data: keyData)
+                    if keyAsJSON == inputAsJSON {
+                        return Result.success(builds)
+                    }
+                }
+
+                for (keyData, error) in toReturnError {
+                    let keyAsJSON = JSON(data: keyData)
+                    if keyAsJSON == inputAsJSON {
+                        return Result.failure(error)
+                    }
+                }
+
+                return Result.failure(DeserializationError(details: "fatal error in test", type: .missingRequiredData))
             }
         }
 
@@ -77,14 +105,14 @@ class BuildsServiceSpec: QuickSpec {
                     beforeEach {
                         let buildOne = BuildBuilder().withName("turtle build").build()
                         let buildTwo = BuildBuilder().withName("crab build").build()
-                        mockBuildsDataDeserializer.toReturnBuilds = [buildOne, buildTwo]
+                        let validBuildsData = "{\"d\":\"valid builds data\"}".data(using: String.Encoding.utf8)!
+                        mockBuildsDataDeserializer.when(JSON(data: validBuildsData), thenReturn: [buildOne, buildTwo])
 
-                        let validBuildsData = "valid builds data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: validBuildsData, statusCode: 200))
                     }
 
                     it("passes the data along to the deserializer") {
-                        let expectedData = "valid builds data".data(using: String.Encoding.utf8)
+                        let expectedData = "{\"d\":\"valid builds data\"}".data(using: String.Encoding.utf8)
                         expect(mockBuildsDataDeserializer.capturedData).to(equal(expectedData))
                     }
 
@@ -104,14 +132,14 @@ class BuildsServiceSpec: QuickSpec {
 
                 describe("When the HTTP request resolves with a success response and deserialization errors") {
                     beforeEach {
-                        mockBuildsDataDeserializer.toReturnError = DeserializationError(details: "error details", type: .invalidInputFormat)
+                        let invalidBuildsData = "{\"d\":\"invalid builds data\"}".data(using: String.Encoding.utf8)!
+                        mockBuildsDataDeserializer.when(JSON(data: invalidBuildsData), thenErrorWith: DeserializationError(details: "error details", type: .invalidInputFormat))
 
-                        let invalidBuildsData = "invalid builds data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidBuildsData, statusCode: 200))
                     }
 
                     it("passes the data along to the deserializer") {
-                        let expectedData = "invalid builds data".data(using: String.Encoding.utf8)
+                        let expectedData = "{\"d\":\"invalid builds data\"}".data(using: String.Encoding.utf8)
                         expect(mockBuildsDataDeserializer.capturedData).to(equal(expectedData))
                     }
 

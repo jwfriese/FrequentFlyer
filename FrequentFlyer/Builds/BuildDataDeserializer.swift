@@ -1,13 +1,14 @@
 import Foundation
+import Result
 
 class BuildDataDeserializer {
     var buildStatusInterpreter = BuildStatusInterpreter()
 
-    func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
+    func deserialize(_ data: Data) -> Result<Build, DeserializationError> {
         let buildJSONObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
 
         guard let buildJSON = buildJSONObject as? NSDictionary else {
-            return (nil, DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
+            return Result.failure(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
         }
 
         guard let idObject = buildJSON.value(forKey: "id") else {
@@ -51,7 +52,7 @@ class BuildDataDeserializer {
         }
 
         guard let interpretedStatus = buildStatusInterpreter.interpret(status) else {
-            return (nil, DeserializationError(details: "Failed to interpret '\(status)' as a build status.", type: .typeMismatch))
+            return Result.failure(DeserializationError(details: "Failed to interpret '\(status)' as a build status.", type: .typeMismatch))
         }
 
         guard let pipelineNameObject = buildJSON.value(forKey: "pipeline_name") else {
@@ -82,16 +83,16 @@ class BuildDataDeserializer {
                           endTime: endTime
         )
 
-        return (build, nil)
+        return Result.success(build)
     }
 
-    fileprivate func missingDataErrorCaseForKey(_ key: String) -> (Build?, DeserializationError?) {
+    fileprivate func missingDataErrorCaseForKey(_ key: String) -> Result<Build, DeserializationError> {
         let error = DeserializationError(details: "Missing required '\(key)' field", type: .missingRequiredData)
-        return (nil, error)
+        return Result.failure(error)
     }
 
-    fileprivate func typeMismatchErrorCaseForKey(_ key: String, expectedType: String) -> (Build?, DeserializationError?) {
+    fileprivate func typeMismatchErrorCaseForKey(_ key: String, expectedType: String) -> Result<Build, DeserializationError> {
         let error = DeserializationError(details: "Expected value for '\(key)' field to be \(expectedType)", type: .typeMismatch)
-        return (nil, error)
+        return Result.failure(error)
     }
 }

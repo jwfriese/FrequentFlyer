@@ -3,6 +3,7 @@ import Quick
 import Nimble
 import RxSwift
 import SwiftyJSON
+import Result
 
 @testable import FrequentFlyer
 
@@ -21,24 +22,24 @@ class JobsDataDeserializerSpec: QuickSpec {
             toReturnError[jsonData] = error
         }
 
-        override func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
+        override func deserialize(_ data: Data) -> Result<Build, DeserializationError> {
             let inputAsJSON = JSON(data: data)
 
             for (keyData, build) in toReturnBuild {
                 let keyAsJSON = JSON(data: keyData)
                 if keyAsJSON == inputAsJSON {
-                    return (build, nil)
+                    return Result.success(build)
                 }
             }
 
             for (keyData, error) in toReturnError {
                 let keyAsJSON = JSON(data: keyData)
                 if keyAsJSON == inputAsJSON {
-                    return (nil, error)
+                    return Result.failure(error)
                 }
             }
 
-            return (nil, nil)
+            return Result.failure(DeserializationError(details: "fatal error in test", type: .missingRequiredData))
         }
     }
 

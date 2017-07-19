@@ -23,13 +23,13 @@ class JobsDataDeserializer {
             var finishedBuild: Build?
             if let finishedBuildJSON = finishedBuildJSON {
                 let finishedBuildData = try? JSONSerialization.data(withJSONObject: finishedBuildJSON, options: .prettyPrinted)
-                finishedBuild = finishedBuildData.flatMap { buildDataDeserializer.deserialize($0).build }
+                finishedBuild = finishedBuildData.flatMap { buildDataDeserializer.deserialize($0).value }
             }
 
             var nextBuild: Build?
             if let nextBuildJSON = nextBuildJSON {
                 let nextBuildData = try? JSONSerialization.data(withJSONObject: nextBuildJSON, options: .prettyPrinted)
-                nextBuild = nextBuildData.flatMap { buildDataDeserializer.deserialize($0).build }
+                nextBuild = nextBuildData.flatMap { buildDataDeserializer.deserialize($0).value }
             }
 
             return Job(name: name, nextBuild: nextBuild, finishedBuild: finishedBuild, groups: groups)

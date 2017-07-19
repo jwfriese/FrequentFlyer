@@ -26,7 +26,7 @@ class BuildsService {
                     }
 
                     let result = self.buildsDataDeserializer.deserialize(data)
-                    completion(result.builds, result.error)
+                    completion(result.value, result.error)
             },
                 onError: { error in
                     guard let completion = completion else { return }

@@ -3,6 +3,7 @@ import Quick
 import Nimble
 import RxSwift
 import SwiftyJSON
+import Result
 
 @testable import FrequentFlyer
 
@@ -22,13 +23,37 @@ class TriggerBuildServiceSpec: QuickSpec {
         }
 
         class MockBuildDataDeserializer: BuildDataDeserializer {
-            var capturedData: Data?
-            var toReturnBuild: Build?
-            var toReturnError: DeserializationError?
+            private var toReturnBuild: [Data : Build] = [:]
+            private var toReturnError: [Data : DeserializationError] = [:]
 
-            override func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
-                capturedData = data
-                return (toReturnBuild, toReturnError)
+            fileprivate func when(_ data: JSON, thenReturn build: Build) {
+                let jsonData = try! data.rawData(options: .prettyPrinted)
+                toReturnBuild[jsonData] = build
+            }
+
+            fileprivate func when(_ data: JSON, thenErrorWith error: DeserializationError) {
+                let jsonData = try! data.rawData(options: .prettyPrinted)
+                toReturnError[jsonData] = error
+            }
+
+            override func deserialize(_ data: Data) -> Result<Build, DeserializationError> {
+                let inputAsJSON = JSON(data: data)
+
+                for (keyData, build) in toReturnBuild {
+                    let keyAsJSON = JSON(data: keyData)
+                    if keyAsJSON == inputAsJSON {
+                        return Result.success(build)
+                    }
+                }
+
+                for (keyData, error) in toReturnError {
+                    let keyAsJSON = JSON(data: keyData)
+                    if keyAsJSON == inputAsJSON {
+                        return Result.failure(error)
+                    }
+                }
+
+                return Result.failure(DeserializationError(details: "fatal error in test", type: .missingRequiredData))
             }
         }
 
@@ -75,14 +100,11 @@ class TriggerBuildServiceSpec: QuickSpec {
 
                 describe("When the request resolves with a success response and data for a build that is triggered") {
                     beforeEach {
-                        mockBuildDataDeserializer.toReturnBuild = BuildBuilder().build()
+                        let buildData = "{\"data\":\"build data\"}".data(using: String.Encoding.utf8)!
+                        let buildDataJSON = JSON(data: buildData)
+                        mockBuildDataDeserializer.when(buildDataJSON, thenReturn: BuildBuilder().build())
 
-                        let buildData = "build data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: buildData, statusCode: 200))
-                    }
-
-                    it("passes the data to the deserializer") {
-                        expect(mockBuildDataDeserializer.capturedData).to(equal("build data".data(using: String.Encoding.utf8)))
                     }
 
                     it("resolves the service's completion handler using the build the deserializer returns") {
@@ -113,14 +135,11 @@ class TriggerBuildServiceSpec: QuickSpec {
                     var invalidBuildData: Data!
 
                     beforeEach {
-                        mockBuildDataDeserializer.toReturnError = DeserializationError(details: "some deserialization error details", type: .invalidInputFormat)
+                        invalidBuildData = "{\"data\":\"invalid build data\"}".data(using: String.Encoding.utf8)
+                        let buildDataJSON = JSON(data: invalidBuildData)
+                        mockBuildDataDeserializer.when(buildDataJSON, thenErrorWith: DeserializationError(details: "some deserialization error details", type: .invalidInputFormat))
 
-                        invalidBuildData = "invalid build data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidBuildData, statusCode: 200))
-                    }
-
-                    it("passes the data to the deserializer") {
-                        expect(mockBuildDataDeserializer.capturedData).to(equal(invalidBuildData))
                     }
 
                     it("resolves the service's completion handler with a nil build") {

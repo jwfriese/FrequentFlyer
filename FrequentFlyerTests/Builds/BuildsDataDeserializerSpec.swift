@@ -2,6 +2,7 @@ import XCTest
 import Quick
 import Nimble
 import SwiftyJSON
+import Result
 
 @testable import FrequentFlyer
 
@@ -20,24 +21,24 @@ class BuildsDataDeserializerSpec: QuickSpec {
             toReturnError[jsonData] = error
         }
 
-        override func deserialize(_ data: Data) -> (build: Build?, error: DeserializationError?) {
+        override func deserialize(_ data: Data) -> Result<Build, DeserializationError> {
             let inputAsJSON = JSON(data: data)
 
             for (keyData, build) in toReturnBuild {
                 let keyAsJSON = JSON(data: keyData)
                 if keyAsJSON == inputAsJSON {
-                    return (build, nil)
+                    return Result.success(build)
                 }
             }
 
             for (keyData, error) in toReturnError {
                 let keyAsJSON = JSON(data: keyData)
                 if keyAsJSON == inputAsJSON {
-                    return (nil, error)
+                    return Result.failure(error)
                 }
             }
 
-            return (nil, nil)
+            return Result.failure(DeserializationError(details: "fatal error in test", type: .missingRequiredData))
         }
     }
 
@@ -49,7 +50,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
             var validBuildJSONOne: JSON!
             var validBuildJSONTwo: JSON!
             var validBuildJSONThree: JSON!
-            var result: (builds: [Build]?, error: DeserializationError?)
+            var result: Result<[Build], DeserializationError>!
 
             beforeEach {
                 subject = BuildsDataDeserializer()
@@ -106,7 +107,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns a build for each JSON build entry") {
-                    guard let builds = result.builds else {
+                    guard let builds = result.value else {
                         fail("Failed to return any builds from the JSON data")
                         return
                     }
@@ -146,7 +147,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns a build for each valid JSON build entry") {
-                    guard let builds = result.builds else {
+                    guard let builds = result.value else {
                         fail("Failed to return any builds from the JSON data")
                         return
                     }
@@ -166,7 +167,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
             }
 
             describe("Given data cannot be interpreted as JSON") {
-                var result: (builds: [Build]?, error: DeserializationError?)
+                var result: Result<[Build], DeserializationError>!
 
                 beforeEach {
                     let buildsDataString = "some string"
@@ -176,7 +177,7 @@ class BuildsDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns nil for the builds") {
-                    expect(result.builds).to(beNil())
+                    expect(result.value).to(beNil())
                 }
 
                 it("returns an error") {

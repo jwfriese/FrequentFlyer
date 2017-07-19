@@ -2,6 +2,7 @@ import XCTest
 import Quick
 import Nimble
 import SwiftyJSON
+import Result
 
 @testable import FrequentFlyer
 
@@ -21,7 +22,7 @@ class BuildDataDeserializerSpec: QuickSpec {
             var subject: BuildDataDeserializer!
             var mockBuildStatusInterpreter: MockBuildStatusInterpreter!
 
-            var validBuildJSON: JSON!
+            var fullBuildJSON: JSON!
 
             beforeEach {
                 subject = BuildDataDeserializer()
@@ -29,7 +30,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                 mockBuildStatusInterpreter = MockBuildStatusInterpreter()
                 subject.buildStatusInterpreter = mockBuildStatusInterpreter
 
-                validBuildJSON = JSON(dictionaryLiteral: [
+                fullBuildJSON = JSON(dictionaryLiteral: [
                     ("id", 2),
                     ("name", "turtle build name"),
                     ("team_name", "turtle team name"),
@@ -42,38 +43,40 @@ class BuildDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing build data that is all valid") {
-                var result: (build: Build?, error: DeserializationError?)
+                var result: Result<Build, DeserializationError>!
                 let interpretedStatus = BuildStatus.failed
 
-                beforeEach {
-                    mockBuildStatusInterpreter.toReturnInterpretedStatus = interpretedStatus
-                    let validData = try! validBuildJSON.rawData(options: .prettyPrinted)
-                    result = subject.deserialize(validData)
-                }
+                describe("The build data has all fields") {
+                    beforeEach {
+                        mockBuildStatusInterpreter.toReturnInterpretedStatus = interpretedStatus
+                        let validData = try! fullBuildJSON.rawData(options: .prettyPrinted)
+                        result = subject.deserialize(validData)
+                    }
 
-                it("returns a build for each JSON build entry") {
-                    let expectedBuild = Build(
-                        id: 2,
-                        name: "turtle build name",
-                        teamName: "turtle team name",
-                        jobName: "turtle job name",
-                        status: interpretedStatus,
-                        pipelineName: "turtle pipeline name",
-                        startTime: 5000,
-                        endTime: 10000
-                    )
+                    it("returns a build for each JSON build entry") {
+                        let expectedBuild = Build(
+                            id: 2,
+                            name: "turtle build name",
+                            teamName: "turtle team name",
+                            jobName: "turtle job name",
+                            status: interpretedStatus,
+                            pipelineName: "turtle pipeline name",
+                            startTime: 5000,
+                            endTime: 10000
+                        )
 
-                    expect(mockBuildStatusInterpreter.capturedInput).to(equal("status 2"))
-                    expect(result.build).to(equal(expectedBuild))
-                }
+                        expect(mockBuildStatusInterpreter.capturedInput).to(equal("status 2"))
+                        expect(result.value).to(equal(expectedBuild))
+                    }
 
-                it("returns no error") {
-                    expect(result.error).to(beNil())
+                    it("returns no error") {
+                        expect(result.error).to(beNil())
+                    }
                 }
             }
 
             describe("Deserializing build data where the data is invalid") {
-                var result: (build: Build?, error: DeserializationError?)
+                var result: Result<Build, DeserializationError>!
 
                 beforeEach {
                     mockBuildStatusInterpreter.toReturnInterpretedStatus = .failed
@@ -81,7 +84,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("Missing required 'name' field") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.removeValue(forKey: "name")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -89,7 +92,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -99,7 +102,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("'name' field is not a string") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.updateValue(10, forKey: "name")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -107,7 +110,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -117,7 +120,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("Missing required 'team_name' field") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.removeValue(forKey: "team_name")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -125,7 +128,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -135,7 +138,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("'team_name' field is not a string") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.updateValue(10, forKey: "team_name")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -143,7 +146,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -153,7 +156,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("Missing required 'status' field") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.removeValue(forKey: "status")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -161,7 +164,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -171,7 +174,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("'status' field is not a string") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.updateValue(10, forKey: "status")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -179,7 +182,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -189,7 +192,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("'status' field is a value that cannot be interpreted") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.updateValue("not a status", forKey: "status")
 
                         mockBuildStatusInterpreter.toReturnInterpretedStatus = nil
@@ -199,7 +202,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -209,7 +212,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("Missing required 'job_name' field") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.removeValue(forKey: "job_name")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -217,7 +220,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -227,7 +230,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("'job_name' field is not a string") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.updateValue(10, forKey: "job_name")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -235,7 +238,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -245,7 +248,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("Missing required 'id' field") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.removeValue(forKey: "id")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -253,7 +256,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -263,7 +266,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("'id' field is not an int") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.updateValue("value", forKey: "id")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -271,7 +274,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -281,7 +284,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("Missing required 'pipeline_name' field") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.removeValue(forKey: "pipeline_name")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -289,7 +292,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -299,7 +302,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("'pipeline_name' field is not a string") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.updateValue(10, forKey: "pipeline_name")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -307,7 +310,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -317,7 +320,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("'startTime' field is present and not a uint") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.updateValue("value", forKey: "start_time")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -325,7 +328,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -335,7 +338,7 @@ class BuildDataDeserializerSpec: QuickSpec {
 
                 context("'endTime' field is present and not a uint") {
                     beforeEach {
-                        var invalidBuildJSON: JSON! = validBuildJSON
+                        var invalidBuildJSON: JSON! = fullBuildJSON
                         _ = invalidBuildJSON.dictionaryObject?.updateValue("value", forKey: "end_time")
 
                         let invalidData = try! invalidBuildJSON.rawData(options: .prettyPrinted)
@@ -343,7 +346,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns nil for the build") {
-                        expect(result.build).to(beNil())
+                        expect(result.value).to(beNil())
                     }
 
                     it("returns an error") {
@@ -353,7 +356,7 @@ class BuildDataDeserializerSpec: QuickSpec {
             }
 
             describe("Given data cannot be interpreted as JSON") {
-                var result: (build: Build?, error: DeserializationError?)
+                var result: Result<Build, DeserializationError>!
 
                 beforeEach {
                     let buildDataString = "some string"
@@ -363,7 +366,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                 }
 
                 it("returns nil for the build") {
-                    expect(result.build).to(beNil())
+                    expect(result.value).to(beNil())
                 }
 
                 it("returns an error") {
