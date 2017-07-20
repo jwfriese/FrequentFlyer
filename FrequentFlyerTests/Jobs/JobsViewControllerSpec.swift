@@ -7,15 +7,15 @@ import RxSwift
 @testable import FrequentFlyer
 
 class JobsViewControllerSpec: QuickSpec {
-    class MockJobsService: JobsService {
-        var capturedTarget: Target?
-        var capturedPipeline: Pipeline?
-        var jobsSubject = PublishSubject<[Job]>()
+    class MockJobsDataStreamProducer: JobsDataStreamProducer {
+        var jobGroupsSubject = PublishSubject<[JobGroupSection]>()
+        var capturedTarget: Target!
+        var capturedPipeline: Pipeline!
 
-        override func getJobs(forTarget target: Target, pipeline: Pipeline) -> Observable<[Job]> {
+        override func openStream(forTarget target: Target, pipeline: Pipeline) -> Observable<[JobGroupSection]> {
             capturedTarget = target
             capturedPipeline = pipeline
-            return jobsSubject
+            return jobGroupsSubject
         }
     }
 
@@ -40,7 +40,7 @@ class JobsViewControllerSpec: QuickSpec {
     override func spec() {
         describe("JobsViewController") {
             var subject: JobsViewController!
-            var mockJobsService: MockJobsService!
+            var mockJobsDataStreamProducer: MockJobsDataStreamProducer!
             var mockElapsedTimePrinter: MockElapsedTimePrinter!
             var mockKeychainWrapper: MockKeychainWrapper!
 
@@ -66,8 +66,8 @@ class JobsViewControllerSpec: QuickSpec {
                 )
                 subject.target = target
 
-                mockJobsService = MockJobsService()
-                subject.jobsTableViewDataSource.jobsService = mockJobsService
+                mockJobsDataStreamProducer = MockJobsDataStreamProducer()
+                subject.jobsDataStreamProducer = mockJobsDataStreamProducer
 
                 mockElapsedTimePrinter = MockElapsedTimePrinter()
                 subject.jobsTableViewDataSource.elapsedTimePrinter = mockElapsedTimePrinter
@@ -86,20 +86,6 @@ class JobsViewControllerSpec: QuickSpec {
                     expect(subject.title).toEventually(equal("turtle pipeline"))
                 }
 
-                it("calls out to the \(JobsService.self)") {
-                    let expectedTarget = Target(
-                        name: "turtle target",
-                        api: "turtle api",
-                        teamName: "turtle team",
-                        token: Token(value: "turtle token value")
-                    )
-
-                    let expectedPipeline = Pipeline(name: "turtle pipeline")
-
-                    expect(mockJobsService.capturedTarget).toEventually(equal(expectedTarget))
-                    expect(mockJobsService.capturedPipeline).toEventually(equal(expectedPipeline))
-                }
-
                 it("has an active loading indicator") {
                     expect(subject.loadingIndicator?.isAnimating).toEventually(beTrue())
                     expect(subject.loadingIndicator?.isHidden).toEventually(beFalse())
@@ -109,18 +95,40 @@ class JobsViewControllerSpec: QuickSpec {
                     expect(subject.jobsTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.none))
                 }
 
-                describe("When the \(JobsService.self) resolves with jobs") {
+                it("opens the data stream") {
+                    let expectedPipeline = Pipeline(name: "turtle pipeline")
+                    expect(mockJobsDataStreamProducer.capturedPipeline).to(equal(expectedPipeline))
+
+                    let expectedTarget = Target(
+                        name: "turtle target",
+                        api: "turtle api",
+                        teamName: "turtle team",
+                        token: Token(value: "turtle token value")
+                    )
+                    expect(mockJobsDataStreamProducer.capturedTarget).to(equal(expectedTarget))
+                }
+
+                describe("When the jobs data stream spits out some jobs") {
                     beforeEach {
                         let finishedTurtleBuild = BuildBuilder().withStatus(.failed).withEndTime(1000).build()
                         let turtleJob = Job(name: "turtle job", nextBuild: nil, finishedBuild: finishedTurtleBuild, groups: ["turtle-group"])
+                        var turtleSection = JobGroupSection()
+                        turtleSection.items.append(turtleJob)
 
                         let nextCrabBuild = BuildBuilder().withStatus(.pending).withStartTime(500).build()
                         let crabJob = Job(name: "crab job", nextBuild: nextCrabBuild, finishedBuild: nil, groups: ["crab-group"])
 
-                        let puppyJob = Job(name: "puppy job", nextBuild: nil, finishedBuild: nil, groups: [])
+                        let anotherCrabBuild = BuildBuilder().withStatus(.aborted).withStartTime(501).build()
+                        let anotherCrabJob = Job(name: "another crab job", nextBuild: anotherCrabBuild, finishedBuild: nil, groups: ["crab-group"])
+                        var crabSection = JobGroupSection()
+                        crabSection.items.append(contentsOf: [crabJob, anotherCrabJob])
 
-                        mockJobsService.jobsSubject.onNext([turtleJob, crabJob, puppyJob])
-                        mockJobsService.jobsSubject.onCompleted()
+                        let puppyJob = Job(name: "puppy job", nextBuild: nil, finishedBuild: nil, groups: [])
+                        var puppySection = JobGroupSection()
+                        puppySection.items.append(puppyJob)
+
+                        mockJobsDataStreamProducer.jobGroupsSubject.onNext([turtleSection, crabSection, puppySection])
+                        mockJobsDataStreamProducer.jobGroupsSubject.onCompleted()
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 
@@ -135,7 +143,7 @@ class JobsViewControllerSpec: QuickSpec {
 
                     it("inserts a row for each job returned by the service, for each section created") {
                         expect(subject.jobsTableView?.numberOfRows(inSection: 0)).toEventually(equal(1))
-                        expect(subject.jobsTableView?.numberOfRows(inSection: 1)).toEventually(equal(1))
+                        expect(subject.jobsTableView?.numberOfRows(inSection: 1)).toEventually(equal(2))
                         expect(subject.jobsTableView?.numberOfRows(inSection: 2)).toEventually(equal(1))
                     }
 
@@ -158,12 +166,19 @@ class JobsViewControllerSpec: QuickSpec {
                         }
                         expect(cellTwo.jobNameLabel?.text).to(equal("crab job"))
 
-                        let cellThreeOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 0, section: 2))
+                        let cellThreeOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 1, section: 1))
                         guard let cellThree = cellThreeOpt as? JobsTableViewCell else {
                             fail("Failed to fetch a \(JobsTableViewCell.self)")
                             return
                         }
-                        expect(cellThree.jobNameLabel?.text).to(equal("puppy job"))
+                        expect(cellThree.jobNameLabel?.text).to(equal("another crab job"))
+
+                        let cellFourOpt = subject.jobsTableView?.cellForRow(at: IndexPath(row: 0, section: 2))
+                        guard let cellFour = cellFourOpt as? JobsTableViewCell else {
+                            fail("Failed to fetch a \(JobsTableViewCell.self)")
+                            return
+                        }
+                        expect(cellFour.jobNameLabel?.text).to(equal("puppy job"))
                     }
 
                     it("creates headers for each group, where the group name in the table matches the jobs' group name") {
@@ -239,9 +254,9 @@ class JobsViewControllerSpec: QuickSpec {
                     }
                 }
 
-                describe("When the \(JobsService.self) resolves with an 'Unauthorized' response") {
+                describe("When the jobs data stream spits out an 'Unauthorized' error") {
                     beforeEach {
-                        mockJobsService.jobsSubject.onError(AuthorizationError())
+                        mockJobsDataStreamProducer.jobGroupsSubject.onError(AuthorizationError())
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 

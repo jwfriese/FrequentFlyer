@@ -11,6 +11,7 @@
 		7B0425F61E9C808C008E488F /* JobGroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0425F51E9C808C008E488F /* JobGroupHeaderView.swift */; };
 		7B0425F81E9D1750008E488F /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0425F71E9D1750008E488F /* RxDataSources.framework */; };
 		7B0425FA1E9D19D1008E488F /* JobsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0425F91E9D19D1008E488F /* JobsTableViewDataSource.swift */; };
+		7B0C738D1F1FA33A00D9A687 /* JobsDataStreamProducerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0C738C1F1FA33A00D9A687 /* JobsDataStreamProducerSpec.swift */; };
 		7B0E707E1D8D81A200686532 /* ConcourseEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */; };
 		7B0E70801D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */; };
 		7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */; };
@@ -38,6 +39,7 @@
 		7B5F952F1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */; };
 		7B5F95321DFAF5E0005E0DD2 /* web_view_controller_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */; };
 		7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F95341DFAF605005E0DD2 /* WebViewController.swift */; };
+		7B60BDF31F1F9BD000D51E6E /* JobsDataStreamProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B60BDF21F1F9BD000D51E6E /* JobsDataStreamProducer.swift */; };
 		7B60DAF51E82C33D00F5FA44 /* PageComponentTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B60DAF41E82C33D00F5FA44 /* PageComponentTitleLabel.swift */; };
 		7B673E781E7EF54D00CAC921 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B673E771E7EF54D00CAC921 /* Style.swift */; };
 		7B673EB11E7EFC5500CAC921 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */; };
@@ -87,6 +89,7 @@
 		7B737BD11E075BC2007FC4E8 /* SSEServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BCB1E075BC2007FC4E8 /* SSEServiceSpec.swift */; };
 		7B737BD31E075BE8007FC4E8 /* StylingDescriptorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BD21E075BE8007FC4E8 /* StylingDescriptorBuilder.swift */; };
 		7B74F2961E32660200BB4338 /* super_long_text.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7B74F2951E32660200BB4338 /* super_long_text.txt */; };
+		7B86FE061F1FA00100BC8AF0 /* JobsGroupSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86FE051F1FA00100BC8AF0 /* JobsGroupSection.swift */; };
 		7B8B4D4D1E8636100084505B /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8B4D4C1E8636100084505B /* InfoLabel.swift */; };
 		7B8B4D551E8638F30084505B /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8B4D531E8638F30084505B /* UnderlineTextField.swift */; };
 		7B8B4D561E8638F30084505B /* UnderlineTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B8B4D541E8638F30084505B /* UnderlineTextField.xib */; };
@@ -198,6 +201,7 @@
 		7B0425F51E9C808C008E488F /* JobGroupHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobGroupHeaderView.swift; sourceTree = "<group>"; };
 		7B0425F71E9D1750008E488F /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		7B0425F91E9D19D1008E488F /* JobsTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsTableViewDataSource.swift; sourceTree = "<group>"; };
+		7B0C738C1F1FA33A00D9A687 /* JobsDataStreamProducerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsDataStreamProducerSpec.swift; sourceTree = "<group>"; };
 		7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcourseEntryViewController.swift; sourceTree = "<group>"; };
 		7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcourseEntryViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B0E708F1D8E131E00686532 /* ArrayWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayWrapper.swift; sourceTree = "<group>"; };
@@ -226,6 +230,7 @@
 		7B5F952E1DFAF5D4005E0DD2 /* WebViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B5F95311DFAF5E0005E0DD2 /* web_view_controller_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = web_view_controller_test.html; sourceTree = "<group>"; };
 		7B5F95341DFAF605005E0DD2 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		7B60BDF21F1F9BD000D51E6E /* JobsDataStreamProducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsDataStreamProducer.swift; sourceTree = "<group>"; };
 		7B60DAF41E82C33D00F5FA44 /* PageComponentTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageComponentTitleLabel.swift; sourceTree = "<group>"; };
 		7B673E771E7EF54D00CAC921 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		7B673E9F1E7EFC5500CAC921 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
@@ -275,6 +280,7 @@
 		7B737BCB1E075BC2007FC4E8 /* SSEServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEServiceSpec.swift; sourceTree = "<group>"; };
 		7B737BD21E075BE8007FC4E8 /* StylingDescriptorBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylingDescriptorBuilder.swift; sourceTree = "<group>"; };
 		7B74F2951E32660200BB4338 /* super_long_text.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = super_long_text.txt; sourceTree = "<group>"; };
+		7B86FE051F1FA00100BC8AF0 /* JobsGroupSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsGroupSection.swift; sourceTree = "<group>"; };
 		7B8B4D4C1E8636100084505B /* InfoLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
 		7B8B4D531E8638F30084505B /* UnderlineTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		7B8B4D541E8638F30084505B /* UnderlineTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnderlineTextField.xib; sourceTree = "<group>"; };
@@ -806,6 +812,8 @@
 				7BE663631E8A16F0006573C3 /* JobsViewController.swift */,
 				7B0425F51E9C808C008E488F /* JobGroupHeaderView.swift */,
 				7B0425F31E9C8070008E488F /* JobGroupHeaderView.xib */,
+				7B60BDF21F1F9BD000D51E6E /* JobsDataStreamProducer.swift */,
+				7B86FE051F1FA00100BC8AF0 /* JobsGroupSection.swift */,
 			);
 			path = Jobs;
 			sourceTree = "<group>";
@@ -818,6 +826,7 @@
 				7B58A1A31E8B43F400FCBA13 /* JobsDataDeserializerSpec.swift */,
 				7B58A19F1E8B428C00FCBA13 /* JobsServiceSpec.swift */,
 				7BE663681E8A1B86006573C3 /* JobsViewControllerSpec.swift */,
+				7B0C738C1F1FA33A00D9A687 /* JobsDataStreamProducerSpec.swift */,
 			);
 			path = Jobs;
 			sourceTree = "<group>";
@@ -1196,6 +1205,7 @@
 				7B7290371E9F144A005A9A22 /* TeamTableViewCell.swift in Sources */,
 				7B737BC41E075BBB007FC4E8 /* SSEMessageEventParser.swift in Sources */,
 				7BE6636B1E8A1D39006573C3 /* JobsService.swift in Sources */,
+				7B86FE061F1FA00100BC8AF0 /* JobsGroupSection.swift in Sources */,
 				7BA0323D1D843FFE00F20E23 /* Target.swift in Sources */,
 				7BE663641E8A16F0006573C3 /* JobsViewController.swift in Sources */,
 				7B737BC31E075BBB007FC4E8 /* SSEConnection.swift in Sources */,
@@ -1235,6 +1245,7 @@
 				7B673ED11E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift in Sources */,
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
+				7B60BDF31F1F9BD000D51E6E /* JobsDataStreamProducer.swift in Sources */,
 				7B737BC21E075BBB007FC4E8 /* LogsViewController.swift in Sources */,
 				7BC0348D1E915C080037E774 /* ElapsedTimePrinter.swift in Sources */,
 				7B0E70901D8E131E00686532 /* ArrayWrapper.swift in Sources */,
@@ -1283,6 +1294,7 @@
 				7B737BCF1E075BC2007FC4E8 /* SSEConnectionSpec.swift in Sources */,
 				7B6F74BF1E802DC600C7C005 /* LoginViewControllerSpec.swift in Sources */,
 				7BC1EC0F1E9299EC00459C36 /* BuildStatusInterpreterSpec.swift in Sources */,
+				7B0C738D1F1FA33A00D9A687 /* JobsDataStreamProducerSpec.swift in Sources */,
 				7B58A1A01E8B428C00FCBA13 /* JobsServiceSpec.swift in Sources */,
 				7BCAEFF11D902AE500BC817D /* AppRouterViewControllerSpec.swift in Sources */,
 				7BEDE20A1D89E6300054D13B /* Factory.swift in Sources */,

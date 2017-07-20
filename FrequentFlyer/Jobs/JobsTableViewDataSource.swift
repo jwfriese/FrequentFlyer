@@ -1,31 +1,11 @@
 import RxSwift
 import RxDataSources
 
-struct JobGroupSection: SectionModelType {
-    typealias Item = Job
-    var items: [Item]
-
-    init() {
-        self.items = []
-    }
-
-    init(original: JobGroupSection, items: [Item]) {
-        self = original
-        self.items = items
-    }
-}
-
 class JobsTableViewDataSource: RxTableViewSectionedReloadDataSource<JobGroupSection> {
     var jobsService = JobsService()
     var elapsedTimePrinter = ElapsedTimePrinter()
 
-    private var target: Target!
-    private var pipeline: Pipeline!
-
-    func setUp(withTarget target: Target, pipeline: Pipeline) {
-        self.target = target
-        self.pipeline = pipeline
-
+    func setUp() {
         configureCell = { (dataSource: TableViewSectionedDataSource<JobGroupSection>, tableView: UITableView, indexPath: IndexPath, item: JobGroupSection.Item) in
             let job = item
             let cell = tableView.dequeueReusableCell(withIdentifier: JobsTableViewCell.cellReuseIdentifier, for: indexPath) as? JobsTableViewCell
@@ -51,21 +31,6 @@ class JobsTableViewDataSource: RxTableViewSectionedReloadDataSource<JobGroupSect
             }
 
             return "ungrouped"
-        }
-    }
-
-    func openJobsStream() -> Observable<[JobGroupSection]> {
-        return jobsService
-            .getJobs(forTarget: target, pipeline: pipeline)
-            .map { jobs in
-                var sections: [JobGroupSection] = []
-                jobs.forEach { job in
-                    var section = JobGroupSection()
-                    section.items.append(job)
-                    sections.append(section)
-                }
-
-                return sections
         }
     }
 }

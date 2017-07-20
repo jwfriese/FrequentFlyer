@@ -8,6 +8,7 @@ class JobsViewController: UIViewController {
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView?
 
     var jobsTableViewDataSource = JobsTableViewDataSource()
+    var jobsDataStreamProducer = JobsDataStreamProducer()
     var keychainWrapper = KeychainWrapper()
 
     var pipeline: Pipeline?
@@ -39,8 +40,8 @@ class JobsViewController: UIViewController {
 
         self.jobsTableView?.separatorStyle = .none
         self.loadingIndicator?.startAnimating()
-        jobsTableViewDataSource.setUp(withTarget: target, pipeline: pipeline)
-        jobsTableViewDataSource.openJobsStream()
+        jobsTableViewDataSource.setUp()
+        jobsDataStreamProducer.openStream(forTarget: target, pipeline: pipeline)
             .do(onNext: self.onNext(),
                 onError: self.onError()
             )

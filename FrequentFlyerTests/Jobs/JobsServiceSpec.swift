@@ -50,7 +50,7 @@ class JobsServiceSpec: QuickSpec {
                 subject.jobsDataDeserializer = mockJobsDataDeserializer
             }
 
-            describe("Getting the pipelines for a team") {
+            describe("Getting jobs for a pipeline") {
                 var job$: Observable<[Job]>!
                 var jobStreamResult: StreamResult<[Job]>!
 
@@ -86,7 +86,7 @@ class JobsServiceSpec: QuickSpec {
                     expect(mockHTTPClient.callCount).to(equal(1))
                 }
 
-                describe("When the request resolves with a success response and valid pipeline data") {
+                describe("When the request resolves with a success response and valid jobs data") {
                     beforeEach {
                         mockJobsDataDeserializer.toReturnJobs = [
                             Job(name: "turtle job", nextBuild: nil, finishedBuild: nil, groups: [])
