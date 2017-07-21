@@ -31,21 +31,23 @@ class JobsViewController: UIViewController {
 
         title = pipeline.name
 
-        setUpCellPopulation(withTarget: target, pipeline: pipeline)
         setUpCellSelect()
+        setUpCellPopulation(withTarget: target, pipeline: pipeline)
     }
 
     private func setUpCellPopulation(withTarget target: Target, pipeline: Pipeline) {
         guard let jobsTableView = jobsTableView else { return }
 
-        self.jobsTableView?.separatorStyle = .none
-        self.loadingIndicator?.startAnimating()
+        jobsTableView.separatorStyle = .none
+        loadingIndicator?.startAnimating()
         jobsTableViewDataSource.setUp()
         jobsDataStreamProducer.openStream(forTarget: target, pipeline: pipeline)
             .do(onNext: self.onNext(),
                 onError: self.onError()
             )
             .bind(to: jobsTableView.rx.items(dataSource: jobsTableViewDataSource))
+            .disposed(by: disposeBag)
+        jobsTableView.rx.setDelegate(jobsTableViewDataSource)
             .disposed(by: disposeBag)
     }
 

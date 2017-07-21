@@ -1,7 +1,7 @@
 import RxSwift
 import RxDataSources
 
-class JobsTableViewDataSource: RxTableViewSectionedReloadDataSource<JobGroupSection> {
+class JobsTableViewDataSource: RxTableViewSectionedReloadDataSource<JobGroupSection>, UITableViewDelegate {
     var jobsService = JobsService()
     var elapsedTimePrinter = ElapsedTimePrinter()
 
@@ -31,6 +31,14 @@ class JobsTableViewDataSource: RxTableViewSectionedReloadDataSource<JobGroupSect
             }
 
             return "ungrouped"
+        }
+    }
+
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.contentView.backgroundColor = Style.Colors.logsBackground
+            headerView.textLabel?.font = Style.Fonts.regular(withSize: 18)
+            headerView.textLabel?.textColor = UIColor.white
         }
     }
 }

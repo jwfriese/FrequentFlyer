@@ -86,6 +86,10 @@ class JobsViewControllerSpec: QuickSpec {
                     expect(subject.title).toEventually(equal("turtle pipeline"))
                 }
 
+                it("sets the data source as the delegate of the table view") {
+                    expect(subject.jobsTableView?.rx.delegate.forwardToDelegate()).toEventually(beIdenticalTo(subject.jobsTableViewDataSource))
+                }
+
                 it("has an active loading indicator") {
                     expect(subject.loadingIndicator?.isAnimating).toEventually(beTrue())
                     expect(subject.loadingIndicator?.isHidden).toEventually(beFalse())
