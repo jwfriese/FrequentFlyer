@@ -42,7 +42,7 @@ class BuildDataDeserializerSpec: QuickSpec {
                 ])
             }
 
-            describe("Deserializing build data that is all valid") {
+            describe("Deserializing build data that is all present and valid") {
                 var result: Result<Build, DeserializationError>!
                 let interpretedStatus = BuildStatus.failed
 
@@ -63,6 +63,37 @@ class BuildDataDeserializerSpec: QuickSpec {
                             pipelineName: "turtle pipeline name",
                             startTime: 5000,
                             endTime: 10000
+                        )
+
+                        expect(mockBuildStatusInterpreter.capturedInput).to(equal("status 2"))
+                        expect(result.value).to(equal(expectedBuild))
+                    }
+
+                    it("returns no error") {
+                        expect(result.error).to(beNil())
+                    }
+                }
+
+                describe("The build data has every field except start and end time") {
+                    beforeEach {
+                        mockBuildStatusInterpreter.toReturnInterpretedStatus = interpretedStatus
+                        var missingTimeJSON: JSON! = fullBuildJSON
+                        _ = missingTimeJSON?.dictionaryObject?.removeValue(forKey: "start_time")
+                        _ = missingTimeJSON?.dictionaryObject?.removeValue(forKey: "end_time")
+                        let validData = try! missingTimeJSON.rawData(options: .prettyPrinted)
+                        result = subject.deserialize(validData)
+                    }
+
+                    it("returns a build for each JSON build entry") {
+                        let expectedBuild = Build(
+                            id: 2,
+                            name: "turtle build name",
+                            teamName: "turtle team name",
+                            jobName: "turtle job name",
+                            status: interpretedStatus,
+                            pipelineName: "turtle pipeline name",
+                            startTime: nil,
+                            endTime: nil
                         )
 
                         expect(mockBuildStatusInterpreter.capturedInput).to(equal("status 2"))

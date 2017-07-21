@@ -40,7 +40,16 @@ class BuildControlPanelViewController: UIViewController {
         )
     }
 
-    func setBuild(_ build: Build) {
+    func setBuild(_ build: Build?) {
+        guard let build = build else {
+            latestJobNameLabel?.text = "--"
+            latestJobLastEventTimeLabel?.text = "--"
+            timeHeaderLabel?.text = "--"
+            buildStatusBadge?.setUp(for: BuildStatus.pending)
+            retriggerButton?.isEnabled = false
+            return
+        }
+
         self.build = build
         latestJobNameLabel?.text = "#\(build.name)"
         buildStatusBadge?.setUp(for: build.status)

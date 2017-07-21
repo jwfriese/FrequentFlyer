@@ -34,20 +34,17 @@ class JobDetailViewController: UIViewController {
 
         title = job.name
 
-        var build: Build!
-        if job.nextBuild != nil {
-            build = job.nextBuild
-        } else if job.finishedBuild != nil {
-            build = job.finishedBuild
-        } else {
-            return
+        if let nextBuild = job.nextBuild {
+            controlPanel.setBuild(nextBuild)
+            logsPane.build = nextBuild
+        } else if let finishedBuild = job.finishedBuild {
+            controlPanel.setBuild(finishedBuild)
+            logsPane.build = finishedBuild
         }
 
         controlPanel.target = target
         controlPanel.pipeline = pipeline
-        controlPanel.setBuild(build)
 
-        logsPane.build = build
         logsPane.target = target
         logsPane.fetchLogs()
     }

@@ -66,7 +66,34 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
                     let _ = Fleet.setInAppWindowRootNavigation(subject)
                 }
 
-                describe("Setting up the build") {
+                describe("When given no build") {
+                    beforeEach {
+                        mockElapsedTimePrinter.toReturnResult = "X s ago"
+                        subject.setBuild(nil)
+                    }
+
+                    it("displays '--' as the name of the build") {
+                        expect(subject.latestJobNameLabel?.text).toEventually(equal("--"))
+                    }
+
+                    it("displays '--' for the time elapsed since the build started") {
+                        expect(subject.latestJobLastEventTimeLabel?.text).toEventually(equal("--"))
+                    }
+
+                    it("sets the time title label to '--'") {
+                        expect(subject.timeHeaderLabel?.text).toEventually(equal("--"))
+                    }
+
+                    it("creates a 'Pending' badge") {
+                        expect(subject.buildStatusBadge?.status).toEventually(equal(BuildStatus.pending))
+                    }
+
+                    it("disables the 'Retrigger' button") {
+                        expect(subject.retriggerButton?.isEnabled).toEventually(beFalse())
+                    }
+                }
+
+                describe("Setting up a build") {
                     describe("When the build has an end time") {
                         beforeEach {
                             let build = BuildBuilder().withName("the last build").withStartTime(1000).withEndTime(1030).build()

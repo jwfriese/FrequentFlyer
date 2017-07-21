@@ -291,27 +291,33 @@ class JobsDataDeserializerSpec: QuickSpec {
 
                 context("Missing both 'next_build' and 'finished_build' fields simulataneously") {
                     beforeEach {
-                        var invalidJobJSON: JSON! = validJobJSONTwo
-                        _ = invalidJobJSON.dictionaryObject?.removeValue(forKey: "next_build")
-                        _ = invalidJobJSON.dictionaryObject?.removeValue(forKey: "finished_build")
+                        var bothBuildsMissingJSON: JSON! = validJobJSONTwo
+                        _ = bothBuildsMissingJSON.dictionaryObject?.removeValue(forKey: "next_build")
+                        _ = bothBuildsMissingJSON.dictionaryObject?.removeValue(forKey: "finished_build")
 
                         let inputJSON = JSON([
                             validJobJSONOne,
-                            invalidJobJSON
+                            bothBuildsMissingJSON
                         ])
 
                         let invalidData = try! inputJSON.rawData(options: .prettyPrinted)
                         result = StreamResult(subject.deserialize(invalidData))
                     }
 
-                    it("emits a job only for each valid JSON job entry") {
-                        let expectedJob = Job(
+                    it("emits a job for each valid JSON job entry") {
+                        let expectedJobOne = Job(
                             name: "turtle job",
                             nextBuild: validNextBuildResultOne,
                             finishedBuild: validFinishedBuildResultOne,
                             groups: ["group_one", "group_two"]
                         )
-                        expect(jobs).to(equal([expectedJob]))
+                        let expectedJobTwo = Job(
+                            name: "crab job",
+                            nextBuild: nil,
+                            finishedBuild: nil,
+                            groups: ["group_one", "group_three"]
+                        )
+                        expect(jobs).to(equal([expectedJobOne, expectedJobTwo]))
                     }
 
                     it("emits completed") {

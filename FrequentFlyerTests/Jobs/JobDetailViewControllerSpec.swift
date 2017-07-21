@@ -178,6 +178,48 @@ class JobDetailViewControllerSpec: QuickSpec {
                             expect(mockLogsViewController.didCallFetchLogs).to(beTrue())
                         }
                     }
+
+                    describe("When neither a finished build nor a next build are available on the job") {
+                        beforeEach {
+                            subject.job = Job(name: "job_name", nextBuild: nil, finishedBuild: nil, groups: [])
+                            let _ = Fleet.setInAppWindowRootNavigation(subject)
+                        }
+
+                        it("sets no build on the control panel") {
+                            expect(subject.controlPanel?.build).toEventually(beNil())
+                        }
+
+                        it("sets its pipeline on the control panel") {
+                            let expectedPipeline = Pipeline(name: "pipeline")
+                            expect(subject.controlPanel?.pipeline).toEventually(equal(expectedPipeline))
+                        }
+
+                        it("sets its target on the control panel") {
+                            let expectedTarget = Target(
+                                name: "targetName",
+                                api: "api",
+                                teamName: "teamName",
+                                token: Token(value: "tokenValue")
+                            )
+                            expect(subject.controlPanel?.target).toEventually(equal(expectedTarget))
+                        }
+
+                        it("sets up its logs pane with no build") {
+                            expect(subject.logsPane?.build).toEventually(beNil())
+
+                            let expectedTarget = Target(
+                                name: "targetName",
+                                api: "api",
+                                teamName: "teamName",
+                                token: Token(value: "tokenValue")
+                            )
+                            expect(subject.logsPane?.target).toEventually(equal(expectedTarget))
+                        }
+
+                        it("asks its logs pane to fetch logs") {
+                            expect(mockLogsViewController.didCallFetchLogs).to(beTrue())
+                        }
+                    }
                 }
             }
         }

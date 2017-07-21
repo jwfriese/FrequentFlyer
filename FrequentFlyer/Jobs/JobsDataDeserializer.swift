@@ -18,8 +18,6 @@ class JobsDataDeserializer {
             let finishedBuildJSON = jobsDictionary["finished_build"] as? NSDictionary
             let nextBuildJSON = jobsDictionary["next_build"] as? NSDictionary
 
-            if finishedBuildJSON == nil && nextBuildJSON == nil { return nil }
-
             var finishedBuild: Build?
             if let finishedBuildJSON = finishedBuildJSON {
                 let finishedBuildData = try? JSONSerialization.data(withJSONObject: finishedBuildJSON, options: .prettyPrinted)
