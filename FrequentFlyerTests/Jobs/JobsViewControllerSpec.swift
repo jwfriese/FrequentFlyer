@@ -304,13 +304,13 @@ class JobsViewControllerSpec: QuickSpec {
                         }
 
                         it("asks its \(KeychainWrapper.self) to delete its target") {
-                            let alert: () -> UIAlertController? = { _ in
+                            let alert: () -> UIAlertController? = {
                                 return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
                             }
 
                             var alertDidAppear = false
                             var didAttemptLogOutTap = false
-                            let assertDidDeleteFromKeychain: () -> Bool = { _ in
+                            let assertDidDeleteFromKeychain: () -> Bool = {
                                 if !alertDidAppear {
                                     if alert() != nil {
                                         alertDidAppear = true

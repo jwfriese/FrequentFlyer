@@ -15,8 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController?.navigationBar.barTintColor = Style.Colors.navigationBar
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.titleTextAttributes = [
-            NSForegroundColorAttributeName : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
-            NSFontAttributeName : Style.Fonts.regular(withSize: 18)
+            NSAttributedStringKey.foregroundColor : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
+            NSAttributedStringKey.font : Style.Fonts.regular(withSize: 18)
         ]
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 

@@ -100,7 +100,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     }
 
                     it("displays an action sheet with the 'Log Out' option") {
-                        let actionSheet: () -> UIAlertController? = { _ in
+                        let actionSheet: () -> UIAlertController? = {
                             return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
                         }
 
@@ -109,13 +109,13 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                     describe("Tapping the 'Log Out' button in the action sheet") {
                         it("sets the app to the concourse entry page") {
-                            let actionSheet: () -> UIAlertController? = { _ in
+                            let actionSheet: () -> UIAlertController? = {
                                 return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
                             }
 
                             var actionSheetDidAppear = false
                             var didAttemptLogOutTap = false
-                            let assertDidLogOut: () -> Bool = { _ in
+                            let assertDidLogOut: () -> Bool = {
                                 if !actionSheetDidAppear {
                                     if actionSheet() != nil {
                                         actionSheetDidAppear = true
@@ -137,13 +137,13 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                         }
 
                         it("asks its KeychainWrapper to delete its target") {
-                            let actionSheet: () -> UIAlertController? = { _ in
+                            let actionSheet: () -> UIAlertController? = {
                                 return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
                             }
 
                             var actionSheetDidAppear = false
                             var didAttemptLogOutTap = false
-                            let assertDidDeleteFromKeychain: () -> Bool = { _ in
+                            let assertDidDeleteFromKeychain: () -> Bool = {
                                 if !actionSheetDidAppear {
                                     if actionSheet() != nil {
                                         actionSheetDidAppear = true
@@ -167,13 +167,13 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                     describe("Tapping the 'Cancel' button in the action sheet") {
                         it("dismisses the action sheet") {
-                            let actionSheet: () -> UIAlertController? = { _ in
+                            let actionSheet: () -> UIAlertController? = {
                                 return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
                             }
 
                             var actionSheetDidAppear = false
                             var didAttemptLogOutTap = false
-                            let assertDidDismissActionSheet: () -> Bool = { _ in
+                            let assertDidDismissActionSheet: () -> Bool = {
                                 if !actionSheetDidAppear {
                                     if actionSheet() != nil {
                                         actionSheetDidAppear = true
