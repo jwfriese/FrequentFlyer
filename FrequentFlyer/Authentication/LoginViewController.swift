@@ -28,18 +28,18 @@ class LoginViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == LoginViewController.setTeamPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
-            guard let teamPipelinesViewController = segue.destination as? TeamPipelinesViewController else {
+            guard let pipelinesViewController = segue.destination as? PipelinesViewController else {
                 return
             }
 
-            teamPipelinesViewController.target = target
+            pipelinesViewController.target = target
 
-            let teamPipelinesService = TeamPipelinesService()
-            teamPipelinesService.httpClient = HTTPClient()
-            teamPipelinesService.pipelineDataDeserializer = PipelineDataDeserializer()
-            teamPipelinesViewController.teamPipelinesService = teamPipelinesService
+            let pipelinesService = PipelinesService()
+            pipelinesService.httpClient = HTTPClient()
+            pipelinesService.pipelineDataDeserializer = PipelineDataDeserializer()
+            pipelinesViewController.pipelinesService = pipelinesService
 
-            teamPipelinesViewController.keychainWrapper = KeychainWrapper()
+            pipelinesViewController.keychainWrapper = KeychainWrapper()
         } else if segue.identifier == LoginViewController.showGitHubAuthSegueId {
             guard let gitHubAuthViewController = segue.destination as? GitHubAuthViewController else {
                 return

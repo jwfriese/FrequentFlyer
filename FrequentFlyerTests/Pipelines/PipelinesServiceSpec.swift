@@ -6,7 +6,7 @@ import RxSwift
 @testable import FrequentFlyer
 import Result
 
-class TeamPipelinesServiceSpec: QuickSpec {
+class PipelinesServiceSpec: QuickSpec {
     override func spec() {
         class MockHTTPClient: HTTPClient {
             var capturedRequest: URLRequest?
@@ -36,13 +36,13 @@ class TeamPipelinesServiceSpec: QuickSpec {
             }
         }
 
-        describe("TeamPipelinesService") {
-            var subject: TeamPipelinesService!
+        describe("PipelinesService") {
+            var subject: PipelinesService!
             var mockHTTPClient: MockHTTPClient!
             var mockPipelineDataDeserializer: MockPipelineDataDeserializer!
 
             beforeEach {
-                subject = TeamPipelinesService()
+                subject = PipelinesService()
 
                 mockHTTPClient = MockHTTPClient()
                 subject.httpClient = mockHTTPClient

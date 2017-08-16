@@ -4,8 +4,8 @@ import Nimble
 import Fleet
 @testable import FrequentFlyer
 
-class TeamPipelinesViewControllerSpec: QuickSpec {
-    class MockTeamPipelinesService: TeamPipelinesService {
+class PipelinesViewControllerSpec: QuickSpec {
+    class MockPipelinesService: PipelinesService {
         var capturedTarget: Target?
         var capturedCompletion: (([Pipeline]?, Error?) -> ())?
 
@@ -24,9 +24,9 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
     }
 
     override func spec() {
-        describe("TeamPipelinesViewController"){
-            var subject: TeamPipelinesViewController!
-            var mockTeamPipelinesService: MockTeamPipelinesService!
+        describe("PipelinesViewController"){
+            var subject: PipelinesViewController!
+            var mockPipelinesService: MockPipelinesService!
             var mockKeychainWrapper: MockKeychainWrapper!
 
             var mockJobsViewController: JobsViewController!
@@ -34,7 +34,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                subject = storyboard.instantiateViewController(withIdentifier: TeamPipelinesViewController.storyboardIdentifier) as! TeamPipelinesViewController
+                subject = storyboard.instantiateViewController(withIdentifier: PipelinesViewController.storyboardIdentifier) as! PipelinesViewController
 
                 mockJobsViewController = try! storyboard.mockIdentifier(JobsViewController.storyboardIdentifier, usingMockFor: JobsViewController.self)
                 mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self)
@@ -45,8 +45,8 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     token: Token(value: "turtle token value")
                 )
 
-                mockTeamPipelinesService = MockTeamPipelinesService()
-                subject.teamPipelinesService = mockTeamPipelinesService
+                mockPipelinesService = MockPipelinesService()
+                subject.pipelinesService = mockPipelinesService
 
                 mockKeychainWrapper = MockKeychainWrapper()
                 subject.keychainWrapper = mockKeychainWrapper
@@ -64,25 +64,25 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                 }
 
                 it("sets itself as the data source for its table view") {
-                    expect(subject.teamPipelinesTableView?.dataSource).to(beIdenticalTo(subject))
+                    expect(subject.pipelinesTableView?.dataSource).to(beIdenticalTo(subject))
                 }
 
                 it("sets itself as the delegate for its table view") {
-                    expect(subject.teamPipelinesTableView?.delegate).to(beIdenticalTo(subject))
+                    expect(subject.pipelinesTableView?.delegate).to(beIdenticalTo(subject))
                 }
 
-                it("asks the TeamPipelinesService to fetch the target team's pipelines") {
+                it("asks the PipelinesService to fetch the target team's pipelines") {
                     let expectedTarget = Target(name: "turtle target",
                            api: "turtle api",
                            teamName: "turtle team",
                            token: Token(value: "turtle token value")
                     )
 
-                    expect(mockTeamPipelinesService.capturedTarget).to(equal(expectedTarget))
+                    expect(mockPipelinesService.capturedTarget).to(equal(expectedTarget))
                 }
 
                 it("always has one section in the table view") {
-                    expect(subject.numberOfSections(in: subject.teamPipelinesTableView!)).to(equal(1))
+                    expect(subject.numberOfSections(in: subject.pipelinesTableView!)).to(equal(1))
                 }
 
                 it("has an active loading indicator") {
@@ -91,7 +91,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                 }
 
                 it("hides the table views row lines while there is no content") {
-                    expect(subject.teamPipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.none))
+                    expect(subject.pipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.none))
                 }
 
                 describe("Tapping the gear in the navigation item") {
@@ -198,8 +198,8 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                 describe("When the pipelines service call resolves with a list of pipelines") {
                     beforeEach {
-                        guard let completion = mockTeamPipelinesService.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the TeamPipelinesService")
+                        guard let completion = mockPipelinesService.capturedCompletion else {
+                            fail("Failed to pass a completion handler to the PipelinesService")
                             return
                         }
 
@@ -215,24 +215,24 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     }
 
                     it("shows the table views row lines") {
-                        expect(subject.teamPipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
+                        expect(subject.pipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
                     }
 
                     it("adds a row to the table for each of the pipelines returned") {
-                        expect(subject.tableView(subject.teamPipelinesTableView!, numberOfRowsInSection: 0)).to(equal(2))
+                        expect(subject.tableView(subject.pipelinesTableView!, numberOfRowsInSection: 0)).to(equal(2))
                     }
 
                     it("creates a cell in each of the rows for each of the pipelines returned") {
-                        let cellOne = try! subject.teamPipelinesTableView!.fetchCell(at: IndexPath(row: 0, section: 0), asType: PipelineTableViewCell.self)
+                        let cellOne = try! subject.pipelinesTableView!.fetchCell(at: IndexPath(row: 0, section: 0), asType: PipelineTableViewCell.self)
                         expect(cellOne.nameLabel?.text).to(equal("turtle pipeline one"))
 
-                        let cellTwo = try! subject.teamPipelinesTableView!.fetchCell(at: IndexPath(row: 1, section: 0), asType: PipelineTableViewCell.self)
+                        let cellTwo = try! subject.pipelinesTableView!.fetchCell(at: IndexPath(row: 1, section: 0), asType: PipelineTableViewCell.self)
                         expect(cellTwo.nameLabel?.text).to(equal("turtle pipeline two"))
                     }
 
                     describe("Tapping one of the cells") {
                         beforeEach {
-                            try! subject.teamPipelinesTableView!.selectRow(at: IndexPath(row: 0, section: 0))
+                            try! subject.pipelinesTableView!.selectRow(at: IndexPath(row: 0, section: 0))
                         }
 
                         it("sets up and presents the pipeline's jobs page") {
@@ -252,7 +252,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                         }
 
                         it("immediately deselects the cell") {
-                            let selectedCell = subject.teamPipelinesTableView?.cellForRow(at: IndexPath(row: 0, section: 0))
+                            let selectedCell = subject.pipelinesTableView?.cellForRow(at: IndexPath(row: 0, section: 0))
                             expect(selectedCell).toEventuallyNot(beNil())
                             expect(selectedCell?.isHighlighted).toEventually(beFalse())
                             expect(selectedCell?.isSelected).toEventually(beFalse())
@@ -262,8 +262,8 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                 describe("When the pipelines service call resolves with an 'Unauthorized' response") {
                     beforeEach {
-                        guard let completion = mockTeamPipelinesService.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the \(TeamPipelinesService.self)")
+                        guard let completion = mockPipelinesService.capturedCompletion else {
+                            fail("Failed to pass a completion handler to the \(PipelinesService.self)")
                             return
                         }
 
@@ -277,7 +277,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     }
 
                     it("shows the table views row lines") {
-                        expect(subject.teamPipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
+                        expect(subject.pipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
                     }
 
                     it("presents an alert describing the authorization error") {
@@ -314,8 +314,8 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                 describe("When the pipelines service call resolves with an unexpected error") {
                     beforeEach {
-                        guard let completion = mockTeamPipelinesService.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the \(TeamPipelinesService.self)")
+                        guard let completion = mockPipelinesService.capturedCompletion else {
+                            fail("Failed to pass a completion handler to the \(PipelinesService.self)")
                             return
                         }
 
@@ -329,7 +329,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     }
 
                     it("shows the table views row lines") {
-                        expect(subject.teamPipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
+                        expect(subject.pipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
                     }
 
                     it("presents an alert describing the authorization error") {
@@ -366,8 +366,8 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
 
                 describe("When disaster strikes and the pipelines service call resolves with a nil pipelines array AND a nil error") {
                     beforeEach {
-                        guard let completion = mockTeamPipelinesService.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the \(TeamPipelinesService.self)")
+                        guard let completion = mockPipelinesService.capturedCompletion else {
+                            fail("Failed to pass a completion handler to the \(PipelinesService.self)")
                             return
                         }
 
@@ -381,7 +381,7 @@ class TeamPipelinesViewControllerSpec: QuickSpec {
                     }
 
                     it("shows the table views row lines") {
-                        expect(subject.teamPipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
+                        expect(subject.pipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
                     }
 
                     it("presents an alert describing the authorization error") {

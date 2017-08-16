@@ -45,7 +45,7 @@ class GitHubAuthViewControllerSpec: QuickSpec {
             var mockTokenValidationService: MockTokenValidationService!
             var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
-            var mockTeamPipelinesViewController: TeamPipelinesViewController!
+            var mockPipelinesViewController: PipelinesViewController!
             var mockWebViewController: WebViewController!
 
             beforeEach {
@@ -53,7 +53,7 @@ class GitHubAuthViewControllerSpec: QuickSpec {
 
                 mockWebViewController = try! storyboard.mockIdentifier(WebViewController.storyboardIdentifier , usingMockFor: WebViewController.self)
 
-                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
+                mockPipelinesViewController = try! storyboard.mockIdentifier(PipelinesViewController.storyboardIdentifier, usingMockFor: PipelinesViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: GitHubAuthViewController.storyboardIdentifier) as! GitHubAuthViewController
 
@@ -218,15 +218,15 @@ class GitHubAuthViewControllerSpec: QuickSpec {
                                 expect(mockKeychainWrapper.capturedTarget).to(beNil())
                             }
 
-                            it("replaces itself with the TeamPipelinesViewController") {
-                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
+                            it("replaces itself with the PipelinesViewController") {
+                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockPipelinesViewController))
                             }
 
                             it("creates a new target from the entered information and view controller") {
                                 let expectedTarget = Target(name: "target", api: "turtle_concourse.com",
                                                             teamName: "turtle_team", token: Token(value: "token of the GitHub Turtle")
                                 )
-                                expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
+                                expect(mockPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
                         }
 
@@ -242,15 +242,15 @@ class GitHubAuthViewControllerSpec: QuickSpec {
                                 completion(nil)
                             }
 
-                            it("replaces itself with the TeamPipelinesViewController") {
-                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
+                            it("replaces itself with the PipelinesViewController") {
+                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockPipelinesViewController))
                             }
 
                             it("creates a new target from the entered information and sets it on the view controller") {
                                 let expectedTarget = Target(name: "target", api: "turtle_concourse.com",
                                                             teamName: "turtle_team", token: Token(value: "token of the GitHub Turtle")
                                 )
-                                expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
+                                expect(mockPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
 
                             it("asks the KeychainWrapper to save the new target") {
@@ -262,7 +262,7 @@ class GitHubAuthViewControllerSpec: QuickSpec {
                             }
 
                             it("sets a KeychainWrapper on the view controller") {
-                                expect(mockTeamPipelinesViewController.keychainWrapper).toEventuallyNot(beNil())
+                                expect(mockPipelinesViewController.keychainWrapper).toEventuallyNot(beNil())
                             }
                         }
                     }

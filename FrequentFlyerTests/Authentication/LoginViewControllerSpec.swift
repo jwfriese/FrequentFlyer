@@ -37,13 +37,13 @@ class LoginViewControllerSpec: QuickSpec {
             var mockBasicAuthTokenService: MockBasicAuthTokenService!
             var mockKeychainWrapper: MockKeychainWrapper!
 
-            var mockTeamPipelinesViewController: TeamPipelinesViewController!
+            var mockPipelinesViewController: PipelinesViewController!
             var mockGitHubAuthViewController: GitHubAuthViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
+                mockPipelinesViewController = try! storyboard.mockIdentifier(PipelinesViewController.storyboardIdentifier, usingMockFor: PipelinesViewController.self)
 
                 mockGitHubAuthViewController = try! storyboard.mockIdentifier(GitHubAuthViewController.storyboardIdentifier, usingMockFor: GitHubAuthViewController.self)
 
@@ -158,8 +158,8 @@ class LoginViewControllerSpec: QuickSpec {
                                 expect(mockKeychainWrapper.capturedTarget).to(beNil())
                             }
 
-                            it("replaces itself with the \(TeamPipelinesViewController.self)") {
-                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
+                            it("replaces itself with the \(PipelinesViewController.self)") {
+                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockPipelinesViewController))
                             }
 
                             it("creates a new target from the entered information and view controller") {
@@ -167,11 +167,11 @@ class LoginViewControllerSpec: QuickSpec {
                                                             teamName: "team_name", token: Token(value: "turtle token")
                                 )
 
-                                expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
+                                expect(mockPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
 
                             it("sets a KeychainWrapper on the view controller") {
-                                expect(mockTeamPipelinesViewController.keychainWrapper).toEventuallyNot(beNil())
+                                expect(mockPipelinesViewController.keychainWrapper).toEventuallyNot(beNil())
                             }
                         }
 
@@ -184,15 +184,15 @@ class LoginViewControllerSpec: QuickSpec {
                                 mockBasicAuthTokenService.tokenSubject.onCompleted()
                             }
 
-                            it("replaces itself with the \(TeamPipelinesViewController.self)") {
-                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
+                            it("replaces itself with the \(PipelinesViewController.self)") {
+                                expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockPipelinesViewController))
                             }
 
                             it("creates a new target from the entered information and view controller") {
                                 let expectedTarget = Target(name: "target", api: "concourse URL",
                                                             teamName: "team_name", token: Token(value: "turtle token")
                                 )
-                                expect(mockTeamPipelinesViewController.target).toEventually(equal(expectedTarget))
+                                expect(mockPipelinesViewController.target).toEventually(equal(expectedTarget))
                             }
 
                             it("asks the \(KeychainWrapper.self) to save the newly created target") {

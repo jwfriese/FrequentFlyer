@@ -19,14 +19,14 @@ class AppRouterViewControllerSpec: QuickSpec {
             var mockKeychainWrapper: MockKeychainWrapper!
 
             var mockConcourseEntryViewController: ConcourseEntryViewController!
-            var mockTeamPipelinesViewController: TeamPipelinesViewController!
+            var mockPipelinesViewController: PipelinesViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self)
 
-                mockTeamPipelinesViewController = try! storyboard.mockIdentifier(TeamPipelinesViewController.storyboardIdentifier, usingMockFor: TeamPipelinesViewController.self)
+                mockPipelinesViewController = try! storyboard.mockIdentifier(PipelinesViewController.storyboardIdentifier, usingMockFor: PipelinesViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: AppRouterViewController.storyboardIdentifier) as! AppRouterViewController
 
@@ -56,12 +56,12 @@ class AppRouterViewControllerSpec: QuickSpec {
                         Fleet.setAsAppWindowRoot(navigationController)
                     }
 
-                    it("replaces itself with the TeamPipelinesViewController") {
-                        expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamPipelinesViewController))
+                    it("replaces itself with the PipelinesViewController") {
+                        expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockPipelinesViewController))
                     }
 
                     it("sets the retrieved target on the view controller") {
-                        expect(mockTeamPipelinesViewController.target).toEventually(equal(mockKeychainWrapper.toReturnTarget))
+                        expect(mockPipelinesViewController.target).toEventually(equal(mockKeychainWrapper.toReturnTarget))
                     }
                 }
             }

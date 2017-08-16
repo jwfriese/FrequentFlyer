@@ -1,18 +1,18 @@
 import UIKit
 
-class TeamPipelinesViewController: UIViewController {
-    @IBOutlet weak var teamPipelinesTableView: UITableView?
+class PipelinesViewController: UIViewController {
+    @IBOutlet weak var pipelinesTableView: UITableView?
     @IBOutlet weak var gearBarButtonItem: UIBarButtonItem?
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView?
 
-    var teamPipelinesService = TeamPipelinesService()
+    var pipelinesService = PipelinesService()
     var keychainWrapper = KeychainWrapper()
 
     var target: Target?
 
     var pipelines: [Pipeline]?
 
-    class var storyboardIdentifier: String { get { return "TeamPipelines" } }
+    class var storyboardIdentifier: String { get { return "Pipelines" } }
     class var showJobsSegueId: String { get { return "ShowJobs" } }
     class var setConcourseEntryAsRootPageSegueId: String { get { return "SetConcourseEntryAsRootPage" } }
 
@@ -23,8 +23,8 @@ class TeamPipelinesViewController: UIViewController {
 
         title = "Pipelines"
         loadingIndicator?.startAnimating()
-        teamPipelinesTableView?.separatorStyle = .none
-        teamPipelinesService.getPipelines(forTarget: target) { pipelines, error in
+        pipelinesTableView?.separatorStyle = .none
+        pipelinesService.getPipelines(forTarget: target) { pipelines, error in
             if error is AuthorizationError {
                 self.handleAuthorizationError()
                 return
@@ -43,15 +43,15 @@ class TeamPipelinesViewController: UIViewController {
             self.handlePipelinesReceived(pipelines)
         }
 
-        teamPipelinesTableView?.dataSource = self
-        teamPipelinesTableView?.delegate = self
+        pipelinesTableView?.dataSource = self
+        pipelinesTableView?.delegate = self
     }
 
     private func handlePipelinesReceived(_ pipelines: [Pipeline]) {
         self.pipelines = pipelines
         DispatchQueue.main.async {
-            self.teamPipelinesTableView?.separatorStyle = .singleLine
-            self.teamPipelinesTableView?.reloadData()
+            self.pipelinesTableView?.separatorStyle = .singleLine
+            self.pipelinesTableView?.reloadData()
             self.loadingIndicator?.stopAnimating()
         }
     }
@@ -70,14 +70,14 @@ class TeamPipelinesViewController: UIViewController {
                     style: .destructive,
                     handler: { _ in
                         self.keychainWrapper.deleteTarget()
-                        self.performSegue(withIdentifier: TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
+                        self.performSegue(withIdentifier: PipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
                 }
                 )
             )
 
             self.present(alert, animated: true, completion: nil)
-            self.teamPipelinesTableView?.separatorStyle = .singleLine
-            self.teamPipelinesTableView?.reloadData()
+            self.pipelinesTableView?.separatorStyle = .singleLine
+            self.pipelinesTableView?.reloadData()
             self.loadingIndicator?.stopAnimating()
         }
     }
@@ -99,15 +99,15 @@ class TeamPipelinesViewController: UIViewController {
             )
 
             self.present(alert, animated: true, completion: nil)
-            self.teamPipelinesTableView?.separatorStyle = .singleLine
-            self.teamPipelinesTableView?.reloadData()
+            self.pipelinesTableView?.separatorStyle = .singleLine
+            self.pipelinesTableView?.reloadData()
             self.loadingIndicator?.stopAnimating()
         }
     }
 
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == TeamPipelinesViewController.showJobsSegueId {
+        if segue.identifier == PipelinesViewController.showJobsSegueId {
             guard let jobsViewController = segue.destination as? JobsViewController else { return  }
             guard let indexPath = sender as? IndexPath else { return }
             guard let pipeline = pipelines?[indexPath.row] else { return }
@@ -115,7 +115,7 @@ class TeamPipelinesViewController: UIViewController {
 
             jobsViewController.pipeline = pipeline
             jobsViewController.target = target
-        } else if segue.identifier == TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId {
+        } else if segue.identifier == PipelinesViewController.setConcourseEntryAsRootPageSegueId {
             guard let concourseEntryViewController = segue.destination as? ConcourseEntryViewController else {
                 return
             }
@@ -144,7 +144,7 @@ class TeamPipelinesViewController: UIViewController {
                 style: .destructive,
                 handler: { _ in
                     self.keychainWrapper.deleteTarget()
-                    self.performSegue(withIdentifier: TeamPipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
+                    self.performSegue(withIdentifier: PipelinesViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
             }
             )
         )
@@ -163,14 +163,14 @@ class TeamPipelinesViewController: UIViewController {
     }
 }
 
-extension TeamPipelinesViewController: UITableViewDataSource {
+extension PipelinesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let pipelines = pipelines else { return 0 }
         return pipelines.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = teamPipelinesTableView?.dequeueReusableCell(withIdentifier: PipelineTableViewCell.cellReuseIdentifier, for: indexPath) as! PipelineTableViewCell
+        let cell = pipelinesTableView?.dequeueReusableCell(withIdentifier: PipelineTableViewCell.cellReuseIdentifier, for: indexPath) as! PipelineTableViewCell
         cell.nameLabel?.text = pipelines?[indexPath.row].name
         return cell
     }
@@ -180,9 +180,9 @@ extension TeamPipelinesViewController: UITableViewDataSource {
     }
 }
 
-extension TeamPipelinesViewController: UITableViewDelegate {
+extension PipelinesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: TeamPipelinesViewController.showJobsSegueId, sender: indexPath)
+        performSegue(withIdentifier: PipelinesViewController.showJobsSegueId, sender: indexPath)
         tableView.deselectRow(at: indexPath, animated: false)
     }
 }
