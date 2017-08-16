@@ -1,22 +1,20 @@
 import Foundation
 import RxSwift
+import ObjectMapper
 
 class TokenDataDeserializer {
     func deserialize(_ tokenData: Data) -> Observable<Token> {
-        let tokenDataJSONObject = try? JSONSerialization.jsonObject(with: tokenData, options: .allowFragments)
-
-        guard let tokenDataDictionary = tokenDataJSONObject as? NSDictionary else {
-            return Observable.error(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat))
+        guard let jsonString = String(data: tokenData, encoding: String.Encoding.utf8) else {
+            return Observable.error(MapError(key: "", currentValue: "", reason: "Could not interpret response from token endpoint as a UTF-8 string"))
         }
 
-        guard tokenDataDictionary.value(forKey: "value") != nil else {
-            return Observable.error(DeserializationError(details: "Missing required 'value' key", type: .missingRequiredData))
+        var token: Token
+        do {
+            try token = Token(JSONString: jsonString)
+        } catch let error {
+            return Observable.error(error)
         }
 
-        guard let tokenValue = tokenDataDictionary["value"] as? String else {
-            return Observable.error(DeserializationError(details: "Expected value for 'value' key to be a string", type: .typeMismatch))
-        }
-
-        return Observable.just(Token(value: tokenValue))
+        return Observable.just(token)
     }
 }

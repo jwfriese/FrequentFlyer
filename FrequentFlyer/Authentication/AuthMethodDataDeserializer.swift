@@ -12,7 +12,8 @@ class AuthMethodDataDeserializer {
 
         let authMethods = authMethodsCollectionJSON.flatMap { authMethodJSON -> AuthMethod? in
             do {
-                return try AuthMethod(JSON: authMethodJSON)
+                let authMethod: AuthMethod = try AuthMethod(JSON: authMethodJSON)
+                return authMethod
             } catch {
                 return nil
             }

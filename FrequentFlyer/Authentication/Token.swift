@@ -1,4 +1,6 @@
-class Token {
+import ObjectMapper
+
+struct Token {
     let value: String
 
     var authValue: String {
@@ -20,4 +22,10 @@ extension Token: Equatable { }
 
 func ==(lhs: Token, rhs: Token) -> Bool {
     return lhs.value == rhs.value
+}
+
+extension Token: ImmutableMappable {
+    init(map: Map) throws {
+        self.value = try map.value("value")
+    }
 }

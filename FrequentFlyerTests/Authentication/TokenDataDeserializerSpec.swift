@@ -2,6 +2,8 @@ import XCTest
 import Quick
 import Nimble
 import RxSwift
+import ObjectMapper
+
 @testable import FrequentFlyer
 
 class TokenDataDeserializerSpec: QuickSpec {
@@ -79,7 +81,9 @@ class TokenDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error as? DeserializationError).to(equal(DeserializationError(details: "Missing required 'value' key", type: .missingRequiredData)))
+                        let error = result.error as? MapError
+                        expect(error).toNot(beNil())
+                        expect(error?.key).to(equal("value"))
                     }
                 }
 
@@ -101,7 +105,28 @@ class TokenDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error as? DeserializationError).to(equal(DeserializationError(details: "Expected value for 'value' key to be a string", type: .typeMismatch)))
+                        let error = result.error as? MapError
+                        expect(error).toNot(beNil())
+                        expect(error?.key).to(equal("value"))
+                    }
+                }
+
+                context("Given data cannot be interpreted as a UTF-8 string") {
+                    beforeEach {
+                        let invalidTokenData = "おはよございます".data(using: String.Encoding.japaneseEUC)
+
+                        deserialization$ = subject.deserialize(invalidTokenData!)
+                        result = StreamResult(deserialization$)
+                    }
+
+                    it("returns nil for the token") {
+                        expect(result.elements.first).to(beNil())
+                    }
+
+                    it("returns an error") {
+                        let error = result.error as? MapError
+                        expect(error).toNot(beNil())
+                        expect(error?.reason).to(equal("Could not interpret response from token endpoint as a UTF-8 string"))
                     }
                 }
 
@@ -120,7 +145,9 @@ class TokenDataDeserializerSpec: QuickSpec {
                     }
 
                     it("returns an error") {
-                        expect(result.error as? DeserializationError).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat)))
+                        let error = result.error as? MapError
+                        expect(error).toNot(beNil())
+                        expect(error?.reason).to(equal("Cannot parse into '[String: Any]'"))
                     }
                 }
             }
