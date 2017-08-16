@@ -2,6 +2,8 @@ import XCTest
 import Quick
 import Nimble
 import RxSwift
+import ObjectMapper
+
 @testable import FrequentFlyer
 
 class AuthMethodDataDeserializerSpec: QuickSpec {
@@ -289,7 +291,9 @@ class AuthMethodDataDeserializerSpec: QuickSpec {
                 }
 
                 it("emits an error") {
-                    expect(result.error as? DeserializationError).to(equal(DeserializationError(details: "Could not interpret data as JSON dictionary", type: .invalidInputFormat)))
+                    let error = result.error as? MapError
+                    expect(error).toNot(beNil())
+                    expect(error?.reason).to(equal("Could not interpret response from auth methods endpoint as JSON"))
                 }
             }
         }
