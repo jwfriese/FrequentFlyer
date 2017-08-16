@@ -5,7 +5,7 @@ class AppRouterViewController: UIViewController {
 
     class var storyboardIdentifier: String { get { return "AppRouter" } }
     class var setConcourseEntryAsRootPageSegueId: String { get { return "SetConcourseEntryAsRootPage" } }
-    class var setTeamPipelinesAsRootPageSegueId: String { get { return "SetTeamPipelinesAsRootPage" } }
+    class var setPipelinesAsRootPageSegueId: String { get { return "SetPipelinesAsRootPage" } }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == AppRouterViewController.setConcourseEntryAsRootPageSegueId {
@@ -26,7 +26,7 @@ class AppRouterViewController: UIViewController {
             concourseEntryViewController.unauthenticatedTokenService = unauthenticatedTokenService
 
             concourseEntryViewController.navigationItem.hidesBackButton = true
-        } else if segue.identifier == AppRouterViewController.setTeamPipelinesAsRootPageSegueId {
+        } else if segue.identifier == AppRouterViewController.setPipelinesAsRootPageSegueId {
             guard let target = sender as? Target else { return }
             guard let pipelinesViewController = segue.destination as? PipelinesViewController else {
                 return
@@ -47,7 +47,7 @@ class AppRouterViewController: UIViewController {
         super.viewDidLoad()
 
         if let savedTarget = keychainWrapper.retrieveTarget() {
-            performSegue(withIdentifier: AppRouterViewController.setTeamPipelinesAsRootPageSegueId, sender: savedTarget)
+            performSegue(withIdentifier: AppRouterViewController.setPipelinesAsRootPageSegueId, sender: savedTarget)
         } else {
             performSegue(withIdentifier: AppRouterViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
         }

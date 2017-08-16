@@ -46,7 +46,7 @@
                     <navigationItem key="navigationItem" id="Gvm-a4-pa2"/>
                     <connections>
                         <segue destination="rvu-Hz-VhO" kind="custom" identifier="SetConcourseEntryAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="aBs-BN-deP"/>
-                        <segue destination="aNH-9e-yKD" kind="custom" identifier="SetTeamPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="ED3-jq-hhL"/>
+                        <segue destination="aNH-9e-yKD" kind="custom" identifier="SetPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="ED3-jq-hhL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ERK-rf-ABi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -833,7 +833,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="38W-HA-ADg"/>
-        <segue reference="goX-FM-oN5"/>
+        <segue reference="ED3-jq-hhL"/>
         <segue reference="mf8-JP-wQv"/>
     </inferredMetricsTieBreakers>
 </document>
