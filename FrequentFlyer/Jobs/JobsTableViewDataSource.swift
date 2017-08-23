@@ -2,7 +2,6 @@ import RxSwift
 import RxDataSources
 
 class JobsTableViewDataSource: RxTableViewSectionedReloadDataSource<JobGroupSection>, UITableViewDelegate {
-    var jobsService = JobsService()
     var elapsedTimePrinter = ElapsedTimePrinter()
 
     func setUp() {

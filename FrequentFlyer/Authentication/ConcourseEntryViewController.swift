@@ -7,13 +7,13 @@ class ConcourseEntryViewController: UIViewController {
     @IBOutlet weak var concourseURLEntryField: TitledTextField?
     @IBOutlet weak var submitButton: RoundedButton?
 
-    var teamListService = TeamListService()
+    var infoService = InfoService()
     var authMethodsService = AuthMethodsService()
     var unauthenticatedTokenService = UnauthenticatedTokenService()
     var userTextInputPageOperator = UserTextInputPageOperator()
 
     class var storyboardIdentifier: String { get { return "ConcourseEntry" } }
-    class var showTeamsSegueId: String { get { return "ShowTeams" } }
+    class var showVisibilitySelectionSegueId: String { get { return "ShowVisibilitySelection" } }
 
     var authMethod$: Observable<AuthMethod>?
     var disposeBag = DisposeBag()
@@ -52,19 +52,14 @@ class ConcourseEntryViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ConcourseEntryViewController.showTeamsSegueId {
-            guard let teamsViewController = segue.destination as? TeamsViewController else { return }
-            guard var concourseURLString = concourseURLEntryField?.textField?.text else { return }
-            concourseURLString = validatedConcourseURL(fromInput: concourseURLString)
-
-            guard let teams = sender as? [String] else { return }
-
-            teamsViewController.concourseURLString = concourseURLString
-            teamsViewController.teams = teams
+        if segue.identifier == ConcourseEntryViewController.showVisibilitySelectionSegueId {
+            guard let visibilitySelectionViewController = segue.destination as? VisibilitySelectionViewController else { return }
+            guard let concourseURLString = concourseURLEntryField?.textField?.text else { return }
+            visibilitySelectionViewController.concourseURLString = createValidConcourseURL(fromInput: concourseURLString)
         }
     }
 
-    private func validatedConcourseURL(fromInput input: String) -> String {
+    private func createValidConcourseURL(fromInput input: String) -> String {
         var concourseURLString = input
         let inputHasProtocol = input.hasPrefix("http://") || input.hasPrefix("https://")
         if !inputHasProtocol {
@@ -76,42 +71,24 @@ class ConcourseEntryViewController: UIViewController {
 
     @IBAction func submitButtonTapped() {
         guard var concourseURLString = concourseURLEntryField?.textField?.text else { return }
-        concourseURLString = validatedConcourseURL(fromInput: concourseURLString)
+        concourseURLString = createValidConcourseURL(fromInput: concourseURLString)
 
         submitButton?.isEnabled = false
 
-        teamListService.getTeams(forConcourseWithURL: concourseURLString)
+        infoService.getInfo(forConcourseWithURL: concourseURLString)
             .subscribe(
-                onNext: { teams in
-                    self.handleTeamListServiceSuccess(withTeams: teams)
+                onNext: { _ in
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: ConcourseEntryViewController.showVisibilitySelectionSegueId, sender: nil)
+                    }
             },
                 onError: { _ in
-                    self.handleTeamListServiceError()
+                    self.showConcourseInaccessibleError()
             })
-                .addDisposableTo(self.disposeBag)
+            .addDisposableTo(disposeBag)
     }
 
-    private func handleTeamListServiceSuccess(withTeams teams: [String]) {
-        if teams.count > 0 {
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: ConcourseEntryViewController.showTeamsSegueId, sender: teams)
-            }
-        } else {
-            let alert = UIAlertController(
-                title: "No Teams",
-                message: "We could find your Concourse instance, but it has no teams to show you.",
-                preferredStyle: .alert
-            )
-
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
-                self.submitButton?.isEnabled = true
-            }
-        }
-    }
-
-    private func handleTeamListServiceError() {
+    private func showConcourseInaccessibleError() {
         let alert = UIAlertController(
             title: "Error",
             message: "Could not connect to a Concourse at the given URL.",

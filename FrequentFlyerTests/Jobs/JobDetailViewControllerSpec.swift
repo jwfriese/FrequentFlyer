@@ -37,7 +37,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                 )
                 subject.target = target
 
-                let pipeline = Pipeline(name: "pipeline")
+                let pipeline = Pipeline(name: "pipeline", isPublic: true, teamName: "")
                 subject.pipeline = pipeline
             }
 
@@ -56,7 +56,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                         }
 
                         it("sets its pipeline on the control panel") {
-                            let expectedPipeline = Pipeline(name: "pipeline")
+                            let expectedPipeline = Pipeline(name: "pipeline", isPublic: true, teamName: "")
                             expect(subject.controlPanel?.pipeline).toEventually(equal(expectedPipeline))
                         }
 
@@ -101,7 +101,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                         }
 
                         it("sets its pipeline on the control panel") {
-                            let expectedPipeline = Pipeline(name: "pipeline")
+                            let expectedPipeline = Pipeline(name: "pipeline", isPublic: true, teamName: "")
                             expect(subject.controlPanel?.pipeline).toEventually(equal(expectedPipeline))
                         }
 
@@ -147,7 +147,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                         }
 
                         it("sets its pipeline on the control panel") {
-                            let expectedPipeline = Pipeline(name: "pipeline")
+                            let expectedPipeline = Pipeline(name: "pipeline", isPublic: true, teamName: "")
                             expect(subject.controlPanel?.pipeline).toEventually(equal(expectedPipeline))
                         }
 
@@ -190,7 +190,7 @@ class JobDetailViewControllerSpec: QuickSpec {
                         }
 
                         it("sets its pipeline on the control panel") {
-                            let expectedPipeline = Pipeline(name: "pipeline")
+                            let expectedPipeline = Pipeline(name: "pipeline", isPublic: true, teamName: "")
                             expect(subject.controlPanel?.pipeline).toEventually(equal(expectedPipeline))
                         }
 

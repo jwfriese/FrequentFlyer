@@ -203,8 +203,8 @@ class PipelinesViewControllerSpec: QuickSpec {
                             return
                         }
 
-                        let pipelineOne = Pipeline(name: "turtle pipeline one")
-                        let pipelineTwo = Pipeline(name: "turtle pipeline two")
+                        let pipelineOne = Pipeline(name: "turtle pipeline one", isPublic: false, teamName: "")
+                        let pipelineTwo = Pipeline(name: "turtle pipeline two", isPublic: false, teamName: "")
                         completion([pipelineOne, pipelineTwo], nil)
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
@@ -241,7 +241,7 @@ class PipelinesViewControllerSpec: QuickSpec {
                             }
 
                             expect(jobsViewController()).toEventually(beIdenticalTo(mockJobsViewController))
-                            expect(jobsViewController()?.pipeline).toEventually(equal(Pipeline(name: "turtle pipeline one")))
+                            expect(jobsViewController()?.pipeline).toEventually(equal(Pipeline(name: "turtle pipeline one", isPublic: false, teamName: "")))
 
                             let expectedTarget = Target(name: "turtle target",
                                                         api: "turtle api",

@@ -54,7 +54,7 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
 
                 subject.target = target
 
-                subject.pipeline = Pipeline(name: "pipeline_name")
+                subject.pipeline = Pipeline(name: "pipeline_name", isPublic: false, teamName: "")
 
                 mockElapsedTimePrinter = MockElapsedTimePrinter()
                 subject.elapsedTimePrinter = mockElapsedTimePrinter

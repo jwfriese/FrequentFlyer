@@ -35,6 +35,24 @@ class JobsViewController: UIViewController {
         setUpCellPopulation(withTarget: target, pipeline: pipeline)
     }
 
+    private func setUpCellSelect() {
+        guard let jobsTableView = jobsTableView else { return }
+
+        jobsTableView
+            .rx
+            .modelSelected(Job.self)
+            .subscribe(onNext: { job in
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: JobsViewController.showJobDetailSegueId, sender: job)
+                }
+            },
+                       onError: nil,
+                       onCompleted: nil,
+                       onDisposed: nil
+            )
+            .addDisposableTo(disposeBag)
+    }
+
     private func setUpCellPopulation(withTarget target: Target, pipeline: Pipeline) {
         guard let jobsTableView = jobsTableView else { return }
 
@@ -87,24 +105,6 @@ class JobsViewController: UIViewController {
                 }
             }
         }
-    }
-
-    private func setUpCellSelect() {
-        guard let jobsTableView = jobsTableView else { return }
-
-        jobsTableView
-            .rx
-            .modelSelected(Job.self)
-            .subscribe(onNext: { job in
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: JobsViewController.showJobDetailSegueId, sender: job)
-                }
-            },
-                       onError: nil,
-                       onCompleted: nil,
-                       onDisposed: nil
-            )
-            .addDisposableTo(disposeBag)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

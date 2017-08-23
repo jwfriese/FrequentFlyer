@@ -43,7 +43,7 @@ class JobsDataStreamProducerSpec: QuickSpec {
                         token: Token(value: "turtle token value")
                     )
 
-                    let pipeline = Pipeline(name: "turtle pipeline")
+                    let pipeline = Pipeline(name: "turtle pipeline", isPublic: false, teamName: "")
 
                     jobSection$ = subject.openStream(forTarget: target, pipeline: pipeline)
                     jobSectionStreamResult = StreamResult(jobSection$)
@@ -57,7 +57,7 @@ class JobsDataStreamProducerSpec: QuickSpec {
                         token: Token(value: "turtle token value")
                     )
 
-                    let expectedPipeline = Pipeline(name: "turtle pipeline")
+                    let expectedPipeline = Pipeline(name: "turtle pipeline", isPublic: false, teamName: "")
 
                     expect(mockJobsService.capturedTarget).toEventually(equal(expectedTarget))
                     expect(mockJobsService.capturedPipeline).toEventually(equal(expectedPipeline))

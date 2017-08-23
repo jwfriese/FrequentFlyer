@@ -7,6 +7,18 @@ class AppRouterViewController: UIViewController {
     class var setConcourseEntryAsRootPageSegueId: String { get { return "SetConcourseEntryAsRootPage" } }
     class var setPipelinesAsRootPageSegueId: String { get { return "SetPipelinesAsRootPage" } }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let savedTarget = keychainWrapper.retrieveTarget()
+        let isStayLoggedInActive = savedTarget != nil
+        if isStayLoggedInActive {
+            performSegue(withIdentifier: AppRouterViewController.setPipelinesAsRootPageSegueId, sender: savedTarget)
+        } else {
+            performSegue(withIdentifier: AppRouterViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == AppRouterViewController.setConcourseEntryAsRootPageSegueId {
             guard let concourseEntryViewController = segue.destination as? ConcourseEntryViewController else {
@@ -40,16 +52,6 @@ class AppRouterViewController: UIViewController {
             pipelinesViewController.pipelinesService = pipelinesService
 
             pipelinesViewController.keychainWrapper = KeychainWrapper()
-        }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        if let savedTarget = keychainWrapper.retrieveTarget() {
-            performSegue(withIdentifier: AppRouterViewController.setPipelinesAsRootPageSegueId, sender: savedTarget)
-        } else {
-            performSegue(withIdentifier: AppRouterViewController.setConcourseEntryAsRootPageSegueId, sender: nil)
         }
     }
 }

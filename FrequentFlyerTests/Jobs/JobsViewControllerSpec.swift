@@ -55,7 +55,7 @@ class JobsViewControllerSpec: QuickSpec {
 
                 subject = storyboard.instantiateViewController(withIdentifier: JobsViewController.storyboardIdentifier) as! JobsViewController
 
-                let pipeline = Pipeline(name: "turtle pipeline")
+                let pipeline = Pipeline(name: "turtle pipeline", isPublic: true, teamName: "")
                 subject.pipeline = pipeline
 
                 let target = Target(
@@ -100,7 +100,7 @@ class JobsViewControllerSpec: QuickSpec {
                 }
 
                 it("opens the data stream") {
-                    let expectedPipeline = Pipeline(name: "turtle pipeline")
+                    let expectedPipeline = Pipeline(name: "turtle pipeline", isPublic: true, teamName: "")
                     expect(mockJobsDataStreamProducer.capturedPipeline).to(equal(expectedPipeline))
 
                     let expectedTarget = Target(
@@ -237,7 +237,7 @@ class JobsViewControllerSpec: QuickSpec {
                             expect(jobDetailViewController()).toEventually(beIdenticalTo(mockJobDetailViewController))
                             expect(jobDetailViewController()?.job?.name).toEventually(equal("crab job"))
 
-                            let expectedPipeline = Pipeline(name: "turtle pipeline")
+                            let expectedPipeline = Pipeline(name: "turtle pipeline", isPublic: true, teamName: "")
                             expect(jobDetailViewController()?.pipeline).toEventually(equal(expectedPipeline))
 
                             let expectedTarget = Target(

@@ -28,7 +28,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="323-m1-Sfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1743" y="587"/>
+            <point key="canvasLocation" x="-3380" y="587"/>
         </scene>
         <!--App Router View Controller-->
         <scene sceneID="4zT-TC-T1S">
@@ -51,7 +51,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ERK-rf-ABi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1075" y="587"/>
+            <point key="canvasLocation" x="-2676" y="590"/>
         </scene>
         <!--Concourse Entry View Controller-->
         <scene sceneID="CCP-CR-93H">
@@ -129,12 +129,62 @@
                         <outlet property="concourseURLEntryField" destination="zIO-hG-GAI" id="A7Z-BQ-V1d"/>
                         <outlet property="scrollView" destination="0f2-3M-bKj" id="LIT-C9-FvR"/>
                         <outlet property="submitButton" destination="z9d-gU-Ttz" id="3Gb-DW-7Ze"/>
-                        <segue destination="b8U-st-aSa" kind="show" identifier="ShowTeams" id="xYA-ns-OH1"/>
+                        <segue destination="huV-78-iIJ" kind="show" identifier="ShowVisibilitySelection" id="Yzp-xz-2uP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBl-dN-Z3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-356" y="586.95652173913049"/>
+            <point key="canvasLocation" x="-1918" y="590"/>
+        </scene>
+        <!--Visibility Selection View Controller-->
+        <scene sceneID="b17-LL-lQV">
+            <objects>
+                <viewController storyboardIdentifier="VisibilitySelection" id="huV-78-iIJ" customClass="VisibilitySelectionViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5iS-VS-gd1"/>
+                        <viewControllerLayoutGuide type="bottom" id="2YL-7h-qSb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wes-zk-0LF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GWE-xR-HbC" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
+                                <rect key="frame" x="75" y="148" width="225" height="80"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="onViewPublicPipelinesButtonTapped" destination="huV-78-iIJ" eventType="touchUpInside" id="Txo-2A-0MF"/>
+                                    <segue destination="5qW-6W-RMb" kind="custom" identifier="SetPublicPipelinesAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="r7C-o2-AAX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLl-5g-5yk" customClass="RoundedButton" customModule="FrequentFlyer" customModuleProvider="target">
+                                <rect key="frame" x="75" y="356" width="225" height="80"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="onLogIntoTeamButtonTapped" destination="huV-78-iIJ" eventType="touchUpInside" id="GPL-ei-617"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GWE-xR-HbC" firstAttribute="centerX" secondItem="Wes-zk-0LF" secondAttribute="centerX" id="5UN-1j-BZf"/>
+                            <constraint firstItem="tLl-5g-5yk" firstAttribute="top" secondItem="GWE-xR-HbC" secondAttribute="bottom" constant="128" id="7fc-S0-TJB"/>
+                            <constraint firstItem="GWE-xR-HbC" firstAttribute="height" secondItem="Wes-zk-0LF" secondAttribute="height" multiplier="0.12" id="FQY-gR-hJc"/>
+                            <constraint firstItem="tLl-5g-5yk" firstAttribute="height" secondItem="Wes-zk-0LF" secondAttribute="height" multiplier="0.12" id="hn6-hy-FZ6"/>
+                            <constraint firstItem="tLl-5g-5yk" firstAttribute="width" secondItem="Wes-zk-0LF" secondAttribute="width" multiplier="0.6" id="o5X-x8-tfc"/>
+                            <constraint firstItem="GWE-xR-HbC" firstAttribute="width" secondItem="Wes-zk-0LF" secondAttribute="width" multiplier="0.6" id="pWt-aZ-rGm"/>
+                            <constraint firstItem="GWE-xR-HbC" firstAttribute="top" secondItem="5iS-VS-gd1" secondAttribute="bottom" constant="128" id="r7u-Oq-6nO"/>
+                            <constraint firstItem="tLl-5g-5yk" firstAttribute="centerX" secondItem="GWE-xR-HbC" secondAttribute="centerX" id="ziD-ev-Hri"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="logIntoTeamButton" destination="tLl-5g-5yk" id="Lj2-5g-CHJ"/>
+                        <outlet property="viewPublicPipelinesButton" destination="GWE-xR-HbC" id="Gh1-GQ-GO7"/>
+                        <segue destination="b8U-st-aSa" kind="show" identifier="ShowTeams" id="VZQ-6f-14t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nue-5J-pIG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1137" y="587"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="0Cc-Pw-Pe7">
@@ -268,7 +318,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNO-C8-NNo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="350" y="590"/>
+            <point key="canvasLocation" x="1119" y="-443"/>
         </scene>
         <!--Teams View Controller-->
         <scene sceneID="1vX-C5-Hdr">
@@ -329,7 +379,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E5R-5m-0Bc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1342" y="591"/>
+            <point key="canvasLocation" x="308" y="-443"/>
         </scene>
         <!--Pipelines View Controller-->
         <scene sceneID="Ycc-d0-je9">
@@ -404,7 +454,81 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9WN-af-Wxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="1496"/>
+            <point key="canvasLocation" x="308" y="368"/>
+        </scene>
+        <!--Public Pipelines View Controller-->
+        <scene sceneID="GgF-1P-fp9">
+            <objects>
+                <viewController storyboardIdentifier="PublicPipelines" id="5qW-6W-RMb" userLabel="Public Pipelines View Controller" customClass="PublicPipelinesViewController" customModule="FrequentFlyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gjN-WP-rJq"/>
+                        <viewControllerLayoutGuide type="bottom" id="MGJ-6b-A1X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qyf-Bh-GJQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RSm-Ta-DQR">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PipelineCell" id="Rxm-dA-xnh" customClass="PipelineTableViewCell" customModule="FrequentFlyer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rxm-dA-xnh" id="3M4-oI-ppe">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wd4-9o-uAy" customClass="DarkInfoLabel" customModule="FrequentFlyer" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="11" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Wd4-9o-uAy" firstAttribute="leading" secondItem="3M4-oI-ppe" secondAttribute="leading" constant="16" id="PAY-sE-btA"/>
+                                                <constraint firstItem="Wd4-9o-uAy" firstAttribute="centerY" secondItem="3M4-oI-ppe" secondAttribute="centerY" id="rma-aH-Ke4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="Wd4-9o-uAy" id="dv6-jH-fpO"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OlZ-yK-EwD">
+                                <rect key="frame" x="177" y="128" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MGJ-6b-A1X" firstAttribute="top" secondItem="RSm-Ta-DQR" secondAttribute="bottom" id="NXs-nb-TgI"/>
+                            <constraint firstItem="OlZ-yK-EwD" firstAttribute="centerX" secondItem="Qyf-Bh-GJQ" secondAttribute="centerX" id="Rk0-Oc-51a"/>
+                            <constraint firstItem="RSm-Ta-DQR" firstAttribute="top" secondItem="gjN-WP-rJq" secondAttribute="bottom" id="TXy-yw-68x"/>
+                            <constraint firstItem="RSm-Ta-DQR" firstAttribute="leading" secondItem="Qyf-Bh-GJQ" secondAttribute="leading" id="baW-rP-LYH"/>
+                            <constraint firstItem="OlZ-yK-EwD" firstAttribute="top" secondItem="gjN-WP-rJq" secondAttribute="bottom" constant="108" id="ct5-Wp-cQ5"/>
+                            <constraint firstAttribute="trailing" secondItem="RSm-Ta-DQR" secondAttribute="trailing" id="kHt-6r-4Md"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="1Vl-Ma-Pv3">
+                        <barButtonItem key="rightBarButtonItem" image="Gear" id="O63-ls-5kh">
+                            <connections>
+                                <action selector="gearTapped" destination="5qW-6W-RMb" id="DqZ-Vj-yVt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="gearBarButtonItem" destination="O63-ls-5kh" id="9uh-aj-ouZ"/>
+                        <outlet property="loadingIndicator" destination="OlZ-yK-EwD" id="m0l-oj-E6e"/>
+                        <outlet property="pipelinesTableView" destination="RSm-Ta-DQR" id="PLz-FO-y5j"/>
+                        <segue destination="b8U-st-aSa" kind="show" identifier="ShowTeams" id="ua9-ZN-Foj"/>
+                        <segue destination="rvu-Hz-VhO" kind="custom" identifier="SetConcourseEntryAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="U1w-I7-R4B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xDa-rc-X6k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="308" y="1218"/>
         </scene>
         <!--Git Hub Auth View Controller-->
         <scene sceneID="eJq-k8-dfq">
@@ -530,7 +654,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4J2-fl-yth" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1106" y="-112"/>
+            <point key="canvasLocation" x="1913" y="-443"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="VPJ-Rp-sVJ">
@@ -563,7 +687,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yFF-Pb-HOc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1820" y="-112"/>
+            <point key="canvasLocation" x="2751" y="-443"/>
         </scene>
         <!--Jobs View Controller-->
         <scene sceneID="DFv-Cb-9ju">
@@ -648,7 +772,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qkH-oG-qeM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="959" y="1496"/>
+            <point key="canvasLocation" x="1302" y="368"/>
         </scene>
         <!--Job Detail View Controller-->
         <scene sceneID="43D-VX-YzW">
@@ -690,7 +814,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dAE-ng-TUH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1726" y="1494"/>
+            <point key="canvasLocation" x="2218" y="367"/>
         </scene>
         <!--Build Control Panel View Controller-->
         <scene sceneID="ekN-T5-BxD">
@@ -763,7 +887,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lLw-Mz-zRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2511" y="1261"/>
+            <point key="canvasLocation" x="3081" y="134"/>
         </scene>
         <!--Logs View Controller-->
         <scene sceneID="0kW-Vo-dln">
@@ -825,15 +949,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVU-bv-1eU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2510" y="1599"/>
+            <point key="canvasLocation" x="3081" y="443"/>
         </scene>
     </scenes>
     <resources>
         <image name="Gear" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="38W-HA-ADg"/>
-        <segue reference="ED3-jq-hhL"/>
-        <segue reference="mf8-JP-wQv"/>
+        <segue reference="hwI-th-h9r"/>
+        <segue reference="goX-FM-oN5"/>
+        <segue reference="ua9-ZN-Foj"/>
+        <segue reference="U1w-I7-R4B"/>
     </inferredMetricsTieBreakers>
 </document>

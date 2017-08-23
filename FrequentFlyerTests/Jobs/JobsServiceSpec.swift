@@ -61,7 +61,7 @@ class JobsServiceSpec: QuickSpec {
                                         token: Token(value: "Bearer turtle auth token")
                     )
 
-                    let pipeline = Pipeline(name: "turtle_pipeline")
+                    let pipeline = Pipeline(name: "turtle_pipeline", isPublic: false, teamName: "")
 
                     job$ = subject.getJobs(forTarget: target, pipeline: pipeline)
                     jobStreamResult = StreamResult(job$)

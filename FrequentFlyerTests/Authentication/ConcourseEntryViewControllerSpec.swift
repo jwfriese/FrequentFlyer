@@ -3,36 +3,37 @@ import Quick
 import Nimble
 import Fleet
 import RxSwift
+
 @testable import FrequentFlyer
 
 class ConcourseEntryViewControllerSpec: QuickSpec {
-    class MockTeamListService: TeamListService {
+    class MockInfoService: InfoService {
         var capturedConcourseURL: String?
-        var teamListSubject = PublishSubject<[String]>()
+        var infoSubject = PublishSubject<Info>()
 
-        override func getTeams(forConcourseWithURL concourseURL: String) -> Observable<[String]> {
+        override func getInfo(forConcourseWithURL concourseURL: String) -> Observable<Info> {
             capturedConcourseURL = concourseURL
-            return teamListSubject
+            return infoSubject
         }
     }
 
     override func spec() {
         describe("ConcourseEntryViewController") {
             var subject: ConcourseEntryViewController!
-            var mockTeamListService: MockTeamListService!
+            var mockInfoService: MockInfoService!
             var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
-            var mockTeamsViewController: TeamsViewController!
+            var mockVisibilitySelectionViewController: VisibilitySelectionViewController!
 
             beforeEach {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                mockTeamsViewController = try! storyboard.mockIdentifier(TeamsViewController.storyboardIdentifier, usingMockFor: TeamsViewController.self)
+                mockVisibilitySelectionViewController = try! storyboard.mockIdentifier(VisibilitySelectionViewController.storyboardIdentifier, usingMockFor: VisibilitySelectionViewController.self)
 
                 subject = storyboard.instantiateViewController(withIdentifier: ConcourseEntryViewController.storyboardIdentifier) as! ConcourseEntryViewController
 
-                mockTeamListService = MockTeamListService()
-                subject.teamListService = mockTeamListService
+                mockInfoService = MockInfoService()
+                subject.infoService = mockInfoService
 
                 mockUserTextInputPageOperator = UserTextInputPageOperator()
                 subject.userTextInputPageOperator = mockUserTextInputPageOperator
@@ -118,51 +119,29 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         expect(subject.submitButton?.isEnabled).toEventually(beFalse())
                     }
 
-                    it("prepends your request with `https://` and uses it to make a call to the team list service") {
-                        expect(mockTeamListService.capturedConcourseURL).to(equal("https://partial-concourse.com"))
+                    it("prepends your request with `https://` and uses it to make a call to the info service") {
+                        expect(mockInfoService.capturedConcourseURL).to(equal("https://partial-concourse.com"))
                     }
 
-                    describe("When the team list service call resolves with some team names") {
+                    describe("When the info service call resolves with an info model") {
                         beforeEach {
-                            mockTeamListService.teamListSubject.onNext(["turtle_team", "crab_team", "puppy_team"])
-                            mockTeamListService.teamListSubject.onCompleted()
+                            mockInfoService.infoSubject.onNext(Info(version: "1.1.1"))
+                            mockInfoService.infoSubject.onCompleted()
                         }
 
-                        it("makes a call to the team list service using the Concourse URL") {
-                            expect(mockTeamListService.capturedConcourseURL).to(equal("https://partial-concourse.com"))
-                        }
-
-                        it("presents the \(TeamsViewController.self)") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamsViewController))
-                            expect(mockTeamsViewController.concourseURLString).toEventually(equal("https://partial-concourse.com"))
-                            expect(mockTeamsViewController.teams).toEventually(equal(["turtle_team", "crab_team", "puppy_team"]))
+                        it("presents the \(VisibilitySelectionViewController.self)") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockVisibilitySelectionViewController))
+                            expect(mockVisibilitySelectionViewController.concourseURLString).toEventually(equal("https://partial-concourse.com"))
                         }
                     }
 
-                    describe("When the team list service call resolves with no teams") {
+                    describe("When the info service call resolves with an error") {
                         beforeEach {
-                            mockTeamListService.teamListSubject.onNext([])
-                            mockTeamListService.teamListSubject.onCompleted()
+                            mockInfoService.infoSubject.onError(BasicError(details: ""))
+                            mockInfoService.infoSubject.onCompleted()
                         }
 
-                        it("presents an alert informing the user that there appear to be no teams") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("No Teams"))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("We could find your Concourse instance, but it has no teams to show you."))
-                        }
-
-                        it("enables the button") {
-                            expect(subject.submitButton?.isEnabled).toEventually(beTrue())
-                        }
-                    }
-
-                    describe("When the team list service call resolves with an error") {
-                        beforeEach {
-                            mockTeamListService.teamListSubject.onError(BasicError(details: ""))
-                            mockTeamListService.teamListSubject.onCompleted()
-                        }
-
-                        it("presents an alert informing the user of the build that was triggered") {
+                        it("presents an alert informing the user that their Concourse instance could not be hit") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Error"))
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Could not connect to a Concourse at the given URL."))
@@ -185,48 +164,26 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         expect(subject.submitButton?.isEnabled).toEventually(beFalse())
                     }
 
-                    it("uses the entered Concourse URL to make a call to the team list service") {
-                        expect(mockTeamListService.capturedConcourseURL).to(equal("https://concourse.com"))
+                    it("uses the entered Concourse URL to make a call to the info service") {
+                        expect(mockInfoService.capturedConcourseURL).to(equal("https://concourse.com"))
                     }
 
                     describe("When the team list service call resolves with some team names") {
                         beforeEach {
-                            mockTeamListService.teamListSubject.onNext(["turtle_team", "crab_team", "puppy_team"])
-                            mockTeamListService.teamListSubject.onCompleted()
+                            mockInfoService.infoSubject.onNext(Info(version: "1.1.1"))
+                            mockInfoService.infoSubject.onCompleted()
                         }
 
-                        it("makes a call to the team list service using the Concourse URL") {
-                            expect(mockTeamListService.capturedConcourseURL).to(equal("https://concourse.com"))
-                        }
-
-                        it("presents the \(TeamsViewController.self)") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockTeamsViewController))
-                            expect(mockTeamsViewController.concourseURLString).toEventually(equal("https://concourse.com"))
-                            expect(mockTeamsViewController.teams).toEventually(equal(["turtle_team", "crab_team", "puppy_team"]))
-                        }
-                    }
-
-                    describe("When the team list service call resolves with no teams") {
-                        beforeEach {
-                            mockTeamListService.teamListSubject.onNext([])
-                            mockTeamListService.teamListSubject.onCompleted()
-                        }
-
-                        it("presents an alert informing the user that there appear to be no teams") {
-                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("No Teams"))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("We could find your Concourse instance, but it has no teams to show you."))
-                        }
-
-                        it("enables the button") {
-                            expect(subject.submitButton?.isEnabled).toEventually(beTrue())
+                        it("presents the \(VisibilitySelectionViewController.self)") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beIdenticalTo(mockVisibilitySelectionViewController))
+                            expect(mockVisibilitySelectionViewController.concourseURLString).toEventually(equal("https://concourse.com"))
                         }
                     }
 
                     describe("When the team list service call resolves with an error") {
                         beforeEach {
-                            mockTeamListService.teamListSubject.onError(BasicError(details: ""))
-                            mockTeamListService.teamListSubject.onCompleted()
+                            mockInfoService.infoSubject.onError(BasicError(details: ""))
+                            mockInfoService.infoSubject.onCompleted()
                         }
 
                         it("presents an alert informing the user of the build that was triggered") {
