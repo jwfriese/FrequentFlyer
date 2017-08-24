@@ -9,7 +9,6 @@ class PublicPipelinesViewController: UIViewController {
 
     var publicPipelinesTableViewDataSource = PublicPipelinesTableViewDataSource()
     var publicPipelinesDataStreamProducer = PublicPipelinesDataStreamProducer()
-    var teamListService = TeamListService()
 
     var concourseURLString: String?
     var pipelines: [Pipeline]?
@@ -36,9 +35,7 @@ class PublicPipelinesViewController: UIViewController {
         if segue.identifier == PublicPipelinesViewController.showTeamsSegueId {
             guard let teamsViewController = segue.destination as? TeamsViewController else { return }
             guard let concourseURLString = concourseURLString else { return }
-            guard let teams = sender as? [String] else { return }
             teamsViewController.concourseURLString = concourseURLString
-            teamsViewController.teams = teams
         }
     }
 
@@ -97,7 +94,7 @@ class PublicPipelinesViewController: UIViewController {
                 title: "Log Into a Team",
                 style: .default,
                 handler: { _ in
-                    self.fireOffTeamListCall()
+                    self.performSegue(withIdentifier: PublicPipelinesViewController.showTeamsSegueId, sender: nil)
             }
             )
         )
@@ -122,51 +119,6 @@ class PublicPipelinesViewController: UIViewController {
 
         DispatchQueue.main.async {
             self.present(optionsActionSheet, animated: true, completion: nil)
-        }
-    }
-
-    private func fireOffTeamListCall() {
-        guard let concourseURL = concourseURLString else { return }
-        teamListService.getTeams(forConcourseWithURL: concourseURL)
-            .subscribe(
-                onNext: { teams in
-                    self.handleTeamListServiceSuccess(withTeams: teams)
-            },
-                onError: { _ in
-                    self.handleTeamListServiceError()
-            })
-            .addDisposableTo(self.disposeBag)
-    }
-
-    private func handleTeamListServiceSuccess(withTeams teams: [String]) {
-        if teams.count > 0 {
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: PublicPipelinesViewController.showTeamsSegueId, sender: teams)
-            }
-        } else {
-            let alert = UIAlertController(
-                title: "No Teams",
-                message: "Could not find any teams for this Concourse instance.",
-                preferredStyle: .alert
-            )
-
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
-    }
-
-    private func handleTeamListServiceError() {
-        let alert = UIAlertController(
-            title: "Error",
-            message: "Could not connect to a Concourse at the given URL.",
-            preferredStyle: .alert
-        )
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
         }
     }
 }

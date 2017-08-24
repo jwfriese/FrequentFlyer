@@ -9,8 +9,6 @@ class VisibilitySelectionViewController: UIViewController {
 
     var concourseURLString: String?
 
-    var teamListService = TeamListService()
-
     class var storyboardIdentifier: String { get { return "VisibilitySelection" } }
     class var showTeamsSegueId: String { get { return "ShowTeams" } }
     class var setPublicPipelinesAsRootPageSegueId: String { get { return "SetPublicPipelinesAsRootPage" } }
@@ -45,65 +43,17 @@ class VisibilitySelectionViewController: UIViewController {
         } else if segue.identifier == VisibilitySelectionViewController.showTeamsSegueId {
             guard let teamsViewController = segue.destination as? TeamsViewController else { return }
             guard let concourseURLString = concourseURLString else { return }
-            guard let teams = sender as? [String] else { return }
             teamsViewController.concourseURLString = concourseURLString
-            teamsViewController.teams = teams
         }
     }
 
     @IBAction func onLogIntoTeamButtonTapped() {
-        guard let concourseURLString = concourseURLString else { return }
         disableButtons()
-
-        teamListService.getTeams(forConcourseWithURL: concourseURLString)
-            .subscribe(
-                onNext: { teams in
-                    self.handleTeamListServiceSuccess(withTeams: teams)
-            },
-                onError: { _ in
-                    self.handleTeamListServiceError()
-            })
-            .addDisposableTo(self.disposeBag)
+        self.performSegue(withIdentifier: VisibilitySelectionViewController.showTeamsSegueId, sender: nil)
     }
 
     @IBAction func onViewPublicPipelinesButtonTapped() {
         disableButtons()
-    }
-
-    private func handleTeamListServiceSuccess(withTeams teams: [String]) {
-        if teams.count > 0 {
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: VisibilitySelectionViewController.showTeamsSegueId, sender: teams)
-            }
-        } else {
-            let alert = UIAlertController(
-                title: "No Teams",
-                message: "Could not find any teams for this Concourse instance.",
-                preferredStyle: .alert
-            )
-
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            DispatchQueue.main.async {
-                self.present(alert, animated: true) {
-                    self.enableButtons()
-                }
-            }
-        }
-    }
-
-    private func handleTeamListServiceError() {
-        let alert = UIAlertController(
-            title: "Error",
-            message: "Could not connect to a Concourse at the given URL.",
-            preferredStyle: .alert
-        )
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true) {
-                self.enableButtons()
-            }
-        }
     }
 
     private func enableButtons() {

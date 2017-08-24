@@ -17,21 +17,10 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
         }
     }
 
-    class MockTeamListService: TeamListService {
-        var capturedConcourseURL: String?
-        var teamListSubject = PublishSubject<[String]>()
-
-        override func getTeams(forConcourseWithURL concourseURL: String) -> Observable<[String]> {
-            capturedConcourseURL = concourseURL
-            return teamListSubject
-        }
-    }
-
     override func spec() {
         describe("PublicPipelinesViewController"){
             var subject: PublicPipelinesViewController!
             var mockPublicPipelinesDataStreamProducer: MockPublicPipelinesDataStreamProducer!
-            var mockTeamListService: MockTeamListService!
 
             var mockTeamsViewController: TeamsViewController!
             var mockConcourseEntryViewController: ConcourseEntryViewController!
@@ -47,9 +36,6 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
 
                 mockPublicPipelinesDataStreamProducer = MockPublicPipelinesDataStreamProducer()
                 subject.publicPipelinesDataStreamProducer = mockPublicPipelinesDataStreamProducer
-
-                mockTeamListService = MockTeamListService()
-                subject.teamListService = mockTeamListService
             }
 
             describe("After the view has loaded") {
@@ -83,19 +69,34 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
                         try! subject.gearBarButtonItem?.tap()
                     }
 
-                    it("displays an action sheet with the 'Log Into a Team' option") {
-                        let actionSheet: () -> UIAlertController? = {
-                            return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
-                        }
-
-                        expect(actionSheet()).toEventuallyNot(beNil())
-                    }
-
                     describe("Tapping the 'Log Into a Team' button in the action sheet") {
-                        // This will not be here next commit
-//                        it("makes a call to the team list service") {
-//                            expect(mockTeamListService.capturedConcourseURL).toEventually(equal("concourseURL"))
-//                        }
+                        it("sends the app to the \(TeamsViewController.self)") {
+                            let actionSheet: () -> UIAlertController? = {
+                                return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
+                            }
+
+                            var actionSheetDidAppear = false
+                            var didAttemptLogIntoATeamTap = false
+                            let assertDidBeginLoggingIntoATeam: () -> Bool = {
+                                if !actionSheetDidAppear {
+                                    if actionSheet() != nil {
+                                        actionSheetDidAppear = true
+                                    }
+
+                                    return false
+                                }
+
+                                if !didAttemptLogIntoATeamTap {
+                                    try! actionSheet()!.tapAlertAction(withTitle: "Log Into a Team")
+                                    didAttemptLogIntoATeamTap = true
+                                    return false
+                                }
+
+                                return Fleet.getApplicationScreen()?.topmostViewController === mockTeamsViewController
+                            }
+
+                            expect(assertDidBeginLoggingIntoATeam()).toEventually(beTrue())
+                        }
                     }
 
                     describe("Tapping the 'Select a Concourse' button in the action sheet") {
