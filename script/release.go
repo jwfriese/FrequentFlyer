@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -210,11 +209,6 @@ func bumpVersionTo(newVersion string, currentVersion string) error {
 		return infoPlistErr
 	}
 
-	podspecErr := bumpPodspec(newVersion, currentVersion)
-	if podspecErr != nil {
-		return podspecErr
-	}
-
 	return nil
 }
 
@@ -224,35 +218,16 @@ func agvBumpVersion(newVersion string) error {
 }
 
 func bumpInfoPlistVersion(newVersion string) error {
-	_, err := exec.Command("plutil", "-replace", "CFBundleShortVersionString", "-string", newVersion, "Fleet/Info.plist").Output()
+	_, err := exec.Command("plutil", "-replace", "CFBundleShortVersionString", "-string", newVersion, "FrequentFlyer/Info.plist").Output()
 	return err
 }
 
-func bumpPodspec(newVersion string, currentVersion string) error {
-	fileBytes, readErr := ioutil.ReadFile("Fleet.podspec")
-	if readErr != nil {
-		return readErr
-	}
-
-	fileString := string(fileBytes)
-	newFileString := strings.Replace(fileString, currentVersion, newVersion, -1)
-	writeErr := ioutil.WriteFile("Fleet.podspec", []byte(newFileString), 0644)
-	if writeErr != nil {
-		return writeErr
-	}
-
-	return nil
-}
-
 func commitRelease(newVersion string) error {
-	if addProjectErr := addToCommit("Fleet.xcodeproj/"); addProjectErr != nil {
+	if addProjectErr := addToCommit("FrequentFlyer.xcodeproj/"); addProjectErr != nil {
 		return addProjectErr
 	}
-	if addInfoPlistErr := addToCommit("Fleet/Info.plist"); addInfoPlistErr != nil {
+	if addInfoPlistErr := addToCommit("FrequentFlyer/Info.plist"); addInfoPlistErr != nil {
 		return addInfoPlistErr
-	}
-	if addPodspecErr := addToCommit("Fleet.podspec"); addPodspecErr != nil {
-		return addPodspecErr
 	}
 
 	releaseCommitMessage := fmt.Sprintf("Bump version to %s", newVersion)

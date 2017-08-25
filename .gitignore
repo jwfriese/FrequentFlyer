@@ -69,5 +69,8 @@ test
 # Trim executable
 trim
 
+# Release executable
+release
+
 # Screenshots
 Screenshots
