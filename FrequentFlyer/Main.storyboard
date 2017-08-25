@@ -19,7 +19,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="22l-gc-b0E">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -524,6 +524,7 @@
                         <outlet property="pipelinesTableView" destination="RSm-Ta-DQR" id="PLz-FO-y5j"/>
                         <segue destination="b8U-st-aSa" kind="show" identifier="ShowTeams" id="ua9-ZN-Foj"/>
                         <segue destination="rvu-Hz-VhO" kind="custom" identifier="SetConcourseEntryAsRootPage" customClass="SetAsRootPageSegue" customModule="FrequentFlyer" customModuleProvider="target" id="U1w-I7-R4B"/>
+                        <segue destination="59U-m5-ymA" kind="show" identifier="ShowJobs" id="Bqp-Ku-wj7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xDa-rc-X6k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -956,6 +957,7 @@
         <image name="Gear" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Bqp-Ku-wj7"/>
         <segue reference="hwI-th-h9r"/>
         <segue reference="goX-FM-oN5"/>
         <segue reference="ua9-ZN-Foj"/>

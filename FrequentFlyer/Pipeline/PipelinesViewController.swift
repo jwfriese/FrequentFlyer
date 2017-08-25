@@ -47,6 +47,37 @@ class PipelinesViewController: UIViewController {
         pipelinesTableView?.delegate = self
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == PipelinesViewController.showJobsSegueId {
+            guard let jobsViewController = segue.destination as? JobsViewController else { return  }
+            guard let indexPath = sender as? IndexPath else { return }
+            guard let pipeline = pipelines?[indexPath.row] else { return }
+            guard let target = target else { return }
+
+            jobsViewController.pipeline = pipeline
+            jobsViewController.dataStream = AuthorizedJobsDataStream(target: target)
+            jobsViewController.target = target
+        } else if segue.identifier == PipelinesViewController.setConcourseEntryAsRootPageSegueId {
+            guard let concourseEntryViewController = segue.destination as? ConcourseEntryViewController else {
+                return
+            }
+
+            concourseEntryViewController.userTextInputPageOperator = UserTextInputPageOperator()
+
+            let authMethodsService = AuthMethodsService()
+            authMethodsService.httpClient = HTTPClient()
+            authMethodsService.authMethodsDataDeserializer = AuthMethodDataDeserializer()
+            concourseEntryViewController.authMethodsService = authMethodsService
+
+            let unauthenticatedTokenService = UnauthenticatedTokenService()
+            unauthenticatedTokenService.httpClient = HTTPClient()
+            unauthenticatedTokenService.tokenDataDeserializer = TokenDataDeserializer()
+            concourseEntryViewController.unauthenticatedTokenService = unauthenticatedTokenService
+
+            concourseEntryViewController.navigationItem.hidesBackButton = true
+        }
+    }
+
     private func handlePipelinesReceived(_ pipelines: [Pipeline]) {
         self.pipelines = pipelines
         DispatchQueue.main.async {
@@ -102,37 +133,6 @@ class PipelinesViewController: UIViewController {
             self.pipelinesTableView?.separatorStyle = .singleLine
             self.pipelinesTableView?.reloadData()
             self.loadingIndicator?.stopAnimating()
-        }
-    }
-
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == PipelinesViewController.showJobsSegueId {
-            guard let jobsViewController = segue.destination as? JobsViewController else { return  }
-            guard let indexPath = sender as? IndexPath else { return }
-            guard let pipeline = pipelines?[indexPath.row] else { return }
-            guard let target = target else { return }
-
-            jobsViewController.pipeline = pipeline
-            jobsViewController.target = target
-        } else if segue.identifier == PipelinesViewController.setConcourseEntryAsRootPageSegueId {
-            guard let concourseEntryViewController = segue.destination as? ConcourseEntryViewController else {
-                return
-            }
-
-            concourseEntryViewController.userTextInputPageOperator = UserTextInputPageOperator()
-
-            let authMethodsService = AuthMethodsService()
-            authMethodsService.httpClient = HTTPClient()
-            authMethodsService.authMethodsDataDeserializer = AuthMethodDataDeserializer()
-            concourseEntryViewController.authMethodsService = authMethodsService
-
-            let unauthenticatedTokenService = UnauthenticatedTokenService()
-            unauthenticatedTokenService.httpClient = HTTPClient()
-            unauthenticatedTokenService.tokenDataDeserializer = TokenDataDeserializer()
-            concourseEntryViewController.unauthenticatedTokenService = unauthenticatedTokenService
-
-            concourseEntryViewController.navigationItem.hidesBackButton = true
         }
     }
 

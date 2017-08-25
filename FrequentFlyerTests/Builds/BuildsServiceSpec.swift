@@ -82,7 +82,8 @@ class BuildsServiceSpec: QuickSpec {
                     let target = Target(name: "turtle target name",
                         api: "https://turtle_api.com",
                         teamName: "turtle team",
-                        token: Token(value: "turtle token"))
+                        token: Token(value: "turtle token")
+                    )
                     subject.getBuilds(forTarget: target) { builds, error in
                         resultBuilds = builds
                         resultError = error

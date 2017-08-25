@@ -8,11 +8,11 @@ class JobsViewController: UIViewController {
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView?
 
     var jobsTableViewDataSource = JobsTableViewDataSource()
-    var jobsDataStreamProducer = JobsDataStreamProducer()
     var keychainWrapper = KeychainWrapper()
 
     var pipeline: Pipeline?
     var target: Target?
+    var dataStream: JobsDataStream?
 
     let disposeBag = DisposeBag()
 
@@ -27,12 +27,13 @@ class JobsViewController: UIViewController {
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 
         guard let pipeline = pipeline else { return }
-        guard let target = target else { return }
 
         title = pipeline.name
 
-        setUpCellSelect()
-        setUpCellPopulation(withTarget: target, pipeline: pipeline)
+        if !pipeline.isPublic {
+            setUpCellSelect()
+        }
+        setUpCellPopulation(withPipeline: pipeline)
     }
 
     private func setUpCellSelect() {
@@ -53,23 +54,26 @@ class JobsViewController: UIViewController {
             .addDisposableTo(disposeBag)
     }
 
-    private func setUpCellPopulation(withTarget target: Target, pipeline: Pipeline) {
+    private func setUpCellPopulation(withPipeline pipeline: Pipeline) {
         guard let jobsTableView = jobsTableView else { return }
+        guard let dataStream = dataStream else { return }
 
         jobsTableView.separatorStyle = .none
         loadingIndicator?.startAnimating()
+
         jobsTableViewDataSource.setUp()
-        jobsDataStreamProducer.openStream(forTarget: target, pipeline: pipeline)
-            .do(onNext: self.onNext(),
+        dataStream.open(forPipeline: pipeline)
+            .do(onNext: self.onSuccess(),
                 onError: self.onError()
             )
             .bind(to: jobsTableView.rx.items(dataSource: jobsTableViewDataSource))
             .disposed(by: disposeBag)
+
         jobsTableView.rx.setDelegate(jobsTableViewDataSource)
             .disposed(by: disposeBag)
     }
 
-    private func onNext() -> ([JobGroupSection]) -> () {
+    private func onSuccess() -> ([JobGroupSection]) -> () {
         return { _ in
             DispatchQueue.main.async {
                 self.jobsTableView?.separatorStyle = .singleLine
@@ -109,9 +113,8 @@ class JobsViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == JobsViewController.showJobDetailSegueId {
-            guard let jobDetailViewController = segue.destination as? JobDetailViewController else {
-                return
-            }
+            guard let jobDetailViewController = segue.destination as? JobDetailViewController else { return }
+            guard let target = target else { return }
 
             jobDetailViewController.target = target
             jobDetailViewController.pipeline = pipeline

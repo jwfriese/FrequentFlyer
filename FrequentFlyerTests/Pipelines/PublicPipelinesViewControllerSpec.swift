@@ -22,6 +22,7 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
             var subject: PublicPipelinesViewController!
             var mockPublicPipelinesDataStreamProducer: MockPublicPipelinesDataStreamProducer!
 
+            var mockJobsViewController: JobsViewController!
             var mockTeamsViewController: TeamsViewController!
             var mockConcourseEntryViewController: ConcourseEntryViewController!
 
@@ -29,6 +30,7 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 subject = storyboard.instantiateViewController(withIdentifier: PublicPipelinesViewController.storyboardIdentifier) as! PublicPipelinesViewController
 
+                mockJobsViewController = try! storyboard.mockIdentifier(JobsViewController.storyboardIdentifier, usingMockFor: JobsViewController.self)
                 mockTeamsViewController = try! storyboard.mockIdentifier(TeamsViewController.storyboardIdentifier, usingMockFor: TeamsViewController.self)
                 mockConcourseEntryViewController = try! storyboard.mockIdentifier(ConcourseEntryViewController.storyboardIdentifier, usingMockFor: ConcourseEntryViewController.self)
 
@@ -186,17 +188,37 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
                         expect(subject.pipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
                     }
 
-                    it("adds a row to the table for each of the pipelines returned") {
-//                        expect(subject.pipelinesTableView).to(equal(2))
-
-                    }
-
                     it("creates a cell in each of the rows for each of the pipelines returned") {
                         let cellOne = try! subject.pipelinesTableView!.fetchCell(at: IndexPath(row: 0, section: 0), asType: PipelineTableViewCell.self)
                         expect(cellOne.nameLabel?.text).to(equal("pipeline one"))
 
                         let cellTwo = try! subject.pipelinesTableView!.fetchCell(at: IndexPath(row: 0, section: 1), asType: PipelineTableViewCell.self)
                         expect(cellTwo.nameLabel?.text).to(equal("pipeline two"))
+                    }
+
+                    describe("Tapping one of the cells") {
+                        beforeEach {
+                            try! subject.pipelinesTableView!.selectRow(at: IndexPath(row: 0, section: 0))
+                        }
+
+                        it("sets up and presents the pipeline's jobs page") {
+                            func jobsViewController() -> JobsViewController? {
+                                return Fleet.getApplicationScreen()?.topmostViewController as? JobsViewController
+                            }
+
+                            expect(jobsViewController()).toEventually(beIdenticalTo(mockJobsViewController))
+                            expect(jobsViewController()?.pipeline).toEventually(equal(Pipeline(name: "pipeline one", isPublic: true, teamName: "cat")))
+                            expect(jobsViewController()?.target).toEventually(beNil())
+                            expect(jobsViewController()?.dataStream).toEventually(beAKindOf(PublicJobsDataStream.self))
+                            expect((jobsViewController()?.dataStream as? PublicJobsDataStream)?.concourseURL).toEventually(equal("concourseURL"))
+                        }
+
+                        it("immediately deselects the cell") {
+                            let selectedCell = subject.pipelinesTableView?.cellForRow(at: IndexPath(row: 0, section: 0))
+                            expect(selectedCell).toEventuallyNot(beNil())
+                            expect(selectedCell?.isHighlighted).toEventually(beFalse())
+                            expect(selectedCell?.isSelected).toEventually(beFalse())
+                        }
                     }
                 }
 

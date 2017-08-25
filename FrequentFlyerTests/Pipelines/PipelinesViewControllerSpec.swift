@@ -242,12 +242,14 @@ class PipelinesViewControllerSpec: QuickSpec {
 
                             expect(jobsViewController()).toEventually(beIdenticalTo(mockJobsViewController))
                             expect(jobsViewController()?.pipeline).toEventually(equal(Pipeline(name: "turtle pipeline one", isPublic: false, teamName: "")))
+                            expect(jobsViewController()?.dataStream).toEventually(beAKindOf(AuthorizedJobsDataStream.self))
 
                             let expectedTarget = Target(name: "turtle target",
                                                         api: "turtle api",
                                                         teamName: "turtle team",
                                                         token: Token(value: "turtle token value")
                             )
+                            expect((jobsViewController()?.dataStream as? AuthorizedJobsDataStream)?.target).toEventually(equal(expectedTarget))
                             expect(jobsViewController()?.target).toEventually(equal(expectedTarget))
                         }
 

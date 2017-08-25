@@ -25,4 +25,16 @@ class JobsService {
             .map { $0.body! }
             .flatMap { self.jobsDataDeserializer.deserialize($0) }
     }
+
+    func getPublicJobs(forPipeline pipeline: Pipeline, concourseURL: String) -> Observable<[Job]> {
+        let urlString = "\(concourseURL)/api/v1/teams/\(pipeline.teamName)/pipelines/\(pipeline.name)/jobs"
+        let url = URL(string: urlString)
+        var request = URLRequest(url: url!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "GET"
+
+        return httpClient.perform(request: request)
+            .map { $0.body! }
+            .flatMap { self.jobsDataDeserializer.deserialize($0) }
+    }
 }

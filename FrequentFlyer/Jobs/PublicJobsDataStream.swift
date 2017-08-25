@@ -1,12 +1,19 @@
 import RxSwift
-import RxCocoa
 
-class JobsDataStreamProducer {
+class PublicJobsDataStream {
+    let concourseURL: String
+
     var jobsService = JobsService()
 
-    func openStream(forTarget target: Target, pipeline: Pipeline) -> Observable<[JobGroupSection]> {
+    init(concourseURL: String) {
+        self.concourseURL = concourseURL
+    }
+}
+
+extension PublicJobsDataStream: JobsDataStream {
+    func open(forPipeline pipeline: Pipeline) -> Observable<[JobGroupSection]> {
         return jobsService
-            .getJobs(forTarget: target, pipeline: pipeline)
+            .getPublicJobs(forPipeline: pipeline, concourseURL: concourseURL)
             .map { jobs in
                 var sectionJobsMap: [String : [Job]] = [:]
                 jobs.forEach { job in

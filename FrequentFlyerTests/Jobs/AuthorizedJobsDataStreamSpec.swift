@@ -1,12 +1,11 @@
 import XCTest
 import Quick
 import Nimble
-import Fleet
 import RxSwift
 
 @testable import FrequentFlyer
 
-class JobsDataStreamProducerSpec: QuickSpec {
+class AuthorizedJobsDataStreamSpec: QuickSpec {
     class MockJobsService: JobsService {
         var capturedTarget: Target?
         var capturedPipeline: Pipeline?
@@ -19,13 +18,22 @@ class JobsDataStreamProducerSpec: QuickSpec {
         }
     }
 
-    override func spec() {
-        var subject: JobsDataStreamProducer!
-        var mockJobsService: MockJobsService!
 
-        describe("\(JobsDataStreamProducer.self)") {
+    override func spec() {
+        describe("AuthorizedJobsDataStream") {
+            var subject: AuthorizedJobsDataStream!
+
+            var mockJobsService: MockJobsService!
+
             beforeEach {
-                subject = JobsDataStreamProducer()
+                let target = Target(
+                    name: "turtle target name",
+                    api: "https://turtle_api.com",
+                    teamName: "turtle team",
+                    token: Token(value: "turtle token")
+                )
+
+                subject = AuthorizedJobsDataStream(target: target)
 
                 mockJobsService = MockJobsService()
                 subject.jobsService = mockJobsService
@@ -36,30 +44,21 @@ class JobsDataStreamProducerSpec: QuickSpec {
                 var jobSectionStreamResult: StreamResult<JobGroupSection>!
 
                 beforeEach {
-                    let target = Target(
-                        name: "turtle target",
-                        api: "turtle api",
-                        teamName: "turtle team",
-                        token: Token(value: "turtle token value")
-                    )
-
-                    let pipeline = Pipeline(name: "turtle pipeline", isPublic: false, teamName: "")
-
-                    jobSection$ = subject.openStream(forTarget: target, pipeline: pipeline)
+                    let pipeline = Pipeline(name: "turtle pipeline", isPublic: true, teamName: "turtle team")
+                    jobSection$ = subject.open(forPipeline: pipeline)
                     jobSectionStreamResult = StreamResult(jobSection$)
                 }
 
                 it("calls out to the \(JobsService.self)") {
                     let expectedTarget = Target(
-                        name: "turtle target",
-                        api: "turtle api",
+                        name: "turtle target name",
+                        api: "https://turtle_api.com",
                         teamName: "turtle team",
-                        token: Token(value: "turtle token value")
+                        token: Token(value: "turtle token")
                     )
-
-                    let expectedPipeline = Pipeline(name: "turtle pipeline", isPublic: false, teamName: "")
-
                     expect(mockJobsService.capturedTarget).toEventually(equal(expectedTarget))
+
+                    let expectedPipeline = Pipeline(name: "turtle pipeline", isPublic: true, teamName: "turtle team")
                     expect(mockJobsService.capturedPipeline).toEventually(equal(expectedPipeline))
                 }
 

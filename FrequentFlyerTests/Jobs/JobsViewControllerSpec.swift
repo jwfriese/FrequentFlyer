@@ -7,13 +7,11 @@ import RxSwift
 @testable import FrequentFlyer
 
 class JobsViewControllerSpec: QuickSpec {
-    class MockJobsDataStreamProducer: JobsDataStreamProducer {
+    class MockJobsDataStream: JobsDataStream {
         var jobGroupsSubject = PublishSubject<[JobGroupSection]>()
-        var capturedTarget: Target!
-        var capturedPipeline: Pipeline!
+        var capturedPipeline: Pipeline?
 
-        override func openStream(forTarget target: Target, pipeline: Pipeline) -> Observable<[JobGroupSection]> {
-            capturedTarget = target
+        func open(forPipeline pipeline: Pipeline) -> Observable<[JobGroupSection]> {
             capturedPipeline = pipeline
             return jobGroupsSubject
         }
@@ -40,7 +38,7 @@ class JobsViewControllerSpec: QuickSpec {
     override func spec() {
         describe("JobsViewController") {
             var subject: JobsViewController!
-            var mockJobsDataStreamProducer: MockJobsDataStreamProducer!
+            var mockJobsDataStream: MockJobsDataStream!
             var mockElapsedTimePrinter: MockElapsedTimePrinter!
             var mockKeychainWrapper: MockKeychainWrapper!
 
@@ -55,19 +53,18 @@ class JobsViewControllerSpec: QuickSpec {
 
                 subject = storyboard.instantiateViewController(withIdentifier: JobsViewController.storyboardIdentifier) as! JobsViewController
 
-                let pipeline = Pipeline(name: "turtle pipeline", isPublic: true, teamName: "")
+                let pipeline = Pipeline(name: "turtle pipeline", isPublic: false, teamName: "")
                 subject.pipeline = pipeline
 
-                let target = Target(
+                subject.target = Target(
                     name: "turtle target",
                     api: "turtle api",
                     teamName: "turtle team",
                     token: Token(value: "turtle token value")
                 )
-                subject.target = target
 
-                mockJobsDataStreamProducer = MockJobsDataStreamProducer()
-                subject.jobsDataStreamProducer = mockJobsDataStreamProducer
+                mockJobsDataStream = MockJobsDataStream()
+                subject.dataStream = mockJobsDataStream
 
                 mockElapsedTimePrinter = MockElapsedTimePrinter()
                 subject.jobsTableViewDataSource.elapsedTimePrinter = mockElapsedTimePrinter
@@ -100,16 +97,8 @@ class JobsViewControllerSpec: QuickSpec {
                 }
 
                 it("opens the data stream") {
-                    let expectedPipeline = Pipeline(name: "turtle pipeline", isPublic: true, teamName: "")
-                    expect(mockJobsDataStreamProducer.capturedPipeline).to(equal(expectedPipeline))
-
-                    let expectedTarget = Target(
-                        name: "turtle target",
-                        api: "turtle api",
-                        teamName: "turtle team",
-                        token: Token(value: "turtle token value")
-                    )
-                    expect(mockJobsDataStreamProducer.capturedTarget).to(equal(expectedTarget))
+                    let expectedPipeline = Pipeline(name: "turtle pipeline", isPublic: false, teamName: "")
+                    expect(mockJobsDataStream.capturedPipeline).to(equal(expectedPipeline))
                 }
 
                 describe("When the jobs data stream spits out some jobs") {
@@ -131,8 +120,8 @@ class JobsViewControllerSpec: QuickSpec {
                         var puppySection = JobGroupSection()
                         puppySection.items.append(puppyJob)
 
-                        mockJobsDataStreamProducer.jobGroupsSubject.onNext([turtleSection, crabSection, puppySection])
-                        mockJobsDataStreamProducer.jobGroupsSubject.onCompleted()
+                        mockJobsDataStream.jobGroupsSubject.onNext([turtleSection, crabSection, puppySection])
+                        mockJobsDataStream.jobGroupsSubject.onCompleted()
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 
@@ -237,7 +226,7 @@ class JobsViewControllerSpec: QuickSpec {
                             expect(jobDetailViewController()).toEventually(beIdenticalTo(mockJobDetailViewController))
                             expect(jobDetailViewController()?.job?.name).toEventually(equal("crab job"))
 
-                            let expectedPipeline = Pipeline(name: "turtle pipeline", isPublic: true, teamName: "")
+                            let expectedPipeline = Pipeline(name: "turtle pipeline", isPublic: false, teamName: "")
                             expect(jobDetailViewController()?.pipeline).toEventually(equal(expectedPipeline))
 
                             let expectedTarget = Target(
@@ -260,7 +249,7 @@ class JobsViewControllerSpec: QuickSpec {
 
                 describe("When the jobs data stream spits out an 'Unauthorized' error") {
                     beforeEach {
-                        mockJobsDataStreamProducer.jobGroupsSubject.onError(AuthorizationError())
+                        mockJobsDataStream.jobGroupsSubject.onError(AuthorizationError())
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 
