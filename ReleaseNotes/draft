@@ -1,0 +1,2 @@
+- Allow users to view public pipelines. For now, just displays the last build status of a public pipeline's jobs.
+- Fixed crash that occurred sometimes when attempting to fetch jobs for a pipeline
