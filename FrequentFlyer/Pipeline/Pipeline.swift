@@ -27,3 +27,15 @@ extension Pipeline: ImmutableMappable {
         self.teamName = try map.value("team_name")
     }
 }
+
+extension Pipeline: Loggable {
+    var loggingDescription: String {
+        get {
+            return [
+                "name" : self.name,
+                "isPublic" : self.isPublic,
+                "teamName" : self.teamName
+                ].description
+        }
+    }
+}

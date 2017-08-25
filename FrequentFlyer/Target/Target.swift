@@ -6,10 +6,7 @@ struct Target {
     fileprivate(set) var teamName: String
     fileprivate(set) var token: Token
 
-    init(name: String,
-         api: String,
-         teamName: String,
-         token: Token) {
+    init(name: String, api: String, teamName: String, token: Token) {
         self.name = name
         self.api = api
         self.teamName = teamName
@@ -26,3 +23,15 @@ func ==(lhs: Target, rhs: Target) -> Bool {
         lhs.token == rhs.token
 }
 
+extension Target: Loggable {
+    var loggingDescription: String {
+        get {
+            return [
+                "name" : self.name,
+                "api" : self.api,
+                "teamName" : self.teamName,
+                "token" : "<removed>"
+            ].description
+        }
+    }
+}

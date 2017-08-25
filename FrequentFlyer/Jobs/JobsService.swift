@@ -5,13 +5,20 @@ import RxSwift
 import RxCocoa
 
 class JobsService {
+    private let logger = Logger()
     var httpClient = HTTPClient()
     var jobsDataDeserializer = JobsDataDeserializer()
 
     func getJobs(forTarget target: Target, pipeline: Pipeline) -> Observable<[Job]> {
-        let urlString = "\(target.api)/api/v1/teams/\(target.teamName)/pipelines/\(pipeline.name)/jobs"
-        let url = URL(string: urlString)
-        var request = URLRequest(url: url!)
+        guard let url = URL(string: "\(target.api)/api/v1/teams/\(target.teamName)/pipelines/\(pipeline.name)/jobs") else {
+            logger.logError(
+                InitializationError.serviceURL(functionName: #function,
+                                               data: ["target" : target, "pipeline" : pipeline]
+                )
+            )
+            return Observable.empty()
+        }
+        var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(target.token.authValue, forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
@@ -27,9 +34,15 @@ class JobsService {
     }
 
     func getPublicJobs(forPipeline pipeline: Pipeline, concourseURL: String) -> Observable<[Job]> {
-        let urlString = "\(concourseURL)/api/v1/teams/\(pipeline.teamName)/pipelines/\(pipeline.name)/jobs"
-        let url = URL(string: urlString)
-        var request = URLRequest(url: url!)
+        guard let url = URL(string: "\(concourseURL)/api/v1/teams/\(pipeline.teamName)/pipelines/\(pipeline.name)/jobs") else {
+            logger.logError(
+                InitializationError.serviceURL(functionName: #function,
+                                               data: ["concourseURL" : concourseURL, "pipeline" : pipeline]
+                )
+            )
+            return Observable.empty()
+        }
+        var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
 

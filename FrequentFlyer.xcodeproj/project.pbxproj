@@ -30,6 +30,9 @@
 		7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */; };
 		7B2EAE401D85F5CE00A91234 /* BuildDataDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EAE3F1D85F5CE00A91234 /* BuildDataDeserializerSpec.swift */; };
 		7B2F95901D87016900094226 /* UserTextInputPageOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */; };
+		7B36D4EF1F507810009053E7 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36D4EE1F507810009053E7 /* Logger.swift */; };
+		7B36D4F11F5079C3009053E7 /* InitializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36D4F01F5079C3009053E7 /* InitializationError.swift */; };
+		7B36D4F31F507BD7009053E7 /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36D4F21F507BD7009053E7 /* Loggable.swift */; };
 		7B3A29F61F45426F00B21E06 /* VisibilitySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3A29F51F45426F00B21E06 /* VisibilitySelectionViewController.swift */; };
 		7B3A29F81F45446B00B21E06 /* VisibilitySelectionViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3A29F71F45446B00B21E06 /* VisibilitySelectionViewControllerSpec.swift */; };
 		7B3A29FA1F4549B200B21E06 /* InfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3A29F91F4549B200B21E06 /* InfoService.swift */; };
@@ -243,6 +246,9 @@
 		7B2EAE3D1D85F5B700A91234 /* BuildDataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDataDeserializer.swift; sourceTree = "<group>"; };
 		7B2EAE3F1D85F5CE00A91234 /* BuildDataDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDataDeserializerSpec.swift; sourceTree = "<group>"; };
 		7B2F958F1D87016900094226 /* UserTextInputPageOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageOperator.swift; sourceTree = "<group>"; };
+		7B36D4EE1F507810009053E7 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		7B36D4F01F5079C3009053E7 /* InitializationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationError.swift; sourceTree = "<group>"; };
+		7B36D4F21F507BD7009053E7 /* Loggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
 		7B3A29F51F45426F00B21E06 /* VisibilitySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilitySelectionViewController.swift; sourceTree = "<group>"; };
 		7B3A29F71F45446B00B21E06 /* VisibilitySelectionViewControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilitySelectionViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B3A29F91F4549B200B21E06 /* InfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoService.swift; sourceTree = "<group>"; };
@@ -483,6 +489,15 @@
 			path = Input;
 			sourceTree = "<group>";
 		};
+		7B36D4ED1F5077FB009053E7 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				7B36D4EE1F507810009053E7 /* Logger.swift */,
+				7B36D4F21F507BD7009053E7 /* Loggable.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
 		7B4625B21D87A45800769B0B /* Input */ = {
 			isa = PBXGroup;
 			children = (
@@ -714,6 +729,7 @@
 				7BA032181D843FEE00F20E23 /* BasicError.swift */,
 				7BA032171D843FEE00F20E23 /* DeserializationError.swift */,
 				7BA48F4F1DD763E4008BDE19 /* Error+FrequentFlyer.swift */,
+				7B36D4F01F5079C3009053E7 /* InitializationError.swift */,
 				7BCFE3311F06F48900AC2D5F /* UnexpectedError.swift */,
 			);
 			path = Error;
@@ -1020,6 +1036,7 @@
 				7BEDE2001D8989400054D13B /* Persistence */,
 				7B2F958E1D8700D100094226 /* Input */,
 				7BA032051D843EDD00F20E23 /* Authentication */,
+				7B36D4ED1F5077FB009053E7 /* Logging */,
 				7B5F95331DFAF5F0005E0DD2 /* NativeWeb */,
 				7BA032041D843E5800F20E23 /* HTTP */,
 				7BA032031D843E5200F20E23 /* Error */,
@@ -1290,6 +1307,7 @@
 				7B6F74BB1E7F8F9A00C7C005 /* GenerateImage.swift in Sources */,
 				7B59010E1E86425600BB4538 /* GitHubAuthViewController.swift in Sources */,
 				7BA032271D843FF300F20E23 /* Build.swift in Sources */,
+				7B36D4F11F5079C3009053E7 /* InitializationError.swift in Sources */,
 				7B7290371E9F144A005A9A22 /* TeamTableViewCell.swift in Sources */,
 				7B737BC41E075BBB007FC4E8 /* SSEMessageEventParser.swift in Sources */,
 				7BE6636B1E8A1D39006573C3 /* JobsService.swift in Sources */,
@@ -1318,6 +1336,7 @@
 				7BA032151D843FE800F20E23 /* HTTPClient.swift in Sources */,
 				7B737BC11E075BBB007FC4E8 /* LogsStylingParser.swift in Sources */,
 				7BA032101D843FE300F20E23 /* UnauthenticatedTokenService.swift in Sources */,
+				7B36D4F31F507BD7009053E7 /* Loggable.swift in Sources */,
 				7BF620931E82D18800C0E47F /* AllControlStates.swift in Sources */,
 				7B2EAE3E1D85F5B700A91234 /* BuildDataDeserializer.swift in Sources */,
 				7BFDF1BE1E9F391F00BE29C5 /* TeamsDataDeserializer.swift in Sources */,
@@ -1335,6 +1354,7 @@
 				7BA48F501DD763E4008BDE19 /* Error+FrequentFlyer.swift in Sources */,
 				7B72902F1E9F0C15005A9A22 /* TeamListService.swift in Sources */,
 				7B673ED11E7F0A8800CAC921 /* TitledTextFieldTitleLabel.swift in Sources */,
+				7B36D4EF1F507810009053E7 /* Logger.swift in Sources */,
 				7BA032311D843FF900F20E23 /* Pipeline.swift in Sources */,
 				7B20A5271F47FBA800FF44DD /* PublicPipelinesTableViewDataSource.swift in Sources */,
 				7BA032221D843FF300F20E23 /* BuildTableViewCell.swift in Sources */,
