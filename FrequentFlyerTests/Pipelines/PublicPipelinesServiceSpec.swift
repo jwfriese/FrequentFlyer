@@ -22,21 +22,17 @@ class PublicPipelinesServiceSpec: QuickSpec {
         }
 
         class MockPipelineDataDeserializer: PipelineDataDeserializer {
-            var capturedData: Data?
+            var capturedPipelineData: Data?
             var toReturnPipelines: [Pipeline]?
-            var toReturnError: AnyError?
+            var toReturnError: Error?
 
-            override func deserialize(_ data: Data) -> Result<[Pipeline], AnyError> {
-                capturedData = data
-                if let pipelines = toReturnPipelines {
-                    return Result.success(pipelines)
-                }
-
+            override func deserialize(_ data: Data) -> Observable<[Pipeline]> {
+                capturedPipelineData = data
                 if let error = toReturnError {
-                    return Result.failure(error)
+                    return Observable.error(error)
+                } else {
+                    return Observable.from(optional: toReturnPipelines)
                 }
-
-                return Result.failure(AnyError(TestError()))
             }
         }
 
@@ -87,7 +83,7 @@ class PublicPipelinesServiceSpec: QuickSpec {
                     }
 
                     it("passes the data along to the deserializer") {
-                        guard let data = mockPipelineDataDeserializer.capturedData else {
+                        guard let data = mockPipelineDataDeserializer.capturedPipelineData else {
                             fail("Failed to pass any data to the PipelineDataDeserializer")
                             return
                         }
@@ -115,7 +111,7 @@ class PublicPipelinesServiceSpec: QuickSpec {
 
                     beforeEach {
                         error = TestError()
-                        mockPipelineDataDeserializer.toReturnError = AnyError(error)
+                        mockPipelineDataDeserializer.toReturnError = error
 
                         let invalidData = "invalid data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidData, statusCode: 200))
@@ -126,7 +122,7 @@ class PublicPipelinesServiceSpec: QuickSpec {
                     }
 
                     it("emits the error that came from the deserializer") {
-                        expect((pipeline$Result.error as? AnyError)?.error as? TestError).to(equal(error))
+                        expect(pipeline$Result.error as? TestError).to(equal(error))
                     }
                 }
 
@@ -160,10 +156,11 @@ class PublicPipelinesServiceSpec: QuickSpec {
                 }
 
                 describe("When the request resolves with an error") {
-                    let error = TestError()
+                    var error: TestError!
 
                     beforeEach {
-                        mockHTTPClient.responseSubject.onError(AnyError(error))
+                        error = TestError()
+                        mockHTTPClient.responseSubject.onError(error)
                     }
 
                     it("emits no pipelines") {
@@ -171,7 +168,7 @@ class PublicPipelinesServiceSpec: QuickSpec {
                     }
 
                     it("calls the completion handler with the error that came from the request") {
-                        expect((pipeline$Result.error as? AnyError)?.error as? TestError).to(equal(error))
+                        expect(pipeline$Result.error as? TestError).to(equal(error))
                     }
                 }
             }

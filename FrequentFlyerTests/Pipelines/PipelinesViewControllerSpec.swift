@@ -2,16 +2,17 @@ import XCTest
 import Quick
 import Nimble
 import Fleet
+import RxSwift
 @testable import FrequentFlyer
 
 class PipelinesViewControllerSpec: QuickSpec {
     class MockPipelinesService: PipelinesService {
         var capturedTarget: Target?
-        var capturedCompletion: (([Pipeline]?, Error?) -> ())?
+        var publishSubject = PublishSubject<[Pipeline]>()
 
-        override func getPipelines(forTarget target: Target, completion: (([Pipeline]?, Error?) -> ())?) {
+        override func getPipelines(forTarget target: Target) -> Observable<[Pipeline]> {
             capturedTarget = target
-            capturedCompletion = completion
+            return publishSubject
         }
     }
 
@@ -198,14 +199,9 @@ class PipelinesViewControllerSpec: QuickSpec {
 
                 describe("When the pipelines service call resolves with a list of pipelines") {
                     beforeEach {
-                        guard let completion = mockPipelinesService.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the PipelinesService")
-                            return
-                        }
-
                         let pipelineOne = Pipeline(name: "turtle pipeline one", isPublic: false, teamName: "")
                         let pipelineTwo = Pipeline(name: "turtle pipeline two", isPublic: false, teamName: "")
-                        completion([pipelineOne, pipelineTwo], nil)
+                        mockPipelinesService.publishSubject.onNext([pipelineOne, pipelineTwo])
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 
@@ -264,12 +260,7 @@ class PipelinesViewControllerSpec: QuickSpec {
 
                 describe("When the pipelines service call resolves with an 'Unauthorized' response") {
                     beforeEach {
-                        guard let completion = mockPipelinesService.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the \(PipelinesService.self)")
-                            return
-                        }
-
-                        completion(nil, AuthorizationError())
+                        mockPipelinesService.publishSubject.onError(AuthorizationError())
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 
@@ -316,64 +307,7 @@ class PipelinesViewControllerSpec: QuickSpec {
 
                 describe("When the pipelines service call resolves with an unexpected error") {
                     beforeEach {
-                        guard let completion = mockPipelinesService.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the \(PipelinesService.self)")
-                            return
-                        }
-
-                        completion(nil, UnexpectedError(""))
-                        RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
-                    }
-
-                    it("stops and hides the loading indicator") {
-                        expect(subject.loadingIndicator?.isAnimating).toEventually(beFalse())
-                        expect(subject.loadingIndicator?.isHidden).toEventually(beTrue())
-                    }
-
-                    it("shows the table views row lines") {
-                        expect(subject.pipelinesTableView?.separatorStyle).toEventually(equal(UITableViewCellSeparatorStyle.singleLine))
-                    }
-
-                    it("presents an alert describing the authorization error") {
-                        let alert: () -> UIAlertController? = {
-                            return Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController
-                        }
-
-                        expect(alert()).toEventuallyNot(beNil())
-                        expect(alert()?.title).toEventually(equal("Error"))
-                        expect(alert()?.message).toEventually(equal("An unexpected error has occurred. Please try again."))
-                    }
-
-                    describe("Tapping the 'OK' button on the alert") {
-                        it("dismisses the alert") {
-                            let screen = Fleet.getApplicationScreen()
-                            var didTapOK = false
-                            let assertOKTappedBehavior = { () -> Bool in
-                                if didTapOK {
-                                    return screen?.topmostViewController === subject
-                                }
-
-                                if let alert = screen?.topmostViewController as? UIAlertController {
-                                    try! alert.tapAlertAction(withTitle: "OK")
-                                    didTapOK = true
-                                }
-
-                                return false
-                            }
-
-                            expect(assertOKTappedBehavior()).toEventually(beTrue())
-                        }
-                    }
-                }
-
-                describe("When disaster strikes and the pipelines service call resolves with a nil pipelines array AND a nil error") {
-                    beforeEach {
-                        guard let completion = mockPipelinesService.capturedCompletion else {
-                            fail("Failed to pass a completion handler to the \(PipelinesService.self)")
-                            return
-                        }
-
-                        completion(nil, nil)
+                        mockPipelinesService.publishSubject.onError(UnexpectedError(""))
                         RunLoop.main.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1))
                     }
 

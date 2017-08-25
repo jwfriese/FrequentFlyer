@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 
 class PipelinesViewController: UIViewController {
     @IBOutlet weak var pipelinesTableView: UITableView?
@@ -9,8 +10,9 @@ class PipelinesViewController: UIViewController {
     var keychainWrapper = KeychainWrapper()
 
     var target: Target?
-
     var pipelines: [Pipeline]?
+
+    private var disposeBag = DisposeBag()
 
     class var storyboardIdentifier: String { get { return "Pipelines" } }
     class var showJobsSegueId: String { get { return "ShowJobs" } }
@@ -24,24 +26,20 @@ class PipelinesViewController: UIViewController {
         title = "Pipelines"
         loadingIndicator?.startAnimating()
         pipelinesTableView?.separatorStyle = .none
-        pipelinesService.getPipelines(forTarget: target) { pipelines, error in
-            if error is AuthorizationError {
-                self.handleAuthorizationError()
-                return
-            }
+        pipelinesService.getPipelines(forTarget: target)
+            .catchError { error in
+                if error is AuthorizationError {
+                    self.handleAuthorizationError()
+                    return Observable.empty()
+                }
 
-            if error is UnexpectedError {
                 self.handleUnexpectedError()
-                return
+                return Observable.empty()
             }
-
-            guard let pipelines = pipelines else {
-                self.handleUnexpectedError()
-                return
-            }
-
-            self.handlePipelinesReceived(pipelines)
-        }
+            .bind(onNext: { pipelines in
+                self.handlePipelinesReceived(pipelines)
+            })
+            .addDisposableTo(disposeBag)
 
         pipelinesTableView?.dataSource = self
         pipelinesTableView?.delegate = self

@@ -13,22 +13,14 @@ class PublicPipelinesService {
         request.httpMethod = "GET"
 
         return httpClient.perform(request: request)
-            .do(onNext: { response in
-                if response.statusCode == 401 {
-                    throw AuthorizationError()
-                }
-            })
-            .map { try self.getResponseBodyFor($0) }
-            .map { data in
-                let result = self.pipelineDataDeserializer.deserialize(data)
-                if let pipelines = result.value {
-                    return pipelines
-                }
-                if let error = result.error {
-                    throw error
-                }
+            .do(onNext: { try self.throwIfNotAuthorized($0) })
+            .map({ try self.getResponseBodyFor($0) })
+            .flatMap { self.pipelineDataDeserializer.deserialize($0) }
+    }
 
-                throw BasicError(details: "Complete failure in pipeline data deserialization")
+    private func throwIfNotAuthorized(_ response: HTTPResponse) throws {
+        if response.statusCode == 401 {
+            throw AuthorizationError()
         }
     }
 

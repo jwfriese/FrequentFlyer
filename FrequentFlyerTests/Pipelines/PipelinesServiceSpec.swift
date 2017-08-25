@@ -22,17 +22,17 @@ class PipelinesServiceSpec: QuickSpec {
         }
 
         class MockPipelineDataDeserializer: PipelineDataDeserializer {
-            var capturedData: Data?
+            var capturedPipelineData: Data?
             var toReturnPipelines: [Pipeline]?
-            var toReturnError: AnyError?
+            var toReturnError: Error?
 
-            override func deserialize(_ data: Data) -> Result<[Pipeline], AnyError> {
-                capturedData = data
-                if let pipelines = toReturnPipelines {
-                    return Result.success(pipelines)
+            override func deserialize(_ data: Data) -> Observable<[Pipeline]> {
+                capturedPipelineData = data
+                if let error = toReturnError {
+                    return Observable.error(error)
+                } else {
+                    return Observable.from(optional: toReturnPipelines)
                 }
-
-                return Result.failure(toReturnError!)
             }
         }
 
@@ -52,8 +52,8 @@ class PipelinesServiceSpec: QuickSpec {
             }
 
             describe("Getting the pipelines for a team") {
-                var resultPipelines: [Pipeline]?
-                var resultError: Error?
+                var pipeline$: Observable<[Pipeline]>!
+                var pipeline$Result: StreamResult<[Pipeline]>!
 
                 beforeEach {
                     let target = Target(name: "turtle target name",
@@ -61,10 +61,9 @@ class PipelinesServiceSpec: QuickSpec {
                         teamName: "turtle_team_name",
                         token: Token(value: "Bearer turtle auth token")
                     )
-                    subject.getPipelines(forTarget: target) { pipelines, error in
-                        resultPipelines = pipelines
-                        resultError = error
-                    }
+
+                    pipeline$ = subject.getPipelines(forTarget: target)
+                    pipeline$Result = StreamResult(pipeline$)
                 }
 
                 it("passes the necessary request to the HTTPClient") {
@@ -90,7 +89,7 @@ class PipelinesServiceSpec: QuickSpec {
                     }
 
                     it("passes the data along to the deserializer") {
-                        guard let data = mockPipelineDataDeserializer.capturedData else {
+                        guard let data = mockPipelineDataDeserializer.capturedPipelineData else {
                             fail("Failed to pass any data to the PipelineDataDeserializer")
                             return
                         }
@@ -99,31 +98,32 @@ class PipelinesServiceSpec: QuickSpec {
                         expect(data).to(equal(expectedData!))
                     }
 
-                    it("calls the completion handler with the deserialized data") {
-                        expect(resultPipelines?[0]).to(equal(Pipeline(name: "turtle super pipeline", isPublic: false, teamName: "")))
+                    it("emits the deserialized data") {
+                        expect(pipeline$Result.elements.first?.first).to(equal(Pipeline(name: "turtle super pipeline", isPublic: false, teamName: "")))
                     }
 
-                    it("calls the completion handler with no error") {
-                        expect(resultError).to(beNil())
+                    it("emits no error") {
+                        expect(pipeline$Result.error).to(beNil())
                     }
                 }
 
                 describe("When the request resolves with a success response and deserialization fails with an error") {
-                    let error = TestError()
+                    var error: TestError!
 
                     beforeEach {
-                        mockPipelineDataDeserializer.toReturnError = AnyError(error)
+                        error = TestError()
+                        mockPipelineDataDeserializer.toReturnError = error
 
                         let invalidData = "invalid data".data(using: String.Encoding.utf8)
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: invalidData, statusCode: 200))
                     }
 
-                    it("calls the completion handler with nil for the pipeline data") {
-                        expect(resultPipelines).to(beNil())
+                    it("emits no pipelines") {
+                        expect(pipeline$Result.elements).to(beEmpty())
                     }
 
-                    it("calls the completion handler with the error that came from the deserializer") {
-                        expect((resultError as? AnyError)?.error as? TestError).to(equal(error))
+                    it("emits the error that came from the deserializer") {
+                        expect(pipeline$Result.error as? TestError).to(equal(error))
                     }
                 }
 
@@ -132,12 +132,12 @@ class PipelinesServiceSpec: QuickSpec {
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: nil, statusCode: 500))
                     }
 
-                    it("calls the completion handler with nil for the pipeline data") {
-                        expect(resultPipelines).to(beNil())
+                    it("emits nil for the pipeline data") {
+                        expect(pipeline$Result.elements.first).to(beNil())
                     }
 
-                    it("calls the completion handler with an \(UnexpectedError.self)") {
-                        expect(resultError as? UnexpectedError).toNot(beNil())
+                    it("emits an \(UnexpectedError.self)") {
+                        expect(pipeline$Result.error as? UnexpectedError).toNot(beNil())
                     }
                 }
 
@@ -147,26 +147,29 @@ class PipelinesServiceSpec: QuickSpec {
                         mockHTTPClient.responseSubject.onNext(HTTPResponseImpl(body: unauthorizedData, statusCode: 401))
                     }
 
-                    it("calls the completion handler with nil for the pipeline data") {
-                        expect(resultPipelines).to(beNil())
+                    it("emits no pipelines") {
+                        expect(pipeline$Result.elements).to(beEmpty())
                     }
 
-                    it("calls the completion handler with an \(AuthorizationError.self)") {
-                        expect(resultError as? AuthorizationError).toNot(beNil())
+                    it("emits an \(AuthorizationError.self)") {
+                        expect(pipeline$Result.error as? AuthorizationError).toNot(beNil())
                     }
                 }
 
                 describe("When the request resolves with an error") {
+                    var error: TestError!
+
                     beforeEach {
-                        mockHTTPClient.responseSubject.onError(BasicError(details: "error details"))
+                        error = TestError()
+                        mockHTTPClient.responseSubject.onError(error)
                     }
 
-                    it("calls the completion handler with nil for the pipeline data") {
-                        expect(resultPipelines).to(beNil())
+                    it("emits no pipelines") {
+                        expect(pipeline$Result.elements).to(beEmpty())
                     }
 
-                    it("calls the completion handler with the error that came from the request") {
-                        expect(resultError as? BasicError).to(equal(BasicError(details: "error details")))
+                    it("emits the error that came from the request") {
+                        expect(pipeline$Result.error as? TestError).to(equal(error))
                     }
                 }
             }

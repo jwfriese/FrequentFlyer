@@ -1,7 +1,7 @@
 import XCTest
 import Quick
 import Nimble
-import Result
+import RxSwift
 import ObjectMapper
 
 @testable import FrequentFlyer
@@ -16,7 +16,8 @@ class PipelineDataDeserializerSpec: QuickSpec {
             }
 
             describe("Deserializing pipeline data that is all valid") {
-                var result: Result<[Pipeline], AnyError>!
+                var deserialization$: Observable<[Pipeline]>!
+                var result: StreamResult<[Pipeline]>!
 
                 beforeEach {
                     let validDataJSONArray = [
@@ -33,31 +34,24 @@ class PipelineDataDeserializerSpec: QuickSpec {
                     ]
 
                     let validData = try! JSONSerialization.data(withJSONObject: validDataJSONArray, options: .prettyPrinted)
-                    result = subject.deserialize(validData)
+                    deserialization$ = subject.deserialize(validData)
+                    result = StreamResult(deserialization$)
                 }
 
-                it("returns a pipeline for each JSON pipeline entry") {
-                    guard let pipelines = result.value else {
-                        fail("Failed to return any pipelines from the JSON data")
-                        return
-                    }
-
-                    if pipelines.count != 2 {
-                        fail("Expected to return 2 pipelines, returned \(pipelines.count)")
-                        return
-                    }
-
-                    expect(pipelines[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
-                    expect(pipelines[1]).to(equal(Pipeline(name: "turtle pipeline two", isPublic: true, teamName: "turtle team name")))
+                it("emits a pipeline for each JSON pipeline entry") {
+                    expect(result.elements.first?.count).to(equal(2))
+                    expect(result.elements.first?[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
+                    expect(result.elements.first?[1]).to(equal(Pipeline(name: "turtle pipeline two", isPublic: true, teamName: "turtle team name")))
                 }
 
-                it("returns no error") {
+                it("emits no error") {
                     expect(result.error).to(beNil())
                 }
             }
 
             describe("Deserializing pipeline data where some of the data is invalid") {
-                var result: Result<[Pipeline], AnyError>!
+                var deserialization$: Observable<[Pipeline]>!
+                var result: StreamResult<[Pipeline]>!
 
                 context("Missing required 'name' field") {
                     beforeEach {
@@ -79,25 +73,17 @@ class PipelineDataDeserializerSpec: QuickSpec {
                         ]
 
                         let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
-                        result = subject.deserialize(partiallyValidData)
+                        deserialization$ = subject.deserialize(partiallyValidData)
+                        result = StreamResult(deserialization$)
                     }
 
-                    it("returns a pipeline for each valid JSON pipeline entry") {
-                        guard let pipelines = result.value else {
-                            fail("Failed to return any pipelines from the JSON data")
-                            return
-                        }
-
-                        if pipelines.count != 2 {
-                            fail("Expected to return 2 pipelines, returned \(pipelines.count)")
-                            return
-                        }
-
-                        expect(pipelines[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
-                        expect(pipelines[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: false, teamName: "turtle team name")))
+                    it("emits a pipeline for each valid JSON pipeline entry") {
+                        expect(result.elements.first?.count).to(equal(2))
+                        expect(result.elements.first?[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
+                        expect(result.elements.first?[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: false, teamName: "turtle team name")))
                     }
 
-                    it("returns no error") {
+                    it("emits no error") {
                         expect(result.error).to(beNil())
                     }
                 }
@@ -123,25 +109,17 @@ class PipelineDataDeserializerSpec: QuickSpec {
                         ]
 
                         let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
-                        result = subject.deserialize(partiallyValidData)
+                        deserialization$ = subject.deserialize(partiallyValidData)
+                        result = StreamResult(deserialization$)
                     }
 
-                    it("returns a pipeline for each valid JSON pipeline entry") {
-                        guard let pipelines = result.value else {
-                            fail("Failed to return any pipelines from the JSON data")
-                            return
-                        }
-
-                        if pipelines.count != 2 {
-                            fail("Expected to return 2 pipelines, returned \(pipelines.count)")
-                            return
-                        }
-
-                        expect(pipelines[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
-                        expect(pipelines[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: false, teamName: "turtle team name")))
+                    it("emits a pipeline for each valid JSON pipeline entry") {
+                        expect(result.elements.first?.count).to(equal(2))
+                        expect(result.elements.first?[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
+                        expect(result.elements.first?[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: false, teamName: "turtle team name")))
                     }
 
-                    it("returns no error") {
+                    it("emits no error") {
                         expect(result.error).to(beNil())
                     }
                 }
@@ -166,25 +144,17 @@ class PipelineDataDeserializerSpec: QuickSpec {
                         ]
 
                         let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
-                        result = subject.deserialize(partiallyValidData)
+                        deserialization$ = subject.deserialize(partiallyValidData)
+                        result = StreamResult(deserialization$)
                     }
 
-                    it("returns a pipeline for each valid JSON pipeline entry") {
-                        guard let pipelines = result.value else {
-                            fail("Failed to return any pipelines from the JSON data")
-                            return
-                        }
-
-                        if pipelines.count != 2 {
-                            fail("Expected to return 2 pipelines, returned \(pipelines.count)")
-                            return
-                        }
-
-                        expect(pipelines[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: false, teamName: "turtle team name")))
-                        expect(pipelines[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: true, teamName: "turtle team name")))
+                    it("emits a pipeline for each valid JSON pipeline entry") {
+                        expect(result.elements.first?.count).to(equal(2))
+                        expect(result.elements.first?[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: false, teamName: "turtle team name")))
+                        expect(result.elements.first?[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: true, teamName: "turtle team name")))
                     }
 
-                    it("returns no error") {
+                    it("emits no error") {
                         expect(result.error).to(beNil())
                     }
                 }
@@ -210,25 +180,17 @@ class PipelineDataDeserializerSpec: QuickSpec {
                         ]
 
                         let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
-                        result = subject.deserialize(partiallyValidData)
+                        deserialization$ = subject.deserialize(partiallyValidData)
+                        result = StreamResult(deserialization$)
                     }
 
-                    it("returns a pipeline for each valid JSON pipeline entry") {
-                        guard let pipelines = result.value else {
-                            fail("Failed to return any pipelines from the JSON data")
-                            return
-                        }
-
-                        if pipelines.count != 2 {
-                            fail("Expected to return 2 pipelines, returned \(pipelines.count)")
-                            return
-                        }
-
-                        expect(pipelines[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
-                        expect(pipelines[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: false, teamName: "turtle team name")))
+                    it("emits a pipeline for each valid JSON pipeline entry") {
+                        expect(result.elements.first?.count).to(equal(2))
+                        expect(result.elements.first?[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
+                        expect(result.elements.first?[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: false, teamName: "turtle team name")))
                     }
 
-                    it("returns no error") {
+                    it("emits no error") {
                         expect(result.error).to(beNil())
                     }
                 }
@@ -253,25 +215,17 @@ class PipelineDataDeserializerSpec: QuickSpec {
                         ]
 
                         let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
-                        result = subject.deserialize(partiallyValidData)
+                        deserialization$ = subject.deserialize(partiallyValidData)
+                        result = StreamResult(deserialization$)
                     }
 
-                    it("returns a pipeline for each valid JSON pipeline entry") {
-                        guard let pipelines = result.value else {
-                            fail("Failed to return any pipelines from the JSON data")
-                            return
-                        }
-
-                        if pipelines.count != 2 {
-                            fail("Expected to return 2 pipelines, returned \(pipelines.count)")
-                            return
-                        }
-
-                        expect(pipelines[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
-                        expect(pipelines[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: false, teamName: "turtle team name")))
+                    it("emits a pipeline for each valid JSON pipeline entry") {
+                        expect(result.elements.first?.count).to(equal(2))
+                        expect(result.elements.first?[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
+                        expect(result.elements.first?[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: false, teamName: "turtle team name")))
                     }
 
-                    it("returns no error") {
+                    it("emits no error") {
                         expect(result.error).to(beNil())
                     }
                 }
@@ -297,46 +251,40 @@ class PipelineDataDeserializerSpec: QuickSpec {
                         ]
 
                         let partiallyValidData = try! JSONSerialization.data(withJSONObject: partiallyValidDataJSONArray, options: .prettyPrinted)
-                        result = subject.deserialize(partiallyValidData)
+                        deserialization$ = subject.deserialize(partiallyValidData)
+                        result = StreamResult(deserialization$)
                     }
 
-                    it("returns a pipeline for each valid JSON pipeline entry") {
-                        guard let pipelines = result.value else {
-                            fail("Failed to return any pipelines from the JSON data")
-                            return
-                        }
-
-                        if pipelines.count != 2 {
-                            fail("Expected to return 2 pipelines, returned \(pipelines.count)")
-                            return
-                        }
-
-                        expect(pipelines[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
-                        expect(pipelines[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: true, teamName: "turtle team name")))
+                    it("emits a pipeline for each valid JSON pipeline entry") {
+                        expect(result.elements.first?.count).to(equal(2))
+                        expect(result.elements.first?[0]).to(equal(Pipeline(name: "turtle pipeline one", isPublic: true, teamName: "turtle team name")))
+                        expect(result.elements.first?[1]).to(equal(Pipeline(name: "turtle pipeline three", isPublic: true, teamName: "turtle team name")))
                     }
 
-                    it("returns no error") {
+                    it("emits no error") {
                         expect(result.error).to(beNil())
                     }
                 }
             }
 
             describe("Given data cannot be interpreted as JSON") {
-                var result: Result<[Pipeline], AnyError>!
+                var deserialization$: Observable<[Pipeline]>!
+                var result: StreamResult<[Pipeline]>!
 
                 beforeEach {
                     let pipelinesDataString = "some string"
 
                     let invalidPipelinesData = pipelinesDataString.data(using: String.Encoding.utf8)
-                    result = subject.deserialize(invalidPipelinesData!)
+                    deserialization$ = subject.deserialize(invalidPipelinesData!)
+                    result = StreamResult(deserialization$)
                 }
 
-                it("returns nil for the pipelines") {
-                    expect(result.value).to(beNil())
+                it("emits no pipelines") {
+                    expect(result.elements).to(beEmpty())
                 }
 
-                it("returns an error") {
-                    let error = result.error?.error as? MapError
+                it("emits an error") {
+                    let error = result.error as? MapError
                     expect(error).toNot(beNil())
                     expect(error?.reason).to(equal("Could not interpret data as JSON"))
                 }

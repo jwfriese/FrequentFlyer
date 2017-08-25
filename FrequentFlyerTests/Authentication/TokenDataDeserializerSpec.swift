@@ -32,11 +32,11 @@ class TokenDataDeserializerSpec: QuickSpec {
                         result = StreamResult(deserialization$)
                     }
 
-                    it("returns a token initialized with the value") {
+                    it("emits a token initialized with the value") {
                         expect(result.elements.first).to(equal(Token(value: "token value")))
                     }
 
-                    it("returns nil for the error") {
+                    it("emits no error") {
                         expect(result.error).to(beNil())
                     }
                 }
