@@ -5,9 +5,13 @@ class PipelinesService {
     var httpClient = HTTPClient()
     var pipelineDataDeserializer = PipelineDataDeserializer()
 
-    let disposeBag = DisposeBag()
     func getPipelines(forTarget target: Target) -> Observable<[Pipeline]> {
         guard let url = URL(string: target.api + "/api/v1/teams/" + target.teamName + "/pipelines") else {
+            Logger.logError(
+                InitializationError.serviceURL(functionName: #function,
+                                               data: ["target" : target]
+                )
+            )
             return Observable.empty()
         }
 

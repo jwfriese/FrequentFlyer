@@ -6,9 +6,16 @@ class PublicPipelinesService {
     var pipelineDataDeserializer = PipelineDataDeserializer()
 
     func getPipelines(forConcourseWithURL concourseURL: String) -> Observable<[Pipeline]> {
-        let urlString = "\(concourseURL)/api/v1/pipelines"
-        let url = URL(string: urlString)
-        var request = URLRequest(url: url!)
+        guard let url = URL(string: "\(concourseURL)/api/v1/pipelines") else {
+            Logger.logError(
+                InitializationError.serviceURL(functionName: #function,
+                                               data: ["concourseURL" : concourseURL]
+                )
+            )
+            return Observable.empty()
+        }
+
+        var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
 

@@ -7,9 +7,16 @@ class UnauthenticatedTokenService {
     let disposeBag = DisposeBag()
 
     func getUnauthenticatedToken(forTeamName teamName: String, concourseURL: String) -> Observable<Token> {
-        let urlString = concourseURL + "/api/v1/teams/\(teamName)/auth/token"
-        let url = URL(string: urlString)
-        var request = URLRequest(url: url!)
+        guard let url = URL(string: concourseURL + "/api/v1/teams/\(teamName)/auth/token") else {
+            Logger.logError(
+                InitializationError.serviceURL(functionName: #function,
+                                               data: ["concourseURL" : concourseURL, "teamName" : teamName]
+                )
+            )
+            return Observable.empty()
+        }
+
+        var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
 

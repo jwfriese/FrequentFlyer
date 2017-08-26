@@ -7,10 +7,16 @@ class TokenValidationService {
     let disposeBag = DisposeBag()
 
     func validate(token: Token, forConcourse concourseURLString: String, completion: ((Error?) -> ())?) {
-        guard let completion = completion else { return }
+        guard let url = URL(string: "\(concourseURLString)/api/v1/containers") else {
+            Logger.logError(
+                InitializationError.serviceURL(functionName: #function,
+                                               data: ["concourseURL" : concourseURLString]
+                )
+            )
+            return
+        }
 
-        let urlString = "\(concourseURLString)/api/v1/containers"
-        let url = URL(string: urlString)!
+        guard let completion = completion else { return }
         var request = URLRequest(url: url)
 
         request.httpMethod = "GET"
