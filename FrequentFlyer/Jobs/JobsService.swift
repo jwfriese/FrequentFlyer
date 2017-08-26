@@ -5,13 +5,12 @@ import RxSwift
 import RxCocoa
 
 class JobsService {
-    private let logger = Logger()
     var httpClient = HTTPClient()
     var jobsDataDeserializer = JobsDataDeserializer()
 
     func getJobs(forTarget target: Target, pipeline: Pipeline) -> Observable<[Job]> {
         guard let url = URL(string: "\(target.api)/api/v1/teams/\(target.teamName)/pipelines/\(pipeline.name)/jobs") else {
-            logger.logError(
+            Logger.logError(
                 InitializationError.serviceURL(functionName: #function,
                                                data: ["target" : target, "pipeline" : pipeline]
                 )
@@ -35,7 +34,7 @@ class JobsService {
 
     func getPublicJobs(forPipeline pipeline: Pipeline, concourseURL: String) -> Observable<[Job]> {
         guard let url = URL(string: "\(concourseURL)/api/v1/teams/\(pipeline.teamName)/pipelines/\(pipeline.name)/jobs") else {
-            logger.logError(
+            Logger.logError(
                 InitializationError.serviceURL(functionName: #function,
                                                data: ["concourseURL" : concourseURL, "pipeline" : pipeline]
                 )
