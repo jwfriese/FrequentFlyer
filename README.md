@@ -7,8 +7,8 @@ https://www.pivotaltracker.com/n/projects/1860657
 
 0) Get dependencies:<br />
 [Carthage](https://github.com/Carthage/Carthage#installing-carthage)<br />
-[xcpretty](https://github.com/supermarin/xcpretty#installation)<br />
 [golang](https://golang.org/doc/install)<br />
+[fastlane](https://github.com/fastlane/fastlane#installation)
 
 1) Clone:
 ```
@@ -21,16 +21,19 @@ cd FrequentFlyer
 carthage update --platform 'iOS'
 ```
 
-3) Start test server in a separate shell. The test suite for the `HTTPClient` class redepends on responses served by this test server:
+3) Start test server in a separate shell. The test suite for the `HTTPClient` class depends on responses served by this test server:
 ```
 go run TestServer/server.go
 ```
 
-4) Test:
+You could also start it in the background in your current shell:
 ```
-go get -u github.com/jwfriese/iossimulator
-go build script/test.go
-./test 'iOS 10.0' 'iPhone 6'
+go run TestServer/server.go &
+```
+
+4) Test with `fastlane`:
+```
+fastlane scan
 ```
 
 5) Contribute away!
