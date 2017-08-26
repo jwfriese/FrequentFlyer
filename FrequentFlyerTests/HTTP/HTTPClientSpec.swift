@@ -26,7 +26,7 @@ class HTTPClientSpec: QuickSpec {
                     }
 
                     it("shows the spinner while the request is loading") {
-                        expect(UIApplication.shared.isNetworkActivityIndicatorVisible).to(beTrue())
+                        expect(UIApplication.shared.isNetworkActivityIndicatorVisible).toEventually(beTrue())
                     }
 
                     it("hides the spinner when the request is complete") {
