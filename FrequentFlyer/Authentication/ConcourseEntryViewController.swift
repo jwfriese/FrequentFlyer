@@ -32,7 +32,7 @@ class ConcourseEntryViewController: UIViewController {
                             controlStateButtonColors: [.normal : Style.Colors.buttonNormal]
         )
 
-        concourseURLEntryField?.titleLabel?.text = "URL"
+        concourseURLEntryField?.titleLabel?.text = "Concourse Base URL"
 
         concourseURLEntryField?.textField?.autocorrectionType = .no
         concourseURLEntryField?.textField?.keyboardType = .URL
