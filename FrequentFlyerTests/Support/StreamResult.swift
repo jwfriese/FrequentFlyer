@@ -10,13 +10,13 @@ class StreamResult<T> {
     init(_ stream: Observable<T>) {
         stream
             .subscribe(onSingle)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     init(_ stream: Observable<[T]>) {
         stream
             .subscribe(onCollection)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     private func onSingle(_ event: Event<T>) {

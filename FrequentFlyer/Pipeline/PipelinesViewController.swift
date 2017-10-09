@@ -39,7 +39,7 @@ class PipelinesViewController: UIViewController {
             .bind(onNext: { pipelines in
                 self.handlePipelinesReceived(pipelines)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         pipelinesTableView?.dataSource = self
         pipelinesTableView?.delegate = self

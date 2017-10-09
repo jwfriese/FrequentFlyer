@@ -96,6 +96,6 @@ class BuildControlPanelViewController: UIViewController {
                 }
             }
         )
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 }

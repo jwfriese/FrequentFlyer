@@ -60,7 +60,7 @@ class PublicPipelinesViewController: UIViewController {
                     self.pipelinesTableView?.deselectRow(at: indexPath, animated: true)
                 }
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         pipelinesTableView
             .rx
@@ -70,7 +70,7 @@ class PublicPipelinesViewController: UIViewController {
                     self.performSegue(withIdentifier: PublicPipelinesViewController.showJobsSegueId, sender: pipeline)
                 }
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     private func setUpCellPopulation(withConcourseURL concourseURL: String) {

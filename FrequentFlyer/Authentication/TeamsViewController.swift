@@ -56,7 +56,7 @@ class TeamsViewController: UIViewController {
                         let errorMessage = "Encountered error when trying to fetch Concourse auth methods. Please check your Concourse configuration and try again later."
                         self.presentErrorAlert(withTitle: "Error", message: errorMessage)
             })
-            .addDisposableTo(self.disposeBag)
+            .disposed(by: self.disposeBag)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -192,6 +192,6 @@ class TeamsViewController: UIViewController {
                 onCompleted: nil,
                 onDisposed: nil
             )
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 }

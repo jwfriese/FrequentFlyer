@@ -51,7 +51,7 @@ class JobsViewController: UIViewController {
                        onCompleted: nil,
                        onDisposed: nil
             )
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     private func setUpCellPopulation(withPipeline pipeline: Pipeline) {

@@ -85,7 +85,7 @@ class ConcourseEntryViewController: UIViewController {
                 onError: { _ in
                     self.showConcourseInaccessibleError()
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     private func showConcourseInaccessibleError() {

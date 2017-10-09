@@ -35,6 +35,6 @@ class BuildsService {
                 onCompleted: nil,
                 onDisposed: nil
         )
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 }

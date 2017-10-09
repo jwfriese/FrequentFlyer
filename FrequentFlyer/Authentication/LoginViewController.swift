@@ -108,7 +108,7 @@ class LoginViewController: UIViewController {
             onCompleted: nil,
             onDisposed: nil
         )
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     @IBAction func gitHubAuthButtonTapped() {
