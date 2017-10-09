@@ -186,7 +186,7 @@ class LogsViewControllerSpec: QuickSpec {
                                         }
 
                                         if let alert = screen?.topmostViewController as? UIAlertController {
-                                            try! alert.tapAlertAction(withTitle: "Log Out")
+                                            alert.tapAlertAction(withTitle: "Log Out")
                                             didTapLogOut = true
                                         }
 

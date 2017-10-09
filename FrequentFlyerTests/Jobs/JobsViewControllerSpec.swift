@@ -215,7 +215,7 @@ class JobsViewControllerSpec: QuickSpec {
 
                     describe("Selecting one of the job cells") {
                         beforeEach {
-                            try! subject.jobsTableView?.selectRow(at: IndexPath(row: 0, section: 1))
+                            subject.jobsTableView?.selectRow(at: IndexPath(row: 0, section: 1))
                         }
 
                         it("presents a job detail view controller") {
@@ -282,7 +282,7 @@ class JobsViewControllerSpec: QuickSpec {
                                 }
 
                                 if let alert = screen?.topmostViewController as? UIAlertController {
-                                    try! alert.tapAlertAction(withTitle: "Log Out")
+                                    alert.tapAlertAction(withTitle: "Log Out")
                                     didTapLogOut = true
                                 }
 
@@ -309,7 +309,7 @@ class JobsViewControllerSpec: QuickSpec {
                                 }
 
                                 if !didAttemptLogOutTap {
-                                    try! alert()!.tapAlertAction(withTitle: "Log Out")
+                                    alert()!.tapAlertAction(withTitle: "Log Out")
                                     didAttemptLogOutTap = true
                                     return false
                                 }

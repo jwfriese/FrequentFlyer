@@ -128,9 +128,9 @@ class LoginViewControllerSpec: QuickSpec {
                         subject.authMethods = [AuthMethod(type: .basic, displayName: "", url: "basic-auth.com")]
                         let _ = Fleet.setInAppWindowRootNavigation(subject)
 
-                        try? subject.usernameField?.textField?.enter(text: "turtle username")
-                        try? subject.passwordField?.textField?.enter(text: "turtle password")
-                        try! subject.basicAuthLoginButton?.tap()
+                        subject.usernameField?.textField?.enter(text: "turtle username")
+                        subject.passwordField?.textField?.enter(text: "turtle password")
+                        subject.basicAuthLoginButton?.tap()
                     }
 
                     it("calls out to the \(BasicAuthTokenService.self) with the entered username and password") {
@@ -235,7 +235,7 @@ class LoginViewControllerSpec: QuickSpec {
 
                     describe("Tapping the 'Log in with GitHub' button") {
                         beforeEach {
-                            try! subject.gitHubAuthButton?.tap()
+                            subject.gitHubAuthButton?.tap()
                         }
 
                         it("presents a \(GitHubAuthViewController.self)") {

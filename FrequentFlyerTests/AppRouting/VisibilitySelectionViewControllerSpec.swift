@@ -36,7 +36,7 @@ class VisibilitySelectionViewControllerSpec: QuickSpec {
 
                 describe("Tapping the 'View public pipelines' button") {
                     beforeEach {
-                        try! subject.viewPublicPipelinesButton?.tap()
+                        subject.viewPublicPipelinesButton?.tap()
                     }
 
                     it("disables the buttons") {
@@ -52,7 +52,7 @@ class VisibilitySelectionViewControllerSpec: QuickSpec {
 
                 describe("Tapping the 'Log in to a team button'") {
                     beforeEach {
-                        try! subject.logIntoTeamButton?.tap()
+                        subject.logIntoTeamButton?.tap()
                     }
 
                     it("presents the \(TeamsViewController.self)") {

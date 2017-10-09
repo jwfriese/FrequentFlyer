@@ -68,7 +68,7 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
 
                 describe("Tapping the gear in the navigation item") {
                     beforeEach {
-                        try! subject.gearBarButtonItem?.tap()
+                        subject.gearBarButtonItem?.tap()
                     }
 
                     describe("Tapping the 'Log Into a Team' button in the action sheet") {
@@ -89,7 +89,7 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
                                 }
 
                                 if !didAttemptLogIntoATeamTap {
-                                    try! actionSheet()!.tapAlertAction(withTitle: "Log Into a Team")
+                                    actionSheet()!.tapAlertAction(withTitle: "Log Into a Team")
                                     didAttemptLogIntoATeamTap = true
                                     return false
                                 }
@@ -119,7 +119,7 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
                                 }
 
                                 if !didAttemptSelectAConcourseTap {
-                                    try! actionSheet()!.tapAlertAction(withTitle: "Select a Concourse")
+                                    actionSheet()!.tapAlertAction(withTitle: "Select a Concourse")
                                     didAttemptSelectAConcourseTap = true
                                     return false
                                 }
@@ -149,7 +149,7 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
                                 }
 
                                 if !didAttemptLogOutTap {
-                                    try! actionSheet()!.tapAlertAction(withTitle: "Cancel")
+                                    actionSheet()!.tapAlertAction(withTitle: "Cancel")
                                     didAttemptLogOutTap = true
                                     return false
                                 }
@@ -189,16 +189,16 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
                     }
 
                     it("creates a cell in each of the rows for each of the pipelines returned") {
-                        let cellOne = try! subject.pipelinesTableView!.fetchCell(at: IndexPath(row: 0, section: 0), asType: PipelineTableViewCell.self)
+                        let cellOne = subject.pipelinesTableView!.fetchCell(at: IndexPath(row: 0, section: 0), asType: PipelineTableViewCell.self)
                         expect(cellOne.nameLabel?.text).to(equal("pipeline one"))
 
-                        let cellTwo = try! subject.pipelinesTableView!.fetchCell(at: IndexPath(row: 0, section: 1), asType: PipelineTableViewCell.self)
+                        let cellTwo = subject.pipelinesTableView!.fetchCell(at: IndexPath(row: 0, section: 1), asType: PipelineTableViewCell.self)
                         expect(cellTwo.nameLabel?.text).to(equal("pipeline two"))
                     }
 
                     describe("Tapping one of the cells") {
                         beforeEach {
-                            try! subject.pipelinesTableView!.selectRow(at: IndexPath(row: 0, section: 0))
+                            subject.pipelinesTableView!.selectRow(at: IndexPath(row: 0, section: 0))
                         }
 
                         it("sets up and presents the pipeline's jobs page") {
@@ -257,7 +257,7 @@ class PublicPipelinesViewControllerSpec: QuickSpec {
                                 }
 
                                 if let alert = screen?.topmostViewController as? UIAlertController {
-                                    try! alert.tapAlertAction(withTitle: "OK")
+                                    alert.tapAlertAction(withTitle: "OK")
                                     didTapOK = true
                                 }
 

@@ -105,19 +105,19 @@ class TeamsViewControllerSpec: QuickSpec {
                     }
 
                     it("creates a cell in each of the rows for each of the pipelines returned") {
-                        let cellOne = try! subject.teamsTableView!.fetchCell(at: IndexPath(row: 0, section: 0), asType: TeamTableViewCell.self)
+                        let cellOne = subject.teamsTableView!.fetchCell(at: IndexPath(row: 0, section: 0), asType: TeamTableViewCell.self)
                         expect(cellOne.teamLabel?.text).to(equal("turtle_team"))
 
-                        let cellTwo = try! subject.teamsTableView!.fetchCell(at: IndexPath(row: 1, section: 0), asType: TeamTableViewCell.self)
+                        let cellTwo = subject.teamsTableView!.fetchCell(at: IndexPath(row: 1, section: 0), asType: TeamTableViewCell.self)
                         expect(cellTwo.teamLabel?.text).to(equal("crab_team"))
 
-                        let cellThree = try! subject.teamsTableView!.fetchCell(at: IndexPath(row: 2, section: 0), asType: TeamTableViewCell.self)
+                        let cellThree = subject.teamsTableView!.fetchCell(at: IndexPath(row: 2, section: 0), asType: TeamTableViewCell.self)
                         expect(cellThree.teamLabel?.text).to(equal("puppy_team"))
                     }
 
                     describe("Tapping one of the cells") {
                         beforeEach {
-                            try! subject.teamsTableView!.selectRow(at: IndexPath(row: 0, section: 0))
+                            subject.teamsTableView!.selectRow(at: IndexPath(row: 0, section: 0))
                         }
 
                         it("immediately deselects the cell") {

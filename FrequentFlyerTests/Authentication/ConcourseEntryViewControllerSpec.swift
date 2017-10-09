@@ -87,7 +87,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                     describe("When the 'Concourse URL' field has text") {
                         beforeEach {
-                            try! subject.concourseURLEntryField?.textField?.enter(text: "turtle url")
+                            subject.concourseURLEntryField?.textField?.enter(text: "turtle url")
                         }
 
                         it("enables the button") {
@@ -96,9 +96,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                         describe("When the 'Concourse URL' field is cleared") {
                             beforeEach {
-                                try! subject.concourseURLEntryField?.textField?.startEditing()
-                                try! subject.concourseURLEntryField?.textField?.backspaceAll()
-                                try! subject.concourseURLEntryField?.textField?.stopEditing()
+                                subject.concourseURLEntryField?.textField?.startEditing()
+                                subject.concourseURLEntryField?.textField?.backspaceAll()
+                                subject.concourseURLEntryField?.textField?.stopEditing()
                             }
 
                             it("disables the button") {
@@ -110,9 +110,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                 describe("Entering a Concourse URL without 'http://' or 'https://' and hitting 'Submit'") {
                     beforeEach {
-                        try! subject.concourseURLEntryField?.textField?.enter(text: "partial-concourse.com")
+                        subject.concourseURLEntryField?.textField?.enter(text: "partial-concourse.com")
 
-                        try! subject.submitButton?.tap()
+                        subject.submitButton?.tap()
                     }
 
                     it("disables the button") {
@@ -155,9 +155,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                 describe("Entering a valid Concourse URL and hitting 'Submit'") {
                     beforeEach {
-                        try! subject.concourseURLEntryField?.textField?.enter(text: "https://concourse.com")
+                        subject.concourseURLEntryField?.textField?.enter(text: "https://concourse.com")
 
-                        try! subject.submitButton?.tap()
+                        subject.submitButton?.tap()
                     }
 
                     it("disables the button") {

@@ -165,7 +165,7 @@ class BuildControlPanelViewControllerSpec: QuickSpec {
                                 .build()
                             subject.setBuild(build)
 
-                            try! subject.retriggerButton?.tap()
+                            subject.retriggerButton?.tap()
                         }
 
                         it("disables the button") {

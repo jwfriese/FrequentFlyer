@@ -120,7 +120,7 @@ class GitHubAuthViewControllerSpec: QuickSpec {
 
                     describe("When the 'Token' field has text") {
                         beforeEach {
-                            try! subject.tokenTextField?.textField?.enter(text: "token of the GitHub Turtle")
+                            subject.tokenTextField?.textField?.enter(text: "token of the GitHub Turtle")
                         }
 
                         it("enables the button") {
@@ -129,9 +129,9 @@ class GitHubAuthViewControllerSpec: QuickSpec {
 
                         describe("When the 'Token' field is cleared") {
                             beforeEach {
-                                try! subject.tokenTextField?.textField?.startEditing()
-                                try! subject.tokenTextField?.textField?.backspaceAll()
-                                try! subject.tokenTextField?.textField?.stopEditing()
+                                subject.tokenTextField?.textField?.startEditing()
+                                subject.tokenTextField?.textField?.backspaceAll()
+                                subject.tokenTextField?.textField?.stopEditing()
                             }
 
                             it("disables the button") {
@@ -142,9 +142,9 @@ class GitHubAuthViewControllerSpec: QuickSpec {
 
                     describe("When pasting text into the 'Token' field") {
                         beforeEach {
-                            try! subject.tokenTextField?.textField?.startEditing()
-                            try! subject.tokenTextField?.textField?.paste(text: "some text")
-                            try! subject.tokenTextField?.textField?.stopEditing()
+                            subject.tokenTextField?.textField?.startEditing()
+                            subject.tokenTextField?.textField?.paste(text: "some text")
+                            subject.tokenTextField?.textField?.stopEditing()
                         }
 
                         it("enables the button") {
@@ -155,7 +155,7 @@ class GitHubAuthViewControllerSpec: QuickSpec {
 
                 describe("Tapping on the 'Get Token' button") {
                     beforeEach {
-                        try! subject.openGitHubAuthPageButton?.tap()
+                        subject.openGitHubAuthPageButton?.tap()
                     }
 
                     it("presents a WebViewController") {
@@ -184,8 +184,8 @@ class GitHubAuthViewControllerSpec: QuickSpec {
 
                 describe("Entering a token and hitting the 'Log In' button") {
                     beforeEach {
-                        try! subject.tokenTextField?.textField?.enter(text: "token of the GitHub Turtle")
-                        try! subject.loginButton?.tap()
+                        subject.tokenTextField?.textField?.enter(text: "token of the GitHub Turtle")
+                        subject.loginButton?.tap()
                     }
 
                     it("disables the 'Log In' button") {
