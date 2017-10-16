@@ -1,5 +1,5 @@
-git "https://github.com/Quick/Quick" "v1.1.0"
-git "https://github.com/Quick/Nimble" "v7.0.1"
+git "https://github.com/Quick/Quick" "v1.2.0"
+git "https://github.com/Quick/Nimble" "v7.0.2"
 git "https://github.com/jwfriese/Fleet" "4.1.1"
 git "https://github.com/jwfriese/SwiftCoreExtensions" "b6e404deec4cebcc42d35a07f5ffb57b66f90c6e"
 git "https://github.com/jwfriese/EventSource" "7fd974f3f3cd8df6c173a50797ed730c236f6088"
