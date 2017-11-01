@@ -106,7 +106,7 @@ class ConcourseEntryViewController: UIViewController {
 extension ConcourseEntryViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let isDeleting = string == ""
-        let isCurrentStringLongerThanOne = textField.text != nil && textField.text!.characters.count > 1
+        let isCurrentStringLongerThanOne = textField.text != nil && textField.text!.count > 1
         let willHaveText = !isDeleting || isCurrentStringLongerThanOne
         submitButton?.isEnabled = willHaveText
         return true

@@ -10,7 +10,7 @@ class LogsStylingParser {
 
     func stripStylingCoding(originalString: String) -> String {
         var strippedString = ""
-        for character in originalString.characters {
+        for character in originalString {
             if stylingDescriptorBuilder.isBuilding {
                 let didAddCharacter = stylingDescriptorBuilder.add(character)
                 if didAddCharacter { continue }

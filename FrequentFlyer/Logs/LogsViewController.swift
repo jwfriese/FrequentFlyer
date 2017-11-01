@@ -99,7 +99,7 @@ class LogsViewController: UIViewController {
     }
 
     @IBAction func onJumpToBottomTapped() {
-        guard let length = logOutputView?.text.characters.count else { return }
+        guard let length = logOutputView?.text.count else { return }
         logOutputView?.scrollRangeToVisible(NSMakeRange(0, length))
     }
 
