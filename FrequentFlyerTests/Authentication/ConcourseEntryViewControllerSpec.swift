@@ -179,7 +179,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         it("presents an alert informing the user that their Concourse instance could not be hit") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Error"))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Could not connect to a Concourse at the given URL."))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Could not connect to a Concourse at 'https://partial-concourse.com'."))
                         }
 
                         it("enables the button") {
@@ -287,7 +287,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         it("presents an alert informing the user that the app could not reach the Concourse instance") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Error"))
-                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Could not connect to a Concourse at the given URL."))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Could not connect to a Concourse at 'https://concourse.com'."))
                         }
 
                         it("enables the button") {

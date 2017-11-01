@@ -94,7 +94,7 @@ class ConcourseEntryViewController: UIViewController {
             },
                 onError: { error in
                     guard let httpError = error as? HTTPError else {
-                        self.showConcourseInaccessibleError()
+                        self.showConcourseInaccessibleError(atURL: baseURL)
                         return
                     }
 
@@ -125,10 +125,10 @@ class ConcourseEntryViewController: UIViewController {
         }
     }
 
-    private func showConcourseInaccessibleError() {
+    private func showConcourseInaccessibleError(atURL url: String) {
         let alert = UIAlertController(
             title: "Error",
-            message: "Could not connect to a Concourse at the given URL.",
+            message: "Could not connect to a Concourse at '\(url)'.",
             preferredStyle: .alert
         )
 
