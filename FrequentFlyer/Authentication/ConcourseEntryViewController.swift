@@ -8,8 +8,7 @@ class ConcourseEntryViewController: UIViewController {
     @IBOutlet weak var submitButton: RoundedButton?
 
     var infoService = InfoService()
-    var authMethodsService = AuthMethodsService()
-    var unauthenticatedTokenService = UnauthenticatedTokenService()
+    var sslTrustService = SSLTrustService()
     var userTextInputPageOperator = UserTextInputPageOperator()
 
     class var storyboardIdentifier: String { get { return "ConcourseEntry" } }
@@ -41,6 +40,7 @@ class ConcourseEntryViewController: UIViewController {
         submitButton?.isEnabled = false
 
         userTextInputPageOperator.delegate = self
+        sslTrustService.clearAllTrust()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -75,17 +75,48 @@ class ConcourseEntryViewController: UIViewController {
 
         submitButton?.isEnabled = false
 
-        infoService.getInfo(forConcourseWithURL: concourseURLString)
+        checkForConcourseExistence(atBaseURL: concourseURLString)
+    }
+
+    private func checkForConcourseExistence(atBaseURL baseURL: String) {
+        infoService.getInfo(forConcourseWithURL: baseURL)
             .subscribe(
                 onNext: { _ in
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: ConcourseEntryViewController.showVisibilitySelectionSegueId, sender: nil)
                     }
             },
-                onError: { _ in
-                    self.showConcourseInaccessibleError()
+                onError: { error in
+                    guard let httpError = error as? HTTPError else {
+                        self.showConcourseInaccessibleError()
+                        return
+                    }
+
+                    switch httpError {
+                    case .sslValidation:
+                        self.showSSLTrustChallenge(forBaseURL: baseURL)
+                    }
             })
             .disposed(by: disposeBag)
+    }
+
+    private func showSSLTrustChallenge(forBaseURL baseURL: String) {
+        let alert = UIAlertController(
+            title: "Insecure Connection",
+            message: "Could not establish a trusted connection with the Concourse instance. Would you like to connect anyway?",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in self.submitButton?.isEnabled = true }))
+        alert.addAction(UIAlertAction(title: "Connect", style: .destructive, handler: { _ in
+            self.submitButton?.isEnabled = true
+            self.sslTrustService.registerTrust(forBaseURL: baseURL)
+            self.checkForConcourseExistence(atBaseURL: baseURL)
+        }))
+
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     private func showConcourseInaccessibleError() {

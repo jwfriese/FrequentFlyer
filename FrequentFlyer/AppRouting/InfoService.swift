@@ -1,5 +1,6 @@
 import struct Foundation.URLRequest
 import struct Foundation.URL
+import class Foundation.NSError
 import RxSwift
 
 class InfoService {
@@ -21,7 +22,16 @@ class InfoService {
         request.httpMethod = "GET"
 
         return httpClient.perform(request: request)
-            .map { $0.body! }
+            .catchError { error in
+                if (error as NSError).code == -1200 && (error as NSError).domain == "NSURLErrorDomain" {
+                    throw HTTPError.sslValidation
+                }
+
+                throw error
+            }
+            .map {
+                return $0.body!
+            }
             .flatMap { self.infoDeserializer.deserialize($0) }
     }
 }

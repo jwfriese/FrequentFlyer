@@ -38,6 +38,7 @@
 		7B3A29FA1F4549B200B21E06 /* InfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3A29F91F4549B200B21E06 /* InfoService.swift */; };
 		7B3A29FC1F4549BA00B21E06 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3A29FB1F4549BA00B21E06 /* Info.swift */; };
 		7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */; };
+		7B43B95C1F950C1D00D31A93 /* SSLTrustServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B43B95B1F950C1D00D31A93 /* SSLTrustServiceSpec.swift */; };
 		7B4625B41D87A48F00769B0B /* UserTextInputPageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */; };
 		7B478DB21F468635006C53D7 /* InfoServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B478DB11F468635006C53D7 /* InfoServiceSpec.swift */; };
 		7B478DB41F46872F006C53D7 /* InfoDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B478DB31F46872F006C53D7 /* InfoDeserializer.swift */; };
@@ -105,6 +106,8 @@
 		7B737BD11E075BC2007FC4E8 /* SSEServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BCB1E075BC2007FC4E8 /* SSEServiceSpec.swift */; };
 		7B737BD31E075BE8007FC4E8 /* StylingDescriptorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BD21E075BE8007FC4E8 /* StylingDescriptorBuilder.swift */; };
 		7B74F2961E32660200BB4338 /* super_long_text.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7B74F2951E32660200BB4338 /* super_long_text.txt */; };
+		7B785F141F8A811E00CAEB46 /* HTTPErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B785F131F8A811E00CAEB46 /* HTTPErrors.swift */; };
+		7B785F161F8A84ED00CAEB46 /* SSLTrustService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B785F151F8A84ED00CAEB46 /* SSLTrustService.swift */; };
 		7B86FE061F1FA00100BC8AF0 /* JobsGroupSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86FE051F1FA00100BC8AF0 /* JobsGroupSection.swift */; };
 		7B8B4D4D1E8636100084505B /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8B4D4C1E8636100084505B /* InfoLabel.swift */; };
 		7B8B4D551E8638F30084505B /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8B4D531E8638F30084505B /* UnderlineTextField.swift */; };
@@ -254,6 +257,7 @@
 		7B3A29F91F4549B200B21E06 /* InfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoService.swift; sourceTree = "<group>"; };
 		7B3A29FB1F4549BA00B21E06 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		7B426A6B1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageOperatorSpec.swift; sourceTree = "<group>"; };
+		7B43B95B1F950C1D00D31A93 /* SSLTrustServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLTrustServiceSpec.swift; sourceTree = "<group>"; };
 		7B4625B31D87A48F00769B0B /* UserTextInputPageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTextInputPageDelegate.swift; sourceTree = "<group>"; };
 		7B478DB11F468635006C53D7 /* InfoServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoServiceSpec.swift; sourceTree = "<group>"; };
 		7B478DB31F46872F006C53D7 /* InfoDeserializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDeserializer.swift; sourceTree = "<group>"; };
@@ -321,6 +325,8 @@
 		7B737BCB1E075BC2007FC4E8 /* SSEServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSEServiceSpec.swift; sourceTree = "<group>"; };
 		7B737BD21E075BE8007FC4E8 /* StylingDescriptorBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylingDescriptorBuilder.swift; sourceTree = "<group>"; };
 		7B74F2951E32660200BB4338 /* super_long_text.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = super_long_text.txt; sourceTree = "<group>"; };
+		7B785F131F8A811E00CAEB46 /* HTTPErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPErrors.swift; sourceTree = "<group>"; };
+		7B785F151F8A84ED00CAEB46 /* SSLTrustService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLTrustService.swift; sourceTree = "<group>"; };
 		7B86FE051F1FA00100BC8AF0 /* JobsGroupSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsGroupSection.swift; sourceTree = "<group>"; };
 		7B8B4D4C1E8636100084505B /* InfoLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
 		7B8B4D531E8638F30084505B /* UnderlineTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
@@ -738,6 +744,7 @@
 		7BA032041D843E5800F20E23 /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
+				7B785F131F8A811E00CAEB46 /* HTTPErrors.swift */,
 				7B5F952A1DFAF573005E0DD2 /* HTTPSessionUtils.swift */,
 				7BA032121D843FE800F20E23 /* HTTPResponse.swift */,
 				7BA032131D843FE800F20E23 /* HTTPClient.swift */,
@@ -760,6 +767,7 @@
 				7B6F74BC1E802D5F00C7C005 /* LoginViewController.swift */,
 				7BA0327C1D84DD6700F20E23 /* AuthMethodDataDeserializer.swift */,
 				7B0E707D1D8D81A200686532 /* ConcourseEntryViewController.swift */,
+				7B785F151F8A84ED00CAEB46 /* SSLTrustService.swift */,
 				7B0E709A1D8F0BA400686532 /* TokenValidationService.swift */,
 				7B72902E1E9F0C15005A9A22 /* TeamListService.swift */,
 				7B7290321E9F0E7A005A9A22 /* TeamsViewController.swift */,
@@ -781,6 +789,7 @@
 				7BA032781D84908000F20E23 /* AuthMethodsServiceSpec.swift */,
 				7BA0327E1D84DD7900F20E23 /* AuthMethodDataDeserializerSpec.swift */,
 				7B0E707F1D8D81CA00686532 /* ConcourseEntryViewControllerSpec.swift */,
+				7B43B95B1F950C1D00D31A93 /* SSLTrustServiceSpec.swift */,
 				7B0E709C1D8F0BBC00686532 /* TokenValidationServiceSpec.swift */,
 				7B7290301E9F0C3A005A9A22 /* TeamListServiceSpec.swift */,
 				7B7290341E9F0ECE005A9A22 /* TeamsViewControllerSpec.swift */,
@@ -1323,6 +1332,7 @@
 				7BA0322F1D843FF900F20E23 /* PipelineTableViewCell.swift in Sources */,
 				7BCAEFE81D901A4C00BC817D /* main.swift in Sources */,
 				7B737BC51E075BBB007FC4E8 /* SSEService.swift in Sources */,
+				7B785F141F8A811E00CAEB46 /* HTTPErrors.swift in Sources */,
 				7BC1EC061E916F9D00459C36 /* BuildStatusBadge.swift in Sources */,
 				7B8B4D5A1E86398A0084505B /* UnderlineTextFieldTextField.swift in Sources */,
 				7B8B4D551E8638F30084505B /* UnderlineTextField.swift in Sources */,
@@ -1370,6 +1380,7 @@
 				7BCBF2A71E00613E007D8623 /* EventSourceCreator.swift in Sources */,
 				7B5F95351DFAF605005E0DD2 /* WebViewController.swift in Sources */,
 				AEA5D50F1D7F2CEC00D76EBA /* AppDelegate.swift in Sources */,
+				7B785F161F8A84ED00CAEB46 /* SSLTrustService.swift in Sources */,
 				7B673EC51E7F000900CAC921 /* PageTitleLabel.swift in Sources */,
 				7BA0322D1D843FF900F20E23 /* PipelinesViewController.swift in Sources */,
 				7BC1EC0D1E9299CE00459C36 /* BuildStatusInterpreter.swift in Sources */,
@@ -1407,6 +1418,7 @@
 				7B478DB61F468787006C53D7 /* InfoDeserializerSpec.swift in Sources */,
 				7BA0325D1D84401900F20E23 /* PipelineDataDeserializerSpec.swift in Sources */,
 				7BEDE20C1D89E6E80054D13B /* TargetFactory.swift in Sources */,
+				7B43B95C1F950C1D00D31A93 /* SSLTrustServiceSpec.swift in Sources */,
 				7B426A6C1D88404300F5B912 /* UserTextInputPageOperatorSpec.swift in Sources */,
 				7BD8750C1F4BABFD00CB722C /* StrictBoolTransformSpec.swift in Sources */,
 				7B737BCF1E075BC2007FC4E8 /* SSEConnectionSpec.swift in Sources */,

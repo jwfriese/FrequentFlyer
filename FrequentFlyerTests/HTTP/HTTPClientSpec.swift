@@ -17,7 +17,7 @@ class HTTPClientSpec: QuickSpec {
                 var http$: Observable<HTTPResponse>!
                 var result: StreamResult<HTTPResponse>!
 
-                context("When the request returns with a success response") {
+                describe("When the request returns with a success response") {
                     beforeEach {
                         let request = URLRequest(url: NSURL(string: "http://localhost:8181/successyeah")! as URL)
 
@@ -45,7 +45,7 @@ class HTTPClientSpec: QuickSpec {
                     }
                 }
 
-                context("When the request returns with an error-type response") {
+                describe("When the request returns with an error-type response") {
                     beforeEach {
                         let request = URLRequest(url: NSURL(string: "http://localhost:8181/errorplease")! as URL)
 
@@ -64,7 +64,7 @@ class HTTPClientSpec: QuickSpec {
                     }
                 }
 
-                context("When the request completely bombs") {
+                describe("When the request completely bombs") {
                     beforeEach {
                         let request = URLRequest(url: NSURL(string: "http://")! as URL)
 

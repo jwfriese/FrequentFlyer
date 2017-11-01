@@ -17,10 +17,24 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
         }
     }
 
+    class MockSSLTrustService: SSLTrustService {
+        var trustedBaseURLs: [String] = []
+        var hasClearedTrust =  false
+
+        override func registerTrust(forBaseURL baseURL: String) {
+            trustedBaseURLs.append(baseURL)
+        }
+
+        override func clearAllTrust() {
+            hasClearedTrust = true
+        }
+    }
+
     override func spec() {
         describe("ConcourseEntryViewController") {
             var subject: ConcourseEntryViewController!
             var mockInfoService: MockInfoService!
+            var mockSSLTrustService: MockSSLTrustService!
             var mockUserTextInputPageOperator: UserTextInputPageOperator!
 
             var mockVisibilitySelectionViewController: VisibilitySelectionViewController!
@@ -34,6 +48,9 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                 mockInfoService = MockInfoService()
                 subject.infoService = mockInfoService
+
+                mockSSLTrustService = MockSSLTrustService()
+                subject.sslTrustService = mockSSLTrustService
 
                 mockUserTextInputPageOperator = UserTextInputPageOperator()
                 subject.userTextInputPageOperator = mockUserTextInputPageOperator
@@ -49,6 +66,10 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
 
                 it("sets a blank title") {
                     expect(subject.title).to(equal(""))
+                }
+
+                it("clears SSL registry as a precaution") {
+                    expect(mockSSLTrustService.hasClearedTrust).to(beTrue())
                 }
 
                 it("sets up its Concourse URL entry text field") {
@@ -168,7 +189,7 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         expect(mockInfoService.capturedConcourseURL).to(equal("https://concourse.com"))
                     }
 
-                    describe("When the team list service call resolves with some team names") {
+                    describe("When the info service call resolves successfully") {
                         beforeEach {
                             mockInfoService.infoSubject.onNext(Info(version: "1.1.1"))
                             mockInfoService.infoSubject.onCompleted()
@@ -180,13 +201,76 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                         }
                     }
 
-                    describe("When the team list service call resolves with an error") {
+                    describe("When the info service call resolves with an SSL validation error") {
+                        beforeEach {
+                            mockInfoService.infoSubject.onError(HTTPError.sslValidation)
+                            mockInfoService.infoSubject.onCompleted()
+                        }
+
+                        it("presents an alert informing the user that SSL validation failed") {
+                            expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Insecure Connection"))
+                            expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Could not establish a trusted connection with the Concourse instance. Would you like to connect anyway?"))
+                        }
+
+                        describe("When the user hits the 'Cancel' button") {
+                            it("dismisses the alert and enables the 'Submit' button") {
+                                let screen = Fleet.getApplicationScreen()
+                                var didTapCancel = false
+                                let assertCancelTappedBehavior = { () -> Bool in
+                                    if didTapCancel {
+                                        return screen?.topmostViewController === subject
+                                    }
+
+                                    if let alert = screen?.topmostViewController as? UIAlertController {
+                                        Fleet.swallowAnyErrors { alert.tapAlertAction(withTitle: "Cancel") }
+                                        didTapCancel = true
+                                    }
+
+                                    return false
+                                }
+
+                                expect(assertCancelTappedBehavior()).toEventually(beTrue())
+                                expect(subject.submitButton?.isEnabled).toEventually(beTrue())
+                            }
+                        }
+
+                        describe("When the user hits the 'Connect' button") {
+                            beforeEach {
+                                // nil out so that we can test that the code calls it again
+                                mockInfoService.capturedConcourseURL = nil
+                            }
+
+                            it("adds the given hostname to the \(SSLTrustService.self) and makes another call to the \(InfoService.self)") {
+                                let screen = Fleet.getApplicationScreen()
+                                var didTapConnect = false
+                                let assertConnectTappedBehavior = { () -> Bool in
+                                    if didTapConnect {
+                                        return screen?.topmostViewController === subject
+                                    }
+
+                                    if let alert = screen?.topmostViewController as? UIAlertController {
+                                        Fleet.swallowAnyErrors { alert.tapAlertAction(withTitle: "Connect") }
+                                        didTapConnect = true
+                                    }
+
+                                    return false
+                                }
+
+                                expect(assertConnectTappedBehavior()).toEventually(beTrue())
+                                expect(mockSSLTrustService.trustedBaseURLs).toEventually(contain("https://concourse.com"))
+                                expect(mockInfoService.capturedConcourseURL).toEventually(equal("https://concourse.com"))
+                            }
+                        }
+                    }
+
+                    describe("When the info service call resolves with any other error") {
                         beforeEach {
                             mockInfoService.infoSubject.onError(BasicError(details: ""))
                             mockInfoService.infoSubject.onCompleted()
                         }
 
-                        it("presents an alert informing the user of the build that was triggered") {
+                        it("presents an alert informing the user that the app could not reach the Concourse instance") {
                             expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Error"))
                             expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("Could not connect to a Concourse at the given URL."))

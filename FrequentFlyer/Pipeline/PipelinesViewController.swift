@@ -61,17 +61,6 @@ class PipelinesViewController: UIViewController {
             }
 
             concourseEntryViewController.userTextInputPageOperator = UserTextInputPageOperator()
-
-            let authMethodsService = AuthMethodsService()
-            authMethodsService.httpClient = HTTPClient()
-            authMethodsService.authMethodsDataDeserializer = AuthMethodDataDeserializer()
-            concourseEntryViewController.authMethodsService = authMethodsService
-
-            let unauthenticatedTokenService = UnauthenticatedTokenService()
-            unauthenticatedTokenService.httpClient = HTTPClient()
-            unauthenticatedTokenService.tokenDataDeserializer = TokenDataDeserializer()
-            concourseEntryViewController.unauthenticatedTokenService = unauthenticatedTokenService
-
             concourseEntryViewController.navigationItem.hidesBackButton = true
         }
     }
