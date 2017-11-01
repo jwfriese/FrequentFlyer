@@ -61,7 +61,7 @@ class ConcourseEntryViewController: UIViewController {
 
     private func createValidConcourseURL(fromInput input: String) -> String {
         var concourseURLString = input
-        let inputHasProtocol = input.hasPrefix("http://") || input.hasPrefix("https://")
+        let inputHasProtocol = input.hasPrefix("https://")
         if !inputHasProtocol {
             concourseURLString = "https://" + concourseURLString
         }
@@ -71,6 +71,12 @@ class ConcourseEntryViewController: UIViewController {
 
     @IBAction func submitButtonTapped() {
         guard var concourseURLString = concourseURLEntryField?.textField?.text else { return }
+        let inputHasInvalidProtocol = concourseURLString.hasPrefix("http://")
+        if inputHasInvalidProtocol {
+            showInvalidProtocolAlert()
+            return
+        }
+
         concourseURLString = createValidConcourseURL(fromInput: concourseURLString)
 
         submitButton?.isEnabled = false
@@ -123,6 +129,20 @@ class ConcourseEntryViewController: UIViewController {
         let alert = UIAlertController(
             title: "Error",
             message: "Could not connect to a Concourse at the given URL.",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+            self.submitButton?.isEnabled = true
+        }
+    }
+
+    private func showInvalidProtocolAlert() {
+        let alert = UIAlertController(
+            title: "Unsupported Protocol",
+            message: "This app does not support connecting to Concourse instances through HTTP. You must use HTTPS.",
             preferredStyle: .alert
         )
 

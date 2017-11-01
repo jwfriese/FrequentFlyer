@@ -129,7 +129,21 @@ class ConcourseEntryViewControllerSpec: QuickSpec {
                     }
                 }
 
-                describe("Entering a Concourse URL without 'http://' or 'https://' and hitting 'Submit'") {
+                describe("Entering a Concoures URL with 'http://' and hitting 'Submit'") {
+                    beforeEach {
+                        subject.concourseURLEntryField?.textField?.enter(text: "http://badurl.com")
+
+                        subject.submitButton?.tap()
+                    }
+
+                    it("presents an alert informing the user that the app does not support 'http://' protocol") {
+                        expect(Fleet.getApplicationScreen()?.topmostViewController).toEventually(beAKindOf(UIAlertController.self))
+                        expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.title).toEventually(equal("Unsupported Protocol"))
+                        expect((Fleet.getApplicationScreen()?.topmostViewController as? UIAlertController)?.message).toEventually(equal("This app does not support connecting to Concourse instances through HTTP. You must use HTTPS."))
+                    }
+                }
+
+                describe("Entering a Concourse URL without 'https://' and hitting 'Submit'") {
                     beforeEach {
                         subject.concourseURLEntryField?.textField?.enter(text: "partial-concourse.com")
 
