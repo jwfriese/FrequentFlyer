@@ -85,6 +85,7 @@ class PublicPipelinesViewController: UIViewController {
             )
             .bind(to: pipelinesTableView.rx.items(dataSource: publicPipelinesTableViewDataSource))
             .disposed(by: disposeBag)
+
         pipelinesTableView.rx.setDelegate(publicPipelinesTableViewDataSource)
             .disposed(by: disposeBag)
     }
