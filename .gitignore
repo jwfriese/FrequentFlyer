@@ -64,11 +64,11 @@ fastlane/report.xml
 fastlane/screenshots
 fastlane/test_output
 
-# Test executable
-test
-
 # Trim executable
 trim
+
+# Executable that combines trimming and sorting XCode project
+sweep
 
 # Release executable
 release
