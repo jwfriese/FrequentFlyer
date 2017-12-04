@@ -38,3 +38,17 @@ fastlane scan
 ```
 
 5) Contribute away!
+
+## Helpful scripts
+
+You'll find some helpful scripts in the `./script` folder. One trims all extraneous whitespace
+in the project, and another, `script/sweep.go`, combines trimming and sorting the project.
+
+The intended flow is to create the binaries on your machine after you clone:
+```
+go build script/trim.go
+go build script/sweep.go
+```
+
+From there, just run `./sweep` before you commit, or whenever you want, really. You can also
+run `./trim` by itself if you choose. 
