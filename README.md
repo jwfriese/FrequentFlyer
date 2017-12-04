@@ -9,6 +9,7 @@ https://www.pivotaltracker.com/n/projects/1860657
 [Carthage](https://github.com/Carthage/Carthage#installing-carthage)<br />
 [golang](https://golang.org/doc/install)<br />
 [fastlane](https://github.com/fastlane/fastlane#installation)
+[xUnique](https://github.com/truebit/xUnique#installation)
 
 1) Clone:
 ```
