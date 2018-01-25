@@ -66,6 +66,7 @@ class ConcourseEntryViewController: UIViewController {
             concourseURLString = "https://" + concourseURLString
         }
 
+
         return concourseURLString
     }
 
@@ -74,6 +75,10 @@ class ConcourseEntryViewController: UIViewController {
         let inputHasInvalidProtocol = concourseURLString.hasPrefix("http://")
         if inputHasInvalidProtocol {
             showInvalidProtocolAlert()
+            return
+        }
+        if concourseURLString == "https://" {
+            showConcourseInaccessibleError(atURL: concourseURLString)
             return
         }
 

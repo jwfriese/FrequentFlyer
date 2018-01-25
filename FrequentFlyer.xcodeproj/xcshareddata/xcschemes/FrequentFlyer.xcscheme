@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AEA5D50A1D7F2CEC00D76EBA"
+               BlueprintIdentifier = "B581E0D212BEA753C92F89C40F14BA50"
                BuildableName = "FrequentFlyer.app"
                BlueprintName = "FrequentFlyer"
                ReferencedContainer = "container:FrequentFlyer.xcodeproj">
@@ -33,7 +33,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AEA5D51E1D7F2CEC00D76EBA"
+               BlueprintIdentifier = "A3C8776AE60EF307FA11C59FB1BFDD54"
                BuildableName = "FrequentFlyerTests.xctest"
                BlueprintName = "FrequentFlyerTests"
                ReferencedContainer = "container:FrequentFlyer.xcodeproj">
@@ -43,7 +43,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AEA5D50A1D7F2CEC00D76EBA"
+            BlueprintIdentifier = "B581E0D212BEA753C92F89C40F14BA50"
             BuildableName = "FrequentFlyer.app"
             BlueprintName = "FrequentFlyer"
             ReferencedContainer = "container:FrequentFlyer.xcodeproj">
@@ -67,7 +67,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AEA5D50A1D7F2CEC00D76EBA"
+            BlueprintIdentifier = "B581E0D212BEA753C92F89C40F14BA50"
             BuildableName = "FrequentFlyer.app"
             BlueprintName = "FrequentFlyer"
             ReferencedContainer = "container:FrequentFlyer.xcodeproj">
@@ -93,7 +93,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AEA5D50A1D7F2CEC00D76EBA"
+            BlueprintIdentifier = "B581E0D212BEA753C92F89C40F14BA50"
             BuildableName = "FrequentFlyer.app"
             BlueprintName = "FrequentFlyer"
             ReferencedContainer = "container:FrequentFlyer.xcodeproj">
