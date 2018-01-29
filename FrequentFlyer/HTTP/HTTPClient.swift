@@ -21,6 +21,7 @@ class HTTPClient: NSObject {
                 }
             })
             .map { response, data in
+                if response.statusCode == 500 { throw BasicError(details: String(data: data, encoding: String.Encoding.utf8)!) }
                 return HTTPResponseImpl(body: data, statusCode: response.statusCode)
             }
             .do(onError: { error in

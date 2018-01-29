@@ -45,25 +45,6 @@ class HTTPClientSpec: QuickSpec {
                     }
                 }
 
-                describe("When the request returns with an error-type response") {
-                    beforeEach {
-                        let request = URLRequest(url: NSURL(string: "http://localhost:8181/errorplease")! as URL)
-
-                        http$ = subject.perform(request: request)
-                        result = StreamResult(http$)
-                    }
-
-                    it("calls the completion handler with the response") {
-                        expect(result.elements.first).toEventuallyNot(beNil())
-                        expect(result.elements.first?.body).toEventually(equal("{\"error\" : \"here it is\"}".data(using: String.Encoding.utf8)))
-                        expect(result.elements.first?.statusCode).toEventually(equal(500))
-                    }
-
-                    it("calls the completion handler with a nil error") {
-                        expect(result.error).toEventually(beNil())
-                    }
-                }
-
                 describe("When the request completely bombs") {
                     beforeEach {
                         let request = URLRequest(url: NSURL(string: "http://")! as URL)
